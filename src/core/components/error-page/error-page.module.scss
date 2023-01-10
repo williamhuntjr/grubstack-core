@@ -1,0 +1,28 @@
+@import 'assets/sass/variables';
+$errorPageIconSize: 80px;
+
+.errorPageContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 $grid-base 0 $grid-base;;
+}
+.errorPageHeadline {
+  margin: 0;
+}
+.errorPageMessage {
+  text-align: center;
+}
+.hiddenButton {
+  display: none;
+}
+.fullPage {
+  height: calc(100vh - #{$appHeaderHeight} - #{$grid-giant * 2});
+}
+.lockIcon {
+  font-size: $errorPageIconSize;
+  margin-bottom: $grid-base;
+}

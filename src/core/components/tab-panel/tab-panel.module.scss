@@ -1,0 +1,19 @@
+@import 'assets/sass/variables';
+
+.tabPanelContainer {
+  display:flex;
+  height: 100%;
+  flex-direction: column;
+}
+.tabContainer {
+  border-bottom: $border-disabled;
+  margin-bottom: $grid-base;
+}
+.tab {
+  display: flex;
+  flex-grow: 1;
+  background-color: red
+}
+.tabPanelContent {
+  height: 100%;
+}

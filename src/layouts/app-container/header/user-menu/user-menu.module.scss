@@ -1,0 +1,19 @@
+@import 'assets/sass/variables';
+
+.userMenu {
+  margin-right: $grid-base;
+}
+.avatarContainer {
+  background-color: black;
+  margin-right: $grid-tiny;
+}
+.avatarIcon {
+  width: 25px;
+  height: 25px;
+}
+.avatarName {
+  color: $white-color;
+}
+.headerMenu {
+  min-width: 140px;
+}

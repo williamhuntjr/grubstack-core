@@ -1,0 +1,28 @@
+@import 'assets/sass/variables';
+$confirmationDialogWidth: 320px;
+
+.confirmationDialogContainer {
+  width: $confirmationDialogWidth;
+  padding: $grid-large;
+}
+.confirmationDialogTitle {
+  margin: 0 0 $grid-small 0;
+}
+.confirmationDialogButton {
+  min-width: $minButtonWidth;
+}
+.confirmationDialogButtonContainer {
+  display: flex;
+  justify-content: right;
+  margin-top: $grid-base;
+  margin-bottom: 0;
+  button {
+    margin-right: $grid-small;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+.confirmationMessage {
+  margin-bottom: $grid-base;
+}

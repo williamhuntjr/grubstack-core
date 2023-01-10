@@ -1,0 +1,56 @@
+@import 'assets/sass/variables';
+$builderDialogWidth: 1200px;
+$builderDialogTitleHeight: 65px;
+
+.builderDialogContainer {
+  width: $builderDialogWidth;
+  @media screen and (max-width: $bp-sm) {
+    min-height: 100%;
+    width: 100%;
+  }
+  @media screen and (max-width: $bp-sm) {
+    width: 100%;
+  }
+}
+.dialogTitleContent {
+  display: flex;
+  @media screen and (max-width: $bp-md) {
+    padding: $grid-base;
+
+  }
+}
+.dialogTitle {
+  background-color: $color-primary;
+  color: $white-color;
+  @media screen and (max-width: $bp-md) {
+    position: fixed;
+    width: 100%;
+    padding: 0 !important;
+  }
+}
+.dialogTitleActions {
+  margin-left: auto;
+}
+.dialogContentContainer {
+  display: flex;
+  width: $builderDialogWidth;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  @media screen and (min-width: $bp-md) {
+    height: calc(100% - #{$builderDialogTitleHeight});
+  }
+  @media screen and (max-width: $bp-md) {
+    margin-top: $builderDialogTitleHeight;
+    width: 100%;
+  }
+  @media screen and (max-width: $bp-sm) {
+    height: unset;
+  }
+}
+.dialogContent {
+  padding: $grid-base $grid-base $grid-large $grid-base;
+  @media screen and (max-width: $bp-md) {
+    height: 100%;
+  }
+}

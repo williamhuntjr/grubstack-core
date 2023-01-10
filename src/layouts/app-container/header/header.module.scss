@@ -1,0 +1,22 @@
+@import 'assets/sass/variables';
+
+.headerContainer {
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  width: 100%;
+  height: $dashboardHeaderHeight;
+  background-color: $dashboardHeaderBackgroundColor;
+  align-items: center;
+  justify-content: right;
+}
+.userMenu {
+  margin-left: auto;
+}
+.menuToggleButton {
+  color: #fff;
+  display: none;
+  @media screen and (max-width: $bp-sm) {
+    display: inline-flex;
+  }
+}

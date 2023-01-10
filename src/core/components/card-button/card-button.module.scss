@@ -1,0 +1,42 @@
+@import 'assets/sass/variables';
+$cardButtonSize: 350px;
+$cardButtonSizeSmall: 250px;
+
+.cardButtonContainer {
+  min-width: $cardButtonSize;
+  min-height: $cardButtonSize;
+  background-color: $white-color;
+  border: $border-disabled;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  @media screen and (max-width: $bp-md) {
+    min-width: $cardButtonSizeSmall;
+    min-height: $cardButtonSizeSmall;
+  }
+  &:hover {
+    cursor: pointer;
+    border-color: $color-primary;
+  }
+}
+.cardButtonContainerResponsive {
+  @media screen and (max-width: $bp-sm) {
+    width: 100%; 
+  }
+}
+.cardButtonHeader {
+  margin: 0 0 $grid-tiny 0;
+}
+.cardButtonDescription {
+  margin: 0;
+}
+.cardButtonIcon {
+  text-align: center;
+  svg {
+    font-size: 60px;
+    color: $color-primary;
+    margin-bottom: $grid-base;
+  }
+}

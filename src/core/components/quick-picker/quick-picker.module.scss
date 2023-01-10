@@ -1,0 +1,30 @@
+@import 'assets/sass/variables';
+
+$quickPickerWidth: 600px;
+
+.dialogTitle {
+  color: $white-color;
+  background-color: $color-primary;
+}
+.quickPickerDialog {
+  max-width: $quickPickerWidth;
+  margin-left: auto;
+  @media screen and (max-width: $bp-sm) {
+    max-width: 100%;
+  }
+}
+.dialogTitleActions {
+  margin-left: auto;
+}
+.dialogTitleContent {
+  display: flex;
+}
+.dialogTitleText {
+  display: flex;
+  align-items: center;
+}
+.cardListContainer {
+  display: flex;
+  height: 100%;
+  padding: $grid-base;
+}

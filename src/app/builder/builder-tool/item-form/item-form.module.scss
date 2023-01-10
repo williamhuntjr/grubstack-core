@@ -1,0 +1,33 @@
+@import 'assets/sass/variables';
+$itemFormWidth: 300px;
+
+.itemForm {
+  width: $itemFormWidth;
+  margin: 0;
+  @media screen and (max-width: $bp-md) {
+    width: auto;
+  }
+}
+.formFieldGroup {
+  display: flex;
+  .formField {
+    margin: 0 $grid-base $grid-small 0;
+    &:last-child {
+      margin: 0 0 $grid-small 0;
+    }
+  }
+}
+.formField {
+  width: 100%;
+  margin: 0 0 $grid-small 0;
+}
+.saveButton {
+  display: block;
+  margin-left: auto;
+}
+.divider {
+  margin: $grid-base 0 $grid-base 0;
+}
+.onSaleCheckbox {
+  margin-bottom: 0;
+}

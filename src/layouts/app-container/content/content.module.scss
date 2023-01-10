@@ -1,0 +1,13 @@
+@import 'assets/sass/variables';
+
+.contentContainer {
+  flex-grow: 1;
+  margin-top: $dashboardHeaderHeight;
+  padding: $grid-giant;
+  @media screen and (max-width: $bp-sm) {
+    padding: $grid-base;
+  }
+  @media screen and (min-width: $bp-sm) {
+    margin-left: $dashboardSidebarWidth;
+  }
+}

@@ -1,0 +1,33 @@
+@import 'assets/sass/variables';
+
+.builderContainer {
+  width: 100%;
+  max-width: 1024px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 0 auto;
+}
+.cardContainer {
+  display: flex;
+  padding: $grid-small;
+  @media screen and (max-width: $bp-lg) {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+.cardButtonContainer {
+  margin-right: $grid-large;
+  &:last-child {
+    margin-right: 0;
+  }
+  @media screen and (max-width: $bp-lg) {
+    width: 100%;
+    margin-bottom: $grid-large;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+@import 'assets/sass/variables';
+
+$iconCardIconWidth: 200px;
+
+.iconCardList {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.iconCardListRow {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  flex-grow: 1;
+  width: 100%;
+  padding-bottom: $grid-large;
+  @media screen and (max-width: $bp-sm) {
+    display: block;
+  }
+}
+.iconCardListColumn {
+  width: 19.95%;
+  min-width: 400px;
+  @media screen and (max-width: $bp-md) {
+    width: 50%;
+    min-width: unset;
+  }
+  @media screen and (max-width: $bp-sm) {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.iconCardContainer {
+  padding: $grid-base;
+}
+.iconCard {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  flex-direction: column;
+  background-color: $white-color;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $grid-large;
+  border: solid 1px rgba(2, 2, 2, 0.15);
+}
+.iconCardDescription {
+  margin-top: 0;
+  margin-bottom: $grid-small;
+}
+.iconCardIcon { 
+  max-width: $iconCardIconWidth;
+  margin-bottom: 0;
+}
+.iconCardHeadline {
+  @media screen and (max-width: $bp-lg) {
+    font-size: 26px;
+  }
+  @media screen and (max-width: $bp-lg) {
+    font-size: 20px;
+  }
+}
+.paginationContainer {
+  margin-bottom: auto;
+  display: flex;
+  justify-content: center;
+}
+.iconContainer {
+  width: $iconCardIconWidth;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

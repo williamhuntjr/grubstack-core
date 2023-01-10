@@ -1,0 +1,38 @@
+@import 'assets/sass/variables';
+
+.listItem {
+  overflow-x: hidden;
+  min-height: calc(#{$dashboardSidebarIconSize} * 2);
+  border-bottom: $border-disabled;
+  &:last-child {
+    border-bottom: none;
+  }
+  @media screen and (max-width: $bp-sm) {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+}
+.listItemIcon {
+  min-width: calc(#{$dashboardSidebarIconSize} + #{$grid-base});
+}
+.listItemIconSvg {
+  width: $dashboardSidebarIconSize;
+  height: $dashboardSidebarIconSize;
+  color: $white-color;
+  @media screen and (max-width: $bp-sm) {
+    margin: 5px auto 0 auto;
+  }
+}
+.listItemText {
+  white-space: nowrap;
+  span {
+    font-weight: 500;
+  }
+}
+.listItemSelected {
+  background-color: black;
+  &:hover {
+    background-color: black;
+  }
+}

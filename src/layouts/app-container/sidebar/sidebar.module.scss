@@ -1,0 +1,38 @@
+@import 'assets/sass/variables';
+
+.sidebarContainer {
+  min-height: 400px;
+  position: fixed;
+  z-index: 888;
+  top: $dashboardHeaderHeight;
+  width: $dashboardSidebarWidth;
+  background-color: $color-primary;
+  color: $white-color;
+  overflow-x: hidden;
+  min-height: calc(100vh - #{$dashboardHeaderHeight});
+  -webkit-transition: width .5s;
+  transition: width .5s;
+  @media screen and (min-width: $bp-sm) {
+    &:hover {
+      width: $dashboardSidebarWidthOpen;
+    }
+  }
+}
+.sidebarList {
+  margin-top: $grid-base;
+}
+.sidebarOpen {
+  width: $dashboardSidebarWidth;
+  overflow-x: unset;
+
+  @media screen and (max-width: $bp-sm) {
+    width: 100%;
+  }
+}
+.sidebarClosed {
+  width: 0;
+}
+.sidebarHidden {
+  width: 0;
+  display: none;
+}

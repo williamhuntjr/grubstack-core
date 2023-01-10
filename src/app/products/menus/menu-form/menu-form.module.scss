@@ -1,0 +1,24 @@
+@import 'assets/sass/variables';
+$menuFormWidth: 500px;
+
+.menuForm {
+  width: $menuFormWidth;
+  margin: 0;
+  @media screen and (max-width: $bp-md) {
+    width: auto;
+  }
+}
+.formField {
+  width: 100%;
+  margin: 0 0 $grid-base 0;
+}
+.saveButton {
+  display: block;
+  margin-left: auto;
+  @media screen and (max-width: $bp-sm) {
+    width: 100%;
+  }
+}
+.divider {
+  margin-bottom: $grid-base;
+}
