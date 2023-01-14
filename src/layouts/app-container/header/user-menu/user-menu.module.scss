@@ -10,9 +10,13 @@
 .avatarIcon {
   width: 25px;
   height: 25px;
+  background-color: $color-corporate;
 }
 .avatarName {
   color: $white-color;
+  @media screen and (max-width: $bp-sm) {
+    display: none;
+  }
 }
 .headerMenu {
   min-width: 140px;

@@ -12,6 +12,8 @@ import { ObjectType } from 'common/objects'
 import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { hasPermission } from 'common/auth/auth.utils'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { useCoreModule } from 'core/core-module-hook'
 import { IconCardList } from 'core/components/icon-card-list/icon-card-list'
@@ -40,7 +42,7 @@ export const Stores = (): JSX.Element => {
 
   const [state, setState] = useState<IStoreState>(defaultStoreState)
   
-  const canEditStores = true
+  const canEditStores = hasPermission(UserPermissions.MaintainStores)
   const validationMessages = generateValidationMessages(ObjectType.Store)
 
   const {
@@ -67,7 +69,7 @@ export const Stores = (): JSX.Element => {
   const {
     refresh,
     state: paginationState,
-    pagination: pagination
+    pagination: pagination,
   } = usePagination<IStore>(StoreService.getAll)
 
   const {

@@ -66,6 +66,7 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab }) => {
                   }}
                   href={tab.path}
                   {...tabProps(tab.name)}
+                  className={styles.tab}
                 /> 
                 :
                 <Tab 

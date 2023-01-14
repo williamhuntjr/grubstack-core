@@ -42,7 +42,7 @@ export function CardList<TData extends ICardListItem, Action>({
                   {layout === "vertical" &&
                     <div className={styles.cardListImageVertical}><img src={item.thumbnail_url} alt="" /></div>
                   }
-                    <h3 className={styles.itemHeadline}>{item.name}</h3>
+                    <h4 className={styles.itemHeadline}>{item.name}</h4>
                     <div className={styles.itemDescription}>{item.description}</div>
                   </div>
                   {item.render &&

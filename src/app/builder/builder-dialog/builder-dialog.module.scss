@@ -3,12 +3,10 @@ $builderDialogWidth: 1200px;
 $builderDialogTitleHeight: 65px;
 
 .builderDialogContainer {
-  width: $builderDialogWidth;
+  width: calc(100vw - 200px);
+  max-width: $builderDialogWidth;
   @media screen and (max-width: $bp-sm) {
     min-height: 100%;
-    width: 100%;
-  }
-  @media screen and (max-width: $bp-sm) {
     width: 100%;
   }
 }

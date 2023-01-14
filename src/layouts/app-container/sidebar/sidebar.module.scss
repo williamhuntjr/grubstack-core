@@ -4,17 +4,17 @@
   min-height: 400px;
   position: fixed;
   z-index: 888;
-  top: $dashboardHeaderHeight;
-  width: $dashboardSidebarWidth;
+  top: $headerHeight;
+  width: $sidebarWidth;
   background-color: $color-primary;
   color: $white-color;
   overflow-x: hidden;
-  min-height: calc(100vh - #{$dashboardHeaderHeight});
+  min-height: calc(100vh - #{$headerHeight});
   -webkit-transition: width .5s;
   transition: width .5s;
-  @media screen and (min-width: $bp-sm) {
+  @media screen and (min-width: $bp-md) {
     &:hover {
-      width: $dashboardSidebarWidthOpen;
+      width: $sidebarWidthOpen;
     }
   }
 }
@@ -22,7 +22,7 @@
   margin-top: $grid-base;
 }
 .sidebarOpen {
-  width: $dashboardSidebarWidth;
+  width: $sidebarWidth;
   overflow-x: unset;
 
   @media screen and (max-width: $bp-sm) {

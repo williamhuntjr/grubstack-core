@@ -2,6 +2,11 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
 import { IAsyncRoute, IRoute } from 'common/routing/routing.types'
 import { ProductModule, ProductModuleDefinition } from './products.module'
 import { 
+  itemPermissions,
+  ingredientPermissions,
+  menuPermissions,
+  varietyPermissions,
+  productPermissions,
   productRoutePath, 
 } from './products.constants'
 import { ItemsTab } from './product-tabs/items-tab/items-tab'
@@ -14,22 +19,27 @@ function productRouteFactory({}: ProductModuleDefinition): IRoute[] {
     {
       path: '/',
       redirectTo: `${productRoutePath}/ingredients`,
+      permissions: [],
     },
     {
       path: '/items',
       component: ItemsTab,
+      permissions: itemPermissions,
     },
     {
       path: '/ingredients',
       component: IngredientsTab,
+      permissions: ingredientPermissions,
     },
     {
       path: '/menus',
       component: MenusTab,
+      permissions: menuPermissions,
     },
     {
       path: '/varieties',
       component: VarietiesTab,
+      permissions: varietyPermissions,
     },
   ]
 }
@@ -39,6 +49,7 @@ export const productRoute: IAsyncRoute<ProductModuleDefinition> = {
   path: productRoutePath,
   name: 'Products',
   isSidebarButton: true,
+  permissions: productPermissions,
   icon: LocalGroceryStoreIcon,
   childrenRoutesFactory: productRouteFactory
 }

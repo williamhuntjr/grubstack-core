@@ -2,7 +2,7 @@
 
 .listItem {
   overflow-x: hidden;
-  min-height: calc(#{$dashboardSidebarIconSize} * 2);
+  min-height: calc(#{$sidebarIconSize} * 2);
   border-bottom: $border-disabled;
   &:last-child {
     border-bottom: none;
@@ -14,11 +14,11 @@
   }
 }
 .listItemIcon {
-  min-width: calc(#{$dashboardSidebarIconSize} + #{$grid-base});
+  min-width: calc(#{$sidebarIconSize} + #{$grid-base});
 }
 .listItemIconSvg {
-  width: $dashboardSidebarIconSize;
-  height: $dashboardSidebarIconSize;
+  width: $sidebarIconSize;
+  height: $sidebarIconSize;
   color: $white-color;
   @media screen and (max-width: $bp-sm) {
     margin: 5px auto 0 auto;

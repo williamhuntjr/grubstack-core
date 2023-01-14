@@ -8,6 +8,8 @@ import { FormField, FormSelectField } from 'common/utils/form/form.components'
 import { cls } from 'common/utils/utils'
 import { defineFormSelectData } from 'core/components/select-field/select-field.utils'
 import { convertMode } from 'common/utils/mode/mode.utils'
+import { hasPermission } from 'common/auth/auth.utils'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { StoreFormField, StoreFormLabel, IStoreForm, IStoreFormValues } from './store-form.types'
 import { StoreFormSchema } from './store-form.validation'
 import { storeTypes, defaultStoreFormData } from './store-form.constants'
@@ -25,6 +27,8 @@ export const StoreForm: FC<IStoreForm> = memo(({ onSubmit, onDeleteMenu, mode, d
     resolver: yupResolver(StoreFormSchema),
     defaultValues: defaultStoreFormData,
   })
+
+  const canEditStores = hasPermission(UserPermissions.MaintainStores)
 
   const { isViewMode } = convertMode(mode)
 
@@ -107,7 +111,7 @@ export const StoreForm: FC<IStoreForm> = memo(({ onSubmit, onDeleteMenu, mode, d
         className={cls(styles.formField, styles.thumbnailUrl)}
         disabled={isViewMode}
       />
-      <GrubList data={normalizeMenuData(data?.menus ?? [])} subHeader="Food Menus" onClickAdd={handleOpenAddDialog} className={styles.storeFormMenuList} onClickDelete={handleDelete} />
+      <GrubList data={normalizeMenuData(data?.menus ?? [])} disabled={!canEditStores} subHeader="Food Menus" onClickAdd={handleOpenAddDialog} className={styles.storeFormMenuList} onClickDelete={handleDelete} />
       <Divider className={styles.divider} />
       <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
         Save Store

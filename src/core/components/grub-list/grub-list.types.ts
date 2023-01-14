@@ -11,4 +11,5 @@ export interface IGrubList {
   onClickDelete(value: string): void
   className?: string
   actions?: IListAction[]
+  disabled?: boolean
 }

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import Divider from '@mui/material/Divider'
 import { IPaginationData, IResponse } from 'common/common.types'
 import { useDialog } from 'common/hooks/dialog.hook'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
 import { IMenu } from 'app/products/menus/menus.types'
 import { IIngredient } from 'app/products/ingredients/ingredients.types'
@@ -20,6 +21,7 @@ import { Loading } from 'core/components/loading/loading'
 import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { listPageSize } from 'common/constants'
+import { hasPermission } from 'common/auth/auth.utils'
 import { BuilderParams, BuilderTypes } from 'app/builder/builder.constants'
 import { 
   defaultBuilderState, 
@@ -48,9 +50,9 @@ export const BuilderTool: FC = () => {
   const { ItemService, MenuService, VarietyService } = useProductModule()
   const { ErrorHandler } = useCoreModule()
 
-  const canEditItems = true
-  const canEditMenus = true
-  const canEditVarieties = true
+  const canEditItems = hasPermission(UserPermissions.MaintainItems)
+  const canEditMenus = hasPermission(UserPermissions.MaintainMenus)
+  const canEditVarieties = hasPermission(UserPermissions.MaintainVarieties)
 
   const canEdit = objectType === BuilderParams.Item ? canEditItems : objectType === BuilderParams.Menu ? canEditMenus : canEditVarieties
   const childType = objectType === BuilderParams.Menu ? BuilderTypes.Item : BuilderTypes.Ingredient
@@ -136,7 +138,7 @@ export const BuilderTool: FC = () => {
     } catch (e) {
       console.log(e)
     }
-  }, [closeBuilderDialog])
+  }, [closeBuilderDialog, fetchData])
 
   const handleCardAction = useCallback((item: IBuilderDataItem, action: IListAction): void => {
     switch (action.label) {
@@ -214,7 +216,7 @@ export const BuilderTool: FC = () => {
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     }
-  }, [ErrorHandler, ItemService, MenuService, VarietyService, objectId, objectType, fetchData])
+  }, [ErrorHandler, ItemService, MenuService, VarietyService, objectId, objectType])
 
   const handleIngredientSubmit = useCallback(async (data: IBuilderIngredientFormValues): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
@@ -326,7 +328,7 @@ export const BuilderTool: FC = () => {
               onPageChange={(event: ChangeEvent<unknown>, page: number) => onPageChange(event, page)}
               layout="vertical"
               buttonColor="secondary"
-              cols={4}
+              cols={5}
               actions={actions} 
               onAction={handleCardAction}
             />

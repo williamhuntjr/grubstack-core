@@ -11,20 +11,20 @@ import { cls } from 'common/utils/utils'
 import { IGrubList } from './grub-list.types'
 import styles from './grub-list.module.scss'
 
-export const GrubList: FC<IGrubList> = memo(({ subHeader, data, onClickAdd, onClickDelete, className }) => {
+export const GrubList: FC<IGrubList> = memo(({ subHeader, data, onClickAdd, onClickDelete, className, disabled }) => {
   return (
     <List 
       className={cls(styles.grubListContainer, className ?? '')}
       subheader={subHeader ?
         <ListSubheader component="div" id="gs-list-subheader" className={styles.grubListSubHeader}>
           {subHeader}
-          <Button color="secondary" variant="contained" className={styles.subHeaderButton} onClick={onClickAdd}>Add</Button>
+          <Button color="secondary" variant="contained" disabled={disabled} className={styles.subHeaderButton} onClick={onClickAdd}>Add</Button>
         </ListSubheader>
         : undefined
       }
     >
     {data.map((item, index) => 
-      <ListItem disablePadding key={index} secondaryAction={
+      <ListItem disablePadding disabled={disabled} key={index} secondaryAction={
         <IconButton edge="end" aria-label="delete" onClick={() => onClickDelete(item.value)}>
           <DeleteIcon />
         </IconButton>

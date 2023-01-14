@@ -10,9 +10,9 @@
   margin-bottom: $grid-base;
 }
 .tab {
-  display: flex;
-  flex-grow: 1;
-  background-color: red
+  font-family: 'Arimo';
+  font-size: 15px;
+  font-weight: 500;
 }
 .tabPanelContent {
   height: 100%;

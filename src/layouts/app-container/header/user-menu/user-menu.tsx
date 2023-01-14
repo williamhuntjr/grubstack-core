@@ -4,12 +4,17 @@ import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import LogoutIcon from '@mui/icons-material/Logout'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import PersonIcon from '@mui/icons-material/Person'
 import SettingsIcon from '@mui/icons-material/Settings'
+import { useAuth0 } from '@auth0/auth0-react'
+import { appConfig } from 'common/config'
 import styles from './user-menu.module.scss'
 
 export const UserMenu: FC = () => {
+  const { logout }  = useAuth0()
+
   const [anchorEl, setAnchorEl] = React.useState<EventTarget & Element | null>(null)
   const open = Boolean(anchorEl)
 
@@ -76,6 +81,12 @@ export const UserMenu: FC = () => {
             <SettingsIcon fontSize="small"/>
           </ListItemIcon>
           Settings
+        </MenuItem>
+        <MenuItem onClick={() => logout({ returnTo: appConfig.corporateSite })}>
+          <ListItemIcon>
+            <LogoutIcon fontSize="small"/>
+          </ListItemIcon>
+          Sign Out
         </MenuItem>
       </Menu>
     </div>

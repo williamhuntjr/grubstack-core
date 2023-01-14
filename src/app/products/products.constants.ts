@@ -1,3 +1,4 @@
+import { UserPermissions } from 'common/auth/auth.constants'
 import { IngredientList } from './ingredients/ingredient-list/ingredient-list'
 import { ItemList } from './items/item-list/item-list'
 import { MenuList } from './menus/menu-list/menu-list'
@@ -36,4 +37,34 @@ export const productTabs = [
     component: VarietyList,
     path: `${productRoutePath}/varieties`
   },
+]
+
+
+export const productPermissions = [
+  UserPermissions.ViewIngredients,
+  UserPermissions.MaintainIngredients,
+  UserPermissions.ViewItems,
+  UserPermissions.MaintainItems,
+  UserPermissions.ViewMenus,
+  UserPermissions.MaintainMenus,
+]
+
+export const itemPermissions = [
+  UserPermissions.ViewItems,
+  UserPermissions.MaintainItems
+]
+
+export const ingredientPermissions = [
+  UserPermissions.ViewIngredients,
+  UserPermissions.MaintainIngredients
+]
+
+export const menuPermissions = [
+  UserPermissions.ViewMenus,
+  UserPermissions.MaintainMenus
+]
+
+export const varietyPermissions = [
+  UserPermissions.ViewVarieties,
+  UserPermissions.MaintainVarieties
 ]

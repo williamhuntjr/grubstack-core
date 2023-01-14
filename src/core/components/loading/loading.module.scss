@@ -6,7 +6,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 .loadingContent {
   padding: $grid-base;
+  h3 {
+    font-family: 'Arimo', 'Roboto', sans-serif !important; 
+  }
 }

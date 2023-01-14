@@ -1,9 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Route, BrowserRouter, Routes } from 'react-router-dom'
-
 import { Auth0Provider } from '@auth0/auth0-react'
-
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -13,7 +11,6 @@ import { StyledEngineProvider } from '@mui/material'
 import { appRoutes } from 'routes'
 
 import { AppContainer } from './layouts/app-container/app-container'
-
 import { appInitializer } from './app-initializer'
 
 import './index.scss'

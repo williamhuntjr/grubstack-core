@@ -1,4 +1,4 @@
-
+import { UserPermissions } from 'common/auth/auth.constants'
 export const builderServiceToken = 'BuilderService'
 export const builderModule = 'BuilderModule'
 
@@ -15,3 +15,12 @@ export enum BuilderParams {
   Menu = 'menu',
   Variety = 'variety'
 }
+
+export const builderPermissions = [
+  UserPermissions.MaintainItems,
+  UserPermissions.MaintainMenus,
+  UserPermissions.MaintainVarieties,
+  UserPermissions.ViewItems,
+  UserPermissions.ViewMenus,
+  UserPermissions.ViewVarieties
+]

@@ -27,6 +27,7 @@ export function processRoute(route: IRoute | IAsyncRoute<never>, parentRoute?: I
     return {
       ...route,
       path: buildPath(route.path, parentRoute?.path),
+      permissions: route.permissions,
     }
   }
 
@@ -51,13 +52,13 @@ export function buildRoute(route: IRoute, render?: JSX.Element): JSX.Element {
     <Route
       key={route.path}
       path={route.path}
-      element={<GuardedRoute component={<route.component />} redirectTo={route.redirectTo}/>}
+      element={<GuardedRoute component={<route.component />} permissions={route?.permissions ?? []}  redirectTo={route.redirectTo}/>}
     />
     :
     <Route
       key={route.path}
       path={route.path}
-      element={<GuardedRoute redirectTo={route.redirectTo}/>}
+      element={<GuardedRoute permissions={route?.permissions ?? []} redirectTo={route.redirectTo}/>}
     />
     
 }

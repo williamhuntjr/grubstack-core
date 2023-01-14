@@ -53,6 +53,10 @@ $builderDetailsCardWidth: 300px;
   h2 {
     margin: 0 0 $grid-base 0;
   }
+  @media screen and (max-width: $bp-xs) {
+    text-align: center;
+    margin: $grid-base 0 $grid-small 0;
+  }
 }
 .builderCard {
   display: flex;
@@ -61,6 +65,7 @@ $builderDetailsCardWidth: 300px;
   justify-content: center;
   text-align: center;
   border: $border-disabled;
+  border-bottom: solid 4px $color-corporate;
   img {
     max-width: 200px;
     margin: $grid-base 0 $grid-small 0;

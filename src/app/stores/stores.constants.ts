@@ -2,6 +2,7 @@ import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
 import { GSMode } from 'common/utils/mode/mode.types'
 
@@ -79,3 +80,8 @@ export enum ValidationStoreMenuMessage {
   DeleteMenuSuccess = 'The menu has been deleted from your store.',
   DeleteStoreMenu = 'You are about to remove this menu from your store. Do you wish to continue?'
 }
+
+export const storePermissions = [
+  UserPermissions.ViewStores,
+  UserPermissions.MaintainStores
+]

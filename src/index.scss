@@ -3,7 +3,7 @@
 body {
   margin: 0;
   color: #282828;
-  font-family: $font-family, 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -15,11 +15,12 @@ h4 { font-size: $font-size-h4; }
 h5 { font-size: $font-size-h5; }
 h6 { font-size: $font-size-h6; }
 h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
   margin: $grid-base 0 $grid-tiny 0;
 }
 p {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 28px;
 }
 .MuiDialog-paper {
   max-width: unset !important;

@@ -6,7 +6,7 @@ export const Loading: FC = () => {
   return (
     <div className={styles.loadingContainer}>
       <div className={styles.loadingContent}>
-        <h2>Loading...</h2>
+        <h3>Loading...</h3>
         <LinearProgress />
       </div>
     </div>

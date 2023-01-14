@@ -28,7 +28,7 @@ export function IconCardList<TData extends IIconCardListItem, Action>({
               <div>
                 {actions.map((action, sindex) => 
                   <Tooltip title={action.label} key={sindex}>
-                    <IconButton aria-label={action.label} onClick={() => {
+                    <IconButton aria-label={action.label} size="large" onClick={() => {
                       onAction(item, (action as unknown) as Action)
                     }}><action.icon /></IconButton>
                   </Tooltip>
