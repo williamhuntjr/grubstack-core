@@ -14,5 +14,5 @@ export const InvalidTabPermissions: FC = () => {
 }
 
 export const NullPermissions: FC = () => {
-  return <ErrorPage headline='You do not have any permissions.' message='Please have an administrator add permissions to your account.' />
+  return <ErrorPage headline='You do not have any permissions.' message='Ask your organization leader to add some permissions to your account.' hideButton />
 }

@@ -20,7 +20,7 @@ $errorPageIconSize: 80px;
   display: none;
 }
 .fullPage {
-  height: calc(100vh - #{$appHeaderHeight} - #{$grid-giant * 2});
+  height: calc(100vh - #{$headerHeight} - #{$grid-giant * 2});
 }
 .lockIcon {
   font-size: $errorPageIconSize;

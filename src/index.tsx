@@ -106,7 +106,7 @@ root.render(
           clientId="fzdrD4DJDsg992k2KCr3rngy9Ph6W5YG"
           redirectUri={'http://localhost:3001/stores'}
           audience="https://core-api.grubstack.app/v1"
-          scope="read:stores edit:stores read:menus edit:menus read:items edit:items read:ingredients edit:ingredients read:varieties edit:varieties"
+          scope=""
         > 
           <Routes>
             <Route path="/*" element={<AppContainer routes={appRoutes} />}/>

@@ -8,6 +8,8 @@ import { useDialog } from 'common/hooks/dialog.hook'
 import { CardButton } from 'core/components/card-button/card-button'
 import { IItem } from 'app/products/items/items.types'
 import { IMenu } from 'app/products/menus/menus.types'
+import { UserPermissions } from 'common/auth/auth.constants'
+import { validatePermissions } from 'common/auth/auth.utils'
 import { BuilderTypes, builderRoutePath } from './builder.constants'
 import { BuilderDialog } from './builder-dialog/builder-dialog'
 import styles from './builder.module.scss'
@@ -48,6 +50,7 @@ export const Builder: FC = () => {
         <BuilderDialog builderType={builderType} onClose={closeBuilderDialog} onClick={handleClick} />
       </GrubDialog>
       <div className={styles.cardContainer}>
+        {validatePermissions([UserPermissions.MaintainItems]) &&
         <div className={styles.cardButtonContainer}>
           <CardButton title="Build an Item" description="Add ingredients to an item" 
             onClick={() =>{
@@ -58,6 +61,8 @@ export const Builder: FC = () => {
             responsive={true}
           />
         </div>
+        }
+        {validatePermissions([UserPermissions.MaintainItems]) &&
         <div className={styles.cardButtonContainer}>
           <CardButton title="Build a Variety" description="Add varieties to your item" 
             onClick={() =>{
@@ -68,6 +73,8 @@ export const Builder: FC = () => {
             responsive={true} 
           />
         </div>
+        }
+        {validatePermissions([UserPermissions.MaintainMenus]) &&
         <div className={styles.cardButtonContainer}>
           <CardButton title="Build a Menu" description="Add items to your menu" 
             onClick={() =>{
@@ -78,6 +85,7 @@ export const Builder: FC = () => {
             responsive={true} 
           />
         </div>
+        }
       </div>
     </div>
   )

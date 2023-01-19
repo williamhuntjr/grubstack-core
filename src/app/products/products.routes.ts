@@ -13,12 +13,13 @@ import { ItemsTab } from './product-tabs/items-tab/items-tab'
 import { IngredientsTab } from './product-tabs/ingredients-tab/ingredients-tab'
 import { MenusTab } from'./product-tabs/menus-tab/menus-tab'
 import { VarietiesTab } from './product-tabs/varieties-tab/varieties-tab'
+import { Products } from './products'
 
 function productRouteFactory({}: ProductModuleDefinition): IRoute[] {
   return [
     {
       path: '/',
-      redirectTo: `${productRoutePath}/ingredients`,
+      component: Products,
       permissions: [],
     },
     {

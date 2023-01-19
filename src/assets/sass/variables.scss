@@ -35,6 +35,7 @@ $color-primary: #465de4 !default;
 $color-secondary: #282828 !default;
 $color-info: #0288d1;
 $color-corporate: #d62b70;
+$color-alert: red;
 
 $color-gray-primary: #adaeb0 !default;
 $color-gray-normal: #dadada !default;
@@ -62,9 +63,6 @@ $sidebarIconSize: 30px;
 $headerHeight: 80px;
 $headerBackgroundColor: #111;
 $headerLogoWidth: 175px;
-
-$appHeaderHeight: 60px;
-$appHeaderBackgroundColor: $color-primary;
 
 $minButtonWidth: 85px;
 $tabbedWindowHeight: calc(100vh - 240px);
