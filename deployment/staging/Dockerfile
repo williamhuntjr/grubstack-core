@@ -1,9 +1,10 @@
-FROM node:17-alpine as builder
+FROM node:18-alpine as builder
+RUN apk add --no-cache python3 make g++
 WORKDIR /app
-COPY package.json package-lock.json .
+COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN npm build
+RUN npm run build
 
 FROM nginx:1.19.0
 WORKDIR /usr/share/nginx/html
