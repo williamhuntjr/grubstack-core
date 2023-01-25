@@ -1,13 +1,21 @@
-FROM node:18-alpine as builder
-RUN apk add --no-cache python3 make g++
+FROM node:16-alpine as builder
+# Set the working directory to /app inside the container
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
+# Copy app files
 COPY . .
+# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+RUN npm ci 
+# Build the app
 RUN npm run build
 
-FROM nginx:1.19.0
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=builder /app/build .
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# Bundle static assets with nginx
+FROM nginx:1.21.0-alpine as staging
+ENV NODE_ENV staging
+# Copy built assets from `builder` image
+COPY --from=builder /app/build /usr/share/nginx/html
+# Add your nginx.conf
+COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+# Expose port
+EXPOSE 80
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
