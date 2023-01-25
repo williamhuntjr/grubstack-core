@@ -7,15 +7,11 @@ COPY . .
 RUN npm ci 
 # Build the app
 RUN npm run build
-
-# Bundle static assets with nginx
-FROM nginx:1.21.0-alpine as staging
-ENV NODE_ENV staging
-# Copy built assets from `builder` image
-COPY --from=builder /app/build /usr/share/nginx/html
-# Add your nginx.conf
-COPY deployment/production/conf/nginx.conf /etc/nginx/conf.d/default.conf
+# Install serve
+RUN npm install -g serve
+# Copy build files
+COPY . /app
 # Expose port
-EXPOSE 80
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+# Start serve
+CMD ["npm", "run", "serve"]
