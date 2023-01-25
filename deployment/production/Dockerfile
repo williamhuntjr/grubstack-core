@@ -10,7 +10,7 @@ RUN npm run build
 # Install serve
 RUN npm install -g serve
 # Copy build files
-COPY . /app
+COPY --from=builder /app/build app/build
 # Expose port
 EXPOSE 3000
 # Start serve
