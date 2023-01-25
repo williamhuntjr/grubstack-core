@@ -7,6 +7,9 @@ COPY . .
 RUN npm ci 
 # Build the app
 RUN npm run build
+
+FROM node:alpine
+WORKDIR /app
 # Install serve
 RUN npm install -g serve
 # Copy build files
