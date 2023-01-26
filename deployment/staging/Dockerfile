@@ -1,20 +1,19 @@
-FROM node:16-alpine as builder
-# Set the working directory to /app inside the container
+# pull official base image
+FROM node:16-alpine
 WORKDIR /app
-# Copy app files
-COPY . .
-# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
-RUN npm ci 
-# Build the app
-RUN npm run build
 
-FROM node:alpine
-WORKDIR /app
-# Install serve
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+
+# Build for production.
+RUN npm run build --production
+
+# Install `serve` to run the application.
 RUN npm install -g serve
-# Copy build files
-COPY --from=builder /app/build app/build
-# Expose port
+
+# Uses port which is used by the actual application
 EXPOSE 3000
-# Start serve
-CMD ["npm", "run", "serve"]
+
+# Run application
+CMD [ "npm", "run", "serve" ]
