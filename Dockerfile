@@ -2,6 +2,9 @@
 FROM node:16-alpine
 WORKDIR /app
 
+ARG API_URL
+ENV REACT_APP_API_URL=$API_URL
+
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
