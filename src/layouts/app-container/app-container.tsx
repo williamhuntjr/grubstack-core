@@ -57,10 +57,13 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   const init = async (): Promise<void> => {
     try {
       await HttpClient.get('/auth/verify_tenant')
-      const {
-        data: { data },
-      } = await HttpClient.get('/auth/userinfo')
-      localStorage.setItem('grubUserInfo', JSON.stringify(data))
+      const userInfo = localStorage.getItem('grubUserInfo')
+      if (userInfo == null) {
+        const {
+          data: { data },
+        } = await HttpClient.get('/auth/userinfo')
+        localStorage.setItem('grubUserInfo', JSON.stringify(data))
+      }
       setAppLoading(false)
     } catch (e) {
       console.log("You do not have access to this tenant.")
