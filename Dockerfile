@@ -1,24 +1,25 @@
-# pull official base image
-FROM node:16-alpine
+FROM node:16-alpine as builder
+# Set the working directory to /app inside the container
 WORKDIR /app
-
-ARG API_URL
-ENV REACT_APP_API_URL=$API_URL
-ARG CORPORATE_URL
-ENV REACT_APP_CORPORATE_URL=$CORPORATE_URL
-
-COPY package.json package-lock.json ./
-RUN npm install
+# Copy app files
 COPY . .
+# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+RUN npm ci
+# Set environment variables
+ARG API_URL
+ARG CORPORATE_URL
+RUN sh create-env-file.sh REACT_APP_API_URL=$API_URL REACT_APP_CORPORATE_URL=$CORPORATE_URL
+# Build the app
+RUN npm run build
 
-# Build for production.
-RUN npm run build --production
-
-# Install `serve` to run the application.
-RUN npm install -g serve
-
-# Uses port which is used by the actual application
+# Bundle static assets with nginx
+FROM nginx:1.21.0-alpine as production
+ENV NODE_ENV production
+# Copy built assets from `builder` image
+COPY --from=builder /app/build /usr/share/nginx/html
+# Add your nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Expose port
 EXPOSE 3000
-
-# Run application
-CMD [ "npm", "run", "serve" ]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
