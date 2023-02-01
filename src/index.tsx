@@ -101,10 +101,10 @@ root.render(
       position="bottom-left"
     />
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.NODE_ENV == 'production' ? `/${appConfig.appSlug}` : ''}>
         <Auth0Provider
-          domain="dev-x2xvjtterdxi3zgj.us.auth0.com"
-          clientId="fzdrD4DJDsg992k2KCr3rngy9Ph6W5YG"
+          domain={appConfig.authDomain}
+          clientId={appConfig.authClientId}
           redirectUri={appConfig.siteUrl}
           audience="https://core-api.grubstack.app/v1"
           scope=""

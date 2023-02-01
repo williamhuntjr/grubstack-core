@@ -15,16 +15,16 @@ ENV NODE_ENV production
 COPY --from=builder /app/build /usr/share/nginx/html
 # Add your nginx.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY .env.example .env
+
+# Install runtime env
+RUN npm install -g runtime-env-cra
+
 # Expose port
 EXPOSE 3000
 
 # Copy .env file and shell script to container
 WORKDIR /usr/share/nginx/html
-COPY ./env.sh .
-COPY .env .
-
-# Make our shell script executable
-RUN chmod +x env.sh
 
 # Start nginx
-CMD ["/bin/sh", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
+CMD ["/bin/sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]
