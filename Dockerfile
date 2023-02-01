@@ -5,11 +5,6 @@ WORKDIR /app
 COPY . .
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
-# Set environment variables
-ARG API_URL
-ARG CORPORATE_URL
-ARG SITE_URL
-RUN sh create-env-file.sh REACT_APP_API_URL=$API_URL REACT_APP_CORPORATE_URL=$CORPORATE_URL REACT_APP_SITE_URL=$SITE_URL
 # Build the app
 RUN npm run build
 
@@ -22,5 +17,14 @@ COPY --from=builder /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Expose port
 EXPOSE 3000
+
+# Copy .env file and shell script to container
+WORKDIR /usr/share/nginx/html
+COPY ./env.sh .
+COPY .env .
+
+# Make our shell script executable
+RUN chmod +x env.sh
+
 # Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/bin/sh", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
