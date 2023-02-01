@@ -5,6 +5,10 @@ WORKDIR /app
 COPY . .
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
+
+# Enforce runtime-env-cra
+RUN npm install -g runtime-env-cra
+
 # Build the app
 RUN npm run build
 
@@ -16,9 +20,6 @@ COPY --from=builder /app/build /usr/share/nginx/html
 # Add your nginx.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY .env.example .env
-
-# Install runtime env
-RUN npm install -g runtime-env-cra
 
 # Expose port
 EXPOSE 3000
