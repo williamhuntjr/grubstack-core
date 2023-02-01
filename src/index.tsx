@@ -101,7 +101,7 @@ root.render(
       position="bottom-left"
     />
     <ThemeProvider theme={theme}>
-      <BrowserRouter basename={process.env.NODE_ENV == 'production' ? `/${appConfig.appSlug}` : ''}>
+      <BrowserRouter>
         <Auth0Provider
           domain={appConfig.authDomain}
           clientId={appConfig.authClientId}
