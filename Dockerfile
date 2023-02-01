@@ -6,20 +6,21 @@ COPY . .
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
 
-# Enforce runtime-env-cra
-RUN npm install -g runtime-env-cra
-
 # Build the app
 RUN npm run build
 
 # Bundle static assets with nginx
-FROM nginx:1.21.0-alpine as production
+FROM nginx:stable-alpine as production
 ENV NODE_ENV production
 # Copy built assets from `builder` image
 COPY --from=builder /app/build /usr/share/nginx/html
 # Add your nginx.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY .env.example .env
+
+RUN apk add --update nodejs
+RUN apk add --update npm
+RUN npm install -g runtime-env-cra
 
 # Expose port
 EXPOSE 3000
