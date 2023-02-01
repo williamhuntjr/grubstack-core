@@ -26,8 +26,5 @@ RUN npm install -g runtime-env-cra
 # Expose port
 EXPOSE 3000
 
-# Copy .env file and shell script to container
-WORKDIR /usr/share/nginx/html
-
 # Start nginx
 CMD ["/bin/sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]
