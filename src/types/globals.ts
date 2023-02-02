@@ -2,7 +2,7 @@ export {};
 
 declare global {
   interface Window {
-    __RUNTIME_CONFIG__: {
+    _env_: {
       API_URL: string;
       NODE_ENV: string;
       APP_SLUG: string;
