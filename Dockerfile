@@ -16,15 +16,20 @@ COPY --from=builder /app/build /usr/share/nginx/html
 
 # Copy configs
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY .env.example .env
 
-# Install runtime-env-cra
-RUN apk add --update nodejs
-RUN apk add --update npm
-RUN npm install -g runtime-env-cra
+WORKDIR /usr/share/nginx/html
+
+COPY .env.example .env
+COPY ./env.sh .
+
+# Add bash
+RUN apk add --no-cache bash
+
+# Make our shell script executable
+RUN chmod +x env.sh
 
 # Expose port
 EXPOSE 3000
 
 # Start nginx
-CMD ["/bin/sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
