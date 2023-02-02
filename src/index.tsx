@@ -105,7 +105,7 @@ root.render(
         <Auth0Provider
           domain={appConfig.authDomain}
           clientId={appConfig.authClientId}
-          redirectUri={appConfig.siteUrl}
+          redirectUri={appConfig.publicUrl}
           audience="https://core-api.grubstack.app/v1"
           scope=""
         > 
