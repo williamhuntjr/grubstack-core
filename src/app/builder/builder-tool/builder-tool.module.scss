@@ -9,71 +9,71 @@ $builderDetailsCardWidth: 300px;
   align-items: center;
   margin: 0 auto 0 auto;
   padding: 0;
-}
-.builderTool {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  @media screen and (max-width: $bp-md) {
-    flex-direction: column;
-  }
-}
-.builderContent {
-  width: calc(100% - $builderDetailsCardWidth);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  @media screen and (max-width: $bp-md) {
+  .builderTool {
     width: 100%;
-    margin-top: $grid-base;
-  }
-}
-.builderListContainer {
-  width: 100%;
-  height: 100%;
-}
-.builderDetailsContainer {
-  width: $builderDetailsCardWidth;
-  background-color: #ffffff;
-  position: fixed;
-  right: 0;
-  top: 95px;
-  margin-right: $grid-large;
-  @media screen and (max-width: $bp-md) {
-    position: unset;
-    width: 100%;
-  }
-}
-.builderDetails {
-  width: 100%;
-  background-color: $offset-color;
-}
-.builderHeader {
-  padding: 0 $grid-small $grid-base $grid-small;
-  h2 {
-    margin: 0 0 $grid-base 0;
-  }
-  @media screen and (max-width: $bp-xs) {
-    text-align: center;
-    margin: $grid-base 0 $grid-small 0;
-  }
-}
-.builderCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: $border-disabled;
-  border-bottom: solid 4px $color-corporate;
-  img {
-    max-width: 200px;
-    margin: $grid-base 0 $grid-small 0;
-  }
-  h3 {
-    margin: $grid-small $grid-base $grid-small $grid-base;
-  }
-  p {
-    margin: 0 $grid-base $grid-base $grid-base;
+    height: 100%;
+    display: flex;
+    @media screen and (max-width: $bp-md) {
+      flex-direction: column;
+    }
+    .builderDetailsContainer {
+      width: $builderDetailsCardWidth;
+      background-color: #ffffff;
+      position: fixed;
+      right: 0;
+      top: 95px;
+      margin-right: $grid-large;
+      @media screen and (max-width: $bp-md) {
+        position: unset;
+        width: 100%;
+      }
+      .builderDetails {
+        width: 100%;
+        background-color: $offset-color;
+      }
+      .builderCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border: $border-disabled;
+        border-bottom: solid 4px $color-corporate;
+        img {
+          max-width: 200px;
+          margin: $grid-base 0 $grid-small 0;
+        }
+        h3 {
+          margin: $grid-small $grid-base $grid-small $grid-base;
+        }
+        p {
+          margin: 0 $grid-base $grid-base $grid-base;
+        }
+      }
+    }
+    .builderContent {
+      width: calc(100% - $builderDetailsCardWidth);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      @media screen and (max-width: $bp-md) {
+        width: 100%;
+        margin-top: $grid-base;
+      }
+      .builderListContainer {
+        width: 100%;
+        height: 100%;
+      }
+      .builderHeader {
+        padding: 0 $grid-small $grid-base $grid-small;
+        h2 {
+          margin: 0 0 $grid-base 0;
+        }
+        @media screen and (max-width: $bp-xs) {
+          text-align: center;
+          margin: $grid-base 0 $grid-small 0;
+        }
+      }
+    }
   }
 }

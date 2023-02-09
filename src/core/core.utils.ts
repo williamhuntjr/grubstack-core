@@ -1,5 +1,5 @@
 import { IServerError } from './core.types'
-import { IResponse } from 'common/common.types'
+import { IResponse } from 'common/types'
 
 export function isHttpError(error: unknown): error is IServerError {
   return typeof error === 'object' && error !== null && 'response' in error

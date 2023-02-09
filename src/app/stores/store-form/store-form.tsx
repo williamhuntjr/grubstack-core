@@ -30,7 +30,7 @@ export const StoreForm: FC<IStoreForm> = memo(({ onSubmit, onDeleteMenu, mode, d
 
   const canEditStores = hasPermission(UserPermissions.MaintainStores)
 
-  const { isViewMode } = convertMode(mode)
+  const { isViewMode, isNewMode } = convertMode(mode)
 
   const submitForm: (e: React.BaseSyntheticEvent) => void = (e) => {
     e.stopPropagation() // To prevent submitting parent forms
@@ -111,7 +111,7 @@ export const StoreForm: FC<IStoreForm> = memo(({ onSubmit, onDeleteMenu, mode, d
         className={cls(styles.formField, styles.thumbnailUrl)}
         disabled={isViewMode}
       />
-      <GrubList data={normalizeMenuData(data?.menus ?? [])} disabled={!canEditStores} subHeader="Food Menus" onClickAdd={handleOpenAddDialog} className={styles.storeFormMenuList} onClickDelete={handleDelete} />
+      <GrubList data={normalizeMenuData(data?.menus ?? [])} disabled={!canEditStores || isNewMode} subHeader="Food Menus" onClickAdd={handleOpenAddDialog} className={styles.storeFormMenuList} onClickDelete={handleDelete} />
       <Divider className={styles.divider} />
       <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
         Save Store

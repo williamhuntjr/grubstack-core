@@ -10,32 +10,33 @@
   background-color: $headerBackgroundColor;
   align-items: center;
   justify-content: right;
-}
-.headerContent {
-  display: flex;
-  width: 100%;
-  height: $headerHeight;
-  align-items: center;
-}
-.userMenu {
-  margin-left: auto;
-  @media screen and (max-width: $bp-sm) {
-    margin-left: unset;
+
+  .headerContent {
+    display: flex;
+    width: 100%;
+    height: $headerHeight;
+    align-items: center;
+    .menuToggleButton {
+      color: #fff;
+      display: none;
+      @media screen and (max-width: $bp-sm) {
+        display: inline-flex;
+      }
+    }
+    .logoContainer {
+      padding: 0 $grid-base 0 $grid-base;
+      @media screen and (max-width: $bp-sm) {
+        margin: 0 auto 0 auto;
+      }
+      .logoImage {
+        max-width: $headerLogoWidth;
+      }
+    }
+    .userMenu {
+      margin-left: auto;
+      @media screen and (max-width: $bp-sm) {
+        margin-left: unset;
+      }
+    }
   }
-}
-.menuToggleButton {
-  color: #fff;
-  display: none;
-  @media screen and (max-width: $bp-sm) {
-    display: inline-flex;
-  }
-}
-.logoContainer {
-  padding: 0 $grid-base 0 $grid-base;
-  @media screen and (max-width: $bp-sm) {
-    margin: 0 auto 0 auto;
-  }
-}
-.logoImage {
-  max-width: $headerLogoWidth;
 }

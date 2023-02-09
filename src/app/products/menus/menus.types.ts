@@ -1,5 +1,5 @@
 import { GSMode } from 'common/utils/mode/mode.types'
-import { IPaginationParams, IPaginationData, IResponse } from 'common/common.types'
+import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
 import { IBuilderItemFormValues } from 'app/builder/builder-tool/item-form/item-form.types'
 import { IItem } from '../items/items.types'
 

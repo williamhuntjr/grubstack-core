@@ -1,4 +1,4 @@
-import { IPaginationParams } from 'common/common.types'
+import { IPaginationParams } from 'common/types'
 
 export function prepareRequestParams<TFilters extends { [T in keyof TFilters]: TFilters[T] }>(
   paginationParams: IPaginationParams

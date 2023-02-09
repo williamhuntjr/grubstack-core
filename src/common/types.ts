@@ -32,3 +32,13 @@ export interface IPaginationData<TData> {
   total: number
   pages: number
 }
+
+export interface IJWTToken {
+  aud: string[]
+  azp: string
+  exp: number
+  iat: number
+  iss: string
+  scope: string
+  sub: string
+}

@@ -148,7 +148,7 @@ export const MenuList: FC = () => {
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
       />
-      {paginationState.isLoading || state.isLoading &&  <Loading />}
+      {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
         <CardList 
           data={paginationState.data} 
