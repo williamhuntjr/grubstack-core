@@ -1,5 +1,5 @@
 import { GSMode } from 'common/utils/mode/mode.types'
-import { IPaginationParams, IPaginationData, IResponse } from 'common/common.types'
+import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
 import { ICardListItem } from 'core/components/card-list/card-list.types'
 import { IMenu } from 'app/products/menus/menus.types'
 

@@ -10,15 +10,19 @@ export const Products: FC = () => {
   const init = (): void => {
     if (validatePermissions([UserPermissions.MaintainIngredients, UserPermissions.ViewIngredients])) {
       navigate(`${productRoutePath}/ingredients`)
+      return
     }
     if (validatePermissions([UserPermissions.MaintainItems, UserPermissions.ViewItems])) {
       navigate(`${productRoutePath}/items`)
+      return
     }
     if (validatePermissions([UserPermissions.MaintainMenus, UserPermissions.ViewMenus])) {
       navigate(`${productRoutePath}/menus`)
+      return
     }
     if (validatePermissions([UserPermissions.MaintainVarieties, UserPermissions.ViewVarieties])) {
       navigate(`${productRoutePath}/varieties`)
+      return
     }
   }
 

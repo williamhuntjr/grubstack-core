@@ -3,19 +3,6 @@ $storeFormWidth: 500px;
 $storeFormHeight: 500px;
 $dialogActionButtonWidth: $minButtonWidth;
 
-.dialogTitle {
-  background-color: $color-primary;
-  color: $white-color;
-}
-.dialogContent {
-  padding: $grid-large $grid-large 0 $grid-large !important;
-}
-.dialogActions {
-  padding: $grid-base $grid-large $grid-large $grid-large;
-}
-.dialogActionButton {
-  min-width: $dialogActionButtonWidth;
-}
 .storeForm {
   display: flex;
   flex-direction: column;
@@ -25,35 +12,36 @@ $dialogActionButtonWidth: $minButtonWidth;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
-}
-.formField {
-  margin: 0 $grid-base 0 0;
-}
-.storeName, .storeAddress, .storeType, .thumbnailUrl {
-  width: 100%;
-  margin: 0 0 $grid-base 0;
-}
-.addressDetails {
-  display: flex;
-  width: 100%;
-}
-.addressInputContainer {
-  width: 33.33%;
-  padding: 0 $grid-base 0 0;
-  &:last-child {
-    padding: 0 0 $grid-base 0;
+  .addressDetails {
+    display: flex;
+    width: 100%;
+  
+    .addressInputContainer {
+      width: 33.33%;
+      padding: 0 $grid-base 0 0;
+      &:last-child {
+        padding: 0 0 $grid-base 0;
+      }
+    }
   }
-}
-.storeCity, .storeState, .storePostal, .thumbnailUrl {
-  width: 100%;
-}
-.saveButton {
-  display: block;
-  margin-left: auto;
-}
-.divider {
-  margin: $grid-base 0 $grid-base 0;
-}
-.storeFormMenuList {
-  flex-grow: 1;
+  .formField {
+    margin: 0 $grid-base 0 0;
+  }
+  .storeName, .storeAddress, .storeType, .thumbnailUrl {
+    width: 100%;
+    margin: 0 0 $grid-base 0;
+  }
+  .storeCity, .storeState, .storePostal, .thumbnailUrl {
+    width: 100%;
+  }
+  .saveButton {
+    display: block;
+    margin-left: auto;
+  }
+  .divider {
+    margin: $grid-base 0 $grid-base 0;
+  }
+  .storeFormMenuList {
+    flex-grow: 1;
+  }
 }

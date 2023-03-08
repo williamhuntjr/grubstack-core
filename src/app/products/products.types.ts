@@ -1,4 +1,4 @@
-import { IPaginationParams, IPaginationData } from 'common/common.types'
+import { IPaginationParams, IPaginationData } from 'common/types'
 
 export interface IProduct {
   name: string

@@ -5,6 +5,24 @@ $ingredientFormWidth: 400px;
   display: flex;
   flex-direction: column;
   height: 100%;
+  .warningMessageContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .warningHeadline {
+    margin: 0;
+  }
+}
+.nutritionHeadline {
+  color: $white-color;
+  background-color: $color-secondary;
+  padding: $grid-small;
+  border: $border-disabled;
+  margin: $grid-base 0 0 0;
 }
 .ingredientsLabel {
   border: $border-disabled;
@@ -26,29 +44,4 @@ $ingredientFormWidth: 400px;
       } 
     }
   }
-}
-.ingredientsDialog {
-  width: $ingredientFormWidth;
-  margin-left: auto;
-  @media screen and (max-width: $bp-md) {
-    width: 100%;
-  }
-}
-.nutritionHeadline {
-  color: $white-color;
-  background-color: $color-secondary;
-  padding: $grid-small;
-  border: $border-disabled;
-  margin: $grid-base 0 0 0;
-}
-.warningMessageContainer {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.warningHeadline {
-  margin: 0;
 }

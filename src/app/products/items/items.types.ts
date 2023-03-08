@@ -1,4 +1,4 @@
-import { IPaginationParams, IPaginationData, IResponse } from 'common/common.types'
+import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IBuilderIngredientFormValues } from 'app/builder/builder-tool/ingredient-form/ingredient-form.types'
 

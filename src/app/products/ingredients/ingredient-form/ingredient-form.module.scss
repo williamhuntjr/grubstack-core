@@ -9,35 +9,35 @@ $ingredientFormWidth: 400px;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
-}
-.formField {
-  margin: 0 $grid-base 0 0;
-}
-.decimalField {
-  margin-right: $grid-base;
-  &:last-child {
-    margin-right: 0;
+  .formField {
+    margin: 0 $grid-base 0 0;
   }
-}
-.decimalFields {
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  margin-bottom: $grid-base;
-}
-.ingredientName, .ingredientDescription, .ingredientThumbnail { 
-  width: 100%;
-  margin: 0 0 $grid-base 0;
-}
-.lastField {
-  margin-right: $grid-base;
-}
-.saveButton {
-  display: block;
-  margin-left: auto;
-  @media screen and (max-width: $bp-sm) {
+  .decimalField {
+    margin-right: $grid-base;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .decimalFields {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: $grid-base;
+  }
+  .ingredientName, .ingredientDescription, .ingredientThumbnail { 
     width: 100%;
+    margin: 0 0 $grid-base 0;
   }
-}
-.divider {
-  margin-bottom: $grid-base;
+  .lastField {
+    margin-right: $grid-base;
+  }
+  .saveButton {
+    display: block;
+    margin-left: auto;
+    @media screen and (max-width: $bp-sm) {
+      width: 100%;
+    }
+  }
+  .divider {
+    margin-bottom: $grid-base;
+  }
 }

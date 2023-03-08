@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { IPaginationData, IPaginationParams } from 'common/common.types'
+import { IPaginationData, IPaginationParams } from 'common/types'
 import { listPageSize } from 'common/constants'
 
 interface IPaginationHookState<TData> {
@@ -30,7 +30,7 @@ interface ITablePagination {
   isLoading: boolean
 }
 export function usePagination<TData>(requestFn: TPaginationRequestFn<TData>): IPaginationHook<TData> {
-  const [state, setState] = useState<IPaginationHookState<TData>>({ isLoading: false, data: [], total: 0, pages: 1, pagination: { page: 1, limit: listPageSize } })
+  const [state, setState] = useState<IPaginationHookState<TData>>({ isLoading: true, data: [], total: 0, pages: 1, pagination: { page: 1, limit: listPageSize } })
 
   const fetchData = useCallback(async(pagination?: IPaginationParams): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true, pagination: pagination ?? prevState.pagination }))

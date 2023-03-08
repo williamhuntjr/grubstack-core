@@ -36,6 +36,9 @@
   &:hover {
     border: solid 1px $color-primary;
   }
+  &:active {
+    border: solid 2px $color-primary;
+  }
 }
 .cardListItemContent {
   display: flex;

@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { prepareRequestParams } from 'common/utils/request.utils'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
-import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/common.types'
+import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IIngredient } from 'app/products/ingredients/ingredients.types'
 import { IBuilderIngredientFormValues } from 'app/builder/builder-tool/ingredient-form/ingredient-form.types'
 import { IItemService, IItem } from './items.types'

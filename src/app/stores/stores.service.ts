@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { prepareRequestParams } from 'common/utils/request.utils'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
-import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/common.types'
+import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IMenu } from 'app/products/menus/menus.types'
 import { IStoreService, IStore } from './stores.types'
 

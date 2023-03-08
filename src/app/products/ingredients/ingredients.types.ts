@@ -1,4 +1,4 @@
-import { IPaginationParams, IPaginationData } from 'common/common.types'
+import { IPaginationParams, IPaginationData } from 'common/types'
 import { GSMode } from 'common/utils/mode/mode.types'
 
 export interface IIngredient {

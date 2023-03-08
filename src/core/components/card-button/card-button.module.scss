@@ -20,6 +20,9 @@ $cardButtonSizeSmall: 250px;
     cursor: pointer;
     border-color: $color-primary;
   }
+  &:active {
+    border: solid 2px $color-primary;
+  }
 }
 .cardButtonContainerResponsive {
   @media screen and (max-width: $bp-sm) {

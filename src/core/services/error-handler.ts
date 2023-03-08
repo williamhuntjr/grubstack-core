@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify'
-import { IResponseStatus } from 'common/common.types'
+import { IResponseStatus } from 'common/types'
 
 export interface IErrorWithWithStatus extends Error {
   response: { data: { status: IResponseStatus } }

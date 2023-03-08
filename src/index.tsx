@@ -9,6 +9,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { StyledEngineProvider } from '@mui/material'
 
 import { appRoutes } from 'routes'
+import { appConfig } from 'common/config'
 
 import { AppContainer } from './layouts/app-container/app-container'
 import { appInitializer } from './app-initializer'
@@ -102,9 +103,9 @@ root.render(
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Auth0Provider
-          domain="dev-x2xvjtterdxi3zgj.us.auth0.com"
-          clientId="fzdrD4DJDsg992k2KCr3rngy9Ph6W5YG"
-          redirectUri={'http://localhost:3001/stores'}
+          domain={appConfig.authDomain}
+          clientId={appConfig.authClientId}
+          redirectUri={appConfig.siteUrl}
           audience="https://core-api.grubstack.app/v1"
           scope=""
         > 

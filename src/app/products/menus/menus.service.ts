@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { prepareRequestParams } from 'common/utils/request.utils'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
-import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/common.types'
+import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IItem } from 'app/products/items/items.types'
 import { IBuilderItemFormValues } from 'app/builder/builder-tool/item-form/item-form.types'
 import { IMenuService, IMenu } from './menus.types'

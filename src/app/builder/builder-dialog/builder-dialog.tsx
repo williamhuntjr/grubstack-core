@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent, useCallback, useState, useEffect } from 'react'
 import { Loading } from 'core/components/loading/loading'
-import { IPaginationData } from 'common/common.types'
+import { IPaginationData } from 'common/types'
 import { CardList } from 'core/components/card-list/card-list'
 import { useCoreModule } from 'core/core-module-hook'
 import { useProductModule } from 'app/products/products-module-hook'
