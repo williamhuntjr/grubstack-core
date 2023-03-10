@@ -4,4 +4,5 @@ export const defaultItemFormData = {
   [ItemFormField.Name]: '',
   [ItemFormField.Description]: '',
   [ItemFormField.Thumbnail]: '',
+  [ItemFormField.Varieties]: [],
 }

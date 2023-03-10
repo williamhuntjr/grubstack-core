@@ -141,9 +141,9 @@ export const Stores = (): JSX.Element => {
     }
   }, [closeStoreDialog, refresh, state.mode, StoreService, ErrorHandler, validationMessages.createSuccess, validationMessages.updateSuccess])
 
-  const onAddMenu = useCallback(async (storeData: IMenu): Promise<void> => {
+  const onAddMenu = useCallback(async (menuData: IMenu): Promise<void> => {
     try {
-      await StoreService.addMenu(storeDialogData?.id ?? '', storeData.id ?? '')
+      await StoreService.addMenu(storeDialogData?.id ?? '', menuData.id ?? '')
       toast.success(ValidationStoreMenuMessage.AddMenuSuccess)
       const data = await StoreService.get(storeDialogData?.id ?? '')
       setStoreData(data.data)
@@ -170,7 +170,6 @@ export const Stores = (): JSX.Element => {
     void refresh()
     setState((prevState) => ({ ...prevState, isLoading: false }))
   }, [ErrorHandler, StoreService, setStoreData, refresh])
-
 
   return (
     <div className={styles.storesContainer}>

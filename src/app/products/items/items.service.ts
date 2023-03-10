@@ -4,6 +4,7 @@ import { bindAllInstanceMethods } from 'common/utils/object.utils'
 import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IIngredient } from 'app/products/ingredients/ingredients.types'
 import { IBuilderIngredientFormValues } from 'app/builder/builder-tool/ingredient-form/ingredient-form.types'
+import { IVariety } from 'app/products/varieties/varieties.types'
 import { IItemService, IItem } from './items.types'
 
 export class ItemService implements IItemService {
@@ -76,5 +77,22 @@ export class ItemService implements IItemService {
       ...data
     }
     await this.httpClient.post<IResponse<IItem>>('/item/updateIngredient', { params })
+  }
+
+  public async getVarieties(itemId: string): Promise<IVariety[]> {
+    const {
+      data: { data },
+    } = await this.httpClient.get<IResponse<IVariety[]>>(`/item/${itemId}/varieties`)
+    return Array.isArray(data) ? data : []
+  }
+
+  public async addVariety(itemId: string, varietyId: string): Promise<void> {
+    const params = { item_id: itemId, variety_id: varietyId }
+    await this.httpClient.post<Promise<void>>('/item/addVariety', { params })
+  }
+
+  public async deleteVariety(itemId: string, varietyId: string): Promise<void> {
+    const params = { item_id: itemId, variety_id: varietyId }
+    await this.httpClient.post<Promise<void>>('/item/deleteVariety', { params })
   }
 }
