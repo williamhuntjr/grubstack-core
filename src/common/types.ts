@@ -42,3 +42,8 @@ export interface IJWTToken {
   scope: string
   sub: string
 }
+
+export interface IVersion {
+  id: number
+  version: string
+}

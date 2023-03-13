@@ -6,9 +6,11 @@ import { setAxiosTokenInterceptor, HttpClient } from 'core/services/http-client'
 import { smMq } from 'common/constants'
 import { Loading } from 'core/components/loading/loading'
 import { IRoute } from 'common/routing/routing.types'
+import { Updating } from 'core/components/updating/updating'
 import { appConfig } from 'common/config'
 import { buildAsyncRoute } from 'common/routing/lazy-routing/lazy-routing.utils'
 import { isAsyncRoute, buildRoute } from 'common/routing/routing.utils'
+import { IVersion } from 'common/types'
 import { IAppContainer } from './app-container.types'
 import { Header } from './header/header'
 import { Content } from './content/content'
@@ -42,6 +44,7 @@ const HttpProvider = (): JSX.Element => {
 export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   const { isLoading, isAuthenticated, loginWithRedirect  } = useAuth0()
   const [ appLoading, setAppLoading ] = useState<boolean>(true)
+  const [ appUpdating, setAppUpdating ] = useState<boolean>(true)
 
   const isMobile = useMediaQuery(smMq)
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(!isMobile)
@@ -56,7 +59,9 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
 
   const init = async (): Promise<void> => {
     try {
+      setAppLoading(true)
       await HttpClient.get('/auth/verify_tenant')
+      
       const userInfo = localStorage.getItem('grubUserInfo')
       if (userInfo == null) {
         const {
@@ -64,6 +69,18 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
         } = await HttpClient.get('/auth/userinfo')
         localStorage.setItem('grubUserInfo', JSON.stringify(data))
       }
+      
+      const resp = await HttpClient.get('/core/versions')
+      const versions:IVersion[] = resp.data.data
+
+      const currentVersion = versions.filter((version) => version.id == appConfig.appId)[0]
+      if (currentVersion && currentVersion.version != appConfig.appVersion) {
+        setAppUpdating(true)
+        await HttpClient.post('/core/updateApps')
+        setAppUpdating(false)
+        //window.location.reload()
+      }
+    
       setAppLoading(false)
     } catch (e) {
       console.log("You do not have access to this tenant.")
@@ -82,8 +99,9 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   return (
     <div className={styles.appContainer}>
       <HttpProvider />
-      {appLoading && <Loading />}
-      {!appLoading &&
+      {appUpdating && <Updating />}
+      {appLoading && !appUpdating && <Loading />}
+      {!appLoading && !appUpdating &&
       <div>
         <Header onToggle={toggleSidebar} sidebarOpen={sidebarOpen || !isMobile}/>
         <div className={styles.appContent}>
