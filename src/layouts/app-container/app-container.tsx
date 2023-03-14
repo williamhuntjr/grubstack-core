@@ -73,14 +73,15 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
       const resp = await HttpClient.get('/core/versions')
       const versions:IVersion[] = resp.data.data
 
-      const currentVersion = versions.filter((version) => version.id == appConfig.appId)[0]
-      if (currentVersion && currentVersion.version != appConfig.appVersion) {
-        setAppUpdating(true)
-        await HttpClient.post('/core/updateApps')
-        setAppUpdating(false)
-        //window.location.reload()
+      if (process.env.NODE_ENV == 'production') {
+        const currentVersion = versions.filter((version) => version.id == appConfig.appId)[0]
+        if (currentVersion && currentVersion.version != appConfig.appVersion) {
+          setAppUpdating(true)
+          await HttpClient.post('/core/updateApps')
+          setAppUpdating(false)
+          window.location.href = `${appConfig.corporateSite}/dashboard/products`
+        }
       }
-    
       setAppLoading(false)
     } catch (e) {
       console.log("You do not have access to this tenant.")
