@@ -44,7 +44,7 @@ const HttpProvider = (): JSX.Element => {
 export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   const { isLoading, isAuthenticated, loginWithRedirect  } = useAuth0()
   const [ appLoading, setAppLoading ] = useState<boolean>(true)
-  const [ appUpdating, setAppUpdating ] = useState<boolean>(true)
+  const [ appUpdating, setAppUpdating ] = useState<boolean>(false)
 
   const isMobile = useMediaQuery(smMq)
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(!isMobile)
@@ -70,10 +70,9 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
         localStorage.setItem('grubUserInfo', JSON.stringify(data))
       }
       
-      const resp = await HttpClient.get('/core/versions')
-      const versions:IVersion[] = resp.data.data
-
       if (process.env.NODE_ENV == 'production') {
+        const resp = await HttpClient.get('/core/versions')
+        const versions:IVersion[] = resp.data.data  
         const currentVersion = versions.filter((version) => version.id == appConfig.appId)[0]
         if (currentVersion && currentVersion.version != appConfig.appVersion) {
           setAppUpdating(true)
