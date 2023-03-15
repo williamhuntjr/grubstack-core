@@ -77,14 +77,14 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
         if (currentVersion && currentVersion.version != appConfig.appVersion) {
           setAppUpdating(true)
           await HttpClient.post('/core/updateApps')
-          setAppUpdating(false)
           if (caches) {
             await caches.keys().then(async function(names) {
               for (let name of names) await caches.delete(name)
             })
           }
-          window.location.reload()
-          //window.location.href = `${appConfig.corporateSite}/dashboard/products?updateCompleted=true`
+          // Wait 3 seconds to reload after update
+          const timer = setTimeout(() => window.location.reload(), 3000)
+          clearTimeout(timer)
         }
       }
       setAppLoading(false)
