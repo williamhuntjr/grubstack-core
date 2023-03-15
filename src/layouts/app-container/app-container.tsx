@@ -84,7 +84,7 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
           }
           setTimeout(() => {
             window.location.reload()
-          }, 3000)
+          }, 10000)
         }
       }
       setAppLoading(false)
