@@ -79,8 +79,8 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
           await HttpClient.post('/core/updateApps')
           setAppUpdating(false)
           if (caches) {
-            caches.keys().then(function(names) {
-              for (let name of names) caches.delete(name)
+            await caches.keys().then(async function(names) {
+              for (let name of names) await caches.delete(name)
             })
           }
           window.location.reload()
