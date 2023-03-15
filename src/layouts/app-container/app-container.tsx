@@ -78,7 +78,13 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
           setAppUpdating(true)
           await HttpClient.post('/core/updateApps')
           setAppUpdating(false)
-          window.location.href = `${appConfig.corporateSite}/dashboard/products?updateCompleted=true`
+          if (caches) {
+            caches.keys().then(function(names) {
+              for (let name of names) caches.delete(name)
+            })
+          }
+          window.location.reload()
+          //window.location.href = `${appConfig.corporateSite}/dashboard/products?updateCompleted=true`
         }
       }
       setAppLoading(false)
