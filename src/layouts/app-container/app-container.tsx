@@ -82,7 +82,9 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
               for (let name of names) await caches.delete(name)
             })
           }
-          window.location.reload()
+          setTimeout(() => {
+            window.location.reload()
+          }, 3000)
         }
       }
       setAppLoading(false)
