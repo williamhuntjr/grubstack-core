@@ -82,9 +82,7 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
               for (let name of names) await caches.delete(name)
             })
           }
-          // Wait 3 seconds to reload after update
-          const timer = setTimeout(() => window.location.reload(), 3000)
-          clearTimeout(timer)
+          window.location.reload()
         }
       }
       setAppLoading(false)
