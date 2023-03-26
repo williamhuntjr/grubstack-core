@@ -22,6 +22,9 @@ import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.type
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { listPageSize } from 'common/constants'
 import { hasPermission } from 'common/auth/auth.utils'
+import { GrubList } from 'core/components/grub-list/grub-list'
+import { IVariety } from 'app/products/varieties/varieties.types'
+import { usePagination } from 'common/hooks/pagination.hook'
 import { BuilderParams, BuilderTypes } from 'app/builder/builder.constants'
 import { 
   defaultBuilderState, 
@@ -39,7 +42,7 @@ import { IngredientForm } from './ingredient-form/ingredient-form'
 import { ItemForm } from './item-form/item-form'
 import { IBuilderIngredientFormValues } from './ingredient-form/ingredient-form.types'
 import { IBuilderToolState, IBuilderDataItem } from './builder-tool.types'
-import { buildNutritionLabel } from './builder-tool.utils'
+import { buildNutritionLabel, normalizeData } from './builder-tool.utils'
 import styles from './builder-tool.module.scss'
 import { IBuilderItemFormValues } from './item-form/item-form.types'
 
@@ -74,6 +77,11 @@ export const BuilderTool: FC = () => {
   const actions = generateActions()
 
   const {
+    state: varietyPaginationState,
+    pagination: varietyPagination
+  } = usePagination<IVariety>(VarietyService.getAll)
+
+  const {
     data: deleteDialogData,
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
@@ -101,10 +109,9 @@ export const BuilderTool: FC = () => {
   } = useDialog<IItem|null>()
 
   const {
-    data: quickPickerData,
-    open: quickPickerOpen,
-    openDialog: openQuickPickerDialog,
-    closeDialog: closeQuickPickerDialog,
+    open: varietyPickerOpen,
+    openDialog: openVarietyPickerDialog,
+    closeDialog: closeVarietyPickerDialog,
   } = useDialog<IQuickPickerItem[]>([])
 
   const fetchData = useCallback(async(): Promise<void> => {
@@ -112,9 +119,12 @@ export const BuilderTool: FC = () => {
     try {
       let paginatedData:IPaginationData<IItem>|IPaginationData<IMenu>
       let singleData:IResponse<IItem>|IResponse<IMenu>|null = null
+      let optionalData:IVariety[]|null = null
+
       if (objectType === BuilderParams.Item) {
         paginatedData = await ItemService.getIngredients({limit: listPageSize, page: state.page}, objectId ?? '')
         singleData = await ItemService.getItem(objectId ?? '')
+        optionalData = await ItemService.getVarieties(objectId ?? '')
       }
       if (objectType === BuilderParams.Menu) {
         paginatedData = await MenuService.getItems({limit: listPageSize, page: state.page}, objectId ?? '')
@@ -124,7 +134,7 @@ export const BuilderTool: FC = () => {
         paginatedData = await VarietyService.getIngredients({limit: listPageSize, page: state.page}, objectId ?? '')
         singleData = await VarietyService.getVariety(objectId ?? '')
       }
-      setState((prevState) => ({ ...prevState, parent: singleData ? singleData.data : null, data: paginatedData.data, total: paginatedData.total, pages: Math.ceil(paginatedData.total / listPageSize )}))
+      setState((prevState) => ({ ...prevState, parent: singleData ? singleData.data : null, data: paginatedData.data, optional: optionalData ? optionalData : null, total: paginatedData.total, pages: Math.ceil(paginatedData.total / listPageSize )}))
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     }
@@ -248,9 +258,39 @@ export const BuilderTool: FC = () => {
     setState((prevState) => ({ ...prevState, page: newPage, event: event }))
   }
 
-  const handleAddItemDialog = useCallback(() => {
-    openQuickPickerDialog([])
-  }, [openQuickPickerDialog])
+  const handleAddVarietyDialog = useCallback(() => {
+    openVarietyPickerDialog(varietyPaginationState.data)
+  }, [openVarietyPickerDialog, varietyPaginationState.data])
+
+  const onAddVariety = useCallback(async (varietyData: IVariety): Promise<void> => {
+    try {
+      await ItemService.addVariety(objectId ?? '', varietyData.id ?? '')
+      toast.success(ValidationBuilderMessage.AddItemVarietySuccess)
+    } catch (e) {
+      ErrorHandler.handleError(e as Error)
+      return
+    } 
+    setState((prevState) => ({ ...prevState, isLoading: true }))
+    void fetchData()
+    setState((prevState) => ({ ...prevState, isLoading: false }))
+  }, [ErrorHandler, ItemService, objectId, fetchData])
+
+  const onDeleteVariety = useCallback(async (itemId: string, varietyId: string): Promise<void> => {
+    try {
+      await ItemService.deleteVariety(itemId, varietyId)
+      toast.success(ValidationBuilderMessage.DeleteItemVarietySuccess)
+    } catch (e) {
+      ErrorHandler.handleError(e as Error)
+      return
+    }
+    setState((prevState) => ({ ...prevState, isLoading: true }))
+    void fetchData()
+    setState((prevState) => ({ ...prevState, isLoading: false }))
+  }, [ErrorHandler, ItemService, fetchData])
+
+  const handleItemVarietyDelete = (value: string): void => {
+    void onDeleteVariety(objectId ?? '', value)
+  }
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, objectId: objectId ?? '', objectType: objectType ?? '' }))
@@ -258,10 +298,6 @@ export const BuilderTool: FC = () => {
 
   // eslint-disable-next-line
   useEffect(() => void fetchData(), [objectType, objectId])
-  
-  useEffect(() => {
-    console.log(quickPickerData)
-  }, [quickPickerData])
 
   return (
     <div className={styles.builderToolContainer}>
@@ -284,10 +320,20 @@ export const BuilderTool: FC = () => {
         onClose={closeItemDialog}
         title={itemDialogData?.name ?? ''}
       >
-        <ItemForm onClose={closeItemDialog} onSubmit={handleItemSubmit} data={itemDialogData} mode={state.mode} onOpenAddDialog={handleAddItemDialog}/>
+        <ItemForm onClose={closeItemDialog} onSubmit={handleItemSubmit} data={itemDialogData} mode={state.mode} />
       </GrubDialog>
       
-      <QuickPicker open={quickPickerOpen} onClose={closeQuickPickerDialog} data={[]} currentPage={1} pages={1} onClick={() => console.log('test')} onPageChange={(event, newPage) => console.log(event, newPage)} />
+      <QuickPicker 
+        open={varietyPickerOpen} 
+        onClose={closeVarietyPickerDialog} 
+        data={varietyPaginationState.data} 
+        currentPage={varietyPagination.page} 
+        pages={varietyPagination.total} 
+        onClick={onAddVariety} 
+        onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+          void varietyPagination.onChangePage(page)
+        }}
+      />
 
       <ConfirmationDialog
         open={deleteDialogOpen}
@@ -311,7 +357,18 @@ export const BuilderTool: FC = () => {
           }
           <div className={styles.builderDetails}>
             {objectType === BuilderParams.Item &&
-              buildNutritionLabel(state.data)
+              <div className={styles.nutritionLabel}>
+                {buildNutritionLabel(state.data)}
+              </div>
+            }
+            {objectType === BuilderParams.Item &&
+              <GrubList 
+                data={normalizeData(state.optional ? state.optional : [])}
+                onClickAdd={handleAddVarietyDialog}
+                onClickDelete={handleItemVarietyDelete}
+                className={styles.varietyList}
+                subHeader={"Varieties"}
+              />
             }
           </div>
         </div>

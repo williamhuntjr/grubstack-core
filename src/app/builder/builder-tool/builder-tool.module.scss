@@ -29,7 +29,12 @@ $builderDetailsCardWidth: 300px;
       }
       .builderDetails {
         width: 100%;
-        background-color: $offset-color;
+        .nutritionLabel {
+          background-color: $offset-color;
+        }
+        .varietyList {
+          margin-top: $grid-base;
+        }
       }
       .builderCard {
         display: flex;

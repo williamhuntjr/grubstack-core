@@ -106,8 +106,7 @@ root.render(
           domain={appConfig.authDomain}
           clientId={appConfig.authClientId}
           redirectUri={appConfig.siteUrl}
-          audience="https://core-api.grubstack.app/v1"
-          scope=""
+          audience="https://api.grubstack.app/v1"
         > 
           <Routes>
             <Route path="/*" element={<AppContainer routes={appRoutes} />}/>

@@ -13,6 +13,7 @@ export const defaultBuilderState = {
   page: 1,
   pages: 1,
   selected: null,
+  optional: null,
   parent: null,
   mode: GSMode.New
 }
@@ -90,4 +91,7 @@ export enum ValidationBuilderMessage {
   
   AddVarietyIngredientSuccess = 'The ingredient has been added to your variety.',
   DeleteVarietyIngredientSuccess = 'The ingredient has been removed from the variety.',
+
+  AddItemVarietySuccess = 'The variety has been added to your item.',
+  DeleteItemVarietySuccess = 'The variety has been removed from the item.',
 }

@@ -7,4 +7,5 @@ export interface IUser {
   picture: string
   sub: string
   updated_at: string
+  tenant_id: string
 }

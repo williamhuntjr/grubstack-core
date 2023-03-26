@@ -1,6 +1,5 @@
 import { IItem } from 'app/products/items/items.types'
 import { GSMode } from 'common/utils/mode/mode.types'
-import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
 import { ItemFormField } from './item-form.constants'
 
 export interface IBuilderItemFormValues {
@@ -14,5 +13,4 @@ export interface IItemForm {
   onSubmit(data: IBuilderItemFormValues): Promise<void>
   data?: IItem|null
   mode: GSMode
-  onOpenAddDialog: (data: IQuickPickerItem[]) => void
 }

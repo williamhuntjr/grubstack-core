@@ -26,6 +26,12 @@ export const UserMenu: FC = () => {
     setAnchorEl(null)
   }
 
+  const handleLogout = (): void => {
+    logout({ returnTo: appConfig.corporateSite })
+    localStorage.removeItem('grubToken')
+    localStorage.removeItem('grubUserInfo')
+  }
+
   return (
     <div className={styles.userMenu}>
       <Tooltip title="Account settings">
@@ -82,7 +88,7 @@ export const UserMenu: FC = () => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={() => logout({ returnTo: appConfig.corporateSite })}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small"/>
           </ListItemIcon>

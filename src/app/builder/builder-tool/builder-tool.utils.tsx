@@ -1,5 +1,7 @@
 import { buildItemData } from 'app/products/ingredients/ingredient-list/ingredient-list.utils'
 import { IIngredientSpecs, IIngredient } from 'app/products/ingredients/ingredients.types'
+import { IVariety } from 'app/products/varieties/varieties.types'
+import { IGrubListItem } from 'core/components/grub-list/grub-list.types'
 import { IBuilderDataItem } from './builder-tool.types'
 
 export function buildNutritionLabel(data: IBuilderDataItem[]): JSX.Element {
@@ -29,4 +31,11 @@ export function buildNutritionLabel(data: IBuilderDataItem[]): JSX.Element {
     newData.fiber = Number(newData.fiber) + Number(convertedData.fiber)
   })
   return buildItemData(newData)
+}
+
+export function normalizeData(data: IVariety[]): IGrubListItem[] {
+  return data.map((item) => ({
+    label: item.name,
+    value: item.id ?? ''
+  }))
 }
