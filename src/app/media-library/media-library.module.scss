@@ -1,0 +1,15 @@
+@import 'assets/sass/variables';
+
+.mediaLibraryContainer {
+  display: flex;
+  flex-wrap: wrap;
+  .mediaLibraryItem {
+    margin: $grid-small;
+    border: $border-disabled;
+    width: 100px;
+    height: 100px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}

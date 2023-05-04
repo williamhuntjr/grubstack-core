@@ -9,4 +9,6 @@ export enum UserPermissions {
   MaintainIngredients = 'MaintainIngredients',
   ViewVarieties = 'ViewVarieties',
   MaintainVarieties = 'MaintainVarieties',
+  ViewMediaLibrary = 'ViewMediaLibrary',
+  MaintainMediaLibrary = 'MaintainMediaLibrary'
 }
