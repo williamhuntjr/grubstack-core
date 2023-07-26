@@ -29,8 +29,8 @@ interface ITablePagination {
   onChangeLimit(limit: number): Promise<void>,
   isLoading: boolean
 }
-export function usePagination<TData>(requestFn: TPaginationRequestFn<TData>): IPaginationHook<TData> {
-  const [state, setState] = useState<IPaginationHookState<TData>>({ isLoading: true, data: [], total: 0, pages: 1, pagination: { page: 1, limit: listPageSize } })
+export function usePagination<TData>(requestFn: TPaginationRequestFn<TData>, pageLimit?: number): IPaginationHook<TData> {
+  const [state, setState] = useState<IPaginationHookState<TData>>({ isLoading: true, data: [], total: 0, pages: 1, pagination: { page: 1, limit: pageLimit ?? listPageSize } })
 
   const fetchData = useCallback(async(pagination?: IPaginationParams): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true, pagination: pagination ?? prevState.pagination }))

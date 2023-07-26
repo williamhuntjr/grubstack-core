@@ -98,7 +98,7 @@ root.render(
       hideProgressBar={true}
       autoClose={3000}
       pauseOnFocusLoss={false}
-      position="bottom-left"
+      position="bottom-right"
     />
     <ThemeProvider theme={theme}>
       <BrowserRouter>
