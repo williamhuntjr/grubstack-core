@@ -6,6 +6,9 @@ COPY . .
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
 
+ARG BUILD_ENV=production
+ENV NODE_ENV=$BUILD_ENV
+
 # Build the app
 RUN npm run build
 
