@@ -1,6 +1,8 @@
 import UploadIcon from '@mui/icons-material/Upload'
 import { UserPermissions } from 'common/auth/auth.constants'
 import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
+import { GSMode } from 'common/utils/mode/mode.types'
+import { IMediaLibraryState } from './media-library.types'
 
 export const mediaLibraryServiceToken = 'MediaLibraryService'
 export const mediaLibraryModule = 'MediaLibraryModule'
@@ -14,6 +16,8 @@ export const mediaLibraryPermissions = [
 
 export enum MediaLibraryAction {
   Upload = 'Upload File',
+  View = 'Preview File',
+  Delete = 'Delete File'
 }
 
 export const MediaLibrarySpeedActions:ISpeedDialerAction[] = [
@@ -23,82 +27,9 @@ export const MediaLibrarySpeedActions:ISpeedDialerAction[] = [
   }
 ]
 
-export const imagesList = [
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-  {
-    id: 1,
-    name: 'logo',
-    filename: 'bobs-burgers.png',
-    filesize: 200,
-    url: '/uploads/bobs-burgers.png',
-  },
-]
+export const defaultMediaLibraryState:IMediaLibraryState = {
+  mode: GSMode.New,
+  isLoading: false,
+}
+
+export const mediaLibraryPageLimit = 30

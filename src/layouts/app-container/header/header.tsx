@@ -17,7 +17,7 @@ export const Header: FC<IHeader> = memo(({ onToggle, sidebarOpen }) => {
           {!sidebarOpen && (<MenuIcon />) }
         </Button>
         <div className={styles.logoContainer}>
-          <a href={`${appConfig.corporateSite}/dashboard`}><img src={logo} alt="" className={styles.logoImage}/></a>
+          <a href={`${appConfig.productionUrl}/dashboard`}><img src={logo} alt="" className={styles.logoImage}/></a>
         </div>
         <div className={styles.userMenu}
           ><UserMenu />

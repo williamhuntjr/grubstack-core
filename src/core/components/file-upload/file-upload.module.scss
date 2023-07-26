@@ -1,0 +1,34 @@
+@import 'assets/sass/variables';
+
+.fileUploadContainer {
+  min-width: 300px;
+  min-height: 300px;
+  border: 2px $color-gray-normal dashed;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .fileUploadLabel {
+    max-width: 150px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0;
+  }
+  .fileUploadIcon {
+    font-size: 60px;
+    color: $color-primary;
+  }
+  .fileUploadDividerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .fileUploadDividerText {
+      font-size: 14px;
+    }
+    .fileUploadDivider {
+      width: 60px;
+      margin: 0 $grid-base 0 $grid-base;
+    }
+  }
+}

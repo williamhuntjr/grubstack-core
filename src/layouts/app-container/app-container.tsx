@@ -90,7 +90,7 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
       setAppLoading(false)
     } catch (e) {
       console.log("You do not have access to this tenant.")
-      window.location.href = `${appConfig.corporateSite}/unauthorized-access`
+      window.location.href = `${appConfig.productionUrl}/unauthorized-access`
     }
   }
 

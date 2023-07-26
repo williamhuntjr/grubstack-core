@@ -1,0 +1,32 @@
+@import 'assets/sass/variables';
+
+.mediaFileListContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  margin-bottom: $grid-base;
+  .mediaFilesContainer {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    .mediaFileListItem {
+      margin: $grid-small;
+      border: $border-black-thick;
+      width: 110px;
+      height: 110px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      &:hover {
+        border: $border-primary-thick;
+        cursor: pointer;
+      }
+    }
+  }
+  .paginationContainer {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,15 +1,16 @@
 import { GSMode } from 'common/utils/mode/mode.types'
-
+import { IPaginationData, IPaginationParams } from 'common/types'
 export interface IMediaLibraryFile {
-  name: string
-  filename: string
-  filesize: number
-  url: string
   id: number
+  name: string
+  fileSize: number
+  fileType: string
+  url: string
 }
 
 export interface IMediaLibraryService {
-  getAll(): Promise<void>
+  getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IMediaLibraryFile>>
+  uploadFiles(fileList: FileList): Promise<void>
 }
 
 export interface IMediaLibraryState {

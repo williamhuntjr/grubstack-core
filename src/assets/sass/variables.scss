@@ -34,7 +34,7 @@ $font-size-h6: 12px !default;
 $color-primary: #465de4 !default;
 $color-secondary: #282828 !default;
 $color-info: #0288d1;
-$color-corporate: #d62b70;
+$color-production: #d62b70;
 $color-alert: red;
 
 $color-gray-primary: #adaeb0 !default;
@@ -44,12 +44,21 @@ $color-grey-blue: #8c96ab;
 $color-disabled: rgba(0, 0, 0, 0.15);
 $color-body: #505050;
 
-$border-primary: solid $border-thick $color-primary;
-$border-grey-primary: solid $border-thin $dark-gray;
+$border-primary: solid $border-thin $color-primary;
+$border-dark-gray: solid $border-thin $dark-gray;
 $border-black: solid $border-thin $black-color;
 $border-btn: solid $border-thick $color-secondary;
-$border-grey: solid $border-thin $color-gray-primary;
+$border-gray-primary: solid $border-thin $color-gray-primary;
 $border-disabled: solid $border-thin $color-disabled;
+$border-production: solid $border-thin $color-production;
+
+$border-primary-thick: solid $border-thick $color-primary;
+$border-dark-gray-thick: solid $border-thick $dark-gray;
+$border-black-thick: solid $border-thick $black-color;
+$border-btn-thick: solid $border-thick $color-secondary;
+$border-gray-primary-thick: solid $border-thick $color-gray-primary;
+$border-disabled-thick: solid $border-thick $color-disabled;
+$border-production-thick: solid $border-thick $color-production;
 
 $box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.08);
 
