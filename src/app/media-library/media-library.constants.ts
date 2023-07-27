@@ -2,7 +2,7 @@ import UploadIcon from '@mui/icons-material/Upload'
 import { UserPermissions } from 'common/auth/auth.constants'
 import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
 import { GSMode } from 'common/utils/mode/mode.types'
-import { IMediaLibraryState } from './media-library.types'
+import { IMediaLibraryFile, IMediaLibraryState } from './media-library.types'
 
 export const mediaLibraryServiceToken = 'MediaLibraryService'
 export const mediaLibraryModule = 'MediaLibraryModule'
@@ -17,7 +17,8 @@ export const mediaLibraryPermissions = [
 export enum MediaLibraryAction {
   Upload = 'Upload File',
   View = 'Preview File',
-  Delete = 'Delete File'
+  Delete = 'Delete File',
+  Select = 'Select File'
 }
 
 export const MediaLibrarySpeedActions:ISpeedDialerAction[] = [
@@ -33,3 +34,11 @@ export const defaultMediaLibraryState:IMediaLibraryState = {
 }
 
 export const mediaLibraryPageLimit = 30
+
+export const defaultMediaLibraryFormData:IMediaLibraryFile = {
+  id: 0,
+  name: '',
+  file_size: 0,
+  file_type: 'image/png',
+  url: '',
+}

@@ -1,6 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { MediaLibraryAction } from '../media-library.constants'
+import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 
 export const MediaFileListActionsViewMode = [
   {

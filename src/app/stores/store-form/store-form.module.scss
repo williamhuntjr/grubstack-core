@@ -34,6 +34,9 @@ $dialogActionButtonWidth: $minButtonWidth;
   .storeCity, .storeState, .storePostal, .thumbnailUrl {
     width: 100%;
   }
+  .thumbnailUrl {
+    display: none;
+  }
   .saveButton {
     display: block;
     margin-left: auto;
@@ -43,5 +46,26 @@ $dialogActionButtonWidth: $minButtonWidth;
   }
   .storeFormMenuList {
     flex-grow: 1;
+  }
+  .storeAvatarContainer {
+    display: flex;
+    .storeAvatar {
+      margin-right: $grid-base;
+      margin-bottom: $grid-large;
+      img {
+        max-width: 150px;
+        margin: 0 auto 0 auto;
+        display: block;
+        border: $border-gray-primary;
+      }
+      button {
+        min-width: 150px;
+        width: 100%;
+        margin-top: $grid-base;
+      }
+    }
+    .storeAvatarInputContainer {
+      width: 100%;
+    }
   }
 }

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { IPaginationData, IPaginationParams } from 'common/types'
 import { listPageSize } from 'common/constants'
 
-interface IPaginationHookState<TData> {
+export interface IPaginationHookState<TData> {
   isLoading: boolean
   pagination: IPaginationParams
   data: TData[]
@@ -21,7 +21,7 @@ type TPaginationRequestFn<TData> = (
   data?: TData[]
 ) => Promise<IPaginationData<TData>>
 
-interface ITablePagination {
+export interface ITablePagination {
   total: number
   limit: number
   page: number

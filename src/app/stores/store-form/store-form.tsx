@@ -16,12 +16,20 @@ import { storeTypes, defaultStoreFormData } from './store-form.constants'
 import { normalizeMenuData } from './store-form.utils'
 import styles from './store-form.module.scss'
 
-export const StoreForm: FC<IStoreForm> = memo(({ onSubmit, onDeleteMenu, mode, data, onOpenAddDialog }) => {
+export const StoreForm: FC<IStoreForm> = memo(({ 
+  onSubmit,
+  onDeleteMenu,
+  mode,
+  data,
+  onOpenAddDialog,
+  onOpenFilePicker,
+  pickerIsDirty,
+}) => {
   const { 
     handleSubmit, 
     control, 
     reset, 
-    formState: { isDirty } 
+    formState: { isDirty },
   } = useForm<IStoreFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(StoreFormSchema),
@@ -53,21 +61,29 @@ export const StoreForm: FC<IStoreForm> = memo(({ onSubmit, onDeleteMenu, mode, d
 
   return (
     <form onSubmit={submitForm} className={styles.storeForm}>
-      <FormField
-        name={StoreFormField.Name}
-        control={control}
-        label={StoreFormLabel.Name}
-        className={styles.storeName}
-        disabled={isViewMode}
-      />
-      <FormSelectField
-        control={control}
-        name={StoreFormField.StoreType}
-        label={StoreFormLabel.StoreType}
-        disabled={isViewMode}
-        options={defineFormSelectData(storeTypes)}
-        className={styles.storeType}
-      />
+      <div className={styles.storeAvatarContainer}>
+        <div className={styles.storeAvatar}>
+          <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
+        </div>
+        <div className={styles.storeAvatarInputContainer}>
+          <FormField
+            name={StoreFormField.Name}
+            control={control}
+            label={StoreFormLabel.Name}
+            className={styles.storeName}
+            disabled={isViewMode}
+          />
+          <FormSelectField
+            control={control}
+            name={StoreFormField.StoreType}
+            label={StoreFormLabel.StoreType}
+            disabled={isViewMode}
+            options={defineFormSelectData(storeTypes)}
+            className={styles.storeType}
+          />
+        </div>
+      </div>
       <FormField
         name={StoreFormField.Address}
         control={control}
@@ -113,7 +129,7 @@ export const StoreForm: FC<IStoreForm> = memo(({ onSubmit, onDeleteMenu, mode, d
       />
       <GrubList data={normalizeMenuData(data?.menus ?? [])} disabled={!canEditStores || isNewMode} subHeader="Food Menus" onClickAdd={handleOpenAddDialog} className={styles.storeFormMenuList} onClickDelete={handleDelete} />
       <Divider className={styles.divider} />
-      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
+      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty && !pickerIsDirty}>
         Save Store
       </Button>
     </form>

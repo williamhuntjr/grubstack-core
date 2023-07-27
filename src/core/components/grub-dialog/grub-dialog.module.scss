@@ -28,6 +28,7 @@ $dialogActionButtonWidth: $minButtonWidth;
 .dialogTitleText {
   display: flex;
   align-items: center;
+  margin-right: $grid-base;
 }
 .grubDialogContainer {
   display: flex;

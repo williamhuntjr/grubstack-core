@@ -32,4 +32,9 @@ export class MediaLibraryService implements IMediaLibraryService {
       })
     }
   }
+
+  public async delete(fileId: string): Promise<void> {
+    const params = { file_id: fileId }
+    await this.httpClient.post<Promise<void>>('/media-library/delete', { params })
+  }
 }

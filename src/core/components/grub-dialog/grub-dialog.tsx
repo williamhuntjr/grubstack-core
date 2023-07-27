@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { Button, Dialog, DialogTitle, DialogContent } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { trimDialogTitle } from 'common/utils/display.utils'
 import { cls } from 'common/utils/utils'
 import { IGrubDialog } from './grub-dialog.types'
 import styles from './grub-dialog.module.scss'
@@ -22,7 +23,7 @@ export const GrubDialog: FC<IGrubDialog> = ({ open, children, className, onClose
       <DialogTitle id="grub-dialog-title" className={styles.dialogTitle}>
         <div className={styles.dialogTitleContent}>
           <div className={styles.dialogTitleText}>
-            {title}
+            {trimDialogTitle(title)}
           </div>
           <div className={styles.dialogTitleActions}>
             <Button onClick={onClose} variant="contained" color="secondary" className={styles.dialogActionButton}>

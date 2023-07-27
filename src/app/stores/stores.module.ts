@@ -3,6 +3,7 @@ import { Injector } from 'core/injector/injector.service'
 import { httpClientToken, IHttpClient } from 'core/services/http-client'
 import { Scope } from 'core/injector/injector.types'
 import { CoreModule } from 'core/core.module'
+import { MediaLibraryModule } from 'app/media-library/media-library.module'
 import { ProductModule } from 'app/products/products.module'
 import { IStoreService } from './stores.types'
 import {
@@ -25,5 +26,5 @@ export const StoreModule: ILazyModule<StoreModuleDefinition> = {
     const httpClient = Injector.resolve<IHttpClient>(httpClientToken)
     Injector.register<IStoreService>(storeServiceToken, () => new StoreService(httpClient), Scope.Singleton)
   },
-  dependencies: [CoreModule, ProductModule],
+  dependencies: [CoreModule, ProductModule, MediaLibraryModule],
 }

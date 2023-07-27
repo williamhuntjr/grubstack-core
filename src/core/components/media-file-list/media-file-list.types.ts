@@ -1,14 +1,13 @@
 import { ChangeEvent } from 'react'
-import { IListAction } from 'common/list.types'
 import { ListActionHandler } from 'common/list.types'
-import { IMediaLibraryFile } from '../media-library.types'
+import { IMediaLibraryFile } from 'app/media-library/media-library.types'
+import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 
 export interface IMediaFileList {
   data: IMediaLibraryFile[]
-  actions: IListAction[]
-  onAction: ListActionHandler<IMediaLibraryFile, IListAction> | undefined
+  onAction: ListActionHandler<IMediaLibraryFile, MediaLibraryAction>
   pages: number
   page: number
   onPageChange(event: ChangeEvent<unknown>, page: number): void
-
+  isPicker?: boolean
 }
