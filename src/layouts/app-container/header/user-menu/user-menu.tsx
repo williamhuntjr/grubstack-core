@@ -27,9 +27,9 @@ export const UserMenu: FC = () => {
   }
 
   const handleLogout = (): void => {
-    logout({ returnTo: appConfig.productionUrl })
     localStorage.removeItem('grubToken')
     localStorage.removeItem('grubUserInfo')
+    logout({ returnTo: appConfig.productionUrl })
   }
 
   return (
