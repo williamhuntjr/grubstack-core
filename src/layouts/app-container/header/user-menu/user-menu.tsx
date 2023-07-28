@@ -26,10 +26,10 @@ export const UserMenu: FC = () => {
     setAnchorEl(null)
   }
 
-  const handleLogout = (): void => {
+  const handleLogout = async (): Promise<void> => {
     localStorage.removeItem('grubToken')
     localStorage.removeItem('grubUserInfo')
-    logout({ returnTo: appConfig.productionUrl })
+    await logout({ logoutParams: { returnTo: appConfig.productionUrl }})
   }
 
   return (

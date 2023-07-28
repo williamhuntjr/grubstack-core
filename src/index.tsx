@@ -105,8 +105,11 @@ root.render(
         <Auth0Provider
           domain={appConfig.authDomain}
           clientId={appConfig.authClientId}
-          redirectUri={appConfig.siteUrl}
-          audience="https://api.grubstack.app/v1"
+          
+          authorizationParams={{
+            redirect_uri: appConfig.siteUrl,
+            audience: "https://api.grubstack.app/v1"
+          }}
         > 
           <Routes>
             <Route path="/*" element={<AppContainer routes={appRoutes} />}/>
