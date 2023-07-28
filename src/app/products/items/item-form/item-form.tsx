@@ -4,17 +4,24 @@ import { Button, Divider } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { convertMode } from 'common/utils/mode/mode.utils'
 import { FormField } from 'common/utils/form/form.components'
+import { cls } from 'common/utils/utils'
 import { IItemForm, ItemFormField, ItemFormLabel, IItemFormValues } from './item-form.types'
 import { ItemFormSchema } from './item-form.validation'
 import { defaultItemFormData } from './item-form.constants'
 import styles from './item-form.module.scss'
 
-export const ItemForm: FC<IItemForm> = memo(({ onSubmit, mode, data }) => {
+export const ItemForm: FC<IItemForm> = memo(({ 
+  onSubmit, 
+  mode, 
+  data, 
+  onOpenFilePicker, 
+  isPickerDirty 
+}) => {
   const { 
     handleSubmit, 
     control, 
     reset, 
-    formState: { isDirty }
+    formState: { isDirty },
   } = useForm<IItemFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(ItemFormSchema),
@@ -36,29 +43,37 @@ export const ItemForm: FC<IItemForm> = memo(({ onSubmit, mode, data }) => {
 
   return (
     <form onSubmit={submitForm} className={styles.itemForm}>
-      <FormField
-        name={ItemFormField.Name}
-        control={control}
-        label={ItemFormLabel.Name}
-        className={styles.formField}
-        disabled={isViewMode}
-      />
-      <FormField
-        name={ItemFormField.Description}
-        control={control}
-        label={ItemFormLabel.Description}
-        className={styles.formField}
-        disabled={isViewMode}
-      />
+      <div className={styles.itemImageContainer}>
+        <div className={styles.itemImage}>
+          <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
+        </div>
+        <div className={styles.itemMainInputContainer}>
+          <FormField
+            name={ItemFormField.Name}
+            control={control}
+            label={ItemFormLabel.Name}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
+          <FormField
+            name={ItemFormField.Description}
+            control={control}
+            label={ItemFormLabel.Description}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
+        </div>
+      </div>
       <FormField
         name={ItemFormField.Thumbnail}
         control={control}
         label={ItemFormLabel.Thumbnail}
-        className={styles.formField}
+        className={cls(styles.formField, styles.thumbnailUrl)}
         disabled={isViewMode}
       />
       <Divider className={styles.divider} />
-      <Button type="submit" variant="contained" color="primary" disabled={!isDirty} className={styles.saveButton}>
+      <Button type="submit" variant="contained" color="primary" disabled={!isDirty && !isPickerDirty} className={styles.saveButton}>
         Save Item
       </Button>
     </form>

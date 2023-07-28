@@ -23,7 +23,7 @@ export const StoreForm: FC<IStoreForm> = memo(({
   data,
   onOpenAddDialog,
   onOpenFilePicker,
-  pickerIsDirty,
+  isPickerDirty,
 }) => {
   const { 
     handleSubmit, 
@@ -61,12 +61,12 @@ export const StoreForm: FC<IStoreForm> = memo(({
 
   return (
     <form onSubmit={submitForm} className={styles.storeForm}>
-      <div className={styles.storeAvatarContainer}>
-        <div className={styles.storeAvatar}>
+      <div className={styles.storeImageContainer}>
+        <div className={styles.storeImage}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
           <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
         </div>
-        <div className={styles.storeAvatarInputContainer}>
+        <div className={styles.storeMainInputContainer}>
           <FormField
             name={StoreFormField.Name}
             control={control}
@@ -129,7 +129,7 @@ export const StoreForm: FC<IStoreForm> = memo(({
       />
       <GrubList data={normalizeMenuData(data?.menus ?? [])} disabled={!canEditStores || isNewMode} subHeader="Food Menus" onClickAdd={handleOpenAddDialog} className={styles.storeFormMenuList} onClickDelete={handleDelete} />
       <Divider className={styles.divider} />
-      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty && !pickerIsDirty}>
+      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty && !isPickerDirty}>
         Save Store
       </Button>
     </form>

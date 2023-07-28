@@ -3,13 +3,20 @@ import { useForm } from 'react-hook-form'
 import { Button, Divider } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { convertMode } from 'common/utils/mode/mode.utils'
+import { cls } from 'common/utils/utils'
 import { FormField } from 'common/utils/form/form.components'
 import { IVarietyForm, VarietyFormField, VarietyFormLabel, IVarietyFormValues } from './variety-form.types'
 import { VarietyFormSchema } from './variety-form.validation'
 import { defaultVarietyFormData } from './variety-form.constants'
 import styles from './variety-form.module.scss'
 
-export const VarietyForm: FC<IVarietyForm> = memo(({ onSubmit, mode, data }) => {
+export const VarietyForm: FC<IVarietyForm> = memo(({ 
+    onSubmit, 
+    mode, 
+    data,
+    isPickerDirty,
+    onOpenFilePicker
+}) => {
   const { 
     handleSubmit, 
     control, 
@@ -36,29 +43,37 @@ export const VarietyForm: FC<IVarietyForm> = memo(({ onSubmit, mode, data }) => 
 
   return (
     <form onSubmit={submitForm} className={styles.varietyForm}>
-      <FormField
-        name={VarietyFormField.Name}
-        control={control}
-        label={VarietyFormLabel.Name}
-        className={styles.formField}
-        disabled={isViewMode}
-      />
-      <FormField
-        name={VarietyFormField.Description}
-        control={control}
-        label={VarietyFormLabel.Description}
-        className={styles.formField}
-        disabled={isViewMode}
-      />
+      <div className={styles.varietyImageContainer}>
+        <div className={styles.varietyImage}>
+          <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
+        </div>
+        <div className={styles.varietyMainInputContainer}>
+          <FormField
+            name={VarietyFormField.Name}
+            control={control}
+            label={VarietyFormLabel.Name}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
+          <FormField
+            name={VarietyFormField.Description}
+            control={control}
+            label={VarietyFormLabel.Description}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
+        </div>
+      </div>
       <FormField
         name={VarietyFormField.Thumbnail}
         control={control}
         label={VarietyFormLabel.Thumbnail}
-        className={styles.formField}
+        className={cls(styles.formField, styles.thumbnailUrl)}
         disabled={isViewMode}
       />
       <Divider className={styles.divider} />
-      <Button type="submit" variant="contained" color="primary" disabled={!isDirty} className={styles.saveButton}>
+      <Button type="submit" variant="contained" color="primary" disabled={!isDirty && !isPickerDirty} className={styles.saveButton}>
         Save Variety
       </Button>
     </form>

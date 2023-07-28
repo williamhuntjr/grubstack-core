@@ -11,7 +11,13 @@ import { IngredientFormField, IngredientFormLabel, IIngredientForm, IIngredientF
 import { IngredientFormSchema } from './ingredient-form.validation'
 import styles from './ingredient-form.module.scss'
 
-export const IngredientForm: FC<IIngredientForm> = memo(({ onSubmit, mode, data }) => {
+export const IngredientForm: FC<IIngredientForm> = memo(({ 
+    onSubmit,
+    mode,
+    data,
+    onOpenFilePicker,
+    isPickerDirty 
+  }) => {
   const { 
     handleSubmit, 
     control, 
@@ -38,116 +44,123 @@ export const IngredientForm: FC<IIngredientForm> = memo(({ onSubmit, mode, data 
 
   return (
     <form onSubmit={submitForm} className={styles.ingredientForm}>
-      <div className={styles.dialogContent}>
-        <FormField
-          name={IngredientFormField.Name}
-          control={control}
-          label={IngredientFormLabel.Name}
-          className={styles.ingredientName}
-          disabled={isViewMode}
-        />
-        <FormField
-          name={IngredientFormField.Description}
-          control={control}
-          label={IngredientFormLabel.Description}
-          className={cls(styles.formField, styles.ingredientDescription)}
-          disabled={isViewMode}
-        />
-        <FormField
-          name={IngredientFormField.Thumbnail}
-          control={control}
-          label={IngredientFormLabel.Thumbnail}
-          className={cls(styles.formField, styles.ingredientThumbnail)}
-          disabled={isViewMode}
-        />
-        <div className={styles.decimalFields}>
-          <DecimalField
-            name={IngredientFormField.Calories}
-            control={control}
-            label={IngredientFormLabel.Calories}
-            disabled={isViewMode}
-            className={styles.decimalField}
-          />
-          <DecimalField
-            name={IngredientFormField.Fat}
-            control={control}
-            label={IngredientFormLabel.Fat}
-            className={styles.decimalField}
-            disabled={isViewMode}
-          />
-          <DecimalField
-            name={IngredientFormField.SaturatedFat}
-            control={control}
-            label={IngredientFormLabel.SaturatedFat}
-            disabled={isViewMode}
-            className={styles.decimalField}
-          />
+      <div className={styles.ingredientImageContainer}>
+        <div className={styles.ingredientImage}>
+          <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
         </div>
-        <div className={styles.decimalFields}>
-          <DecimalField
-            name={IngredientFormField.TransFat}
+        <div className={styles.ingredientMainInputContainer}>
+          <FormField
+            name={IngredientFormField.Name}
             control={control}
-            label={IngredientFormLabel.TransFat}
+            label={IngredientFormLabel.Name}
+            className={styles.ingredientName}
             disabled={isViewMode}
-            className={styles.decimalField}
           />
-          <DecimalField
-            name={IngredientFormField.Cholesterol}
+          <FormField
+            name={IngredientFormField.Description}
             control={control}
-            label={IngredientFormLabel.Cholesterol}
+            label={IngredientFormLabel.Description}
+            className={cls(styles.formField, styles.ingredientDescription)}
             disabled={isViewMode}
-            className={styles.decimalField}
-          />
-          <DecimalField
-            name={IngredientFormField.Sodium}
-            control={control}
-            label={IngredientFormLabel.Sodium}
-            disabled={isViewMode}
-            className={styles.decimalField}
-          />
-        </div>
-        <div className={styles.decimalFields}>
-          <DecimalField
-            name={IngredientFormField.Carbs}
-            control={control}
-            label={IngredientFormLabel.Carbs}
-            disabled={isViewMode}
-            className={styles.decimalField}
-          />
-          <DecimalField
-            name={IngredientFormField.Protein}
-            control={control}
-            label={IngredientFormLabel.Protein}
-            disabled={isViewMode}
-            className={styles.decimalField}
-          />
-          <DecimalField
-            name={IngredientFormField.Sugar}
-            control={control}
-            label={IngredientFormLabel.Sugar}
-            disabled={isViewMode}
-            className={styles.decimalField}
-          />
-        </div>
-        <div className={styles.decimalFields}>
-          <DecimalField
-            name={IngredientFormField.Fiber}
-            control={control}
-            label={IngredientFormLabel.Fiber}
-            disabled={isViewMode}
-            className={styles.decimalField}
-          />
-          <DecimalField
-            name={IngredientFormField.Price}
-            control={control}
-            label={IngredientFormLabel.Price}
-            disabled={isViewMode}
-            className={styles.lastField}
           />
         </div>
       </div>
+      <FormField
+        name={IngredientFormField.Thumbnail}
+        control={control}
+        label={IngredientFormLabel.Thumbnail}
+        className={cls(styles.formField, styles.thumbnailUrl)}
+        disabled={isViewMode}
+      />
+      <div className={styles.decimalFields}>
+        <DecimalField
+          name={IngredientFormField.Calories}
+          control={control}
+          label={IngredientFormLabel.Calories}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+        <DecimalField
+          name={IngredientFormField.Fat}
+          control={control}
+          label={IngredientFormLabel.Fat}
+          className={styles.decimalField}
+          disabled={isViewMode}
+        />
+        <DecimalField
+          name={IngredientFormField.SaturatedFat}
+          control={control}
+          label={IngredientFormLabel.SaturatedFat}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+      </div>
+      <div className={styles.decimalFields}>
+        <DecimalField
+          name={IngredientFormField.TransFat}
+          control={control}
+          label={IngredientFormLabel.TransFat}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+        <DecimalField
+          name={IngredientFormField.Cholesterol}
+          control={control}
+          label={IngredientFormLabel.Cholesterol}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+        <DecimalField
+          name={IngredientFormField.Sodium}
+          control={control}
+          label={IngredientFormLabel.Sodium}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+      </div>
+      <div className={styles.decimalFields}>
+        <DecimalField
+          name={IngredientFormField.Carbs}
+          control={control}
+          label={IngredientFormLabel.Carbs}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+        <DecimalField
+          name={IngredientFormField.Protein}
+          control={control}
+          label={IngredientFormLabel.Protein}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+        <DecimalField
+          name={IngredientFormField.Sugar}
+          control={control}
+          label={IngredientFormLabel.Sugar}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+      </div>
+      <div className={styles.decimalFields}>
+        <DecimalField
+          name={IngredientFormField.Fiber}
+          control={control}
+          label={IngredientFormLabel.Fiber}
+          disabled={isViewMode}
+          className={styles.decimalField}
+        />
+        <DecimalField
+          name={IngredientFormField.Price}
+          control={control}
+          label={IngredientFormLabel.Price}
+          disabled={isViewMode}
+          className={styles.lastField}
+        />
+      </div>
+      
       <Divider className={styles.divider} />
-      <Button type="submit" variant="contained" color="secondary" className={styles.saveButton} disabled={!isDirty}>
+      <Button type="submit" variant="contained" color="secondary" className={styles.saveButton} disabled={!isDirty && !isPickerDirty}>
         Save
       </Button>
     </form>

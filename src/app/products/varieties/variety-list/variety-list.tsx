@@ -16,11 +16,16 @@ import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
 import { CardList } from 'core/components/card-list/card-list'
 import { IListAction } from 'common/list.types'
+import { FilePicker } from 'core/components/file-picker/file-picker'
 import { IVariety, IVarietyState } from 'app/products/varieties/varieties.types'
 import { defaultVarietyState, varietyRoutePath } from 'app/products/varieties/varieties.constants'
 import { defaultVarietyFormData } from 'app/products/varieties/variety-form/variety-form.constants'
 import { IVarietyFormValues } from 'app/products/varieties/variety-form/variety-form.types'
 import { VarietyForm } from 'app/products/varieties/variety-form/variety-form'
+import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
+import { IMediaLibraryFile } from 'app/media-library/media-library.types'
+import { MediaLibraryAction } from 'app/media-library/media-library.constants'
+import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { VarietyActionsEditMode, VarietyActionsViewMode, VarietySpeedActions, VarietyAction } from './variety-list.constants'
 import styles from './variety-list.module.scss'
 
@@ -28,7 +33,9 @@ export const VarietyList: FC = () => {
   const { ErrorHandler } = useCoreModule()
   const { VarietyService } = useProductModule()
 
-  const [state, setState] = useState<IVarietyState>(defaultVarietyState)
+  const [ state, setState ] = useState<IVarietyState>(defaultVarietyState)
+  const { MediaLibraryService } = useMediaLibraryModule()
+  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
 
   let navigate = useNavigate()
 
@@ -36,6 +43,7 @@ export const VarietyList: FC = () => {
   const validationMessages = generateValidationMessages(ObjectType.Variety)
 
   const {
+    setData: setVarietyData,
     data: varietyDialogData,
     open: varietyDialogOpen,
     openDialog: openVarietyDialog,
@@ -50,10 +58,21 @@ export const VarietyList: FC = () => {
   } = useDialog<string | null>(null)
   
   const {
+    open: filePickerDialogOpen,
+    closeDialog: closeFilePickerDialog,
+    openDialog: openFilePickerDialog
+  } = useDialog<null>(null)
+
+  const {
     refresh,
     state: paginationState,
     pagination: pagination
   } = usePagination<IVariety>(VarietyService.getAll)
+
+  const {
+    state: filePickerPaginationState,
+    pagination: filePickerPagination
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
 
   const handleCardAction = useCallback((item: IVariety, action: IListAction): void => {
     switch (action.label) {
@@ -61,10 +80,12 @@ export const VarietyList: FC = () => {
         openDeleteDialog(item?.id ?? '')
         break
       case VarietyAction.View:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: GSMode.View }))
         openVarietyDialog(item)
         break
       case VarietyAction.Edit:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditVarieties ? GSMode.Edit : GSMode.View }))
         openVarietyDialog(item)
         break
@@ -124,6 +145,23 @@ export const VarietyList: FC = () => {
     }
   }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, VarietyService, refresh])
 
+  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+    switch (action) {
+      case MediaLibraryAction.Select:
+        if (varietyDialogData) {
+          setVarietyData({
+            ...varietyDialogData,
+            thumbnail_url: generateMediaFileUrl(file)
+          })
+        }
+        setIsPickerDirty(true)
+        closeFilePickerDialog()
+        break
+      default:
+        break
+    }
+  }, [setVarietyData, varietyDialogData, closeFilePickerDialog])
+
   return (
     <div className={styles.varietyList}>
       <GrubDialog
@@ -131,7 +169,14 @@ export const VarietyList: FC = () => {
         onClose={closeVarietyDialog}
         title={state.mode == GSMode.New ? "Create a new variety" : varietyDialogData?.name ?? ''}
       >
-        <VarietyForm mode={state.mode} data={varietyDialogData} onClose={closeVarietyDialog} onSubmit={handleSubmit}/>
+        <VarietyForm 
+          mode={state.mode}
+          data={varietyDialogData}
+          onClose={closeVarietyDialog}
+          onSubmit={handleSubmit}
+          isPickerDirty={isPickerDirty}
+          onOpenFilePicker={openFilePickerDialog}
+        />
       </GrubDialog>
       <ConfirmationDialog
         open={deleteDialogOpen}
@@ -141,6 +186,13 @@ export const VarietyList: FC = () => {
         cancelButtonLabel="Cancel"
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
+      />
+      <FilePicker
+        open={filePickerDialogOpen}
+        onClose={closeFilePickerDialog}
+        paginationState={filePickerPaginationState}
+        pagination={filePickerPagination}
+        onAction={handleFilePickerAction}
       />
       {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&

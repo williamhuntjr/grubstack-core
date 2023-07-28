@@ -13,8 +13,13 @@ import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirma
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
 import { CardList } from 'core/components/card-list/card-list'
 import { IListAction } from 'common/list.types'
+import { FilePicker } from 'core/components/file-picker/file-picker'
 import { Loading } from 'core/components/loading/loading'
 import { useCoreModule } from 'core/core-module-hook'
+import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
+import { MediaLibraryAction } from 'app/media-library/media-library.constants'
+import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
+import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { useProductModule } from 'app/products/products-module-hook'
 import { IMenu, IMenuState } from 'app/products/menus/menus.types'
 import { menuRoutePath } from 'app/products/menus/menus.constants'
@@ -34,7 +39,9 @@ export const MenuList: FC = () => {
   const { ErrorHandler } = useCoreModule()
   const { MenuService } = useProductModule()
 
-  const [state, setState] = useState<IMenuState>(defaultMenuState)
+  const [ state, setState ] = useState<IMenuState>(defaultMenuState)
+  const { MediaLibraryService } = useMediaLibraryModule()
+  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
 
   const canEditMenus = true
   const validationMessages = generateValidationMessages(ObjectType.Menu)
@@ -42,6 +49,7 @@ export const MenuList: FC = () => {
   let navigate = useNavigate()
   
   const {
+    setData: setMenuData,
     data: menuDialogData,
     open: menuDialogOpen,
     openDialog: openMenuDialog,
@@ -56,10 +64,21 @@ export const MenuList: FC = () => {
   } = useDialog<string | null>(null)
 
   const {
+    open: filePickerDialogOpen,
+    closeDialog: closeFilePickerDialog,
+    openDialog: openFilePickerDialog
+  } = useDialog<null>(null)
+
+  const {
     refresh,
     state: paginationState,
     pagination: pagination
   } = usePagination<IMenu>(MenuService.getAll)
+
+  const {
+    state: filePickerPaginationState,
+    pagination: filePickerPagination
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
 
   const handleCardAction = useCallback((item: IMenu, action: IListAction): void => {
     switch (action.label) {
@@ -67,10 +86,12 @@ export const MenuList: FC = () => {
         openDeleteDialog(item?.id ?? '')
         break
       case MenuAction.View:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: GSMode.View }))
         openMenuDialog(item)
         break
       case MenuAction.Edit:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditMenus ? GSMode.Edit : GSMode.View }))
         openMenuDialog(item)
         break
@@ -130,6 +151,23 @@ export const MenuList: FC = () => {
     }
   }, [closeMenuDialog, refresh, state.mode, MenuService, ErrorHandler, validationMessages.createSuccess, validationMessages.updateSuccess])
 
+  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+    switch (action) {
+      case MediaLibraryAction.Select:
+        if (menuDialogData) {
+          setMenuData({
+            ...menuDialogData,
+            thumbnail_url: generateMediaFileUrl(file)
+          })
+        }
+        setIsPickerDirty(true)
+        closeFilePickerDialog()
+        break
+      default:
+        break
+    }
+  }, [setMenuData, menuDialogData, closeFilePickerDialog])
+
   return (
     <div className={styles.menuList}>
       <GrubDialog
@@ -137,7 +175,14 @@ export const MenuList: FC = () => {
         onClose={closeMenuDialog}
         title={state.mode == GSMode.New ? "Create a new menu" : menuDialogData?.name ?? ''}
       >
-        <MenuForm mode={state.mode} data={menuDialogData} onClose={closeMenuDialog} onSubmit={handleSubmit}/>
+        <MenuForm 
+          mode={state.mode} 
+          data={menuDialogData} 
+          onClose={closeMenuDialog} 
+          onSubmit={handleSubmit}
+          isPickerDirty={isPickerDirty}
+          onOpenFilePicker={openFilePickerDialog}
+        />
       </GrubDialog>
       <ConfirmationDialog
         open={deleteDialogOpen}
@@ -147,6 +192,13 @@ export const MenuList: FC = () => {
         cancelButtonLabel="Cancel"
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
+      />
+      <FilePicker
+        open={filePickerDialogOpen}
+        onClose={closeFilePickerDialog}
+        paginationState={filePickerPaginationState}
+        pagination={filePickerPagination}
+        onAction={handleFilePickerAction}
       />
       {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&

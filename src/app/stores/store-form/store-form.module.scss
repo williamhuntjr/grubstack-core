@@ -12,10 +12,31 @@ $dialogActionButtonWidth: $minButtonWidth;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
+  .storeImageContainer {
+    display: flex;
+    .storeImage {
+      margin-right: $grid-base;
+      margin-bottom: $grid-large;
+      img {
+        max-width: 130px;
+        margin: 0 auto 0 auto;
+        display: block;
+        border: $border-gray-primary;
+        padding: $grid-small;
+      }
+      button {
+        min-width: 150px;
+        width: 100%;
+        margin-top: $grid-base;
+      }
+    }
+    .storeMainInputContainer {
+      width: 100%;
+    }
+  }
   .addressDetails {
     display: flex;
     width: 100%;
-  
     .addressInputContainer {
       width: 33.33%;
       padding: 0 $grid-base 0 0;
@@ -46,26 +67,5 @@ $dialogActionButtonWidth: $minButtonWidth;
   }
   .storeFormMenuList {
     flex-grow: 1;
-  }
-  .storeAvatarContainer {
-    display: flex;
-    .storeAvatar {
-      margin-right: $grid-base;
-      margin-bottom: $grid-large;
-      img {
-        max-width: 150px;
-        margin: 0 auto 0 auto;
-        display: block;
-        border: $border-gray-primary;
-      }
-      button {
-        min-width: 150px;
-        width: 100%;
-        margin-top: $grid-base;
-      }
-    }
-    .storeAvatarInputContainer {
-      width: 100%;
-    }
   }
 }

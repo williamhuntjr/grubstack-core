@@ -57,4 +57,6 @@ export interface IIngredientForm {
   onSubmit(data: IIngredientFormValues): Promise<void>
   data?: IIngredient|null
   mode: GSMode
+  isPickerDirty: boolean
+  onOpenFilePicker: (data: null) => void
 }

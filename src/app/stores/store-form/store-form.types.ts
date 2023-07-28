@@ -43,5 +43,5 @@ export interface IStoreForm {
   mode: GSMode
   onOpenAddDialog: (data: IQuickPickerItem[]) => void
   onOpenFilePicker: (data: null) => void
-  pickerIsDirty: boolean
+  isPickerDirty: boolean
 }

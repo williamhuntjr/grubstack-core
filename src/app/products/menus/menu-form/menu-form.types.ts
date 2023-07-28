@@ -24,4 +24,6 @@ export interface IMenuForm {
   onSubmit(data: IMenuFormValues): Promise<void>
   data?: IMenu|null
   mode: GSMode
+  isPickerDirty: boolean
+  onOpenFilePicker: (data: null) => void
 }

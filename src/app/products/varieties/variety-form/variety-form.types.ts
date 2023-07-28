@@ -25,4 +25,6 @@ export interface IVarietyForm {
   onSubmit(data: IVarietyFormValues): Promise<void>
   data?: IVariety|null
   mode: GSMode
+  isPickerDirty: boolean
+  onOpenFilePicker: (data: null) => void
 }

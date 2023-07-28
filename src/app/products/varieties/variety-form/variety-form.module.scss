@@ -2,6 +2,28 @@
 $itemFormWidth: 500px;
 
 .varietyForm {
+  .varietyImageContainer {
+    display: flex;
+    .varietyImage {
+      margin-right: $grid-base;
+      margin-bottom: $grid-base;
+      img {
+        max-width: 130px;
+        margin: 0 auto 0 auto;
+        display: block;
+        border: $border-gray-primary;
+        padding: $grid-small;
+      }
+      button {
+        min-width: 150px;
+        width: 100%;
+        margin-top: $grid-base;
+      }
+    }
+    .varietyMainInputContainer {
+      width: 100%;
+    }
+  }
   .itemForm {
     width: $itemFormWidth;
     margin: 0;
@@ -16,6 +38,7 @@ $itemFormWidth: 500px;
       margin: 0 !important;
     }
   }
+  .thumbnailUrl { display: none; }
   .saveButton {
     display: block;
     margin-left: auto;

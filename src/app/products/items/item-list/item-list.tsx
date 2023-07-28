@@ -12,10 +12,15 @@ import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
 import { CardList } from 'core/components/card-list/card-list'
+import { FilePicker } from 'core/components/file-picker/file-picker'
 import { IListAction } from 'common/list.types'
+import { IMediaLibraryFile } from 'app/media-library/media-library.types'
+import { MediaLibraryAction } from 'app/media-library/media-library.constants'
+import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { IItem, IItemState } from 'app/products/items/items.types'
 import { defaultItemState, itemRoutePath } from 'app/products/items/items.constants'
 import { defaultItemFormData } from 'app/products/items/item-form/item-form.constants'
@@ -27,8 +32,10 @@ import styles from './item-list.module.scss'
 export const ItemList: FC = () => {
   const { ErrorHandler } = useCoreModule()
   const { ItemService } = useProductModule()
+  const { MediaLibraryService } = useMediaLibraryModule()
 
-  const [state, setState] = useState<IItemState>(defaultItemState)
+  const [ state, setState ] = useState<IItemState>(defaultItemState)
+  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
 
   let navigate = useNavigate()
 
@@ -36,6 +43,7 @@ export const ItemList: FC = () => {
   const validationMessages = generateValidationMessages(ObjectType.Item)
 
   const {
+    setData: setItemData,
     data: itemDialogData,
     open: itemDialogOpen,
     openDialog: openItemDialog,
@@ -50,10 +58,21 @@ export const ItemList: FC = () => {
   } = useDialog<string | null>(null)
 
   const {
+    open: filePickerDialogOpen,
+    closeDialog: closeFilePickerDialog,
+    openDialog: openFilePickerDialog
+  } = useDialog<null>(null)
+
+  const {
     refresh,
     state: paginationState,
     pagination: pagination
   } = usePagination<IItem>(ItemService.getAll)
+
+  const {
+    state: filePickerPaginationState,
+    pagination: filePickerPagination
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
 
   const handleCardAction = useCallback((item: IItem, action: IListAction): void => {
     switch (action.label) {
@@ -61,10 +80,12 @@ export const ItemList: FC = () => {
         openDeleteDialog(item?.id ?? '')
         break
       case ItemAction.View:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: GSMode.View }))
         openItemDialog(item)
         break
       case ItemAction.Edit:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditItems ? GSMode.Edit : GSMode.View }))
         openItemDialog(item)
         break
@@ -124,6 +145,23 @@ export const ItemList: FC = () => {
     }
   }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, ItemService, refresh])
 
+  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+    switch (action) {
+      case MediaLibraryAction.Select:
+        if (itemDialogData) {
+          setItemData({
+            ...itemDialogData,
+            thumbnail_url: generateMediaFileUrl(file)
+          })
+        }
+        setIsPickerDirty(true)
+        closeFilePickerDialog()
+        break
+      default:
+        break
+    }
+  }, [setItemData, itemDialogData, closeFilePickerDialog])
+
   return (
     <div className={styles.itemList}>
       <GrubDialog
@@ -131,7 +169,14 @@ export const ItemList: FC = () => {
         onClose={closeItemDialog}
         title={state.mode == GSMode.New ? "Create a new item" : itemDialogData?.name ?? ''}
       >
-        <ItemForm mode={state.mode} data={itemDialogData} onClose={closeItemDialog} onSubmit={handleSubmit}/>
+        <ItemForm 
+          mode={state.mode} 
+          data={itemDialogData} 
+          onClose={closeItemDialog} 
+          onSubmit={handleSubmit}
+          isPickerDirty={isPickerDirty}
+          onOpenFilePicker={openFilePickerDialog}
+        />
       </GrubDialog>
       <ConfirmationDialog
         open={deleteDialogOpen}
@@ -141,6 +186,13 @@ export const ItemList: FC = () => {
         cancelButtonLabel="Cancel"
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
+      />
+      <FilePicker
+        open={filePickerDialogOpen}
+        onClose={closeFilePickerDialog}
+        paginationState={filePickerPaginationState}
+        pagination={filePickerPagination}
+        onAction={handleFilePickerAction}
       />
       {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&

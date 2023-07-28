@@ -1,5 +1,6 @@
 import React, { useCallback, ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
+import Button from '@mui/material/Button'
 import { hasPermission } from 'common/auth/auth.utils'
 import { UserPermissions } from 'common/auth/auth.constants'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
@@ -126,6 +127,13 @@ export const MediaLibrary = (): JSX.Element => {
           void pagination.onChangePage(page)
         }}
       />
+      }
+      {(paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading) &&
+        <div className={styles.warningMessageContainer}>
+          <h2 className={styles.warningHeadline}>You do not have any files in your media library.</h2>
+          <p>You will need to upload files to continue.</p>
+          <Button onClick={() => openMediaDialog(defaultMediaLibraryFormData)} variant="outlined" color="primary">Upload a File</Button>
+        </div>
       }
       {canEditMediaLibrary && 
         <SpeedDialer actions={MediaLibrarySpeedActions} onAction={handleSpeedAction} />
