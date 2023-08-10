@@ -8,6 +8,8 @@ import { builderRoutePath } from 'app/builder/builder.constants'
 import { generateValidationMessages } from 'common/validation/validation'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { hasPermission } from 'common/auth/auth.utils'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
@@ -43,7 +45,7 @@ export const MenuList: FC = () => {
   const { MediaLibraryService } = useMediaLibraryModule()
   const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
 
-  const canEditMenus = true
+  const canEditMenus = hasPermission(UserPermissions.MaintainMenus)
   const validationMessages = generateValidationMessages(ObjectType.Menu)
 
   let navigate = useNavigate()

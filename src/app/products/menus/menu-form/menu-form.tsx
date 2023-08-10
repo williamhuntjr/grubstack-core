@@ -44,12 +44,12 @@ export const MenuForm: FC<IMenuForm> = memo(({
 
   return (
     <form onSubmit={submitForm} className={styles.menuForm}>
-      <div className={styles.menuImageContainer}>
-        <div className={styles.menuImage}>
+      <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
           <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
         </div>
-        <div className={styles.menuMainInputContainer}>
+        <div className={styles.headerInput}>
           <FormField
             name={MenuFormField.Name}
             control={control}

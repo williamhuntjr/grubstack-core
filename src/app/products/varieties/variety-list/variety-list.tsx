@@ -7,6 +7,8 @@ import { useCoreModule } from 'core/core-module-hook'
 import { Loading } from 'core/components/loading/loading'
 import { builderRoutePath } from 'app/builder/builder.constants'
 import { useProductModule } from 'app/products/products-module-hook'
+import { hasPermission } from 'common/auth/auth.utils'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
@@ -39,7 +41,7 @@ export const VarietyList: FC = () => {
 
   let navigate = useNavigate()
 
-  const canEditVarieties = true
+  const canEditVarieties = hasPermission(UserPermissions.MaintainVarieties)
   const validationMessages = generateValidationMessages(ObjectType.Variety)
 
   const {
@@ -58,10 +60,11 @@ export const VarietyList: FC = () => {
   } = useDialog<string | null>(null)
   
   const {
+    data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
     openDialog: openFilePickerDialog
-  } = useDialog<null>(null)
+  } = useDialog<IVariety|null>(null)
 
   const {
     refresh,
@@ -148,9 +151,9 @@ export const VarietyList: FC = () => {
   const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
-        if (varietyDialogData) {
+        if (filePickerData) {
           setVarietyData({
-            ...varietyDialogData,
+            ...filePickerData,
             thumbnail_url: generateMediaFileUrl(file)
           })
         }
@@ -160,7 +163,7 @@ export const VarietyList: FC = () => {
       default:
         break
     }
-  }, [setVarietyData, varietyDialogData, closeFilePickerDialog])
+  }, [setVarietyData, filePickerData, closeFilePickerDialog])
 
   return (
     <div className={styles.varietyList}>

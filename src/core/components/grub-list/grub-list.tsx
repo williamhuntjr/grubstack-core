@@ -11,7 +11,14 @@ import { cls } from 'common/utils/utils'
 import { IGrubList } from './grub-list.types'
 import styles from './grub-list.module.scss'
 
-export const GrubList: FC<IGrubList> = memo(({ subHeader, data, onClickAdd, onClickDelete, className, disabled }) => {
+export const GrubList: FC<IGrubList> = memo(({ 
+  subHeader, 
+  data, 
+  onClickAdd, 
+  onClickDelete, 
+  className, 
+  disabled 
+}) => {
   return (
     <List 
       className={cls(styles.grubListContainer, className ?? '')}

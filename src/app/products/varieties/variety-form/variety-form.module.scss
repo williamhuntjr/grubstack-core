@@ -2,9 +2,9 @@
 $itemFormWidth: 500px;
 
 .varietyForm {
-  .varietyImageContainer {
+  .thumbnailContainer {
     display: flex;
-    .varietyImage {
+    .thumbnail {
       margin-right: $grid-base;
       margin-bottom: $grid-base;
       img {
@@ -20,7 +20,7 @@ $itemFormWidth: 500px;
         margin-top: $grid-base;
       }
     }
-    .varietyMainInputContainer {
+    .headerInput {
       width: 100%;
     }
   }

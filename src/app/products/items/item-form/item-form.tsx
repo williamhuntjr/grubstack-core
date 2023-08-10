@@ -22,6 +22,7 @@ export const ItemForm: FC<IItemForm> = memo(({
     control, 
     reset, 
     formState: { isDirty },
+    getValues,
   } = useForm<IItemFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(ItemFormSchema),
@@ -43,12 +44,12 @@ export const ItemForm: FC<IItemForm> = memo(({
 
   return (
     <form onSubmit={submitForm} className={styles.itemForm}>
-      <div className={styles.itemImageContainer}>
-        <div className={styles.itemImage}>
+      <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())}>Change Image</Button>
         </div>
-        <div className={styles.itemMainInputContainer}>
+        <div className={styles.headerInput}>
           <FormField
             name={ItemFormField.Name}
             control={control}

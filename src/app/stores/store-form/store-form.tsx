@@ -29,6 +29,7 @@ export const StoreForm: FC<IStoreForm> = memo(({
     handleSubmit, 
     control, 
     reset, 
+    getValues,
     formState: { isDirty },
   } = useForm<IStoreFormValues>({
     mode: 'onBlur',
@@ -61,12 +62,12 @@ export const StoreForm: FC<IStoreForm> = memo(({
 
   return (
     <form onSubmit={submitForm} className={styles.storeForm}>
-      <div className={styles.storeImageContainer}>
-        <div className={styles.storeImage}>
+      <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())}>Change Image</Button>
         </div>
-        <div className={styles.storeMainInputContainer}>
+        <div className={styles.headerInput}>
           <FormField
             name={StoreFormField.Name}
             control={control}

@@ -12,6 +12,8 @@ import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { hasPermission } from 'common/auth/auth.utils'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
@@ -39,7 +41,7 @@ export const ItemList: FC = () => {
 
   let navigate = useNavigate()
 
-  const canEditItems = true
+  const canEditItems = hasPermission(UserPermissions.MaintainItems)
   const validationMessages = generateValidationMessages(ObjectType.Item)
 
   const {
@@ -58,10 +60,11 @@ export const ItemList: FC = () => {
   } = useDialog<string | null>(null)
 
   const {
+    data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
     openDialog: openFilePickerDialog
-  } = useDialog<null>(null)
+  } = useDialog<IItem|null>()
 
   const {
     refresh,
@@ -141,16 +144,16 @@ export const ItemList: FC = () => {
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     } finally {
-      await refresh()
+      await pagination.onChangePage(1)
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, ItemService, refresh])
+  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, ItemService, pagination])
 
   const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
-        if (itemDialogData) {
+        if (filePickerData) {
           setItemData({
-            ...itemDialogData,
+            ...filePickerData,
             thumbnail_url: generateMediaFileUrl(file)
           })
         }
@@ -160,7 +163,7 @@ export const ItemList: FC = () => {
       default:
         break
     }
-  }, [setItemData, itemDialogData, closeFilePickerDialog])
+  }, [setItemData, filePickerData, closeFilePickerDialog])
 
   return (
     <div className={styles.itemList}>
@@ -172,7 +175,6 @@ export const ItemList: FC = () => {
         <ItemForm 
           mode={state.mode} 
           data={itemDialogData} 
-          onClose={closeItemDialog} 
           onSubmit={handleSubmit}
           isPickerDirty={isPickerDirty}
           onOpenFilePicker={openFilePickerDialog}

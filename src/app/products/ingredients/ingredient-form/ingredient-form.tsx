@@ -16,13 +16,14 @@ export const IngredientForm: FC<IIngredientForm> = memo(({
     mode,
     data,
     onOpenFilePicker,
-    isPickerDirty 
+    isPickerDirty,
   }) => {
   const { 
     handleSubmit, 
     control, 
-    reset, 
-    formState: { isDirty } 
+    reset,
+    getValues,
+    formState: { isDirty },
   } = useForm<IIngredientFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(IngredientFormSchema),
@@ -44,12 +45,12 @@ export const IngredientForm: FC<IIngredientForm> = memo(({
 
   return (
     <form onSubmit={submitForm} className={styles.ingredientForm}>
-      <div className={styles.ingredientImageContainer}>
-        <div className={styles.ingredientImage}>
+      <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())}>Change Image</Button>
         </div>
-        <div className={styles.ingredientMainInputContainer}>
+        <div className={styles.headerInput}>
           <FormField
             name={IngredientFormField.Name}
             control={control}

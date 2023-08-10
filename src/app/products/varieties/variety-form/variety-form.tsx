@@ -15,12 +15,13 @@ export const VarietyForm: FC<IVarietyForm> = memo(({
     mode, 
     data,
     isPickerDirty,
-    onOpenFilePicker
+    onOpenFilePicker,
 }) => {
   const { 
     handleSubmit, 
     control, 
     reset, 
+    getValues,
     formState: { isDirty }
   } = useForm<IVarietyFormValues>({
     mode: 'onBlur',
@@ -43,12 +44,12 @@ export const VarietyForm: FC<IVarietyForm> = memo(({
 
   return (
     <form onSubmit={submitForm} className={styles.varietyForm}>
-      <div className={styles.varietyImageContainer}>
-        <div className={styles.varietyImage}>
+      <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(null)}>Change Image</Button>
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())}>Change Image</Button>
         </div>
-        <div className={styles.varietyMainInputContainer}>
+        <div className={styles.headerInput}>
           <FormField
             name={VarietyFormField.Name}
             control={control}

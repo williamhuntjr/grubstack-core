@@ -12,9 +12,9 @@ $dialogActionButtonWidth: $minButtonWidth;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
-  .storeImageContainer {
+  .thumbnailContainer {
     display: flex;
-    .storeImage {
+    .thumbnail {
       margin-right: $grid-base;
       margin-bottom: $grid-large;
       img {
@@ -30,7 +30,7 @@ $dialogActionButtonWidth: $minButtonWidth;
         margin-top: $grid-base;
       }
     }
-    .storeMainInputContainer {
+    .headerInput {
       width: 100%;
     }
   }
@@ -39,7 +39,7 @@ $dialogActionButtonWidth: $minButtonWidth;
     width: 100%;
     .addressInputContainer {
       width: 33.33%;
-      padding: 0 $grid-base 0 0;
+      padding: 0 $grid-small 0 0;
       &:last-child {
         padding: 0 0 $grid-base 0;
       }

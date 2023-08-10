@@ -74,10 +74,11 @@ export const Stores = (): JSX.Element => {
   } = useDialog<string | null>(null)
 
   const {
+    data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
     openDialog: openFilePickerDialog
-  } = useDialog<null>(null)
+  } = useDialog<IStore|null>(null)
 
   const {
     refresh,
@@ -195,9 +196,9 @@ export const Stores = (): JSX.Element => {
   const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
-        if (storeDialogData) {
+        if (filePickerData) {
           setStoreData({
-            ...storeDialogData,
+            ...filePickerData,
             thumbnail_url: generateMediaFileUrl(file)
           })
         }
@@ -207,7 +208,7 @@ export const Stores = (): JSX.Element => {
       default:
         break
     }
-  }, [setStoreData, storeDialogData, closeFilePickerDialog])
+  }, [setStoreData, filePickerData, closeFilePickerDialog])
 
   return (
     <div className={styles.storesContainer}>

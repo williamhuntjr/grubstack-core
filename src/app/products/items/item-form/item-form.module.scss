@@ -7,9 +7,9 @@ $itemFormWidth: 500px;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
-  .itemImageContainer {
+  .thumbnailContainer {
     display: flex;
-    .itemImage {
+    .thumbnail {
       margin-right: $grid-base;
       margin-bottom: $grid-base;
       img {
@@ -25,7 +25,7 @@ $itemFormWidth: 500px;
         margin-top: $grid-base;
       }
     }
-    .itemMainInputContainer {
+    .headerInput {
       width: 100%;
     }
   }

@@ -58,5 +58,5 @@ export interface IIngredientForm {
   data?: IIngredient|null
   mode: GSMode
   isPickerDirty: boolean
-  onOpenFilePicker: (data: null) => void
+  onOpenFilePicker: (data: IIngredient|null) => void
 }

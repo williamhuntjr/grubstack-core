@@ -12,6 +12,8 @@ import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IListAction } from 'common/list.types'
 import { CardList } from 'core/components/card-list/card-list'
+import { hasPermission } from 'common/auth/auth.utils'
+import { UserPermissions } from 'common/auth/auth.constants'
 import { IIngredient, IIngredientState } from 'app/products/ingredients/ingredients.types'
 import { IngredientForm } from 'app/products/ingredients/ingredient-form/ingredient-form'
 import { defaultIngredientFormData } from 'app/products/ingredients/ingredient-form/ingredient-form.constants'
@@ -41,7 +43,7 @@ export const IngredientList: FC = () => {
   const [ state, setState ] = useState<IIngredientState>(defaultIngredientState)
   const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
 
-  const canEditIngredients = true
+  const canEditIngredients = hasPermission(UserPermissions.MaintainIngredients)
   const validationMessages = generateValidationMessages(ObjectType.Ingredient)
 
   const {
@@ -60,10 +62,11 @@ export const IngredientList: FC = () => {
   } = useDialog<string | null>(null)
 
   const {
+    data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
     openDialog: openFilePickerDialog
-  } = useDialog<null>(null)
+  } = useDialog<IIngredient|null>()
 
   const {
     refresh,
@@ -120,7 +123,7 @@ export const IngredientList: FC = () => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [closeIngredientDialog, state.mode, ErrorHandler, IngredientService, validationMessages.createSuccess, validationMessages.updateSuccess, refresh])
+  }, [closeIngredientDialog, refresh, state.mode, ErrorHandler, IngredientService, validationMessages.createSuccess, validationMessages.updateSuccess])
 
   const handleSpeedAction = useCallback((action: string): void => {
     switch (action) {
@@ -142,16 +145,16 @@ export const IngredientList: FC = () => {
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     } finally {
-      await refresh()
+      await pagination.onChangePage(1)
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, IngredientService, validationMessages.deleteSuccess, refresh])
+  }, [closeDeleteDialog, pagination, deleteDialogData, ErrorHandler, IngredientService, validationMessages.deleteSuccess])
 
   const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
-        if (ingredientDialogData) {
+        if (filePickerData) {
           setIngredientData({
-            ...ingredientDialogData,
+            ...filePickerData,
             thumbnail_url: generateMediaFileUrl(file)
           })
         }
@@ -161,7 +164,7 @@ export const IngredientList: FC = () => {
       default:
         break
     }
-  }, [setIngredientData, ingredientDialogData, closeFilePickerDialog])
+  }, [setIngredientData, closeFilePickerDialog, filePickerData])
 
   return (
     <div className={styles.ingredientList}>

@@ -26,5 +26,5 @@ export interface IVarietyForm {
   data?: IVariety|null
   mode: GSMode
   isPickerDirty: boolean
-  onOpenFilePicker: (data: null) => void
+  onOpenFilePicker: (data: IVariety|null) => void
 }

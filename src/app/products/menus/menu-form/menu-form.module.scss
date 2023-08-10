@@ -7,9 +7,9 @@ $menuFormWidth: 500px;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
-  .menuImageContainer {
+  .thumbnailContainer {
     display: flex;
-    .menuImage {
+    .thumbnail {
       margin-right: $grid-base;
       margin-bottom: $grid-base;
       img {
@@ -25,7 +25,7 @@ $menuFormWidth: 500px;
         margin-top: $grid-base;
       }
     }
-    .menuMainInputContainer {
+    .headerInput {
       width: 100%;
     }
   }

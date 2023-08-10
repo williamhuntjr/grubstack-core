@@ -5,11 +5,5 @@ import { IngredientFormField } from './ingredient-form.types'
 export const IngredientFormSchema = Yup.object().shape({
   [IngredientFormField.Name]: Yup.string()
     .required(validationMessage.isRequired)
-    .typeError(validationMessage.isRequired),
-  [IngredientFormField.Description]: Yup.string()
-    .required(validationMessage.isRequired)
-    .typeError(validationMessage.isRequired),
-  [IngredientFormField.Thumbnail]: Yup.string()
-    .required(validationMessage.isRequired)
-    .typeError(validationMessage.isRequired),
+    .typeError(validationMessage.isRequired)
 })

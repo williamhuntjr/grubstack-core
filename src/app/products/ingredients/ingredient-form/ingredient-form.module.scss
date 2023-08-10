@@ -9,9 +9,9 @@ $ingredientFormWidth: 400px;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
-  .ingredientImageContainer {
+  .thumbnailContainer {
     display: flex;
-    .ingredientImage {
+    .thumbnail {
       margin-right: $grid-base;
       margin-bottom: $grid-large;
       img {
@@ -27,7 +27,7 @@ $ingredientFormWidth: 400px;
         margin-top: $grid-base;
       }
     }
-    .ingredientMainInputContainer {
+    .headerInput {
       width: 100%;
     }
   }

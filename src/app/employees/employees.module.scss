@@ -4,4 +4,31 @@
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+  .employeeListContainer {
+    display: flex;
+    height: min-content;
+    .employeeProfileContainer {
+      margin-right: $grid-base;
+      .employeeProfileImage {
+        border: $border-disabled;
+        display: flex;
+        img {
+          margin-top: auto;
+          max-width: 100px;
+        }
+      }
+    }
+  }
+  .nameContainer {
+    display: flex;
+    img {
+      max-width: 60px;
+      margin-right: $grid-base;
+    }
+  }
+  .employedStatus {
+    padding: $grid-tiny;
+    color: #fff;
+    background-color: green;
+  }
 }

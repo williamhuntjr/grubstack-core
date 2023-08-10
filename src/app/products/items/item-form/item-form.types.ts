@@ -25,10 +25,9 @@ export interface IItemFormValues {
 }
 
 export interface IItemForm {
-  onClose(): void
   onSubmit(data: IItemFormValues): Promise<void>
   data?: IItem|null
   mode: GSMode
   isPickerDirty: boolean
-  onOpenFilePicker: (data: null) => void
+  onOpenFilePicker: (data: IItem|null) => void
 }
