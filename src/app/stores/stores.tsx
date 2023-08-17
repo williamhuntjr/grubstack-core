@@ -273,7 +273,9 @@ export const Stores = (): JSX.Element => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any stores.</h2>
           <p>You will need to create a store to continue.</p>
-          <Button onClick={() => openStoreDialog(defaultStoreFormData)} variant="outlined" color="primary">Create a Store</Button>
+          {canEditStores && 
+            <Button onClick={() => openStoreDialog(defaultStoreFormData)} variant="outlined" color="primary">Create a Store</Button>
+          }
         </div>
       }
       {canEditStores && 

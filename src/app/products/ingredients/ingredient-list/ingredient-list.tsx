@@ -217,7 +217,9 @@ export const IngredientList: FC = () => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any ingredients.</h2>
           <p>You will need to create an ingredient to continue.</p>
-          <Button onClick={() => openIngredientDialog(defaultIngredientFormData)} variant="outlined" color="primary">Create an Ingredient</Button>
+          {canEditIngredients &&
+            <Button onClick={() => openIngredientDialog(defaultIngredientFormData)} variant="outlined" color="primary">Create an Ingredient</Button>
+          }
         </div>
       }
       {canEditIngredients && 

@@ -217,7 +217,9 @@ export const VarietyList: FC = () => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any varieties.</h2>
           <p>You will need to create a variety to continue.</p>
-          <Button onClick={() => openVarietyDialog(defaultVarietyFormData)} variant="outlined" color="primary">Create a Variety</Button>
+          {canEditVarieties && 
+            <Button onClick={() => openVarietyDialog(defaultVarietyFormData)} variant="outlined" color="primary">Create a Variety</Button>
+          }
         </div>
       }
       {canEditVarieties && 

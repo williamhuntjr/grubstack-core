@@ -216,7 +216,9 @@ export const ItemList: FC = () => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any items.</h2>
           <p>You will need to create an item to continue.</p>
-          <Button onClick={() => openItemDialog(defaultItemFormData)} variant="outlined" color="primary">Create an Item</Button>
+          {canEditItems &&
+            <Button onClick={() => openItemDialog(defaultItemFormData)} variant="outlined" color="primary">Create an Item</Button>
+          }
         </div>
       }
       {canEditItems && 

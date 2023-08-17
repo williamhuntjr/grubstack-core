@@ -222,7 +222,9 @@ export const MenuList: FC = () => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any menus.</h2>
           <p>You will need to create a menu to continue.</p>
-          <Button onClick={() => openMenuDialog(defaultMenuFormData)} variant="outlined" color="primary">Create a Menu</Button>
+          {canEditMenus &&
+            <Button onClick={() => openMenuDialog(defaultMenuFormData)} variant="outlined" color="primary">Create a Menu</Button>
+          }
         </div>
       }
       {canEditMenus && 

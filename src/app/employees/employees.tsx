@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
+import Button from '@mui/material/Button'
 import { hasPermission } from 'common/auth/auth.utils'
 import { UserPermissions } from 'common/auth/auth.constants'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
@@ -200,13 +201,22 @@ export const Employees = (): JSX.Element => {
         onAction={handleFilePickerAction}
       />
       {state.isLoading && paginationState.isLoading && <Loading />}
-      {!state.isLoading &&
+      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
       <GrubTable
         columns={employeeColumns}
         data={normalizeData(paginationState.data)}
         onAction={handleRowAction}
         actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
       />
+      }
+      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading &&
+        <div className={styles.warningMessageContainer}>
+          <h2 className={styles.warningHeadline}>You do not have any employees.</h2>
+          <p>You will need to add an employee to continue.</p>
+          {canEditEmployees &&
+            <Button onClick={() => openEmployeeDialog(defaultEmployeeFormData)} variant="outlined" color="primary">Create an Employee</Button>
+          }
+        </div>
       }
       {canEditEmployees && 
         <SpeedDialer actions={EmployeeSpeedActions} onAction={handleSpeedAction} />
