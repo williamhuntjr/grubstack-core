@@ -10,7 +10,8 @@ export enum StoreFormField {
   Postal = 'postal',
   Icon = 'icon',
   StoreType = 'store_type',
-  Thumbnail = 'thumbnail_url'
+  Thumbnail = 'thumbnail_url',
+  PhoneNumber = 'phone_number'
 }
 
 export enum StoreFormLabel {
@@ -21,7 +22,8 @@ export enum StoreFormLabel {
   Postal = 'Postal',
   Icon = 'Icon',
   StoreType = 'Store Type',
-  Thumbnail = 'Thumbnail URL'
+  Thumbnail = 'Thumbnail URL',
+  PhoneNumber = 'Phone Number'
 }
 
 export interface IStoreFormValues {
@@ -33,6 +35,7 @@ export interface IStoreFormValues {
   [StoreFormField.Icon]: string
   [StoreFormField.StoreType]: string
   [StoreFormField.Thumbnail]: string
+  [StoreFormField.PhoneNumber]: string
 }
 
 export interface IStoreForm {

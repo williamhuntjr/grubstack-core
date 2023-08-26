@@ -83,6 +83,13 @@ export const StoreForm: FC<IStoreForm> = memo(({
             options={defineFormSelectData(storeTypes)}
             className={styles.storeType}
           />
+          <FormField
+            name={StoreFormField.PhoneNumber}
+            control={control}
+            label={StoreFormLabel.PhoneNumber}
+            className={styles.phoneNumber}
+            disabled={isViewMode}
+          />
         </div>
       </div>
       <FormField

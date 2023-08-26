@@ -13,6 +13,7 @@ export interface IStore {
   slug?: string
   store_type: string
   thumbnail_url: string
+  phone_number: string
   menus?: IMenu[]
 }
 
