@@ -9,6 +9,7 @@ export interface IItem {
   name: string
   description: string
   thumbnail_url: string
+  label_color: string
   varieties: IVariety[]
   price?: number
   sale_price?: number

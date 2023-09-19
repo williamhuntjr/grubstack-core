@@ -57,7 +57,7 @@ export const ItemList: FC = () => {
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
-  } = useDialog<string | null>(null)
+  } = useDialog<string|null>(null)
 
   const {
     data: filePickerData,

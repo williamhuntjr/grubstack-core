@@ -12,5 +12,7 @@ export enum UserPermissions {
   ViewMediaLibrary = 'ViewMediaLibrary',
   MaintainMediaLibrary = 'MaintainMediaLibrary',
   ViewEmployees = 'ViewEmployees',
-  MaintainEmployees = 'MaintainEmployees'
+  MaintainEmployees = 'MaintainEmployees',
+  ViewFranchises = 'ViewFranchises',
+  MaintainFranchises = 'MaintainFranchises'
 }

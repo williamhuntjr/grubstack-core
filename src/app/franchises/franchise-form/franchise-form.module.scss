@@ -1,10 +1,13 @@
 @import 'assets/sass/variables';
+$franchiseFormWidth: 500px;
+$franchiseFormHeight: 400px;
 $dialogActionButtonWidth: $minButtonWidth;
-$ingredientFormWidth: 400px;
 
-.ingredientForm {
-  background-color: $white-color;
-  width: $ingredientFormWidth;
+.franchiseForm {
+  display: flex;
+  flex-direction: column;
+  width: $franchiseFormWidth;
+  min-height: $franchiseFormHeight;
   margin: 0;
   @media screen and (max-width: $bp-md) {
     width: auto;
@@ -32,36 +35,23 @@ $ingredientFormWidth: 400px;
     }
   }
   .formField {
-    width: 100%;
     margin: 0 $grid-base 0 0;
   }
-  .decimalField {
-    margin-right: $grid-base;
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-  .decimalFields {
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: $grid-base;
-  }
-  .ingredientName, .ingredientDescription, .ingredientThumbnail { 
+  .franchiseName, .description {
     width: 100%;
     margin: 0 0 $grid-base 0;
   }
-  .thumbnailUrl { display: none; }
-  .lastField {
-    margin-right: $grid-base;
+  .thumbnailUrl {
+    display: none;
   }
   .saveButton {
     display: block;
     margin-left: auto;
-    @media screen and (max-width: $bp-sm) {
-      width: 100%;
-    }
   }
   .divider {
-    margin-bottom: $grid-base;
+    margin: $grid-base 0 $grid-base 0;
+  }
+  .franchiseFormStoreList {
+    flex-grow: 1;
   }
 }

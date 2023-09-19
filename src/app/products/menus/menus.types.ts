@@ -8,6 +8,7 @@ export interface IMenu {
   name: string
   description: string
   thumbnail_url: string
+  label_color: string
 }
 
 export interface IMenuState {

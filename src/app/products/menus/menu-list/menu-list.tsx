@@ -63,13 +63,14 @@ export const MenuList: FC = () => {
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
-  } = useDialog<string | null>(null)
+  } = useDialog<string|null>(null)
 
   const {
+    data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
     openDialog: openFilePickerDialog
-  } = useDialog<null>(null)
+  } = useDialog<IMenu|null>(null)
 
   const {
     refresh,
@@ -156,9 +157,9 @@ export const MenuList: FC = () => {
   const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
-        if (menuDialogData) {
+        if (filePickerData) {
           setMenuData({
-            ...menuDialogData,
+            ...filePickerData,
             thumbnail_url: generateMediaFileUrl(file)
           })
         }
@@ -168,7 +169,7 @@ export const MenuList: FC = () => {
       default:
         break
     }
-  }, [setMenuData, menuDialogData, closeFilePickerDialog])
+  }, [setMenuData, filePickerData, closeFilePickerDialog])
 
   return (
     <div className={styles.menuList}>
@@ -180,7 +181,6 @@ export const MenuList: FC = () => {
         <MenuForm 
           mode={state.mode} 
           data={menuDialogData} 
-          onClose={closeMenuDialog} 
           onSubmit={handleSubmit}
           isPickerDirty={isPickerDirty}
           onOpenFilePicker={openFilePickerDialog}

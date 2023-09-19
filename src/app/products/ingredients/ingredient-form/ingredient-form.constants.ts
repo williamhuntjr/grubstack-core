@@ -18,5 +18,6 @@ export const defaultIngredientFormData = {
   [IngredientFormField.Name]: '',
   [IngredientFormField.Description]: '',
   [IngredientFormField.Thumbnail]: '',
+  [IngredientFormField.LabelColor]: 'blue',
   ...defaultIngredientMeasurements
 }

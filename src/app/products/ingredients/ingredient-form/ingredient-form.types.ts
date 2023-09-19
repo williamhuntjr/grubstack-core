@@ -6,6 +6,7 @@ export enum IngredientFormField {
   Name = 'name',
   Description = 'description',
   Thumbnail = 'thumbnail_url',
+  LabelColor = 'label_color',
   Calories = 'calories',
   Fat = 'fat',
   SaturatedFat = 'saturated_fat',
@@ -23,6 +24,7 @@ export enum IngredientFormLabel {
   Name = 'Ingredient Name',
   Description = 'Description',
   Thumbnail = 'Thumbnail URL',
+  LabelColor = 'Label Color',
   Calories = 'Calories',
   Fat = 'Fat (g)',
   SaturatedFat = 'Saturated Fat (g)',
@@ -40,6 +42,7 @@ export interface IIngredientFormValues {
   [IngredientFormField.Name]: string
   [IngredientFormField.Description]: string
   [IngredientFormField.Thumbnail]: string
+  [IngredientFormField.LabelColor]: string
   [IngredientFormField.Calories]: number
   [IngredientFormField.Fat]: number
   [IngredientFormField.SaturatedFat]: number

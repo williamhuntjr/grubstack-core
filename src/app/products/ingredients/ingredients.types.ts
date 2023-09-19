@@ -6,6 +6,7 @@ export interface IIngredient {
   name: string
   description: string
   thumbnail_url: string
+  label_color: string
   calories: number
   fat: number
   saturated_fat: number
