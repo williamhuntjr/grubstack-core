@@ -61,14 +61,11 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
     try {
       setAppLoading(true)
       await HttpClient.get('/auth/verify_tenant')
-      
-      const userInfo = localStorage.getItem('grubUserInfo')
-      if (userInfo == null) {
-        const {
-          data: { data },
-        } = await HttpClient.get('/auth/userinfo')
-        localStorage.setItem('grubUserInfo', JSON.stringify(data))
-      }
+
+      const {
+        data: { data },
+      } = await HttpClient.get('/auth/userinfo')
+      localStorage.setItem('grubUserInfo', JSON.stringify(data))
       
       if (process.env.NODE_ENV == 'production') {
         const resp = await HttpClient.get('/core/versions')
