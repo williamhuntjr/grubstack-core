@@ -9,6 +9,7 @@ export interface IMenu {
   description: string
   thumbnail_url: string
   label_color: string
+  items: IItem[]
 }
 
 export interface IMenuState {
