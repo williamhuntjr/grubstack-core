@@ -10,8 +10,8 @@ export interface IItem {
   description: string
   thumbnail_url: string
   label_color: string
-  varieties: IVariety[]
-  ingredients: IIngredient[]
+  varieties?: IVariety[]
+  ingredients?: IIngredient[]
   price?: number
   sale_price?: number
   is_onsale?: boolean

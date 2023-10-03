@@ -7,6 +7,7 @@ import { useProductModule } from 'app/products/products-module-hook'
 import { BuilderTypes } from 'app/builder/builder.constants'
 import { IItem } from 'app/products/items/items.types'
 import { IMenu } from 'app/products/menus/menus.types'
+import { IVariety } from 'app/products/varieties/varieties.types'
 import { IIngredient } from 'app/products/ingredients/ingredients.types'
 import { IBuilderDialog, IBuilderDialogState } from './builder-dialog.types'
 import { defaultBuilderDialogState, builderDialogPageSize } from './builder-dialog.constants'
@@ -25,7 +26,7 @@ export const BuilderDialog: FC<IBuilderDialog> = ({ builderType, onClick }) => {
   const fetchData = useCallback(async(): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     try {
-      let resp:IPaginationData<IItem>|IPaginationData<IMenu>|IPaginationData<IIngredient>
+      let resp:IPaginationData<IItem>|IPaginationData<IMenu>|IPaginationData<IIngredient>|IPaginationData<IVariety>
       if (builderType === BuilderTypes.Item) {
         resp = await ItemService.getAll({limit: builderDialogPageSize, page: state.page})
       }
