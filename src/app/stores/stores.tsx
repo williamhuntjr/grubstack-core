@@ -10,6 +10,7 @@ import { FilePicker } from 'core/components/file-picker/file-picker'
 import { QuickPicker } from 'core/components/quick-picker/quick-picker'
 import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
+import { StoreFilter } from 'common/types/filter.types'
 import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
@@ -17,6 +18,7 @@ import { hasPermission } from 'common/auth/auth.utils'
 import { UserPermissions } from 'common/auth/auth.constants'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { useCoreModule } from 'core/core-module-hook'
+import { listPageSize } from 'common/constants'
 import { IconCardList } from 'core/components/icon-card-list/icon-card-list'
 import { useProductModule } from 'app/products/products-module-hook'
 import { IMenu } from 'app/products/menus/menus.types'
@@ -84,7 +86,7 @@ export const Stores = (): JSX.Element => {
     refresh,
     state: paginationState,
     pagination: pagination,
-  } = usePagination<IStore>(StoreService.getAll)
+  } = usePagination<IStore>(StoreService.getAll, listPageSize, { [StoreFilter.ShowMenus]: true })
 
   const {
     state: menuPaginationState,

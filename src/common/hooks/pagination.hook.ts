@@ -16,8 +16,9 @@ export interface IPaginationHook<TData> {
   refresh(): Promise<void>
 }
 
-type TPaginationRequestFn<TData> = (
+type TPaginationRequestFn<TData, TFilters> = (
   pagination: IPaginationParams,
+  filters?: TFilters,
   data?: TData[]
 ) => Promise<IPaginationData<TData>>
 
@@ -29,14 +30,15 @@ export interface ITablePagination {
   onChangeLimit(limit: number): Promise<void>,
   isLoading: boolean
 }
-export function usePagination<TData>(requestFn: TPaginationRequestFn<TData>, pageLimit?: number): IPaginationHook<TData> {
+
+export function usePagination<TData, TFilters = {}>(requestFn: TPaginationRequestFn<TData, TFilters>, pageLimit?: number, filters?: TFilters | undefined): IPaginationHook<TData> {
   const [state, setState] = useState<IPaginationHookState<TData>>({ isLoading: true, data: [], total: 0, pages: 1, pagination: { page: 1, limit: pageLimit ?? listPageSize } })
 
   const fetchData = useCallback(async(pagination?: IPaginationParams): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true, pagination: pagination ?? prevState.pagination }))
-    const { data, total, pages } = await requestFn(pagination ?? state.pagination)
+    const { data, total, pages } = await requestFn(pagination ?? state.pagination, filters)
     setState((prevState) => ({ ...prevState, data, total, pages, isLoading: false }))
-  }, [state, requestFn])
+  }, [state, requestFn, filters])
 
   useEffect(() => {
     void fetchData()

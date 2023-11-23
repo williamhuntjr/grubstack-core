@@ -10,8 +10,10 @@ import { FilePicker } from 'core/components/file-picker/file-picker'
 import { QuickPicker } from 'core/components/quick-picker/quick-picker'
 import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
+import { listPageSize } from 'common/constants'
 import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
 import { useDialog } from 'common/hooks/dialog.hook'
+import { FranchiseFilter, IFranchiseFilters } from 'common/types/filter.types'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { hasPermission } from 'common/auth/auth.utils'
 import { UserPermissions } from 'common/auth/auth.constants'
@@ -85,7 +87,7 @@ export const Franchises = (): JSX.Element => {
     refresh,
     state: paginationState,
     pagination: pagination,
-  } = usePagination<IFranchise>(FranchiseService.getAll)
+  } = usePagination<IFranchise, IFranchiseFilters>(FranchiseService.getAll, listPageSize, { [FranchiseFilter.ShowStores]: true })
 
   const {
     state: storePaginationState,

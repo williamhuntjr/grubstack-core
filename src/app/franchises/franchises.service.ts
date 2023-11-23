@@ -3,6 +3,7 @@ import { prepareRequestParams } from 'common/utils/request.utils'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
 import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IStore } from 'app/stores/stores.types'
+import { IFranchiseFilters } from 'common/types/filter.types'
 import { IFranchiseService, IFranchise } from './franchises.types'
 
 export class FranchiseService implements IFranchiseService {
@@ -10,8 +11,8 @@ export class FranchiseService implements IFranchiseService {
     bindAllInstanceMethods(this)
   }
   
-  public async getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IFranchise>> {
-    const params = prepareRequestParams(paginationParams)
+  public async getAll(paginationParams: IPaginationParams, filters?: IFranchiseFilters): Promise<IPaginationData<IFranchise>> {
+    const params = prepareRequestParams(paginationParams, filters)
     const {
       data: { data, status },
     } = await this.httpClient.get<IPaginationResponse<IFranchise>>('/franchises', { params })
@@ -25,7 +26,7 @@ export class FranchiseService implements IFranchiseService {
   public async get(franchiseId: string): Promise<IResponse<IFranchise>> {
     const {
       data: { data, status },
-    } = await this.httpClient.get<IResponse<IFranchise>>(`/franchise/${franchiseId}`)
+    } = await this.httpClient.get<IResponse<IFranchise>>(`/franchise/${franchiseId}?showStores=true`)
     return {
       data, status
     }

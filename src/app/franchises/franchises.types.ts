@@ -2,6 +2,7 @@ import { GSMode } from 'common/utils/mode/mode.types'
 import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
 import { ICardListItem } from 'core/components/card-list/card-list.types'
 import { IStore } from 'app/stores/stores.types'
+import { IFranchiseFilters } from 'common/types/filter.types'
 
 export interface IFranchise {
   id?: string
@@ -12,7 +13,7 @@ export interface IFranchise {
 }
 
 export interface IFranchiseService {
- getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IFranchise>>
+ getAll(paginationParams: IPaginationParams, filters?: IFranchiseFilters): Promise<IPaginationData<IFranchise>>
  get(franchiseId: string): Promise<IResponse<IFranchise>>
  delete(franchiseId: string): Promise<void>
  create(params: IFranchise): Promise<IFranchise>

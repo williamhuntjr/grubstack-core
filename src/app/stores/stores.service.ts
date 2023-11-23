@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { prepareRequestParams } from 'common/utils/request.utils'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
+import { IStoreFilters } from 'common/types/filter.types'
 import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IMenu } from 'app/products/menus/menus.types'
 import { IStoreService, IStore } from './stores.types'
@@ -10,8 +11,8 @@ export class StoreService implements IStoreService {
     bindAllInstanceMethods(this)
   }
   
-  public async getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IStore>> {
-    const params = prepareRequestParams(paginationParams)
+  public async getAll(paginationParams: IPaginationParams, filters?: IStoreFilters): Promise<IPaginationData<IStore>> {
+    const params = prepareRequestParams(paginationParams, filters)
     const {
       data: { data, status },
     } = await this.httpClient.get<IPaginationResponse<IStore>>('/stores', { params })
