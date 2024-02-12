@@ -2,7 +2,7 @@ import { IUser } from './auth.types'
 
 export function validateRoutePermissions(permissions: string[]): boolean {
   let user:IUser|null = null
-  const userInfo = localStorage.getItem('grubUserInfo')
+  const userInfo = localStorage.getItem('grubstackUser')
   if (userInfo != null) {
     user = JSON.parse(userInfo)
   }
@@ -13,7 +13,7 @@ export function validateRoutePermissions(permissions: string[]): boolean {
 
 export function validatePermissions(permissions: string[]): boolean {
   let user:IUser|null = null
-  const userInfo = localStorage.getItem('grubUserInfo')
+  const userInfo = localStorage.getItem('grubstackUser')
   if (userInfo != null) {
     user = JSON.parse(userInfo)
   }
@@ -24,7 +24,7 @@ export function validatePermissions(permissions: string[]): boolean {
 
 export function hasPermission(permission: string): boolean {
   let user:IUser|null = null
-  const userInfo = localStorage.getItem('grubUserInfo')
+  const userInfo = localStorage.getItem('grubstackUser')
   if (userInfo != null) {
     user = JSON.parse(userInfo)
   }
@@ -35,7 +35,7 @@ export function hasPermission(permission: string): boolean {
 
 export function getPermissions(): string[] {
   let user:IUser|null = null
-  const userInfo = localStorage.getItem('grubUserInfo')
+  const userInfo = localStorage.getItem('grubstackUser')
   if (userInfo != null) {
     user = JSON.parse(userInfo)
   }

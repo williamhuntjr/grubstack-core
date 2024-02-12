@@ -1,4 +1,4 @@
-import { UserPermissions } from 'common/auth/auth.constants'
+import { UserPermissions } from 'auth/auth.constants'
 import { IngredientList } from './ingredients/ingredient-list/ingredient-list'
 import { ItemList } from './items/item-list/item-list'
 import { MenuList } from './menus/menu-list/menu-list'

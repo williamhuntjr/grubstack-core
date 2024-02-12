@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { OverridableComponent } from '@mui/types'
 import { SvgIconTypeMap } from '@mui/material'
-import { UserPermissions } from 'common/auth/auth.constants'
+import { UserPermissions } from 'auth/auth.constants'
 import { Required } from 'utility-types'
 import { ILazyModule, IModuleDefinition } from 'core/react-lazy-modules/react-lazy-modules.types'
 

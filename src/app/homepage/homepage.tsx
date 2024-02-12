@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { appRoutes } from 'routes'
-import { validatePermissions, getPermissions } from 'common/auth/auth.utils'
+import { validatePermissions, getPermissions } from 'auth/auth.utils'
 import { NullPermissions } from 'common/error-pages'
 
 export const Homepage: FC = () => {

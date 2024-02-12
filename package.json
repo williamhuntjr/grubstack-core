@@ -1,9 +1,8 @@
 {
   "name": "grubstack-core",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@hookform/resolvers": "^2.9.11",
