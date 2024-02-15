@@ -18,7 +18,7 @@ export function validatePermissions(permissions: string[]): boolean {
     user = JSON.parse(userInfo)
   }
   return user != null ?
-    permissions.filter((permission) => user!.permissions.indexOf(permission) > -1).length == permissions.length || permissions.length <= 0
+    permissions.filter((permission) => user!.permissions.indexOf(permission) > -1).length > 0 || permissions.length <= 0
   : false
 }
 

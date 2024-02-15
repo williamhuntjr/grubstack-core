@@ -20,7 +20,4 @@ export const builderPermissions = [
   UserPermissions.MaintainItems,
   UserPermissions.MaintainMenus,
   UserPermissions.MaintainVarieties,
-  UserPermissions.ViewItems,
-  UserPermissions.ViewMenus,
-  UserPermissions.ViewVarieties
 ]

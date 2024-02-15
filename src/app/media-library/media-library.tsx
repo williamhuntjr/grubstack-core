@@ -76,7 +76,7 @@ export const MediaLibrary = (): JSX.Element => {
   const handleMediaFileListAction = useCallback((item: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.View:
-        setState((prevState) => ({ ...prevState, mode: canEditMediaLibrary ? GSMode.Edit : GSMode.New }))
+        setState((prevState) => ({ ...prevState, mode: canEditMediaLibrary ? GSMode.Edit : GSMode.View }))
         openMediaDialog(item)
         break
       default:

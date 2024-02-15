@@ -6,14 +6,18 @@ import { NullPermissions } from 'common/error-pages'
 
 export const Homepage: FC = () => {
   let navigate = useNavigate()
-  let redirectTo:string|null = null
 
   const routes = appRoutes
   const permissions = getPermissions()
 
   const init = (): void => {
+    let redirectTo:string|null = null
+
     routes.map((route) => {
+      console.log('testing', validatePermissions(route.permissions ?? []))
+      console.log(route.path)
       if (validatePermissions(route.permissions ?? []) && route.path !== '/' && redirectTo == null) {
+        console.log("SHOULD REDIRECT")
         redirectTo = route.path
       }
     })
