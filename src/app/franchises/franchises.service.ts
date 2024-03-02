@@ -26,28 +26,27 @@ export class FranchiseService implements IFranchiseService {
   public async get(franchiseId: string): Promise<IResponse<IFranchise>> {
     const {
       data: { data, status },
-    } = await this.httpClient.get<IResponse<IFranchise>>(`/franchise/${franchiseId}?showStores=true`)
+    } = await this.httpClient.get<IResponse<IFranchise>>(`/franchises/${franchiseId}`)
     return {
       data, status
     }
   }
 
   public async delete(franchiseId: string): Promise<void> {
-    const params = { franchise_id: franchiseId }
-    await this.httpClient.post<Promise<void>>('/franchise/delete', { params })
+    await this.httpClient.delete<Promise<void>>(`/franchises/${franchiseId}`)
   }
 
   public async create(params: IFranchise): Promise<IFranchise> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IFranchise>>('/franchise/create', { params })
+    } = await this.httpClient.post<IResponse<IFranchise>>('/franchises', { params })
     return data
   }
 
   public async update(params: IFranchise): Promise<IFranchise> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IFranchise>>('/franchise/update', { params })
+    } = await this.httpClient.put<IResponse<IFranchise>>('/franchises', { params })
     return data
   }
 
@@ -55,7 +54,7 @@ export class FranchiseService implements IFranchiseService {
     const params = prepareRequestParams(paginationParams)
     const {
       data: { data, status },
-    } = await this.httpClient.get<IPaginationResponse<IStore>>(`/franchise/${franchiseId}/stores`, { params })
+    } = await this.httpClient.get<IPaginationResponse<IStore>>(`/franchises/${franchiseId}/stores`, { params })
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
@@ -64,12 +63,11 @@ export class FranchiseService implements IFranchiseService {
   }
 
   public async addStore(franchiseId: string, storeId: string): Promise<void> {
-    const params = { franchise_id: franchiseId, store_id: storeId }
-    await this.httpClient.post<Promise<void>>('/franchise/addStore', { params })
+    const params = { store_id: storeId }
+    await this.httpClient.post<Promise<void>>(`/franchises/${franchiseId}/stores`, { params })
   }
 
   public async deleteStore(franchiseId: string, storeId: string): Promise<void> {
-    const params = { franchise_id: franchiseId, store_id: storeId }
-    await this.httpClient.post<Promise<void>>('/franchise/deleteStore', { params })
+    await this.httpClient.delete<Promise<void>>(`/franchises/${franchiseId}/stores/${storeId}`)
   }
 }

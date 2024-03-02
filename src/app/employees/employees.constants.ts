@@ -6,7 +6,6 @@ import { UserPermissions } from 'auth/auth.constants'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IGrubTableColumn, ITableAction } from 'core/components/grub-table/grub-table.types'
 import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
-import { IEmployee } from './employees.types'
 import { renderEmployeeIcon, renderEmployeeStatus } from './employees.utils'
 
 export const employeeServiceToken = 'EmployeeService'
@@ -45,7 +44,7 @@ export enum EmployeeStatus {
 }
 
 export interface IEmployeeColumn {
-  id: number
+  id: string
   name: string
   gender: string
   hire_date: string
@@ -126,39 +125,4 @@ export const employeeColumns: IGrubTableColumn<IEmployeeColumn>[] = [
     headerName: 'Thumbnail URL',
     hidden: true
   },
-]
-
-export const employees:IEmployee[] = [
-  {
-    id: 1,
-    first_name: 'William',
-    last_name: 'Hunt',
-    gender: 'male',
-    address1: '123 Test',
-    city: 'Suffolk',
-    state: 'VA',
-    postal: '23434',
-    profile_thumbnail_url: '/assets/img/placeholder-male.jpeg',
-    email: 'test@test.com',
-    hire_date: 'June 1, 2015',
-    employment_status: 'active',
-    phone: '111-222-3333',
-    job_title: 'cook'
-  },
-  {
-    id: 2,
-    first_name: 'Erica',
-    last_name: 'Hunt',
-    gender: 'female',
-    address1: '123 Test',
-    city: 'Suffolk',
-    state: 'VA',
-    postal: '23434',
-    profile_thumbnail_url: '/assets/img/placeholder-female.jpg',
-    email: 'test@test.com',
-    hire_date: 'June 1, 2015',
-    employment_status: 'active',
-    phone: '111-222-3333',
-    job_title: 'server'
-  }
 ]

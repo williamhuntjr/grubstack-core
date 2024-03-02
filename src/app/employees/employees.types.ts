@@ -3,7 +3,7 @@ import { IPaginationData, IPaginationParams } from 'common/types'
 
 export interface IEmployeeService {
   getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IEmployee>>
-  delete(employeeId: number): Promise<void>
+  delete(employeeId: string): Promise<void>
   create(params: IEmployee): Promise<IEmployee>
   update(params: IEmployee): Promise<IEmployee>
 }
@@ -14,7 +14,7 @@ export interface IEmployeeState {
 }
 
 export interface IEmployee {
-  id?: number
+  id?: string
   first_name: string
   last_name: string
   gender: string
@@ -31,7 +31,7 @@ export interface IEmployee {
 }
 
 export interface IEmployeeTableRow {
-  id: number
+  id: string
   name: string
   gender: string
   phone: string

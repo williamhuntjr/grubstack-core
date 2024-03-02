@@ -60,7 +60,7 @@ export const Employees = (): JSX.Element => {
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
-  } = useDialog<number|null>(null)
+  } = useDialog<string|null>(null)
 
   const {
     data: filePickerData,
@@ -95,7 +95,7 @@ export const Employees = (): JSX.Element => {
     let selectedEmployee:IEmployee
     switch (action.label) {
       case EmployeeAction.Delete:
-        openDeleteDialog(formatted?.id ?? null)
+        openDeleteDialog(formatted?.id ?? '')
         break
       case EmployeeAction.View:
         selectedEmployee = paginationState.data.filter(employee => employee.id == formatted.id)[0]

@@ -21,22 +21,21 @@ export class EmployeeService implements IEmployeeService {
     }
   }
 
-  public async delete(employeeId: number): Promise<void> {
-    const params = { employee_id: employeeId }
-    await this.httpClient.post<Promise<void>>('/employee/delete', { params })
+  public async delete(employeeId: string): Promise<void> {
+    await this.httpClient.delete<Promise<void>>(`/employees/${employeeId}`)
   }
 
   public async create(params: IEmployee): Promise<IEmployee> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IEmployee>>('/employee/create', { params })
+    } = await this.httpClient.post<IResponse<IEmployee>>('/employees', { params })
     return data
   }
 
   public async update(params: IEmployee): Promise<IEmployee> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IEmployee>>('/employee/update', { params })
+    } = await this.httpClient.put<IResponse<IEmployee>>('/employees', { params })
     return data
   }
 }

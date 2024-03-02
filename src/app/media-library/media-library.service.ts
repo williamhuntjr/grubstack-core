@@ -25,7 +25,7 @@ export class MediaLibraryService implements IMediaLibraryService {
     for (const file of Object.values(fileList)) {
       const formData = new FormData()
       formData.append("file", file)
-      await this.httpClient.post("/media-library/upload", formData, {
+      await this.httpClient.post("/media-library", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -34,7 +34,6 @@ export class MediaLibraryService implements IMediaLibraryService {
   }
 
   public async delete(fileId: string): Promise<void> {
-    const params = { file_id: fileId }
-    await this.httpClient.post<Promise<void>>('/media-library/delete', { params })
+    await this.httpClient.delete<Promise<void>>(`/media-library/${fileId}`)
   }
 }

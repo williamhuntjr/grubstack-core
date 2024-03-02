@@ -6,9 +6,9 @@ import styles from './employees.module.scss'
 
 export function normalizeData(data: IEmployee[]): IEmployeeTableRow[] {
   return data.map((employee) => ({
-    id: employee.id ?? 0,
+    id: employee.id ?? '',
     name: `${employee.first_name} ${employee.last_name}`,
-    gender: capitalize(employee.gender),
+    gender: capitalize(employee.gender.replace('_', ' ')),
     phone: employee.phone,
     email: employee.email,
     employment_status: employee.employment_status,
