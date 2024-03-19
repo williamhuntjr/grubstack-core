@@ -23,27 +23,26 @@ export class MenuService implements IMenuService {
     }
   }
 
-  public async getMenu(menuId: string): Promise<IResponse<IMenu>> {
-    const resp = await this.httpClient.get<IResponse<IMenu>>(`/menu/${menuId}`)
+  public async get(menuId: string): Promise<IResponse<IMenu>> {
+    const resp = await this.httpClient.get<IResponse<IMenu>>(`/menus/${menuId}`)
     return resp.data
   }
 
   public async delete(menuId: string): Promise<void> {
-    const params = { menu_id: menuId }
-    await this.httpClient.post<Promise<void>>('/menu/delete', { params })
+    await this.httpClient.delete<Promise<void>>(`/menus/${menuId}`)
   }
 
   public async create(params: IMenu): Promise<IMenu> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IMenu>>('/menu/create', { params })
+    } = await this.httpClient.post<IResponse<IMenu>>('/menus', { params })
     return data
   }
 
   public async update(params: IMenu): Promise<IMenu> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IMenu>>('/menu/update', { params })
+    } = await this.httpClient.put<IResponse<IMenu>>('/menus', { params })
     return data
   }
 
@@ -60,22 +59,19 @@ export class MenuService implements IMenuService {
   }
 
   public async addItem(menuId: string, itemId: string): Promise<void> {
-    const params = { menu_id: menuId, item_id: itemId }
-    await this.httpClient.post<Promise<void>>('/menu/addItem', { params })
+    const params = { item_id: itemId }
+    await this.httpClient.post<Promise<void>>(`/menus/${menuId}/items`, { params })
   }
 
   public async deleteItem(menuId: string, itemId: string): Promise<void> {
-    const params = { menu_id: menuId, item_id: itemId }
-    await this.httpClient.post<Promise<void>>('/menu/deleteItem', { params })
+    await this.httpClient.delete<Promise<void>>(`/menus/${menuId}/items/${itemId}`)
   }
 
   public async updateItem(menuId: string, itemId: string, data: IBuilderItemFormValues): Promise<void> {
     const params = {
-      menu_id: menuId,
-      item_id: itemId,
       ...data
     }
-    await this.httpClient.post<IResponse<IItem>>('/menu/updateItem', { params })
+    await this.httpClient.put<IResponse<IItem>>(`/menus/${menuId}/items/${itemId}`, { params })
   }
 
 }

@@ -72,6 +72,7 @@ export const VarietyForm: FC<IVarietyForm> = memo(({
             label={VarietyFormLabel.LabelColor}
             options={defineFormSelectData(labelColorOptions)}
             className={styles.formField}
+            disabled={isViewMode}
           />
         </div>
       </div>

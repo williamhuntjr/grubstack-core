@@ -28,14 +28,14 @@ export interface IItemState {
 
 export interface IItemService {
   getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IItem>>
-  getItem(itemId: string): Promise<IResponse<IItem>>
-  getIngredients(paginationParams: IPaginationParams, itemId: string): Promise<IPaginationData<IIngredient>>
+  get(itemId: string): Promise<IResponse<IItem>>
   delete(ingredientId: string): Promise<void>
+  create(params: IItem): Promise<IItem>
+  update(params: IItem): Promise<IItem>
+  getIngredients(paginationParams: IPaginationParams, itemId: string): Promise<IPaginationData<IIngredient>>
   deleteIngredient(itemId: string, ingredientId: string): Promise<void>
   addIngredient(itemId: string, ingredientId: string): Promise<void>
   updateIngredient(itemId: string, ingredientId: string, data: IBuilderIngredientFormValues): Promise<void>
-  create(params: IItem): Promise<IItem>
-  update(params: IItem): Promise<IItem>
   getVarieties(itemId: string): Promise<IVariety[]>
   addVariety(itemId: string, varietyId: string): Promise<void>
   deleteVariety(itemId: string, varietyId: string): Promise<void>

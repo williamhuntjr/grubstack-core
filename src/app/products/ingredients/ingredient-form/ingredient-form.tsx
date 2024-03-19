@@ -73,6 +73,7 @@ export const IngredientForm: FC<IIngredientForm> = memo(({
             label={IngredientFormLabel.LabelColor}
             options={defineFormSelectData(labelColorOptions)}
             className={styles.formField}
+            disabled={isViewMode}
           />
         </div>
       </div>

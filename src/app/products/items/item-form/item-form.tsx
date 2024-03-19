@@ -72,6 +72,7 @@ export const ItemForm: FC<IItemForm> = memo(({
             label={ItemFormLabel.LabelColor}
             options={defineFormSelectData(labelColorOptions)}
             className={styles.formField}
+            disabled={isViewMode}
           />
         </div>
       </div>

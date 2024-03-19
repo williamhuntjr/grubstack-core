@@ -73,6 +73,7 @@ export const MenuForm: FC<IMenuForm> = memo(({
             label={MenuFormLabel.LabelColor}
             options={defineFormSelectData(labelColorOptions)}
             className={styles.formField}
+            disabled={isViewMode}
           />
         </div>
       </div>
