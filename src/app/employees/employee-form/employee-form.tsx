@@ -54,7 +54,14 @@ export const EmployeeForm: FC<IEmployeeForm> = memo(({
       <div className={styles.thumbnailContainer}>
         <div className={styles.thumbnail}>
         <img src={data?.profile_thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.first_name} />
-          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())}>Change Image</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => onOpenFilePicker(getValues())}
+            disabled={isViewMode}
+          >
+            Change Image
+          </Button>
         </div>
         <div className={styles.headerInput}>
           <FormField

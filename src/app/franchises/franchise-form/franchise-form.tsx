@@ -64,7 +64,14 @@ export const FranchiseForm: FC<IFranchiseForm> = memo(({
       <div className={styles.thumbnailContainer}>
         <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())}>Change Image</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => onOpenFilePicker(getValues())}
+            disabled={isViewMode}
+          >
+            Change Image
+          </Button>
         </div>
         <div className={styles.headerInput}>
           <FormField
