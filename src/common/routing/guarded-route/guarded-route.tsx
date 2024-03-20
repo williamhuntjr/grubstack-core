@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { InvalidPagePermissions } from 'common/error-pages'
-import { validateRoutePermissions } from 'common/auth/auth.utils'
+import { validateRoutePermissions } from 'auth/auth.utils'
 import { IGuardedRoute } from './guarded-route.types'
 
 export const GuardedRoute: FC<IGuardedRoute> = ({ permissions, component, redirectTo }) => {

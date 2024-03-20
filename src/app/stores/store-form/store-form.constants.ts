@@ -18,5 +18,6 @@ export const defaultStoreFormData = {
   [StoreFormField.State]: '',
   [StoreFormField.Postal]: '',
   [StoreFormField.StoreType]: 'store-front',
-  [StoreFormField.Thumbnail]: ''
+  [StoreFormField.Thumbnail]: '',
+  [StoreFormField.PhoneNumber]: ''
 }

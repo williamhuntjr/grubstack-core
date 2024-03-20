@@ -3,6 +3,7 @@ import { Injector } from 'core/injector/injector.service'
 import { httpClientToken, IHttpClient } from 'core/services/http-client'
 import { Scope } from 'core/injector/injector.types'
 import { CoreModule } from 'core/core.module'
+import { MediaLibraryModule } from 'app/media-library/media-library.module'
 import {
   productModule,
 } from './products.constants'
@@ -39,5 +40,5 @@ export const ProductModule: ILazyModule<ProductModuleDefinition> = {
     Injector.register<IMenuService>(menuServiceToken, () => new MenuService(httpClient), Scope.Singleton)
     Injector.register<IVarietyService>(varietyServiceToken, () => new VarietyService(httpClient), Scope.Singleton)
   },
-  dependencies: [CoreModule],
+  dependencies: [CoreModule, MediaLibraryModule],
 }

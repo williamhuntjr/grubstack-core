@@ -12,10 +12,17 @@ import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { hasPermission } from 'auth/auth.utils'
+import { UserPermissions } from 'auth/auth.constants'
+import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
 import { CardList } from 'core/components/card-list/card-list'
+import { FilePicker } from 'core/components/file-picker/file-picker'
 import { IListAction } from 'common/list.types'
+import { IMediaLibraryFile } from 'app/media-library/media-library.types'
+import { MediaLibraryAction } from 'app/media-library/media-library.constants'
+import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { IItem, IItemState } from 'app/products/items/items.types'
 import { defaultItemState, itemRoutePath } from 'app/products/items/items.constants'
 import { defaultItemFormData } from 'app/products/items/item-form/item-form.constants'
@@ -27,15 +34,18 @@ import styles from './item-list.module.scss'
 export const ItemList: FC = () => {
   const { ErrorHandler } = useCoreModule()
   const { ItemService } = useProductModule()
+  const { MediaLibraryService } = useMediaLibraryModule()
 
-  const [state, setState] = useState<IItemState>(defaultItemState)
+  const [ state, setState ] = useState<IItemState>(defaultItemState)
+  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
 
   let navigate = useNavigate()
 
-  const canEditItems = true
+  const canEditItems = hasPermission(UserPermissions.MaintainItems)
   const validationMessages = generateValidationMessages(ObjectType.Item)
 
   const {
+    setData: setItemData,
     data: itemDialogData,
     open: itemDialogOpen,
     openDialog: openItemDialog,
@@ -47,7 +57,14 @@ export const ItemList: FC = () => {
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
-  } = useDialog<string | null>(null)
+  } = useDialog<string|null>(null)
+
+  const {
+    data: filePickerData,
+    open: filePickerDialogOpen,
+    closeDialog: closeFilePickerDialog,
+    openDialog: openFilePickerDialog
+  } = useDialog<IItem|null>()
 
   const {
     refresh,
@@ -55,16 +72,23 @@ export const ItemList: FC = () => {
     pagination: pagination
   } = usePagination<IItem>(ItemService.getAll)
 
+  const {
+    state: filePickerPaginationState,
+    pagination: filePickerPagination
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+
   const handleCardAction = useCallback((item: IItem, action: IListAction): void => {
     switch (action.label) {
       case ItemAction.Delete:
         openDeleteDialog(item?.id ?? '')
         break
       case ItemAction.View:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: GSMode.View }))
         openItemDialog(item)
         break
       case ItemAction.Edit:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditItems ? GSMode.Edit : GSMode.View }))
         openItemDialog(item)
         break
@@ -120,9 +144,26 @@ export const ItemList: FC = () => {
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     } finally {
-      await refresh()
+      await pagination.onChangePage(1)
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, ItemService, refresh])
+  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, ItemService, pagination])
+
+  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+    switch (action) {
+      case MediaLibraryAction.Select:
+        if (filePickerData) {
+          setItemData({
+            ...filePickerData,
+            thumbnail_url: generateMediaFileUrl(file)
+          })
+        }
+        setIsPickerDirty(true)
+        closeFilePickerDialog()
+        break
+      default:
+        break
+    }
+  }, [setItemData, filePickerData, closeFilePickerDialog])
 
   return (
     <div className={styles.itemList}>
@@ -131,7 +172,13 @@ export const ItemList: FC = () => {
         onClose={closeItemDialog}
         title={state.mode == GSMode.New ? "Create a new item" : itemDialogData?.name ?? ''}
       >
-        <ItemForm mode={state.mode} data={itemDialogData} onClose={closeItemDialog} onSubmit={handleSubmit}/>
+        <ItemForm 
+          mode={state.mode} 
+          data={itemDialogData} 
+          onSubmit={handleSubmit}
+          isPickerDirty={isPickerDirty}
+          onOpenFilePicker={openFilePickerDialog}
+        />
       </GrubDialog>
       <ConfirmationDialog
         open={deleteDialogOpen}
@@ -141,6 +188,13 @@ export const ItemList: FC = () => {
         cancelButtonLabel="Cancel"
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
+      />
+      <FilePicker
+        open={filePickerDialogOpen}
+        onClose={closeFilePickerDialog}
+        paginationState={filePickerPaginationState}
+        pagination={filePickerPagination}
+        onAction={handleFilePickerAction}
       />
       {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
@@ -162,7 +216,9 @@ export const ItemList: FC = () => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any items.</h2>
           <p>You will need to create an item to continue.</p>
-          <Button onClick={() => openItemDialog(defaultItemFormData)} variant="outlined" color="primary">Create an Item</Button>
+          {canEditItems &&
+            <Button onClick={() => openItemDialog(defaultItemFormData)} variant="outlined" color="primary">Create an Item</Button>
+          }
         </div>
       }
       {canEditItems && 

@@ -8,6 +8,8 @@ export interface IMenu {
   name: string
   description: string
   thumbnail_url: string
+  label_color: string
+  items?: IItem[]
 }
 
 export interface IMenuState {
@@ -21,12 +23,12 @@ export interface IMenuState {
 
 export interface IMenuService {
   getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IMenu>>
-  getMenu(menuId: string): Promise<IResponse<IMenu>>
-  getItems(paginationParams: IPaginationParams, menuId: string): Promise<IPaginationData<IItem>>
+  get(menuId: string): Promise<IResponse<IMenu>>
+  create(params: IMenu): Promise<IMenu>
+  update(params: IMenu): Promise<IMenu>
   delete(menuId: string): Promise<void>
+  getItems(paginationParams: IPaginationParams, menuId: string): Promise<IPaginationData<IItem>>
   addItem(menuId: string, itemId: string): Promise<void>
   deleteItem(menuId: string, itemId: string): Promise<void>
   updateItem(menuId: string, itemId: string, data: IBuilderItemFormValues): Promise<void>
-  create(params: IMenu): Promise<IMenu>
-  update(params: IMenu): Promise<IMenu>
 }

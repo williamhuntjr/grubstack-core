@@ -1,7 +1,7 @@
 import React, { useEffect, FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserPermissions } from 'common/auth/auth.constants'
-import { validatePermissions } from 'common/auth/auth.utils'
+import { UserPermissions } from 'auth/auth.constants'
+import { validatePermissions } from 'auth/auth.utils'
 import { productRoutePath } from './products.constants'
 
 export const Products: FC = () => {

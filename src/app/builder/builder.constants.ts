@@ -1,4 +1,4 @@
-import { UserPermissions } from 'common/auth/auth.constants'
+import { UserPermissions } from 'auth/auth.constants'
 export const builderServiceToken = 'BuilderService'
 export const builderModule = 'BuilderModule'
 
@@ -20,7 +20,4 @@ export const builderPermissions = [
   UserPermissions.MaintainItems,
   UserPermissions.MaintainMenus,
   UserPermissions.MaintainVarieties,
-  UserPermissions.ViewItems,
-  UserPermissions.ViewMenus,
-  UserPermissions.ViewVarieties
 ]

@@ -1,7 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Route, BrowserRouter, Routes } from 'react-router-dom'
-import { Auth0Provider } from '@auth0/auth0-react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -9,7 +8,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { StyledEngineProvider } from '@mui/material'
 
 import { appRoutes } from 'routes'
-import { appConfig } from 'common/config'
 
 import { AppContainer } from './layouts/app-container/app-container'
 import { appInitializer } from './app-initializer'
@@ -102,16 +100,9 @@ root.render(
     />
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Auth0Provider
-          domain={appConfig.authDomain}
-          clientId={appConfig.authClientId}
-          redirectUri={appConfig.siteUrl}
-          audience="https://api.grubstack.app/v1"
-        > 
-          <Routes>
-            <Route path="/*" element={<AppContainer routes={appRoutes} />}/>
-          </Routes>
-        </Auth0Provider>
+        <Routes>
+          <Route path="/*" element={<AppContainer routes={appRoutes} />}/>
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   </StyledEngineProvider>

@@ -21,22 +21,26 @@ export class IngredientService implements IIngredientService {
     }
   }
 
+  public async get(ingredientId: string): Promise<IResponse<IIngredient>> {
+    const resp = await this.httpClient.get<IResponse<IIngredient>>(`/ingredients/${ingredientId}`)
+    return resp.data
+  }
+
   public async delete(ingredientId: string): Promise<void> {
-    const params = { ingredient_id: ingredientId }
-    await this.httpClient.post<Promise<void>>('/ingredient/delete', { params })
+    await this.httpClient.delete<Promise<void>>(`/ingredients/${ingredientId}`)
   }
 
   public async create(params: IIngredient): Promise<IIngredient> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IIngredient>>('/ingredient/create', { params })
+    } = await this.httpClient.post<IResponse<IIngredient>>('/ingredients', { params })
     return data
   }
 
   public async update(params: IIngredient): Promise<IIngredient> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IIngredient>>('/ingredient/update', { params })
+    } = await this.httpClient.put<IResponse<IIngredient>>('/ingredients', { params })
     return data
   }
   

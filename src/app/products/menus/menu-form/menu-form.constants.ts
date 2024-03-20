@@ -4,5 +4,5 @@ export const defaultMenuFormData = {
   [MenuFormField.Name]: '',
   [MenuFormField.Description]: '',
   [MenuFormField.Thumbnail]: '',
-  
+  [MenuFormField.LabelColor]: 'blue',
 }

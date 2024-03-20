@@ -6,9 +6,11 @@ import { productRoute } from 'app/products/products.routes'
 import { builderRoute } from 'app/builder/builder.routes'
 import { mediaLibraryRoute } from 'app/media-library/media-library.routes'
 import { employeeRoute } from 'app/employees/employees.routes'
+import { franchiseRoute } from 'app/franchises/franchises.routes'
 
 const AppRoutes: Array<IRoute | IAsyncRoute<never>> = [
   homepageRoute,
+  franchiseRoute,
   storeRoute,
   employeeRoute,
   productRoute,

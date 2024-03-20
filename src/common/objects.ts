@@ -4,5 +4,7 @@ export enum ObjectType {
   Variety = 'variety',
   Menu = 'menu',
   Ingredient = 'ingredient',
-  File = 'file'
+  File = 'file',
+  Employee = 'employee',
+  Franchise = 'franchise',
 }

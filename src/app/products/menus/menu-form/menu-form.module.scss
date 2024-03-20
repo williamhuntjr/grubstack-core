@@ -7,10 +7,33 @@ $menuFormWidth: 500px;
   @media screen and (max-width: $bp-md) {
     width: auto;
   }
+  .thumbnailContainer {
+    display: flex;
+    .thumbnail {
+      margin-right: $grid-base;
+      margin-bottom: $grid-base;
+      img {
+        max-width: 130px;
+        margin: 0 auto 0 auto;
+        display: block;
+        border: $border-gray-primary;
+        padding: $grid-small;
+      }
+      button {
+        min-width: 150px;
+        width: 100%;
+        margin-top: $grid-base;
+      }
+    }
+    .headerInput {
+      width: 100%;
+    }
+  }
   .formField {
     width: 100%;
     margin: 0 0 $grid-base 0;
   }
+  .thumbnailUrl { display: none; }
   .saveButton {
     display: block;
     margin-left: auto;

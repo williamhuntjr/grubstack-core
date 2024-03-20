@@ -1,4 +1,4 @@
-import { IPaginationParams, IPaginationData } from 'common/types'
+import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
 import { GSMode } from 'common/utils/mode/mode.types'
 
 export interface IIngredient {
@@ -6,6 +6,7 @@ export interface IIngredient {
   name: string
   description: string
   thumbnail_url: string
+  label_color: string
   calories: number
   fat: number
   saturated_fat: number
@@ -35,6 +36,7 @@ export interface IIngredientState {
 
 export interface IIngredientService {
   getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IIngredient>>
+  get(ingredientId: string): Promise<IResponse<IIngredient>>
   delete(ingredientId: string): Promise<void>
   create(params: IIngredient): Promise<IIngredient>
   update(params: IIngredient): Promise<IIngredient>

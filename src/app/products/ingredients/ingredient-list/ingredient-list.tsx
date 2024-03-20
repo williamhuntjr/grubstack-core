@@ -12,12 +12,19 @@ import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IListAction } from 'common/list.types'
 import { CardList } from 'core/components/card-list/card-list'
+import { hasPermission } from 'auth/auth.utils'
+import { UserPermissions } from 'auth/auth.constants'
 import { IIngredient, IIngredientState } from 'app/products/ingredients/ingredients.types'
 import { IngredientForm } from 'app/products/ingredients/ingredient-form/ingredient-form'
 import { defaultIngredientFormData } from 'app/products/ingredients/ingredient-form/ingredient-form.constants'
 import { defaultIngredientState } from 'app/products/ingredients/ingredients.constants'
 import { generateValidationMessages } from 'common/validation/validation'
+import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
+import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { useCoreModule } from 'core/core-module-hook'
+import { FilePicker } from 'core/components/file-picker/file-picker'
+import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
+import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { 
   IngredientActionsEditMode, 
   IngredientActionsViewMode, 
@@ -31,13 +38,16 @@ import styles from './ingredient-list.module.scss'
 export const IngredientList: FC = () => {
   const { ErrorHandler } = useCoreModule()
   const { IngredientService } = useProductModule()
+  const { MediaLibraryService } = useMediaLibraryModule()
 
-  const [state, setState] = useState<IIngredientState>(defaultIngredientState)
+  const [ state, setState ] = useState<IIngredientState>(defaultIngredientState)
+  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
 
-  const canEditIngredients = true
+  const canEditIngredients = hasPermission(UserPermissions.MaintainIngredients)
   const validationMessages = generateValidationMessages(ObjectType.Ingredient)
 
   const {
+    setData: setIngredientData,
     data: ingredientDialogData,
     open: ingredientDialogOpen,
     openDialog: openIngredientDialog,
@@ -52,10 +62,22 @@ export const IngredientList: FC = () => {
   } = useDialog<string | null>(null)
 
   const {
+    data: filePickerData,
+    open: filePickerDialogOpen,
+    closeDialog: closeFilePickerDialog,
+    openDialog: openFilePickerDialog
+  } = useDialog<IIngredient|null>()
+
+  const {
     refresh,
     state: paginationState,
     pagination: pagination
   } = usePagination<IIngredient>(IngredientService.getAll)
+
+  const {
+    state: filePickerPaginationState,
+    pagination: filePickerPagination
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
 
   const handleListItemAction = useCallback((item: IIngredientListItem, action: IListAction): void => {
     switch (action.label) {
@@ -63,10 +85,12 @@ export const IngredientList: FC = () => {
         openDeleteDialog(item?.id ?? '')
         break
       case IngredientAction.View:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: GSMode.View }))
         openIngredientDialog(item)
       break
       case IngredientAction.Edit:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditIngredients ? GSMode.Edit : GSMode.View }))
         openIngredientDialog(item)
         break
@@ -99,11 +123,12 @@ export const IngredientList: FC = () => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [closeIngredientDialog, state.mode, ErrorHandler, IngredientService, validationMessages.createSuccess, validationMessages.updateSuccess, refresh])
+  }, [closeIngredientDialog, refresh, state.mode, ErrorHandler, IngredientService, validationMessages.createSuccess, validationMessages.updateSuccess])
 
   const handleSpeedAction = useCallback((action: string): void => {
     switch (action) {
       case IngredientAction.New:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, mode: GSMode.New }))
         openIngredientDialog(defaultIngredientFormData)
         break
@@ -120,9 +145,26 @@ export const IngredientList: FC = () => {
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     } finally {
-      await refresh()
+      await pagination.onChangePage(1)
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, IngredientService, validationMessages.deleteSuccess, refresh])
+  }, [closeDeleteDialog, pagination, deleteDialogData, ErrorHandler, IngredientService, validationMessages.deleteSuccess])
+
+  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+    switch (action) {
+      case MediaLibraryAction.Select:
+        if (filePickerData) {
+          setIngredientData({
+            ...filePickerData,
+            thumbnail_url: generateMediaFileUrl(file)
+          })
+        }
+        setIsPickerDirty(true)
+        closeFilePickerDialog()
+        break
+      default:
+        break
+    }
+  }, [setIngredientData, closeFilePickerDialog, filePickerData])
 
   return (
     <div className={styles.ingredientList}>
@@ -131,7 +173,13 @@ export const IngredientList: FC = () => {
         onClose={closeIngredientDialog}
         title={state.mode == GSMode.New ? "Create a new ingredient" : ingredientDialogData?.name ?? ''}
       >
-        <IngredientForm mode={state.mode} data={ingredientDialogData} onSubmit={handleSubmit}/>
+        <IngredientForm 
+          mode={state.mode} 
+          data={ingredientDialogData} 
+          onSubmit={handleSubmit}
+          onOpenFilePicker={openFilePickerDialog}
+          isPickerDirty={isPickerDirty}
+        />
       </GrubDialog>
       <ConfirmationDialog
         open={deleteDialogOpen}
@@ -141,6 +189,13 @@ export const IngredientList: FC = () => {
         cancelButtonLabel="Cancel"
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
+      />
+      <FilePicker
+        open={filePickerDialogOpen}
+        onClose={closeFilePickerDialog}
+        paginationState={filePickerPaginationState}
+        pagination={filePickerPagination}
+        onAction={handleFilePickerAction}
       />
       {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
@@ -162,7 +217,9 @@ export const IngredientList: FC = () => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any ingredients.</h2>
           <p>You will need to create an ingredient to continue.</p>
-          <Button onClick={() => openIngredientDialog(defaultIngredientFormData)} variant="outlined" color="primary">Create an Ingredient</Button>
+          {canEditIngredients &&
+            <Button onClick={() => openIngredientDialog(defaultIngredientFormData)} variant="outlined" color="primary">Create an Ingredient</Button>
+          }
         </div>
       }
       {canEditIngredients && 

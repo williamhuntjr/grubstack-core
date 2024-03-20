@@ -10,13 +10,15 @@ import { FilePicker } from 'core/components/file-picker/file-picker'
 import { QuickPicker } from 'core/components/quick-picker/quick-picker'
 import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
+import { StoreFilter } from 'common/types/filter.types'
 import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
-import { hasPermission } from 'common/auth/auth.utils'
-import { UserPermissions } from 'common/auth/auth.constants'
+import { hasPermission } from 'auth/auth.utils'
+import { UserPermissions } from 'auth/auth.constants'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { useCoreModule } from 'core/core-module-hook'
+import { listPageSize } from 'common/constants'
 import { IconCardList } from 'core/components/icon-card-list/icon-card-list'
 import { useProductModule } from 'app/products/products-module-hook'
 import { IMenu } from 'app/products/menus/menus.types'
@@ -46,8 +48,8 @@ export const Stores = (): JSX.Element => {
   const { MenuService } = useProductModule()
   const { MediaLibraryService } = useMediaLibraryModule()
 
-  const [ pickerIsDirty, setPickerIsDirty] = useState<boolean>(false)
-  const [state, setState] = useState<IStoreState>(defaultStoreState)
+  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
+  const [ state, setState ] = useState<IStoreState>(defaultStoreState)
   
   const canEditStores = hasPermission(UserPermissions.MaintainStores)
   const validationMessages = generateValidationMessages(ObjectType.Store)
@@ -74,16 +76,17 @@ export const Stores = (): JSX.Element => {
   } = useDialog<string | null>(null)
 
   const {
+    data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
     openDialog: openFilePickerDialog
-  } = useDialog<null>(null)
+  } = useDialog<IStore|null>(null)
 
   const {
     refresh,
     state: paginationState,
     pagination: pagination,
-  } = usePagination<IStore>(StoreService.getAll)
+  } = usePagination<IStore>(StoreService.getAll, listPageSize, { [StoreFilter.ShowMenus]: true })
 
   const {
     state: menuPaginationState,
@@ -101,12 +104,12 @@ export const Stores = (): JSX.Element => {
         openDeleteDialog(item?.id ?? '')
         break
       case StoreAction.View:
-        setPickerIsDirty(false)
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: GSMode.View }))
         openStoreDialog(item)
         break
       case StoreAction.Edit:
-        setPickerIsDirty(false)
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditStores ? GSMode.Edit : GSMode.View }))
         openStoreDialog(item)
         break
@@ -118,6 +121,7 @@ export const Stores = (): JSX.Element => {
   const handleSpeedAction = useCallback((action: string): void => {
     switch (action) {
       case StoreAction.New:
+        setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, mode: GSMode.New }))
         openStoreDialog(defaultStoreFormData)
         break
@@ -194,19 +198,19 @@ export const Stores = (): JSX.Element => {
   const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
-        if (storeDialogData) {
+        if (filePickerData) {
           setStoreData({
-            ...storeDialogData,
+            ...filePickerData,
             thumbnail_url: generateMediaFileUrl(file)
           })
         }
-        setPickerIsDirty(true)
+        setIsPickerDirty(true)
         closeFilePickerDialog()
         break
       default:
         break
     }
-  }, [setStoreData, storeDialogData, closeFilePickerDialog])
+  }, [setStoreData, filePickerData, closeFilePickerDialog])
 
   return (
     <div className={styles.storesContainer}>
@@ -223,7 +227,7 @@ export const Stores = (): JSX.Element => {
           onDeleteMenu={onDeleteMenu}
           onOpenAddDialog={openQuickPickerDialog}
           onOpenFilePicker={openFilePickerDialog}
-          pickerIsDirty={pickerIsDirty}
+          isPickerDirty={isPickerDirty}
         />
       </GrubDialog>
       <QuickPicker 
@@ -254,7 +258,6 @@ export const Stores = (): JSX.Element => {
         pagination={filePickerPagination}
         onAction={handleFilePickerAction}
       />
-
       {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
         <IconCardList 
@@ -272,7 +275,9 @@ export const Stores = (): JSX.Element => {
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any stores.</h2>
           <p>You will need to create a store to continue.</p>
-          <Button onClick={() => openStoreDialog(defaultStoreFormData)} variant="outlined" color="primary">Create a Store</Button>
+          {canEditStores && 
+            <Button onClick={() => openStoreDialog(defaultStoreFormData)} variant="outlined" color="primary">Create a Store</Button>
+          }
         </div>
       }
       {canEditStores && 

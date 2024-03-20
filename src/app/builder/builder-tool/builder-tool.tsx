@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import Divider from '@mui/material/Divider'
 import { IPaginationData, IResponse } from 'common/types'
 import { useDialog } from 'common/hooks/dialog.hook'
-import { UserPermissions } from 'common/auth/auth.constants'
+import { UserPermissions } from 'auth/auth.constants'
 import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
 import { IMenu } from 'app/products/menus/menus.types'
 import { IIngredient } from 'app/products/ingredients/ingredients.types'
@@ -21,7 +21,7 @@ import { Loading } from 'core/components/loading/loading'
 import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { listPageSize } from 'common/constants'
-import { hasPermission } from 'common/auth/auth.utils'
+import { hasPermission } from 'auth/auth.utils'
 import { GrubList } from 'core/components/grub-list/grub-list'
 import { IVariety } from 'app/products/varieties/varieties.types'
 import { usePagination } from 'common/hooks/pagination.hook'
@@ -123,12 +123,12 @@ export const BuilderTool: FC = () => {
 
       if (objectType === BuilderParams.Item) {
         paginatedData = await ItemService.getIngredients({limit: listPageSize, page: state.page}, objectId ?? '')
-        singleData = await ItemService.getItem(objectId ?? '')
+        singleData = await ItemService.get(objectId ?? '')
         optionalData = await ItemService.getVarieties(objectId ?? '')
       }
       if (objectType === BuilderParams.Menu) {
         paginatedData = await MenuService.getItems({limit: listPageSize, page: state.page}, objectId ?? '')
-        singleData = await MenuService.getMenu(objectId ?? '')
+        singleData = await MenuService.get(objectId ?? '')
       }
       if (objectType === BuilderParams.Variety) {
         paginatedData = await VarietyService.getIngredients({limit: listPageSize, page: state.page}, objectId ?? '')

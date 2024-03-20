@@ -1,0 +1,91 @@
+@import 'assets/sass/variables';
+$employeeFormWidth: 400px;
+$employeeFormHeight: 400px;
+
+.employeeForm {
+  display: flex;
+  flex-direction: column;
+  width: $employeeFormWidth;
+  min-height: $employeeFormHeight;
+  .thumbnailContainer {
+    display: flex;
+    .thumbnail {
+      margin-right: $grid-base;
+      margin-bottom: $grid-large;
+      img {
+        max-width: 130px;
+        margin: 0 auto 0 auto;
+        display: block;
+        border: $border-gray-primary;
+        padding: $grid-small;
+      }
+      button {
+        min-width: 150px;
+        width: 100%;
+        margin-top: $grid-base;
+      }
+    }
+    .headerInput {
+      width: 100%;
+    }
+  }
+  .firstName, .lastName, .gender, .employeeAddress {
+    width: 100%;
+    margin: 0 0 $grid-base 0;
+  }
+  .employeeCity, .employeeState, .employeePostal, .thumbnailUrl {
+    width: 100%;
+  }
+  .formField {
+    margin: 0 $grid-base 0 0;
+  }
+  .addressDetails {
+    display: flex;
+    width: 100%;
+    .addressInputContainer {
+      width: 33.33%;
+      padding: 0 $grid-small 0 0;
+      &:last-child {
+        padding: 0 0 $grid-base 0;
+      }
+    }
+  }
+  .jobInfo {
+    display: flex;
+    width: 100%;
+    .jobInfoInputContainer {
+      width: 33.33%;
+      padding: 0 $grid-small 0 0;
+      &:last-child {
+        padding: 0 0 $grid-base 0;
+      }
+      .jobTitle, .hireDate, .employmentStatus {
+        width: 100%;
+      }
+    }
+  }
+  .contactInfo {
+    display: flex;
+    width: 100%;
+    .contactInputContainer {
+      width: 49.95%;
+      padding: 0 $grid-small 0 0;
+      &:last-child {
+        padding: 0 0 $grid-base 0;
+      }
+      .phoneNumber, .emailAddress {
+        width: 100%;
+      }
+    }
+  }
+  .saveButton {
+    display: block;
+    margin-left: auto;
+    @media screen and (max-width: $bp-sm) {
+      width: 100%;
+    }
+  }
+  .divider {
+    margin-bottom: $grid-base;
+  }
+}

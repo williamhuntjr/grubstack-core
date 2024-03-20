@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { UserPermissions } from 'common/auth/auth.constants'
+import { UserPermissions } from 'auth/auth.constants'
 import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
 import { GSMode } from 'common/utils/mode/mode.types'
 

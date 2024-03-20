@@ -18,7 +18,10 @@ export const StoreFormSchema = Yup.object().shape({
   [StoreFormField.Postal]: Yup.string()
     .required(validationMessage.isRequired)
     .typeError(validationMessage.isRequired),
-  [StoreFormField.StoreType]: Yup.string()
+  [StoreFormField.PhoneNumber]: Yup.string()
     .required(validationMessage.isRequired)
     .typeError(validationMessage.isRequired),
+  [StoreFormField.StoreType]: Yup.string()
+    .required(validationMessage.isRequired)
+    .typeError(validationMessage.isRequired)
 })

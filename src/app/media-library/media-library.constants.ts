@@ -1,5 +1,5 @@
 import UploadIcon from '@mui/icons-material/Upload'
-import { UserPermissions } from 'common/auth/auth.constants'
+import { UserPermissions } from 'auth/auth.constants'
 import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IMediaLibraryFile, IMediaLibraryState } from './media-library.types'

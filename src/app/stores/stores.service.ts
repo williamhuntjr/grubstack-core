@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { prepareRequestParams } from 'common/utils/request.utils'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
+import { IStoreFilters } from 'common/types/filter.types'
 import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IMenu } from 'app/products/menus/menus.types'
 import { IStoreService, IStore } from './stores.types'
@@ -10,8 +11,8 @@ export class StoreService implements IStoreService {
     bindAllInstanceMethods(this)
   }
   
-  public async getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IStore>> {
-    const params = prepareRequestParams(paginationParams)
+  public async getAll(paginationParams: IPaginationParams, filters?: IStoreFilters): Promise<IPaginationData<IStore>> {
+    const params = prepareRequestParams(paginationParams, filters)
     const {
       data: { data, status },
     } = await this.httpClient.get<IPaginationResponse<IStore>>('/stores', { params })
@@ -25,28 +26,27 @@ export class StoreService implements IStoreService {
   public async get(storeId: string): Promise<IResponse<IStore>> {
     const {
       data: { data, status },
-    } = await this.httpClient.get<IResponse<IStore>>(`/store/${storeId}`)
+    } = await this.httpClient.get<IResponse<IStore>>(`/stores/${storeId}`)
     return {
       data, status
     }
   }
 
   public async delete(storeId: string): Promise<void> {
-    const params = { store_id: storeId }
-    await this.httpClient.post<Promise<void>>('/store/delete', { params })
+    await this.httpClient.delete<Promise<void>>(`/stores/${storeId}`)
   }
 
   public async create(params: IStore): Promise<IStore> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IStore>>('/store/create', { params })
+    } = await this.httpClient.post<IResponse<IStore>>('/stores', { params })
     return data
   }
 
   public async update(params: IStore): Promise<IStore> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IStore>>('/store/update', { params })
+    } = await this.httpClient.put<IResponse<IStore>>('/stores', { params })
     return data
   }
 
@@ -54,7 +54,7 @@ export class StoreService implements IStoreService {
     const params = prepareRequestParams(paginationParams)
     const {
       data: { data, status },
-    } = await this.httpClient.get<IPaginationResponse<IMenu>>(`/store/${storeId}/menus`, { params })
+    } = await this.httpClient.get<IPaginationResponse<IMenu>>(`/stores/${storeId}/menus`, { params })
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
@@ -63,12 +63,11 @@ export class StoreService implements IStoreService {
   }
 
   public async addMenu(storeId: string, menuId: string): Promise<void> {
-    const params = { store_id: storeId, menu_id: menuId }
-    await this.httpClient.post<Promise<void>>('/store/addMenu', { params })
+    const params = { menu_id: menuId }
+    await this.httpClient.post<Promise<void>>(`/stores/${storeId}/menus`, { params })
   }
 
   public async deleteMenu(storeId: string, menuId: string): Promise<void> {
-    const params = { store_id: storeId, menu_id: menuId }
-    await this.httpClient.post<Promise<void>>('/store/deleteMenu', { params })
+    await this.httpClient.delete<Promise<void>>(`/stores/${storeId}/menus/${menuId}`)
   }
 }

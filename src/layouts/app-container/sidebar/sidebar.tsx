@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react'
 import List from '@mui/material/List'
 import { cls } from 'common/utils/utils'
-import { validateRoutePermissions } from 'common/auth/auth.utils'
+import { validateRoutePermissions } from 'auth/auth.utils'
 import { appRoutes } from 'routes'
 import { NavListItem } from './nav-list-item/nav-list-item'
 import { ISidebar } from './sidebar.types'

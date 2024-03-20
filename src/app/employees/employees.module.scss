@@ -4,4 +4,50 @@
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+  .warningMessageContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .warningHeadline {
+    margin: 0;
+  }
+  .employeeListContainer {
+    display: flex;
+    height: min-content;
+    .employeeProfileContainer {
+      margin-right: $grid-base;
+      .employeeProfileImage {
+        border: $border-disabled;
+        display: flex;
+        img {
+          margin-top: auto;
+          max-width: 100px;
+        }
+      }
+    }
+  }
+  .nameContainer {
+    display: flex;
+    img {
+      max-width: 60px;
+      margin-right: $grid-base;
+    }
+  }
+  .employedStatus {
+    padding: $grid-tiny;
+    color: #fff;
+    &.active {
+      background-color: green; 
+    }
+    &.terminated {
+      background-color: red;
+    }
+    &.suspended {
+      background-color: orange;
+    }
+  }
 }

@@ -25,26 +25,26 @@ export class ItemService implements IItemService {
   }
 
   public async delete(itemId: string): Promise<void> {
-    const params = { item_id: itemId }
-    await this.httpClient.post<Promise<void>>('/item/delete', { params })
+    await this.httpClient.delete<Promise<void>>(`/items/${itemId}`)
   }
 
   public async create(params: IItem): Promise<IItem> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IItem>>('/item/create', { params })
+    } = await this.httpClient.post<IResponse<IItem>>('/items', { params })
     return data
   }
 
   public async update(params: IItem): Promise<IItem> {
+    console.log(params)
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IItem>>('/item/update', { params })
+    } = await this.httpClient.put<IResponse<IItem>>('/items', { params })
     return data
   }
 
-  public async getItem(itemId: string): Promise<IResponse<IItem>> {
-    const resp = await this.httpClient.get<IResponse<IItem>>(`/item/${itemId}`)
+  public async get(itemId: string): Promise<IResponse<IItem>> {
+    const resp = await this.httpClient.get<IResponse<IItem>>(`/items/${itemId}`)
     return resp.data
   }
 
@@ -52,7 +52,7 @@ export class ItemService implements IItemService {
     const params = prepareRequestParams(paginationParams)
     const {
       data: { data, status },
-    } = await this.httpClient.get<IPaginationResponse<IIngredient>>(`/item/${itemId}/ingredients`, { params })
+    } = await this.httpClient.get<IPaginationResponse<IIngredient>>(`/items/${itemId}/ingredients`, { params })
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
@@ -61,13 +61,12 @@ export class ItemService implements IItemService {
   }
 
   public async deleteIngredient(itemId: string, ingredientId: string): Promise<void> {
-    const params = { item_id: itemId, ingredient_id: ingredientId }
-    await this.httpClient.post<Promise<void>>('/item/deleteIngredient', { params })
+    await this.httpClient.delete<Promise<void>>(`/items/${itemId}/ingredients/${ingredientId}`)
   }
 
   public async addIngredient(itemId: string, ingredientId: string): Promise<void> {
-    const params = { item_id: itemId, ingredient_id: ingredientId }
-    await this.httpClient.post<Promise<void>>('/item/addIngredient', { params })
+    const params = { ingredient_id: ingredientId }
+    await this.httpClient.post<Promise<void>>(`/items/${itemId}/ingredients`, { params })
   }
 
   public async updateIngredient(itemId: string, ingredientId: string, data: IBuilderIngredientFormValues): Promise<void> {
@@ -76,23 +75,22 @@ export class ItemService implements IItemService {
       ingredient_id: ingredientId,
       ...data
     }
-    await this.httpClient.post<IResponse<IItem>>('/item/updateIngredient', { params })
+    await this.httpClient.put<IResponse<IItem>>(`/items/${itemId}/ingredients`, { params })
   }
 
   public async getVarieties(itemId: string): Promise<IVariety[]> {
     const {
       data: { data },
-    } = await this.httpClient.get<IResponse<IVariety[]>>(`/item/${itemId}/varieties`)
+    } = await this.httpClient.get<IResponse<IVariety[]>>(`/items/${itemId}/varieties`)
     return Array.isArray(data) ? data : []
   }
 
   public async addVariety(itemId: string, varietyId: string): Promise<void> {
-    const params = { item_id: itemId, variety_id: varietyId }
-    await this.httpClient.post<Promise<void>>('/item/addVariety', { params })
+    const params = { variety_id: varietyId }
+    await this.httpClient.post<Promise<void>>(`/items/${itemId}/varieties`, { params })
   }
 
   public async deleteVariety(itemId: string, varietyId: string): Promise<void> {
-    const params = { item_id: itemId, variety_id: varietyId }
-    await this.httpClient.post<Promise<void>>('/item/deleteVariety', { params })
+    await this.httpClient.delete<Promise<void>>(`/items/${itemId}/${varietyId}`)
   }
 }

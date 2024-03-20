@@ -39,6 +39,9 @@ p {
 .MuiDialog-paper {
   max-height: unset;
 }
+.MuiTableCell-head {
+  border-bottom: $border-disabled;
+}
 .MuiTabs-flexContainer {
   @media screen and (max-width: $bp-sm) {
     flex-wrap: wrap;

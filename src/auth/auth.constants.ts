@@ -1,3 +1,7 @@
+export const authServiceToken = 'AuthService'
+
+export const refreshTokenEndpointUrl = '/auth/refresh'
+
 export enum UserPermissions {
   ViewStores = 'ViewStores',
   MaintainStores = 'MaintainStores',
@@ -12,5 +16,7 @@ export enum UserPermissions {
   ViewMediaLibrary = 'ViewMediaLibrary',
   MaintainMediaLibrary = 'MaintainMediaLibrary',
   ViewEmployees = 'ViewEmployees',
-  MaintainEmployees = 'MaintainEmployees'
+  MaintainEmployees = 'MaintainEmployees',
+  ViewFranchises = 'ViewFranchises',
+  MaintainFranchises = 'MaintainFranchises'
 }

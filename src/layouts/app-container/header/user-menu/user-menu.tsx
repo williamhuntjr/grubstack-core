@@ -8,13 +8,11 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import PersonIcon from '@mui/icons-material/Person'
 import SettingsIcon from '@mui/icons-material/Settings'
-import { useAuth0 } from '@auth0/auth0-react'
+import { HttpClient } from 'core/services/http-client'
 import { appConfig } from 'common/config'
 import styles from './user-menu.module.scss'
 
 export const UserMenu: FC = () => {
-  const { logout }  = useAuth0()
-
   const [anchorEl, setAnchorEl] = React.useState<EventTarget & Element | null>(null)
   const open = Boolean(anchorEl)
 
@@ -26,10 +24,10 @@ export const UserMenu: FC = () => {
     setAnchorEl(null)
   }
 
-  const handleLogout = (): void => {
-    localStorage.removeItem('grubToken')
-    localStorage.removeItem('grubUserInfo')
-    logout({ returnTo: appConfig.productionUrl })
+  const handleLogout = async (): Promise<void> => {
+    localStorage.removeItem('grubstackUser')
+    await HttpClient.post('/auth/logout')
+    window.location.href = `${appConfig.productionUrl}/signout`
   }
 
   return (

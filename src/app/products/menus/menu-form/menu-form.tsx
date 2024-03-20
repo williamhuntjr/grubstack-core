@@ -3,19 +3,29 @@ import { useForm } from 'react-hook-form'
 import Button from '@mui/material/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Divider } from '@mui/material'
-import { FormField } from 'common/utils/form/form.components'
+import { cls } from 'common/utils/utils'
+import { FormField, FormSelectField } from 'common/utils/form/form.components'
 import { convertMode } from 'common/utils/mode/mode.utils'
+import { defineFormSelectData } from 'core/components/select-field/select-field.utils'
+import { labelColorOptions } from 'common/constants'
 import { defaultMenuFormData } from './menu-form.constants'
 import { MenuFormField, MenuFormLabel, IMenuForm, IMenuFormValues } from './menu-form.types'
 import { MenuFormSchema } from './menu-form.validation'
 import styles from './menu-form.module.scss'
 
-export const MenuForm: FC<IMenuForm> = memo(({ onSubmit, mode, data }) => {
+export const MenuForm: FC<IMenuForm> = memo(({ 
+  onSubmit, 
+  mode, 
+  data,
+  onOpenFilePicker,
+  isPickerDirty,
+}) => {
   const { 
     handleSubmit, 
     control, 
     reset, 
-    formState: { isDirty } 
+    formState: { isDirty },
+    getValues
   } = useForm<IMenuFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(MenuFormSchema),
@@ -37,29 +47,52 @@ export const MenuForm: FC<IMenuForm> = memo(({ onSubmit, mode, data }) => {
 
   return (
     <form onSubmit={submitForm} className={styles.menuForm}>
-      <FormField
-        name={MenuFormField.Name}
-        control={control}
-        label={MenuFormLabel.Name}
-        className={styles.formField}
-        disabled={isViewMode}
-      />
-      <FormField
-        name={MenuFormField.Description}
-        control={control}
-        label={MenuFormLabel.Description}
-        className={styles.formField}
-        disabled={isViewMode}
-      />
+      <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnail}>
+          <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => onOpenFilePicker(getValues())}
+            disabled={isViewMode}
+          >
+            Change Image
+          </Button>
+        </div>
+        <div className={styles.headerInput}>
+          <FormField
+            name={MenuFormField.Name}
+            control={control}
+            label={MenuFormLabel.Name}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
+          <FormField
+            name={MenuFormField.Description}
+            control={control}
+            label={MenuFormLabel.Description}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
+          <FormSelectField
+            name={MenuFormField.LabelColor}
+            control={control}
+            label={MenuFormLabel.LabelColor}
+            options={defineFormSelectData(labelColorOptions)}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
+        </div>
+      </div>
       <FormField
         name={MenuFormField.Thumbnail}
         control={control}
         label={MenuFormLabel.Thumbnail}
-        className={styles.formField}
+        className={cls(styles.formField, styles.thumbnailUrl)}
         disabled={isViewMode}
       />
       <Divider className={styles.divider}/>
-      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
+      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty && !isPickerDirty}>
         Save Menu
       </Button>
     </form>

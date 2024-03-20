@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Routes } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useAuth0 } from '@auth0/auth0-react'
-import { setAxiosTokenInterceptor, HttpClient } from 'core/services/http-client'
+import { HttpClient } from 'core/services/http-client'
 import { smMq } from 'common/constants'
 import { Loading } from 'core/components/loading/loading'
 import { IRoute } from 'common/routing/routing.types'
@@ -24,25 +23,7 @@ function buildContentRoute(route: IRoute): JSX.Element {
   return buildRoute(route, <Content route={route} />)
 }
 
-const HttpProvider = (): JSX.Element => {
-  const { getAccessTokenSilently } = useAuth0()
-
-  const init = async(): Promise<void> => {
-    await setAxiosTokenInterceptor(getAccessTokenSilently)
-  }
-
-  useEffect(() => {
-    void init()
-  // eslint-disable-next-line
-  }, [])
-
-  return (
-    <></>
-  )
-}
-
 export const AppContainer: FC<IAppContainer> = ({ routes }) => {
-  const { isLoading, isAuthenticated, loginWithRedirect  } = useAuth0()
   const [ appLoading, setAppLoading ] = useState<boolean>(true)
   const [ appUpdating, setAppUpdating ] = useState<boolean>(false)
 
@@ -61,14 +42,11 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
     try {
       setAppLoading(true)
       await HttpClient.get('/auth/verify_tenant')
-      
-      const userInfo = localStorage.getItem('grubUserInfo')
-      if (userInfo == null) {
-        const {
-          data: { data },
-        } = await HttpClient.get('/auth/userinfo')
-        localStorage.setItem('grubUserInfo', JSON.stringify(data))
-      }
+
+      const {
+        data: { data },
+      } = await HttpClient.get('/auth/whoami')
+      localStorage.setItem('grubstackUser', JSON.stringify(data))
       
       if (process.env.NODE_ENV == 'production') {
         const resp = await HttpClient.get('/core/versions')
@@ -96,15 +74,11 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
 
   useEffect(() => {
     void init()
-    if (!isLoading && !isAuthenticated) {
-      void loginWithRedirect()
-    }
   // eslint-disable-next-line
   }, [])
 
   return (
     <div className={styles.appContainer}>
-      <HttpProvider />
       {appUpdating && <Updating />}
       {appLoading && !appUpdating && <Loading />}
       {!appLoading && !appUpdating &&

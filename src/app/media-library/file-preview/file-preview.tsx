@@ -45,7 +45,7 @@ export const FilePreview: FC<IFilePreview> = ({ data, mode, onDelete }) => {
         }
         {mode == GSMode.Edit &&
           <div className={styles.filePreviewButtonContainer}>
-            <Button variant="contained" color="primary" onClick={handleExpandFile}>Expand File</Button>
+            <Button variant="contained" color="primary" onClick={handleExpandFile}>Preview File</Button>
             <Button variant="contained" color="error" onClick={handleOpenDeleteDialog}>Delete File</Button>
           </div>
         }

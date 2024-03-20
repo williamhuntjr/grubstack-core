@@ -1,5 +1,6 @@
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
+import { IStoreFilters } from 'common/types/filter.types'
 import { ICardListItem } from 'core/components/card-list/card-list.types'
 import { IMenu } from 'app/products/menus/menus.types'
 
@@ -13,11 +14,12 @@ export interface IStore {
   slug?: string
   store_type: string
   thumbnail_url: string
+  phone_number: string
   menus?: IMenu[]
 }
 
 export interface IStoreService {
- getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IStore>>
+ getAll(paginationParams: IPaginationParams, filters?: IStoreFilters): Promise<IPaginationData<IStore>>
  get(storeId: string): Promise<IResponse<IStore>>
  delete(storeId: string): Promise<void>
  create(params: IStore): Promise<IStore>
