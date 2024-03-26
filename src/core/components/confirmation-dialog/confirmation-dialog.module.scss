@@ -2,8 +2,11 @@
 $confirmationDialogWidth: 360px;
 
 .confirmationDialogContainer {
-  width: $confirmationDialogWidth;
+  min-width: $confirmationDialogWidth;
   padding: $grid-large;
+  @media screen and (max-width: $bp-xs) {
+    min-width: unset;
+  }
 }
 .confirmationDialogTitle {
   margin: 0 0 $grid-small 0;

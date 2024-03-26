@@ -6,11 +6,21 @@
   display: flex;
   max-width: 600px;
   margin: 0 auto 0 auto;
+  @media screen and (max-width: $bp-xs) {
+    flex-direction: column;
+  }
   .filePreviewImageContainer {
-    img { max-width: 200px; }
+    img { 
+      display: block;
+      margin: auto;
+      max-width: 200px;
+    }
   }
   .filePreviewInfoContainer {
     margin: 0 0 0 $grid-large;
+    @media screen and (max-width: $bp-xs) {
+      margin: $grid-large 0 0 0;
+    }
     .filePreviewFileSize {
       margin-right: $grid-base;
     }

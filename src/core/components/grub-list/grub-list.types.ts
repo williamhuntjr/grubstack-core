@@ -12,4 +12,5 @@ export interface IGrubList {
   className?: string
   actions?: IListAction[]
   disabled?: boolean
+  addLabel?: string
 }

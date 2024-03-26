@@ -17,7 +17,8 @@ export const GrubList: FC<IGrubList> = memo(({
   onClickAdd, 
   onClickDelete, 
   className, 
-  disabled 
+  disabled,
+  addLabel
 }) => {
   return (
     <List 
@@ -25,7 +26,7 @@ export const GrubList: FC<IGrubList> = memo(({
       subheader={subHeader ?
         <ListSubheader component="div" id="gs-list-subheader" className={styles.grubListSubHeader}>
           {subHeader}
-          <Button color="secondary" variant="contained" disabled={disabled} className={styles.subHeaderButton} onClick={onClickAdd}>Add</Button>
+          <Button color="secondary" variant="contained" disabled={disabled} className={styles.subHeaderButton} onClick={onClickAdd}>{addLabel ?? 'Add'}</Button>
         </ListSubheader>
         : undefined
       }

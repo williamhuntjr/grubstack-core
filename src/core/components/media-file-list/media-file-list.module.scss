@@ -22,6 +22,11 @@
         border: $border-primary-thick;
         cursor: pointer;
       }
+      @media screen and (max-width: $bp-xs) {
+        width: 26%;
+        height: unset;
+        aspect-ratio : 1 / 1;
+      }
     }
   }
   .paginationContainer {
