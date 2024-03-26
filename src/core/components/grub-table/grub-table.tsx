@@ -48,7 +48,7 @@ export const GrubTable: IGrubTable = memo(({
               {actions && actions.length > 0 && onAction && 
               <TableCell>
                 {actions.map((action, buttonIndex) => 
-                  <IconButton key={buttonIndex} color={action.color ?? "primary"} onClick={() => {
+                  <IconButton key={buttonIndex} color={action.color ?? undefined} onClick={() => {
                     onAction(row, action)
                   }}><action.icon /></IconButton>
                 )}

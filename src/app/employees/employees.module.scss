@@ -4,6 +4,19 @@
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+  .employeeTableContainer {
+    width: 100%;
+    @media screen and (max-width: $bp-sm) {
+      display: none;
+    }
+  }
+  .employeeListContainer {
+    width: 100%;
+    display: none;
+    @media screen and (max-width: $bp-sm) {
+      display: block;
+    }
+  }
   .warningMessageContainer {
     display: flex;
     width: 100%;
@@ -20,21 +33,6 @@
   }
   .warningHeadline {
     margin: 0;
-  }
-  .employeeListContainer {
-    display: flex;
-    height: min-content;
-    .employeeProfileContainer {
-      margin-right: $grid-base;
-      .employeeProfileImage {
-        border: $border-disabled;
-        display: flex;
-        img {
-          margin-top: auto;
-          max-width: 100px;
-        }
-      }
-    }
   }
   .nameContainer {
     display: flex;

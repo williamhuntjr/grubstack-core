@@ -9,6 +9,7 @@ export interface IGrubList {
   data: IGrubListItem[]
   onClickAdd: () => void
   onClickDelete(value: string): void
+  onClickEdit?(value: string): void
   className?: string
   actions?: IListAction[]
   disabled?: boolean

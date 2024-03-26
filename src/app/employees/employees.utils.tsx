@@ -1,5 +1,6 @@
 import React from 'react'
 import { capitalize, cls } from 'common/utils/utils'
+import { IGrubListItem } from 'core/components/grub-list/grub-list.types'
 import { EmployeeStatus } from './employees.constants'
 import { IEmployee, IEmployeeTableRow } from './employees.types'
 import styles from './employees.module.scss'
@@ -48,4 +49,11 @@ export function renderEmployeeStatus(row: IEmployeeTableRow): JSX.Element {
   return (
     <span className={cls(styles.employedStatus, statusClass)}>{capitalize(row.employment_status)}</span>
   )
+}
+
+export function normalizeListData(data: IEmployee[]): IGrubListItem[] {
+  return data.map((item) => ({
+    value: item.id ?? '',
+    label: `${item.first_name} ${item.last_name}`
+  }))
 }

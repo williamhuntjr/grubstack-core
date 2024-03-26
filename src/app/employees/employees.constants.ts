@@ -57,7 +57,7 @@ export const EmployeeTableActionsViewMode:ITableAction[] = [
   {
     label: EmployeeAction.View,
     icon: VisibilityIcon,
-    color: "secondary",
+    color: undefined,
   }
 ]
 
@@ -65,7 +65,7 @@ export const EmployeeTableActionsEditMode:ITableAction[] = [
   {
     label: EmployeeAction.Edit,
     icon: EditIcon,
-    color: "secondary",
+    color: undefined,
   },
   {
     label: EmployeeAction.Delete,

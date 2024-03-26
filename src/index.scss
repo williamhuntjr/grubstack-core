@@ -47,3 +47,15 @@ p {
     flex-wrap: wrap;
   }
 }
+.MuiListItemButton-root:hover {
+  background-color: unset;
+}
+.MuiTableRow-head {
+  background-color: $color-secondary;
+  th {
+    color: white;
+  }
+}
+.MuiTableContainer-root {
+  border: $border-disabled;
+}

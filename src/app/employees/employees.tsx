@@ -20,6 +20,7 @@ import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
+import { GrubList } from 'core/components/grub-list/grub-list'
 import { IEmployeeState, IEmployee, IEmployeeTableRow } from './employees.types'
 import { 
   defaultEmployeeState, 
@@ -33,7 +34,7 @@ import { defaultEmployeeFormData } from './employee-form/employee-form.constants
 import { EmployeeForm } from './employee-form/employee-form'
 import { IEmployeeFormValues } from './employee-form/employee-form.types'
 import { useEmployeeModule } from './employees-module-hook'
-import { normalizeData } from './employees.utils'
+import { normalizeData, normalizeListData } from './employees.utils'
 import styles from './employees.module.scss'
 
 export const Employees = (): JSX.Element => {
@@ -202,12 +203,26 @@ export const Employees = (): JSX.Element => {
       />
       {state.isLoading && paginationState.isLoading && <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
-      <GrubTable
-        columns={employeeColumns}
-        data={normalizeData(paginationState.data)}
-        onAction={handleRowAction}
-        actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
-      />
+      <>
+        <div className={styles.employeeTableContainer}>
+          <GrubTable
+            columns={employeeColumns}
+            data={normalizeData(paginationState.data)}
+            onAction={handleRowAction}
+            actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
+          />
+        </div>
+        <div className={styles.employeeListContainer}>
+          <GrubList
+            subHeader="Employees"
+            addLabel="Add Employee"
+            onClickAdd={() => openEmployeeDialog(defaultEmployeeFormData)}
+            onClickDelete={(value) => openDeleteDialog(paginationState.data.filter((employee) => employee.id == value)[0].id ?? '')}
+            onClickEdit={(value) => openEmployeeDialog(paginationState.data.filter((employee) => employee.id == value)[0])}
+            data={normalizeListData(paginationState.data)}
+          />
+        </div>
+      </>
       }
       {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading &&
         <div className={styles.warningMessageContainer}>

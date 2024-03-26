@@ -7,8 +7,9 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
+import EditIcon from '@mui/icons-material/Edit'
 import { cls } from 'common/utils/utils'
-import { IGrubList } from './grub-list.types'
+import { IGrubList, IGrubListItem } from './grub-list.types'
 import styles from './grub-list.module.scss'
 
 export const GrubList: FC<IGrubList> = memo(({ 
@@ -18,8 +19,25 @@ export const GrubList: FC<IGrubList> = memo(({
   onClickDelete, 
   className, 
   disabled,
-  addLabel
+  addLabel,
+  onClickEdit
 }) => {
+  
+  const generateSecondaryAction = (item: IGrubListItem): JSX.Element => {
+    return (
+      <>
+        {onClickEdit &&
+          <IconButton edge="end" aria-label="edit" onClick={() => onClickEdit(item.value)}>
+            <EditIcon />
+          </IconButton>
+        }
+        <IconButton edge="end" aria-label="delete" onClick={() => onClickDelete(item.value)}>
+          <DeleteIcon />
+        </IconButton>
+      </>
+    )
+  }
+
   return (
     <List 
       className={cls(styles.grubListContainer, className ?? '')}
@@ -32,11 +50,11 @@ export const GrubList: FC<IGrubList> = memo(({
       }
     >
     {data.map((item, index) => 
-      <ListItem disablePadding disabled={disabled} key={index} secondaryAction={
-        <IconButton edge="end" aria-label="delete" onClick={() => onClickDelete(item.value)}>
-          <DeleteIcon />
-        </IconButton>
-      }>
+      <ListItem 
+        disabled={disabled} 
+        key={index}
+        secondaryAction={generateSecondaryAction(item)}
+      >
         <ListItemButton>
           <ListItemText primary={item.label} />
         </ListItemButton>
