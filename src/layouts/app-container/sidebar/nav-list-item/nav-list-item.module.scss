@@ -3,9 +3,12 @@
 .listItem {
   overflow-x: hidden;
   min-height: calc(#{$sidebarIconSize} * 2);
-  border-bottom: $border-disabled;
+  border-bottom: $border-default;
   &:last-child {
     border-bottom: none;
+  }
+  &:hover {
+    background-color: $color-secondary !important;
   }
   @media screen and (max-width: $bp-sm) {
     display: inline-block;
@@ -33,6 +36,6 @@
 .listItemSelected {
   background-color: black;
   &:hover {
-    background-color: black;
+    background-color: black !important;
   }
 }

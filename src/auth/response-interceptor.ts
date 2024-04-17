@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios'
 import { IHttpClient } from 'core/services/http-client'
+import { appConfig } from 'common/config'
 import { refreshTokenEndpointUrl } from './auth.constants'
 import { IAuthService } from './auth.types'
 import { HttpRetryPolicy } from './retry-policy'
@@ -9,7 +10,7 @@ export class AuthResponseInterceptor {
 
   constructor(
     private readonly httpClient: IHttpClient,
-    private readonly authService: IAuthService,
+    public authService: IAuthService,
   ) {
     this.retryPolicy = new HttpRetryPolicy(authService, httpClient)
     this.retryPolicy.addUrlToBlackList(refreshTokenEndpointUrl)
@@ -28,7 +29,8 @@ export class AuthResponseInterceptor {
         try {
           return await this.retryPolicy.retry(error)
         } catch (e) {
-          void this.authService.logout()
+          console.error(e)
+          window.location.href = `${appConfig.productionUrl}/sign-in`
         }
         return
       }

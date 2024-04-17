@@ -40,12 +40,15 @@ p {
   max-height: unset;
 }
 .MuiTableCell-head {
-  border-bottom: $border-disabled;
+  border-bottom: $border-default;
 }
 .MuiTabs-flexContainer {
   @media screen and (max-width: $bp-sm) {
     flex-wrap: wrap;
   }
+}
+.MuiList-root {
+  padding-bottom: 0;
 }
 .MuiListItemButton-root:hover {
   background-color: unset;
@@ -57,5 +60,17 @@ p {
   }
 }
 .MuiTableContainer-root {
-  border: $border-disabled;
+  border: $border-default;
+}
+.MuiTabs-indicator {
+  @media screen and (max-width: $bp-xs) {
+    display: none !important;
+  }
+}
+.MuiTabs-flexContainer {
+  .Mui-selected {
+    @media screen and (max-width: $bp-xs) {
+      border-bottom: solid 3px $color-primary;
+    }
+  }
 }

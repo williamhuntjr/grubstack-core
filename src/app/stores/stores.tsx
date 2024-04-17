@@ -19,6 +19,7 @@ import { UserPermissions } from 'auth/auth.constants'
 import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
 import { useCoreModule } from 'core/core-module-hook'
 import { listPageSize } from 'common/constants'
+import { useWindowDimensions } from 'common/hooks/window-dimensions.hook'
 import { IconCardList } from 'core/components/icon-card-list/icon-card-list'
 import { useProductModule } from 'app/products/products-module-hook'
 import { IMenu } from 'app/products/menus/menus.types'
@@ -35,7 +36,8 @@ import {
   defaultStoreState,
   StoreActionsEditMode, 
   StoreActionsViewMode,
-  ValidationStoreMenuMessage
+  ValidationStoreMenuMessage,
+  filePickerLimit
 } from './stores.constants'
 import { IStoreFormValues } from './store-form/store-form.types'
 import { defaultStoreFormData } from './store-form/store-form.constants'
@@ -51,6 +53,8 @@ export const Stores = (): JSX.Element => {
   const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
   const [ state, setState ] = useState<IStoreState>(defaultStoreState)
   
+  const { height } = useWindowDimensions()
+
   const canEditStores = hasPermission(UserPermissions.MaintainStores)
   const validationMessages = generateValidationMessages(ObjectType.Store)
 
@@ -91,12 +95,13 @@ export const Stores = (): JSX.Element => {
   const {
     state: menuPaginationState,
     pagination: menuPagination
-  } = usePagination<IMenu>(MenuService.getAll)
+  } = usePagination<IMenu>(MenuService.getAll, Math.round((height - 100) / 205) * 2,
+  )
 
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerLimit)
 
   const handleCardAction = useCallback((item: IStoreCardItem, action: IListAction): void => {
     switch (action.label) {

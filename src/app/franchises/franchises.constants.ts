@@ -66,3 +66,7 @@ export const franchisePermissions = [
   UserPermissions.ViewFranchises,
   UserPermissions.MaintainFranchises
 ]
+
+export const quickPickerStoreLimit = 4
+
+export const filePickerLimit = 12

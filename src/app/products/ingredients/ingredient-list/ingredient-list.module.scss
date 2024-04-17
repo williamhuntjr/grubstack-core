@@ -27,11 +27,11 @@ $ingredientFormWidth: 400px;
   color: $white-color;
   background-color: $color-secondary;
   padding: $grid-small;
-  border: $border-disabled;
+  border: $border-default;
   margin: $grid-base 0 0 0;
 }
 .ingredientsLabel {
-  border: $border-disabled;
+  border: $border-default;
   padding: $grid-small;
   margin: 0;
   @media screen and (max-width: $bp-md) {

@@ -53,5 +53,7 @@ $dialogActionButtonWidth: $minButtonWidth;
   }
   .franchiseFormStoreList {
     flex-grow: 1;
+    max-height: 230px;
+    overflow-y: scroll;
   }
 }

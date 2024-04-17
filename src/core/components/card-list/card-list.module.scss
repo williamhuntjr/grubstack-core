@@ -46,7 +46,7 @@
   align-items: center;
   padding: $grid-base;
   margin-bottom: $grid-base;
-  border: $border-disabled;
+  border: $border-default;
   background-color: $white-color;
   margin: $grid-small;
   @media screen and (max-width: $bp-md) {
@@ -70,11 +70,13 @@
   margin-right: $grid-base;
   img {
     max-width: 125px;
+    max-height: 80px;
   }
 }
 .cardListImageVertical {
   img {
     max-width: 125px;
+    max-height: 80px;
   }
 }
 .cardListItemDetails {
@@ -114,6 +116,7 @@
   }
 }
 .itemHeadline {
+  margin-top: 0;
   margin-bottom: $grid-small;
   @media screen and (max-width: $bp-md) {
     text-align: center;

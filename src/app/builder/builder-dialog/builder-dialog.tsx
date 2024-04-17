@@ -3,6 +3,7 @@ import { Loading } from 'core/components/loading/loading'
 import { IPaginationData } from 'common/types'
 import { CardList } from 'core/components/card-list/card-list'
 import { useCoreModule } from 'core/core-module-hook'
+import { useWindowDimensions } from 'common/hooks/window-dimensions.hook'
 import { useProductModule } from 'app/products/products-module-hook'
 import { BuilderTypes } from 'app/builder/builder.constants'
 import { IItem } from 'app/products/items/items.types'
@@ -10,7 +11,7 @@ import { IMenu } from 'app/products/menus/menus.types'
 import { IVariety } from 'app/products/varieties/varieties.types'
 import { IIngredient } from 'app/products/ingredients/ingredients.types'
 import { IBuilderDialog, IBuilderDialogState } from './builder-dialog.types'
-import { defaultBuilderDialogState, builderDialogPageSize } from './builder-dialog.constants'
+import { defaultBuilderDialogState } from './builder-dialog.constants'
 import styles from './builder-dialog.module.scss'
 
 export const BuilderDialog: FC<IBuilderDialog> = ({ builderType, onClick }) => {
@@ -19,6 +20,10 @@ export const BuilderDialog: FC<IBuilderDialog> = ({ builderType, onClick }) => {
   const { ItemService, MenuService, IngredientService, VarietyService } = useProductModule()
   const { ErrorHandler } = useCoreModule()
 
+  const { height } = useWindowDimensions()
+
+  const builderDialogPageSize = Math.round((height - 100) / 205) * 4
+  
   const onPageChange = (event: ChangeEvent<unknown>, newPage: number): void => {
     setState((prevState) => ({ ...prevState, page: newPage, event: event }))
   }

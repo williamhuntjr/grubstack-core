@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
@@ -7,13 +7,15 @@ import MenuItem from '@mui/material/MenuItem'
 import LogoutIcon from '@mui/icons-material/Logout'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import PersonIcon from '@mui/icons-material/Person'
-import SettingsIcon from '@mui/icons-material/Settings'
 import { HttpClient } from 'core/services/http-client'
+import { IUser } from 'auth/auth.types'
 import { appConfig } from 'common/config'
 import styles from './user-menu.module.scss'
 
 export const UserMenu: FC = () => {
-  const [anchorEl, setAnchorEl] = React.useState<EventTarget & Element | null>(null)
+  const [user, setUser] = useState<IUser>()
+  const [anchorEl, setAnchorEl] = useState<EventTarget & Element | null>(null)
+
   const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent): void => {
@@ -27,8 +29,17 @@ export const UserMenu: FC = () => {
   const handleLogout = async (): Promise<void> => {
     localStorage.removeItem('grubstackUser')
     await HttpClient.post('/auth/logout')
-    window.location.href = `${appConfig.productionUrl}/signout`
+    window.location.href = `${appConfig.productionUrl}/sign-out`
   }
+
+  const init = (): void => {
+    const localStorageUser= localStorage.getItem('grubstackUser')
+    if (localStorageUser != null) {
+      setUser(JSON.parse(localStorageUser))
+    }
+  }
+
+  useEffect(() => void init(), [])
 
   return (
     <div className={styles.userMenu}>
@@ -41,7 +52,7 @@ export const UserMenu: FC = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 30, height: 30 }} className={styles.avatarContainer}><PersonIcon className={styles.avatarIcon} /></Avatar><p className={styles.avatarName}>William Hunt</p>
+          <Avatar sx={{ width: 30, height: 30 }} className={styles.avatarContainer}><PersonIcon className={styles.avatarIcon} /></Avatar><p className={styles.avatarName}>{user?.first_name} {user?.last_name}</p>
         </IconButton>
       </Tooltip>
       <Menu
@@ -80,12 +91,6 @@ export const UserMenu: FC = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
-          <ListItemIcon>
-            <SettingsIcon fontSize="small"/>
-          </ListItemIcon>
-          Settings
-        </MenuItem>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small"/>

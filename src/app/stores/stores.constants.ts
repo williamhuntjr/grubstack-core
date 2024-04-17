@@ -85,3 +85,5 @@ export const storePermissions = [
   UserPermissions.ViewStores,
   UserPermissions.MaintainStores
 ]
+
+export const filePickerLimit = 12

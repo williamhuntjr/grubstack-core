@@ -20,10 +20,10 @@ const root = createRoot(container) // createRoot(container!) if you use TypeScri
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#465de4',
+      main: '#4e8ce1',
     },
     secondary: {
-      main: '#282828',
+      main: '#111',
     },
   },
   typography: {

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
 import { Loading } from 'core/components/loading/loading'
@@ -27,6 +27,7 @@ import { useMediaLibraryModule } from 'app/media-library/media-library-module-ho
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { normalizeData as storeNormalizeData } from 'app/stores/stores.utils'
+import { useWindowDimensions } from 'common/hooks/window-dimensions.hook'
 import { useFranchiseModule } from './franchises-module-hook'
 import { IFranchise, IFranchiseState, IFranchiseCardItem } from './franchises.types'
 import { FranchiseForm } from './franchise-form/franchise-form'
@@ -36,7 +37,8 @@ import {
   defaultFranchiseState,
   FranchiseActionsEditMode, 
   FranchiseActionsViewMode,
-  ValidationFranchiseStoreMessage
+  ValidationFranchiseStoreMessage,
+  filePickerLimit
 } from './franchises.constants'
 import { IFranchiseFormValues } from './franchise-form/franchise-form.types'
 import { defaultFranchiseFormData } from './franchise-form/franchise-form.constants'
@@ -52,6 +54,8 @@ export const Franchises = (): JSX.Element => {
   const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
   const [ state, setState ] = useState<IFranchiseState>(defaultFranchiseState)
   
+  const { height } = useWindowDimensions()
+
   const canEditFranchises = hasPermission(UserPermissions.MaintainFranchises)
   const validationMessages = generateValidationMessages(ObjectType.Franchise)
 
@@ -92,12 +96,12 @@ export const Franchises = (): JSX.Element => {
   const {
     state: storePaginationState,
     pagination: storePagination
-  } = usePagination<IStore>(StoreService.getAll)
+  } = usePagination<IStore>(StoreService.getAll, Math.round((height - 100) / 205) * 2)
 
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerLimit)
 
   const handleCardAction = useCallback((item: IFranchiseCardItem, action: IListAction): void => {
     switch (action.label) {
@@ -213,6 +217,7 @@ export const Franchises = (): JSX.Element => {
     }
   }, [setFranchiseData, filePickerData, closeFilePickerDialog])
 
+  useEffect(() => console.log(Math.round((height - 100) / 205) * 2), [])
   return (
     <div className={styles.franchisesContainer}>
       <GrubDialog

@@ -38,16 +38,38 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
     setSidebarOpen(false)
   }
 
+  const verifyTenant = async (): Promise<void> => {
+    try {
+      const resp = await HttpClient.get('/auth/verify_tenant')
+      if (!resp) {
+        console.log("You do not have access to this tenant.")
+        window.location.href = `${appConfig.productionUrl}/not-authorized`
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const init = async (): Promise<void> => {
     try {
       setAppLoading(true)
-      await HttpClient.get('/auth/verify_tenant')
+      await verifyTenant()
 
-      const {
-        data: { data },
-      } = await HttpClient.get('/auth/whoami')
-      localStorage.setItem('grubstackUser', JSON.stringify(data))
-      
+      const localStorageUser = localStorage.getItem('grubstackUser')
+      if (localStorageUser == null) {
+        const {
+          data: { data },
+        } = await HttpClient.get('/auth/whoami')
+  
+        const userData = {
+          'permissions': data.permissions,
+          'first_name': data.first_name,
+          'last_name': data.last_name,
+          'username': data.username
+        }
+        localStorage.setItem('grubstackUser', JSON.stringify(userData))  
+      }
+
       if (process.env.NODE_ENV == 'production') {
         const resp = await HttpClient.get('/core/versions')
         const versions:IVersion[] = resp.data.data  
@@ -67,8 +89,9 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
       }
       setAppLoading(false)
     } catch (e) {
-      console.log("You do not have access to this tenant.")
-      window.location.href = `${appConfig.productionUrl}/unauthorized-access`
+      console.error(e)
+      window.location.href = `${appConfig.productionUrl}/not-authorized`
+
     }
   }
 

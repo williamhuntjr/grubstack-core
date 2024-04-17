@@ -14,7 +14,7 @@ export interface IGlobalConstants {
 export const appConfig: IGlobalConstants = {
   apiLocation: process.env.NODE_ENV == 'production' ? window._env_.API_URL : process.env.REACT_APP_API_URL || 'https://api.grubstack.app/v1',
   productionApi: process.env.NODE_ENV == 'production' ? window._env_.PRODUCTION_API : process.env.REACT_APP_PRODUCTION_API || 'https://api.grubstack.app/v1',
-  productionUrl: process.env.NODE_ENV == 'production' ? window._env_.PRODUCTION_URL : process.env.REACT_APP_PRODUCTION_URL || 'http://localhost:3000',
+  productionUrl: process.env.NODE_ENV == 'production' ? window._env_.PRODUCTION_URL : process.env.REACT_APP_PRODUCTION_URL || 'http://local.grubstack.app',
   tenantId: process.env.NODE_ENV == 'production' ? window._env_.TENANT_ID : process.env.REACT_APP_TENANT_ID || 'abcdefg',
   siteUrl: process.env.NODE_ENV == 'production' ? window._env_.SITE_URL : process.env.SITE_URL || 'http://localhost:3001',
   appVersion: appVersion,

@@ -25,16 +25,20 @@ export const GrubList: FC<IGrubList> = memo(({
   
   const generateSecondaryAction = (item: IGrubListItem): JSX.Element => {
     return (
-      <>
+      <div className={styles.grubListActions}>
         {onClickEdit &&
-          <IconButton edge="end" aria-label="edit" onClick={() => onClickEdit(item.value)}>
-            <EditIcon />
-          </IconButton>
+          <div className={styles.buttonContainer}>
+            <IconButton edge="end" aria-label="edit"  onClick={() => onClickEdit(item.value)}>
+              <EditIcon />
+            </IconButton>
+          </div>
         }
-        <IconButton edge="end" aria-label="delete" onClick={() => onClickDelete(item.value)}>
-          <DeleteIcon />
-        </IconButton>
-      </>
+        <div className={styles.buttonContainer}>
+          <IconButton edge="end" aria-label="delete" onClick={() => onClickDelete(item.value)}>
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      </div>
     )
   }
 

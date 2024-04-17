@@ -21,6 +21,9 @@
     &:last-child {
       margin-right: 0;
     }
+    @media screen and (max-width: $bp-xs) {
+      margin-right: 0;
+    }
     @media screen and (max-width: $bp-md) {
       width: 100%;
       margin-bottom: $grid-large;

@@ -42,8 +42,8 @@ $builderDetailsCardWidth: 300px;
         align-items: center;
         justify-content: center;
         text-align: center;
-        border: $border-disabled;
-        border-bottom: solid 4px $color-production;
+        border: $border-default;
+        border-bottom: solid 4px $color-primary;
         img {
           max-width: 200px;
           margin: $grid-base 0 $grid-small 0;
