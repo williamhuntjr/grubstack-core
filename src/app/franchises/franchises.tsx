@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
 import { Loading } from 'core/components/loading/loading'
@@ -217,7 +217,6 @@ export const Franchises = (): JSX.Element => {
     }
   }, [setFranchiseData, filePickerData, closeFilePickerDialog])
 
-  useEffect(() => console.log(Math.round((height - 100) / 205) * 2), [])
   return (
     <div className={styles.franchisesContainer}>
       <GrubDialog

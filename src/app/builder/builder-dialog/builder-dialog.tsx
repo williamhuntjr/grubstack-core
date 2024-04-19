@@ -49,7 +49,7 @@ export const BuilderDialog: FC<IBuilderDialog> = ({ builderType, onClick }) => {
       ErrorHandler.handleError(e as Error)
     }
     setState((prevState) => ({ ...prevState, isLoading: false }))
-  }, [state.page, ErrorHandler, ItemService, MenuService, IngredientService, builderType, VarietyService])
+  }, [state.page, ErrorHandler, ItemService, MenuService, IngredientService, builderType, VarietyService, builderDialogPageSize])
 
   // eslint-disable-next-line
   useEffect(() => void fetchData(), [])

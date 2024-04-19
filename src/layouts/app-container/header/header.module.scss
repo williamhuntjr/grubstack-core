@@ -28,8 +28,12 @@
       @media screen and (max-width: $bp-sm) {
         margin: 0 auto 0 auto;
       }
-      .logoImage {
-        max-width: $headerLogoWidth;
+      a {
+        display: flex;
+        align-items: center;
+        .logoImage {
+          max-width: $headerLogoWidth;
+        }
       }
     }
     .userMenu {

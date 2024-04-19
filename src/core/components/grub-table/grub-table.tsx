@@ -6,6 +6,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import { camelCase } from 'common/utils/utils'
 import { IGrubTable, ITableRow } from './grub-table.types'
 
 export const GrubTable: IGrubTable = memo(({ 
@@ -28,7 +29,7 @@ export const GrubTable: IGrubTable = memo(({
         <TableHead>
           <TableRow>
             {columns.map((column) =>
-              column.hidden && column.hidden == true ? '' : <TableCell key={column.id}>{column.headerName}</TableCell>
+              column.hidden && column.hidden == true ? '' : <TableCell key={column.id} className={camelCase(column.headerName)}>{column.headerName}</TableCell>
             )}
             <TableCell>Actions</TableCell>
           </TableRow>
@@ -41,7 +42,7 @@ export const GrubTable: IGrubTable = memo(({
             >
               {columns.map((column) => 
                 column.hidden && column.hidden == true ? '' :
-                <TableCell key={column.id}>
+                <TableCell key={column.id} className={camelCase(column.headerName)}>
                   {column.renderCell ? column.renderCell(row) : getColumnData(row, column.field)}
                 </TableCell>
               )}

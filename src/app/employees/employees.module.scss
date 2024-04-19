@@ -6,14 +6,14 @@
   height: 100%;
   .employeeTableContainer {
     width: 100%;
-    @media screen and (max-width: $bp-sm) {
+    @media screen and (max-width: $bp-md) {
       display: none;
     }
   }
   .employeeListContainer {
     width: 100%;
     display: none;
-    @media screen and (max-width: $bp-sm) {
+    @media screen and (max-width: $bp-md) {
       display: block;
     }
   }

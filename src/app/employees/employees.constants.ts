@@ -70,7 +70,7 @@ export const EmployeeTableActionsEditMode:ITableAction[] = [
   {
     label: EmployeeAction.Delete,
     icon: DeleteIcon,
-    color: "error",
+    color: undefined,
   }
 ]
 
