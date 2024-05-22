@@ -1,46 +1,109 @@
 @import 'assets/sass/variables';
 
 .sidebarContainer {
-  height: 100%;
-  min-height: 100vh;
-  position: fixed;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  z-index: 888;
+  display: flex;
   width: $sidebarWidth;
-  background-color: $color-primary;
-  color: $white-color;
   -webkit-transition: width .5s;
   transition: width .5s;
-  box-shadow: $box-shadow;
-  @media screen and (max-width: $bp-md) {
-    height: unset;
-  }
-  @media screen and (min-width: $bp-md) {
-    &:hover {
-      width: $sidebarWidthOpen;
+  position: fixed;
+  height: 100%;
+  z-index: 888;
+  .desktopContainer {
+    width: $sidebarWidth;
+    background-color: $color-primary;
+    color: $white-color;
+    display: flex;
+    .navbarList {
+      width: 100%;
+      padding: $headerHeight 0 0 0;
+      li { 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style-type: none;
+        width: $sidebarWidth;
+        height: $sidebarWidth;
+        &:hover {
+          cursor: pointer;
+          background-color: $black-color;
+        }
+        .navItem {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: $sidebarWidth;
+          height: $sidebarWidth;
+          .navIcon {
+            font-size: $sidebarIconSize;
+          }
+        }
+        .activeNavItem {
+          background-color: $black-color;
+          color: $white-color;
+        }
+      }
+    }
+    .subMenuContainer {
+      left: $sidebarWidth;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      width: 0;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0;
+      color: $black-color;
+      background-color: $white-color;
+      box-shadow: $box-shadow;
+      border-right: $border-disabled;
+      -webkit-transition: width .5s;
+      transition: width .5s;
+      scrollbar-width: thin;
+      .subMenuLinks {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        .subMenuLink {
+          white-space: nowrap;
+          color: $black-color;
+          text-decoration: none;
+          padding: $grid-base;
+          display: flex;
+          align-items: center;
+          border-bottom: $border-disabled;
+          &:last-child {
+            border-bottom: unset;
+          }
+          &:hover {
+            background-color: $offset-color;
+            color: $black-color;
+            cursor: pointer;
+          }
+        }
+        .activeSubMenuLink {
+          background-color: $black-color;
+          color: $white-color;
+          font-weight: 500;
+          &:hover {
+            background-color: $black-color;
+            color: $white-color;
+          }
+        }
+        .subNavIcon {
+          margin-right: $grid-small;
+        }
+      }
+      h4 {
+        margin-top: $headerHeight;
+        padding: $grid-base;
+        border-bottom: $border-disabled;
+      }
+    }
+    .activeSubmenu {
+      width: 200px;
+      overflow-y: unset;
     }
   }
-  @media screen and (max-width: $bp-sm) {
-    position: absolute;
-  }
-  .sidebarList {
-    margin-top: $grid-base;
-    padding-top: $headerHeight;
-  }
-}
-.sidebarOpen {
-  width: $sidebarWidth;
-  overflow-x: unset;
-
-  @media screen and (max-width: $bp-sm) {
-    width: 100%;
-  }
-}
-.sidebarClosed {
-  width: 0;
-}
-.sidebarHidden {
-  width: 0;
-  display: none;
 }

@@ -20,6 +20,7 @@ export interface IResponseStatusPagination extends IResponseStatus {
 export interface IPaginationParams {
   limit: number
   page: number
+  id?: string
 }
 
 export interface IPaginationResponse<TData> {

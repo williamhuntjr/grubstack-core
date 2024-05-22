@@ -1,0 +1,41 @@
+@import 'assets/sass/variables';
+
+.locationList {
+  width: 100%;
+  max-width: 280px;
+  padding-top: 0;
+  margin-right: $grid-large;
+  margin-bottom: $grid-large;
+  @media screen and (max-width: $bp-md) {
+    max-width: unset;
+  }
+  .listItem {
+    border-bottom: $border-disabled;
+    &:last-child { 
+      border-bottom: none;
+    }
+  }
+  .circleIcon {
+    border-radius: 50%;
+    background-color: $color-secondary;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+  }
+  .activeLocation {
+    background-color: $color-secondary;
+    color: #fff;
+  }
+  .statusCircle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: $grid-small;
+  }
+  .redCircle {
+    background-color: red;
+  }
+  .greenCircle {
+    background-color: green;
+  }
+}

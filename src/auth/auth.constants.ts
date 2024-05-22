@@ -3,8 +3,8 @@ export const authServiceToken = 'AuthService'
 export const refreshTokenEndpointUrl = '/auth/refresh'
 
 export enum UserPermissions {
-  ViewStores = 'ViewStores',
-  MaintainStores = 'MaintainStores',
+  ViewRestaurant = 'ViewRestaurant',
+  MaintainRestaurant = 'MaintainRestaurant',
   ViewMenus = 'ViewMenus',
   MaintainMenus = 'MaintainMenus',
   ViewItems = 'ViewItems',
@@ -17,6 +17,14 @@ export enum UserPermissions {
   MaintainMediaLibrary = 'MaintainMediaLibrary',
   ViewEmployees = 'ViewEmployees',
   MaintainEmployees = 'MaintainEmployees',
-  ViewFranchises = 'ViewFranchises',
-  MaintainFranchises = 'MaintainFranchises'
+  ViewDeliveryZones = 'ViewDeliveryZones',
+  MaintainDeliveryZones = 'MaintainDeliveryZones',
+  ViewLocations = 'ViewLocations',
+  MaintainLocations = 'MaintainLocations',
+  ViewReviews = 'ViewReviews',
+  MaintainReviews = 'MaintainReviews',
+  ViewReports = 'ViewReports',
+  MaintainReports = 'MaintainReports',
+  ViewMarketing = 'ViewMarketing',
+  MaintainMarketing = 'MaintainMarketing',
 }

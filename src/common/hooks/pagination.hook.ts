@@ -2,17 +2,18 @@ import { useCallback, useEffect, useState } from 'react'
 import { IPaginationData, IPaginationParams } from 'common/types'
 import { listPageSize } from 'common/constants'
 
-export interface IPaginationHookState<TData> {
+export interface IPaginationHookState<TData, TFilters> {
   isLoading: boolean
   pagination: IPaginationParams
   data: TData[]
   total: number
   pages: number
+  filters?: TFilters
 }
 
-export interface IPaginationHook<TData> {
+export interface IPaginationHook<TData, TFilters> {
   pagination: ITablePagination
-  state: IPaginationHookState<TData>
+  state: IPaginationHookState<TData, TFilters>
   refresh(): Promise<void>
 }
 
@@ -31,14 +32,20 @@ export interface ITablePagination {
   isLoading: boolean
 }
 
-export function usePagination<TData, TFilters = {}>(requestFn: TPaginationRequestFn<TData, TFilters>, pageLimit?: number, filters?: TFilters | undefined): IPaginationHook<TData> {
-  const [state, setState] = useState<IPaginationHookState<TData>>({ isLoading: true, data: [], total: 0, pages: 1, pagination: { page: 1, limit: pageLimit ?? listPageSize } })
+export function usePagination<TData, TFilters = {}>(requestFn: TPaginationRequestFn<TData, TFilters>, pageLimit?: number, filters?: TFilters | undefined): IPaginationHook<TData, TFilters> {
+  const [state, setState] = useState<IPaginationHookState<TData, TFilters>>({ isLoading: true, data: [], total: 0, pages: 1, pagination: { page: 1, limit: pageLimit ?? listPageSize}, filters: filters})
 
   const fetchData = useCallback(async(pagination?: IPaginationParams): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true, pagination: pagination ?? prevState.pagination }))
-    const { data, total, pages } = await requestFn(pagination ?? state.pagination, filters)
-    setState((prevState) => ({ ...prevState, data, total, pages, isLoading: false }))
-  }, [state, requestFn, filters])
+    try {
+      const { data, total, pages } = await requestFn(pagination ?? state.pagination, state.filters)
+      setState((prevState) => ({ ...prevState, data, total, pages, isLoading: false }))
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setState((prevState) => ({ ...prevState, isLoading: false }))
+    }
+  }, [state, requestFn])
 
   useEffect(() => {
     void fetchData()

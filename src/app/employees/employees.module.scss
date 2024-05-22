@@ -3,7 +3,6 @@
 .employeeContainer {
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   .employeeTableContainer {
     width: 100%;
     @media screen and (max-width: $bp-md) {
@@ -24,9 +23,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    h2, p {
+      text-align: center;
+    }
+    p {
+      margin-top: $grid-small;
+    }
     @media screen and (max-width: $bp-xs) {
       h2, p {
-        text-align: center;
         padding: 0 $grid-base 0 $grid-base;
       }
     }

@@ -12,7 +12,7 @@ import { IMenuService } from './menus/menus.types'
 import { varietyServiceToken } from './varieties/varieties.constants'
 import { IVarietyService } from './varieties/varieties.types'
 
-function resolveMenuModule(): Overwrite<ProductModuleDefinition, IProductModuleService> {
+function resolveProductModule(): Overwrite<ProductModuleDefinition, IProductModuleService> {
   const IngredientService = Injector.resolve<IIngredientService>(ingredientServiceToken)
   const ItemService = Injector.resolve<IItemService>(itemServiceToken)
   const MenuService = Injector.resolve<IMenuService>(menuServiceToken)
@@ -29,4 +29,4 @@ function resolveMenuModule(): Overwrite<ProductModuleDefinition, IProductModuleS
   }
 }
 
-export const useProductModule = moduleHookResolver(resolveMenuModule)
+export const useProductModule = moduleHookResolver(resolveProductModule)

@@ -1,10 +1,10 @@
 export enum ObjectType {
-  Store = 'store',
+  Restaurant = 'restaurant',
   Item = 'item',
   Variety = 'variety',
   Menu = 'menu',
   Ingredient = 'ingredient',
   File = 'file',
   Employee = 'employee',
-  Franchise = 'franchise',
+  Location = 'location',
 }

@@ -18,14 +18,22 @@ h4 { font-size: $font-size-h4; }
 h5 { font-size: $font-size-h5; }
 h6 { font-size: $font-size-h6; }
 h1, h2, h3, h4, h5, h6 {
-  font-weight: bold;
-  margin: $grid-base 0 $grid-tiny 0;
+  margin: 0 0 $grid-base 0;
   font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3 { 
+  font-weight: bold;
+}
+h4, h5 { 
+  font-weight: 500;
 }
 p {
   font-size: 20px;
   line-height: 30px;
   font-weight: 300;
+}
+.hidden {
+  display: none;
 }
 .MuiDialog-paper {
   max-width: unset !important;
@@ -73,4 +81,8 @@ p {
       border-bottom: solid 3px $color-primary;
     }
   }
+}
+.MuiListItem-root.Mui-selected {
+  background-color: $color-secondary;
+  color: $white-color;
 }

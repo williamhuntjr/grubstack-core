@@ -3,11 +3,10 @@
 .contentContainer {
   flex-grow: 1;
   margin-top: $headerHeight;
-  padding: $grid-giant;
-  @media screen and (max-width: $bp-sm) {
-    padding: $grid-base;
-  }
-  @media screen and (min-width: $bp-sm) {
-    margin-left: $sidebarWidth;
-  }
+  padding: $grid-large;
+  margin-left: $sidebarWidth;
+}
+
+.noPadding {
+  padding: 0;
 }

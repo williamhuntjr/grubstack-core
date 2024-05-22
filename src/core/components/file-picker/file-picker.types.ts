@@ -6,6 +6,6 @@ export interface IFilePicker {
   open: boolean
   onClose(): void
   pagination: ITablePagination
-  paginationState: IPaginationHookState<any>
+  paginationState: IPaginationHookState<any, any>
   onAction: ListActionHandler<any, any>
 }

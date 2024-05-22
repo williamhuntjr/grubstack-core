@@ -42,7 +42,6 @@ $color-orange: #ed6a5a;
 $color-grey-blue: #8c96ab;
 $color-disabled: rgba(0, 0, 0, 0.15);
 $color-default-border: rgba(0, 0, 0, 0.25);
-$color-body: #505050;
 
 $border-primary: solid $border-thin $color-primary;
 $border-dark-gray: solid $border-thin $dark-gray;
@@ -70,7 +69,7 @@ $sidebarWidthOpen: 200px;
 $sidebarIconSize: 30px;
 
 $headerHeight: 85px;
-$headerBackgroundColor: #111;
+$headerBackgroundColor: $black-color;
 $headerLogoWidth: 175px;
 
 $minButtonWidth: 85px;

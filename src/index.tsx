@@ -83,7 +83,18 @@ const theme = createTheme({
           }
         }
       }
-    }
+    },
+    MuiTooltip: {
+      styleOverrides: { 
+        tooltip: {
+            fontSize: "1em",
+            backgroundColor: "#111",
+        },
+        arrow: {
+          color: "#111",
+        },
+      }
+    },
   }
 })
 

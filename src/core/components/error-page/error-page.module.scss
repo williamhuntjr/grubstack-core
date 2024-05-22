@@ -2,7 +2,6 @@
 $errorPageIconSize: 80px;
 
 .errorPageContainer {
-  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -18,9 +17,6 @@ $errorPageIconSize: 80px;
 }
 .hiddenButton {
   display: none;
-}
-.fullPage {
-  height: calc(100vh - #{$headerHeight} - #{$grid-giant * 2});
 }
 .lockIcon {
   font-size: $errorPageIconSize;

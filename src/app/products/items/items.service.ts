@@ -36,7 +36,6 @@ export class ItemService implements IItemService {
   }
 
   public async update(params: IItem): Promise<IItem> {
-    console.log(params)
     const {
       data: { data },
     } = await this.httpClient.put<IResponse<IItem>>('/items', { params })

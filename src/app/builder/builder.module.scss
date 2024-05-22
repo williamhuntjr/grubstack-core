@@ -10,7 +10,6 @@
   margin: 0 auto 0 auto;
   .cardContainer {
     display: flex;
-    padding: $grid-small;
     @media screen and (max-width: $bp-md) {
       width: 100%;
       flex-direction: column;

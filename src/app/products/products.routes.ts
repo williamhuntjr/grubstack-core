@@ -1,4 +1,4 @@
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
+import FastfoodIcon from '@mui/icons-material/Fastfood'
 import { IAsyncRoute, IRoute } from 'common/routing/routing.types'
 import { ProductModule, ProductModuleDefinition } from './products.module'
 import { 
@@ -51,6 +51,6 @@ export const productRoute: IAsyncRoute<ProductModuleDefinition> = {
   name: 'Products',
   isSidebarButton: true,
   permissions: productPermissions,
-  icon: LocalGroceryStoreIcon,
+  icon: FastfoodIcon,
   childrenRoutesFactory: productRouteFactory
 }

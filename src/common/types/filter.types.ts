@@ -1,17 +1,9 @@
-export enum FranchiseFilter {
-  'ShowStores' = 'showStores'
-}
-
-export interface IFranchiseFilters {
-  [FranchiseFilter.ShowStores]?: boolean
-}
-
-export enum StoreFilter {
+export enum RestaurantFilter {
   'ShowMenus' = 'showMenus',
   'ShowItems' = 'showItems'
 }
 
-export interface IStoreFilters {
-  [StoreFilter.ShowMenus]?: boolean
-  [StoreFilter.ShowItems]?: boolean
+export interface IRestaurantFilters {
+  [RestaurantFilter.ShowMenus]?: boolean
+  [RestaurantFilter.ShowItems]?: boolean
 }

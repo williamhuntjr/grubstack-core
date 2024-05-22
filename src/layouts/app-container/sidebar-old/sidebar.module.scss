@@ -1,0 +1,46 @@
+@import 'assets/sass/variables';
+
+.sidebarContainer {
+  height: 100%;
+  min-height: 100vh;
+  position: fixed;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  z-index: 888;
+  width: $sidebarWidth;
+  background-color: $color-primary;
+  color: $white-color;
+  -webkit-transition: width .5s;
+  transition: width .5s;
+  box-shadow: $box-shadow;
+  @media screen and (max-width: $bp-md) {
+    height: unset;
+  }
+  @media screen and (min-width: $bp-md) {
+    &:hover {
+      width: $sidebarWidthOpen;
+    }
+  }
+  @media screen and (max-width: $bp-sm) {
+    position: absolute;
+  }
+  .sidebarList {
+    margin-top: $grid-base;
+    padding-top: $headerHeight;
+  }
+}
+.sidebarOpen {
+  width: $sidebarWidth;
+  overflow-x: unset;
+
+  @media screen and (max-width: $bp-sm) {
+    width: 100%;
+  }
+}
+.sidebarClosed {
+  width: 0;
+}
+.sidebarHidden {
+  width: 0;
+  display: none;
+}

@@ -1,0 +1,50 @@
+@import 'assets/sass/variables';
+
+.homepage {
+  width: 100%;
+  .title {
+    margin-bottom: $grid-tiny;
+  }
+  .subTitle {
+    margin: 0;
+  }
+  .divider {
+    margin-top: $grid-base;
+    margin-bottom: $grid-base;
+  }
+  .homepageCards {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    .homepageCard {
+      width: 24.95%;
+      .homepageCardContent {
+        margin: $grid-small;
+        padding: $grid-large;
+        border: $border-disabled;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        &:hover {
+          border-color: $color-primary;
+          cursor: pointer;
+        }
+        h3 {
+          margin: 0;
+        }
+        p {
+          margin: 0;
+          font-size: 16px;
+          text-align: center;
+        }
+        .cardIcon {
+          color: $color-primary;
+          margin-bottom: $grid-base;
+          font-size: 72px;
+        }
+      }
+    }
+  }
+}

@@ -10,10 +10,10 @@ import { appConfig } from 'common/config'
 import { buildAsyncRoute } from 'common/routing/lazy-routing/lazy-routing.utils'
 import { isAsyncRoute, buildRoute } from 'common/routing/routing.utils'
 import { IVersion } from 'common/types'
-import { IAppContainer } from './app-container.types'
 import { Header } from './header/header'
-import { Content } from './content/content'
 import { Sidebar } from './sidebar/sidebar'
+import { IAppContainer } from './app-container.types'
+import { Content } from './content/content'
 import styles from './app-container.module.scss'
 
 function buildContentRoute(route: IRoute): JSX.Element {
@@ -28,15 +28,6 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   const [ appUpdating, setAppUpdating ] = useState<boolean>(false)
 
   const isMobile = useMediaQuery(smMq)
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(!isMobile)
-
-  const toggleSidebar = (): void => {
-    setSidebarOpen(!sidebarOpen)
-  }
-
-  const closeSidebar = (): void => {
-    setSidebarOpen(false)
-  }
 
   const verifyTenant = async (): Promise<void> => {
     try {
@@ -91,7 +82,6 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
     } catch (e) {
       console.error(e)
       window.location.href = `${appConfig.productionUrl}/not-authorized`
-
     }
   }
 
@@ -105,19 +95,17 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
       {appUpdating && <Updating />}
       {appLoading && !appUpdating && <Loading />}
       {!appLoading && !appUpdating &&
-      <div>
-        <Header onToggle={toggleSidebar} sidebarOpen={sidebarOpen || !isMobile}/>
-        <div className={styles.appContent}>
-          <Sidebar open={sidebarOpen || !isMobile} onCloseSidebar={closeSidebar} />
-          <React.Suspense fallback={<Loading />}>
-            <Routes>{routes.map((route) => { 
-              return buildContentRoute({
-                ...route,
-                path: `${route.path}/*`
-              })
-            })}</Routes>
-          </React.Suspense>
-        </div>
+      <div className={styles.appContent}>
+        <Header />
+        <Sidebar isMobile={isMobile} />
+        <React.Suspense fallback={<Loading />}>
+          <Routes>{routes.map((route) => { 
+            return buildContentRoute({
+              ...route,
+              path: `${route.path}/*`
+            })
+          })}</Routes>
+        </React.Suspense>
       </div>
       }
     </div>
