@@ -17,7 +17,7 @@ function resolveRestaurantModule(): Overwrite<RestaurantModuleDefinition, IResta
   return {
     ...module,
     RestaurantService,
-    LocationService
+    LocationService,
   }
 }
 

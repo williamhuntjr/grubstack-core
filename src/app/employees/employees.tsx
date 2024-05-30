@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
+import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
@@ -204,6 +205,8 @@ export const Employees = (): JSX.Element => {
       {state.isLoading && paginationState.isLoading && <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
       <>
+        <h2 className="page-header">Employees</h2>
+        <Divider className={styles.divider} />
         <div className={styles.employeeTableContainer}>
           <GrubTable
             columns={employeeColumns}

@@ -4,6 +4,6 @@ import { productTabs, ProductTab } from 'app/products/products.constants'
 
 export const VarietiesTab: FC = () => {
   return (
-    <TabPanel tabs={productTabs} currentTab={ProductTab.Varieties} />
+    <TabPanel tabs={productTabs} currentTab={ProductTab.Varieties} label={'Products'}/>
   )
 }

@@ -1,10 +1,15 @@
 @import 'assets/sass/variables';
 
 .employeeContainer {
+  height: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  .divider { 
+    margin-bottom: $grid-base;
+  }
   .employeeTableContainer {
     width: 100%;
+    margin-top: $grid-small;
     @media screen and (max-width: $bp-md) {
       display: none;
     }
@@ -12,6 +17,7 @@
   .employeeListContainer {
     width: 100%;
     display: none;
+    margin-top: $grid-small;
     @media screen and (max-width: $bp-md) {
       display: block;
     }
@@ -28,6 +34,7 @@
     }
     p {
       margin-top: $grid-small;
+      margin-bottom: $grid-small;
     }
     @media screen and (max-width: $bp-xs) {
       h2, p {

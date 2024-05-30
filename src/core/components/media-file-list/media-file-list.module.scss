@@ -5,11 +5,11 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  margin-bottom: $grid-base;
   .mediaFilesContainer {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    margin-bottom: $grid-base;
     .mediaFileListItem {
       margin: $grid-small;
       border: $border-dark-gray-thick;

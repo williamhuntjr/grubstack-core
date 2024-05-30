@@ -17,18 +17,18 @@ import { menuRoutePath } from 'app/products/menus/menus.constants'
 import { builderRoutePath } from 'app/builder/builder.constants'
 import { useProductModule } from 'app/products/products-module-hook'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
+import { restaurantMenusPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocationFilters } from '../locations/locations.types'
+import { locationRoutePath } from '../locations/locations.constants'
 import { 
   FoodMenuAction,
   FoodMenuSpeedActions,
   ValidationLocationMenuMessage,
-  FoodMenuActionsEditMode,
-  foodMenuRoutePath
+  FoodMenuActionsEditMode
 } from './food-menus.constants'
 import styles from './food-menus.module.scss'
-import { locationRoutePath } from '../locations/locations.constants'
 
 export const FoodMenus = (): JSX.Element => {
   const [isLoading, setLoading] = useState<boolean>(true)
@@ -47,8 +47,9 @@ export const FoodMenus = (): JSX.Element => {
 
   const {
     refresh,
+    updateFilters,
     state: paginationState,
-  } = usePagination<IMenu, ILocationFilters>(LocationService.getMenus, 1000, { id: locationId ?? '' })
+  } = usePagination<IMenu, ILocationFilters>(LocationService.getMenus, 1000, { id: locationId! })
 
   const {
     open: quickPickerOpen,
@@ -107,7 +108,9 @@ export const FoodMenus = (): JSX.Element => {
 
   const checkLocation = async(locationIdToCheck: string): Promise<void> => {
     try {
+      setLoading(true)
       await LocationService.get(locationIdToCheck)
+      setLoading(false)
     } catch(e) {
       toast.error('The URL provided is invalid')
       navigate(`${locationRoutePath}`)
@@ -120,13 +123,16 @@ export const FoodMenus = (): JSX.Element => {
       if (!locationId) {
         const { data } = await LocationService.getAll({ page: 1, limit: 100 })
         if (data.length > 0) {
-          navigate(`${foodMenuRoutePath}/${data[0].id}`)
-          window.location.reload()
+          navigate(`${restaurantMenusPath}/${data[0].id}`)
+          setLoading(false)
         }
-      }
+        else {
+          toast.error('You need to add a location first')
+          navigate(`${locationRoutePath}`)
+        }
+      } 
       else {
-        setLoading(false)
-        await checkLocation(locationId)
+        await checkLocation(locationId!)
       }
     } catch(e) {
       console.error(e)
@@ -134,13 +140,16 @@ export const FoodMenus = (): JSX.Element => {
   }
 
   // eslint-disable-next-line
-  useEffect(() => void init(), [locationId])
+  useEffect(() => void updateFilters({ id: locationId! }), [locationId])
+
+  // eslint-disable-next-line
+  useEffect(() => void init(), [])
 
   return (
     <div className={styles.foodMenusListContainer}>
       {paginationState.isLoading || isLoading && <Loading />}
       {!paginationState.isLoading && !isLoading  &&
-      <RestaurantContainer label={"Food Menus"} route={foodMenuRoutePath} routeReload={true}>
+      <RestaurantContainer label={"Menus"} route={restaurantMenusPath} routeReload={true}>
         {paginationState.data.length > 0 && !paginationState.isLoading &&
           <CardList 
             data={paginationState.data} 

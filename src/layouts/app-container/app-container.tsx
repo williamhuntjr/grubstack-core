@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Routes } from 'react-router-dom'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { HttpClient } from 'core/services/http-client'
-import { smMq } from 'common/constants'
 import { Loading } from 'core/components/loading/loading'
 import { IRoute } from 'common/routing/routing.types'
 import { Updating } from 'core/components/updating/updating'
@@ -11,7 +9,7 @@ import { buildAsyncRoute } from 'common/routing/lazy-routing/lazy-routing.utils'
 import { isAsyncRoute, buildRoute } from 'common/routing/routing.utils'
 import { IVersion } from 'common/types'
 import { Header } from './header/header'
-import { Sidebar } from './sidebar/sidebar'
+import { DesktopSidebar } from './sidebar/desktop-sidebar/desktop-sidebar'
 import { IAppContainer } from './app-container.types'
 import { Content } from './content/content'
 import styles from './app-container.module.scss'
@@ -26,8 +24,6 @@ function buildContentRoute(route: IRoute): JSX.Element {
 export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   const [ appLoading, setAppLoading ] = useState<boolean>(true)
   const [ appUpdating, setAppUpdating ] = useState<boolean>(false)
-
-  const isMobile = useMediaQuery(smMq)
 
   const verifyTenant = async (): Promise<void> => {
     try {
@@ -97,7 +93,7 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
       {!appLoading && !appUpdating &&
       <div className={styles.appContent}>
         <Header />
-        <Sidebar isMobile={isMobile} />
+        <DesktopSidebar />
         <React.Suspense fallback={<Loading />}>
           <Routes>{routes.map((route) => { 
             return buildContentRoute({

@@ -8,6 +8,7 @@ import { mediaLibraryRoute } from 'app/media-library/media-library.routes'
 import { reviewRoute } from 'app/reviews/reviews.routes'
 import { reportRoute } from 'app/reports/reports.routes'
 import { marketingRoute } from 'app/marketing/marketing.routes'
+import { employeeRoute } from 'app/employees/employees.routes'
 
 const AppRoutes: Array<IRoute | IAsyncRoute<never>> = [
   homepageRoute,
@@ -17,7 +18,8 @@ const AppRoutes: Array<IRoute | IAsyncRoute<never>> = [
   reportRoute,
   marketingRoute,
   builderRoute,
-  mediaLibraryRoute
+  mediaLibraryRoute,
+  employeeRoute
 ]
 
 export const appRoutes = processRoutes(AppRoutes)

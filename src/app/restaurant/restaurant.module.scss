@@ -20,11 +20,8 @@
          flex-direction: column;
       }
       .restaurantLabel {
-        h3 {
+        h2 {
           margin: 0;
-          @media screen and (max-width: $bp-md) {
-            margin-bottom: $grid-base;
-          }
         }
       }
       .locationPicker {
@@ -34,6 +31,8 @@
           min-width: unset;
           width: 100%;
           margin-left: unset;
+          margin-top: $grid-base;
+          margin-bottom: $grid-small;
         }
       }
     }
@@ -55,6 +54,7 @@
   }
   p {
     margin-top: $grid-small;
+    margin-bottom: $grid-small;
   }
   @media screen and (max-width: $bp-xs) {
     h2, p {

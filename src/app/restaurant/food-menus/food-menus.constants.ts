@@ -2,9 +2,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import HardwareIcon from '@mui/icons-material/Hardware'
 import AddIcon from '@mui/icons-material/Add'
 import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
-import { restaurantRoutePath } from "../restaurant.constants"
-
-export const foodMenuRoutePath = `${restaurantRoutePath}/food-menus`
 
 export enum ValidationLocationMenuMessage {
   AddMenuSuccess = 'The menu has been added to your location.',

@@ -5,6 +5,9 @@
   margin-top: $headerHeight;
   padding: $grid-large;
   margin-left: $sidebarWidth;
+  @media screen and (max-width: $bp-sm) {
+    margin-left: 0;
+  }
 }
 
 .noPadding {

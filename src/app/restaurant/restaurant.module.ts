@@ -24,7 +24,7 @@ export const RestaurantModule: ILazyModule<RestaurantModuleDefinition> = {
   resolver: () => import('./restaurant.exports'),
   initializer: ({
     RestaurantService,
-    LocationService
+    LocationService,
   }) => {
     const httpClient = Injector.resolve<IHttpClient>(httpClientToken)
     Injector.register<IRestaurantService>(restaurantServiceToken, () => new RestaurantService(httpClient), Scope.Singleton)

@@ -1,6 +1,7 @@
 export interface ITabPanel {
   tabs: ITab[]
   currentTab?: string
+  label?: string
 }
 
 export interface ITab {

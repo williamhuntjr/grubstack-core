@@ -9,21 +9,26 @@ import Fade from '@mui/material/Fade'
 import Tooltip from '@mui/material/Tooltip'
 import { cls } from 'common/utils/utils'
 import { validateRoutePermissions } from 'auth/auth.utils'
-import { sidebarRoutes } from './sidebar.constants'
-import { ISidebar, ISidebarItem } from './sidebar.types'
-import styles from './sidebar.module.scss'
+import { homepageRoutePath } from 'app/homepage/homepage.constants'
+import { sidebarRoutes } from '../sidebar.constants'
+import { ISidebarItem } from '../sidebar.types'
+import styles from './desktop-sidebar.module.scss'
 
-const SidebarSubMenuItem: FC<ISidebarItem> = ({ route }) => {
+const SidebarSubMenuItem: FC<ISidebarItem> = ({ route, onClick }) => {
   let resolved = useResolvedPath(route.path)
-  let match = useMatch({ path: `${resolved.pathname}`, end: false })
+
+  let isMatch = useMatch({ path: `${resolved.pathname}`, end: false })
+  let isHomepage = useMatch({ path: `${homepageRoutePath}`, end: true })
+
+  let match = route.path == homepageRoutePath ? isHomepage : isMatch
 
   return (
     <>
     {route.icon &&
       <Link
+        onClick={onClick}
         role="menuitem"
         to={route.path}
-        reloadDocument={route.shouldReload ?? false}
         className={cls(styles.subMenuLink, match ? styles.activeSubMenuLink : '')}
       >
         <route.icon className={styles.subNavIcon} /> {route.label}
@@ -31,9 +36,9 @@ const SidebarSubMenuItem: FC<ISidebarItem> = ({ route }) => {
     }
     {!route.icon &&
       <Link
+        onClick={onClick}
         role="menuitem"
         to={route.path}
-        reloadDocument={route.shouldReload ?? false}
         className={cls(styles.subMenuLink, match ? styles.activeSubMenuLink : '')}
       >
         {route.label}
@@ -45,7 +50,11 @@ const SidebarSubMenuItem: FC<ISidebarItem> = ({ route }) => {
 
 const SidebarItem: FC<ISidebarItem> = ({ route }) => {
   let resolved = useResolvedPath(route.path)
-  let match = useMatch({ path: `${resolved.pathname}`, end: false })
+
+  let isMatch = useMatch({ path: `${resolved.pathname}`, end: false })
+  let isHomepage = useMatch({ path: `${homepageRoutePath}`, end: true })
+
+  let match = route.path == homepageRoutePath ? isHomepage : isMatch
 
   return (
     <>
@@ -72,7 +81,7 @@ const SidebarItem: FC<ISidebarItem> = ({ route }) => {
   )
 }
 
-export const Sidebar: FC<ISidebar> = () => {
+export const DesktopSidebar = (): JSX.Element => {
   const [anchor, setAnchor] = useState<string>()
   const [open, setOpen] = useState<boolean>(false)
 
@@ -95,11 +104,15 @@ export const Sidebar: FC<ISidebar> = () => {
             <li
               key={`navbar-link-${index}`}
               role="menuitem"
-              onClick={() => navigate(route.path)}
+              onClick={() => {
+                if (!route.submenu) {
+                  navigate(route.path)
+                }
+              }}
               onKeyDown={() => handleListHover(`submenu-${index}`, true)}
               onMouseEnter={() => handleListHover(`submenu-${index}`, true)}
             >
-              <SidebarItem route={route} key={index} />
+              <SidebarItem route={route} key={index} onClick={() => handleListHover('', false)} />
             </li>
           )}
         </ul>
@@ -113,7 +126,7 @@ export const Sidebar: FC<ISidebar> = () => {
                 <h4>{route.label}</h4>
                 <div className={styles.subMenuLinks}>
                   {route.submenu.map((subRoute, subIndex) => 
-                    <SidebarSubMenuItem route={subRoute} key={subIndex} />
+                    <SidebarSubMenuItem route={subRoute} key={subIndex} onClick={() => handleListHover('', false)} />
                   )}
                 </div>
               </div>

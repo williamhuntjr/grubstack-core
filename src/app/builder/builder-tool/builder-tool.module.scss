@@ -21,11 +21,17 @@ $builderDetailsCardWidth: 300px;
       background-color: #ffffff;
       position: fixed;
       right: 0;
-      top: 95px;
-      margin-right: $grid-large;
+      top: 105px;
+      margin-right: $grid-base;
+      overflow-y: auto;
+      height: calc(100vh - 125px);
+      scrollbar-width: thin;
       @media screen and (max-width: $bp-md) {
         position: unset;
         width: 100%;
+        height: unset;
+        overflow-y: unset;
+        margin-bottom: $grid-large;
       }
       .builderDetails {
         width: 100%;
@@ -70,7 +76,6 @@ $builderDetailsCardWidth: 300px;
         height: 100%;
       }
       .builderHeader {
-        padding: 0 $grid-small $grid-base $grid-small;
         h2 {
           margin: 0 0 $grid-base 0;
         }

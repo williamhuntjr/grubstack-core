@@ -17,6 +17,7 @@ $ingredientFormWidth: 400px;
     }
     p {
       margin-top: $grid-small;
+      margin-bottom: $grid-small;
     }
     @media screen and (max-width: $bp-xs) {
       h2, p {

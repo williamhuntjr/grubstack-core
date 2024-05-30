@@ -8,6 +8,9 @@
   position: fixed;
   height: 100%;
   z-index: 888;
+  @media screen and (max-width: $bp-sm) {
+    display: none;
+  }
   .desktopContainer {
     width: $sidebarWidth;
     background-color: $color-primary;

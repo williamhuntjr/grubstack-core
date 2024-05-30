@@ -17,6 +17,29 @@ h3 { font-size: $font-size-h3; }
 h4 { font-size: $font-size-h4; }
 h5 { font-size: $font-size-h5; }
 h6 { font-size: $font-size-h6; }
+h1 {
+  font-size: $font-size-h1;
+  line-height: calc(#{$font-size-h1} + 10px);
+  @media screen and (max-width: $bp-md) {
+    font-size: calc(#{$font-size-h1} - 5px);
+    line-height: calc(#{$font-size-h1} - 5px + 10px);
+  }
+  @media screen and (max-width: $bp-sm) {
+    font-size: calc(#{$font-size-h1} - 10px);
+    line-height: calc(#{$font-size-h1} - 10px + 10px);
+  }
+}
+h2 {
+  font-size: $font-size-h2;
+  @media screen and (max-width: $bp-md) {
+    font-size: calc(#{$font-size-h2} - 5px);
+    line-height: calc(#{$font-size-h2} - 5px + 10px);
+  }
+  @media screen and (max-width: $bp-sm) {
+    font-size: calc(#{$font-size-h2} - 10px);
+    line-height: calc(#{$font-size-h2} - 10px + 10px);
+  }
+}
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 $grid-base 0;
   font-family: 'Roboto', sans-serif;
@@ -31,9 +54,19 @@ p {
   font-size: 20px;
   line-height: 30px;
   font-weight: 300;
+  margin: 0;
+}
+.page-header, .page-description {
+  @media screen and (max-width: $bp-sm) {
+    text-align: center;
+  }
 }
 .hidden {
   display: none;
+}
+.MuiDivider-root {
+  border-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: $grid-base !important;
 }
 .MuiDialog-paper {
   max-width: unset !important;

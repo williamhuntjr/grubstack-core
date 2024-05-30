@@ -154,7 +154,7 @@ export const Locations = (): JSX.Element => {
       />
       {state.isLoading || paginationState.isLoading && <Loading />}
       {!state.isLoading && !paginationState.isLoading &&
-      <RestaurantContainer label={paginationState.data.length > 0 ? "Locations" : undefined} route={locationRoutePath}>
+      <RestaurantContainer label={paginationState.data.length > 0 ? "Locations" : undefined} route={paginationState.data.length > 0 ? locationRoutePath : undefined}>
         <div className={styles.locationsContainer}>
           {state.data && paginationState.data.length > 0 &&
             <LocationForm 

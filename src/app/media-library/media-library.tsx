@@ -1,6 +1,7 @@
 import React, { useCallback, ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
 import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
@@ -118,15 +119,19 @@ export const MediaLibrary = (): JSX.Element => {
       </GrubDialog>
       {(paginationState.isLoading || state.isLoading) &&  <Loading />}
       {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
-      <MediaFileList 
-        data={paginationState.data}
-        onAction={handleMediaFileListAction}
-        pages={paginationState.pages} 
-        page={paginationState.pagination.page}
-        onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
-          void pagination.onChangePage(page)
-        }}
-      />
+      <>
+        <h2 className="page-header">Media Library</h2>
+        <Divider className={styles.divider}/>
+        <MediaFileList 
+          data={paginationState.data}
+          onAction={handleMediaFileListAction}
+          pages={paginationState.pages} 
+          page={paginationState.pagination.page}
+          onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+            void pagination.onChangePage(page)
+          }}
+        />
+      </>
       }
       {(paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading) &&
         <div className={styles.warningMessageContainer}>

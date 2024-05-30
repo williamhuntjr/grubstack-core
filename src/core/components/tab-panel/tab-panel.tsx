@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Divider from '@mui/material/Divider'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { ITabPanel, ITabPanelProps } from './tab-panel.types'
@@ -29,7 +30,7 @@ function tabProps(name: string): object {
   }
 }
 
-export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab }) => {
+export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
   let navigate = useNavigate()
 
   const [value, setValue] = useState(0)
@@ -49,6 +50,12 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab }) => {
 
   return (
     <div className={styles.tabPanelContainer}>
+      {label != undefined &&
+      <>
+        <h2 className="page-header">{label}</h2>
+        <Divider/>
+      </>
+      }
       <div className={styles.tabContainer}>
         <Tabs value={value} onChange={handleChange} aria-label="Tabs">
           {tabs.map((tab, index) => 

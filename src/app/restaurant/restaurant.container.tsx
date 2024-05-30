@@ -25,7 +25,7 @@ export const RestaurantContainer: FC<IRestaurantContainer> = ({ label, route, ch
     if (route) {
       navigate(`${route}/${event.target.value as String}`)
       if (routeReload) {
-        window.location.reload()
+        //window.location.reload()
       }
     }
   }
@@ -36,9 +36,10 @@ export const RestaurantContainer: FC<IRestaurantContainer> = ({ label, route, ch
         <div className={styles.restaurantHeader}>
           {label &&
           <div className={styles.restaurantLabel}>
-            <h3>{label}</h3>
+            <h2>{label}</h2>
           </div>
           }
+          {route &&
           <div className={styles.locationPicker}>
             <FormControl fullWidth>
               <InputLabel id="location-picker">Location</InputLabel>
@@ -55,8 +56,11 @@ export const RestaurantContainer: FC<IRestaurantContainer> = ({ label, route, ch
               </Select>
             </FormControl>
           </div>
+          }
         </div>
-        <Divider className={styles.divider} />
+        {label &&
+          <Divider className={styles.divider} />
+        }
         {children}
       </div>
     </div>

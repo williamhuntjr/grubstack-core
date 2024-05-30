@@ -4,7 +4,7 @@ import { HomepageModule, HomepageModuleDefinition } from './homepage.module'
 
 export const homepageRoute: IAsyncRoute<HomepageModuleDefinition> = {
   module: HomepageModule,
-  path: '/home',
+  path: '/',
   name: 'Home',
   isSidebarButton: true,
   icon: HomeIcon,

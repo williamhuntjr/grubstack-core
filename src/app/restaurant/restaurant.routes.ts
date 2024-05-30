@@ -6,7 +6,6 @@ import { OrderTypes } from './order-types/order-types'
 import { RestaurantModule, RestaurantModuleDefinition } from './restaurant.module'
 import { 
   restaurantPermissions,
-  locationPermissions,
   restaurantRoutePath, 
 } from './restaurant.constants'
 import { Restaurant } from './restaurant'
@@ -27,20 +26,20 @@ function restaurantRouteFactory({}: RestaurantModuleDefinition): IRoute[] {
     {
       path: '/locations',
       component: Locations,
-      permissions: locationPermissions,
+      permissions: restaurantPermissions,
     },
     {
       path: '/locations/:locationId',
       component: Locations,
-      permissions: locationPermissions,
+      permissions: restaurantPermissions,
     },
     {
-      path: '/food-menus',
+      path: '/menus',
       component: FoodMenus,
       permissions: restaurantPermissions,
     },
     {
-      path: '/food-menus/:locationId',
+      path: '/menus/:locationId',
       component: FoodMenus,
       permissions: restaurantPermissions,
     },
@@ -66,11 +65,6 @@ function restaurantRouteFactory({}: RestaurantModuleDefinition): IRoute[] {
     },
     {
       path: '/payment-setup',
-      component: Branding,
-      permissions: restaurantPermissions,
-    },
-    {
-      path: '/employees',
       component: Branding,
       permissions: restaurantPermissions,
     },

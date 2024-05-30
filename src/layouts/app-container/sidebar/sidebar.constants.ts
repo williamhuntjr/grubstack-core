@@ -28,10 +28,12 @@ import {
   varietyPermissions,
 } from 'app/products/products.constants'
 import { builderPermissions, builderRoutePath } from 'app/builder/builder.constants'
+import { homepageRoutePath } from 'app/homepage/homepage.constants'
 import { mediaLibraryPermissions, mediaLibraryRoutePath } from 'app/media-library/media-library.constants'
 import { reviewPermissions, reviewRoutePath } from 'app/reviews/reviews.constants'
 import { reportPermissions, reportRoutePath } from 'app/reports/reports.constants'
 import { marketingPermissions, marketingRoutePath } from 'app/marketing/marketing.constants'
+import { employeePermissions, employeeRoutePath } from 'app/employees/employees.constants'
 import { 
   restaurantPermissions,
   restaurantDeliveryZonesPath,
@@ -40,7 +42,6 @@ import {
   restaurantLocationsPath,
   restaurantMenusPath,
   restaurantWorkingHoursPath,
-  restaurantEmployeesPath,
   restaurantPaymentSetupPath,
   restaurantNotificationsPath,
   restaurantOrderSettingsPath,
@@ -51,7 +52,7 @@ import { ISidebarNavRoute } from './sidebar.types'
 export const sidebarRoutes:ISidebarNavRoute[] = [
   {
     label: 'Home',
-    path: '/home',
+    path: homepageRoutePath,
     icon: HomeIcon,
   },
   {
@@ -73,7 +74,7 @@ export const sidebarRoutes:ISidebarNavRoute[] = [
         permissions: restaurantPermissions
       },
       {
-        label: 'Food Menus',
+        label: 'Menus',
         path: restaurantMenusPath,
         icon: MenuBookIcon,
         permissions: restaurantPermissions
@@ -88,12 +89,6 @@ export const sidebarRoutes:ISidebarNavRoute[] = [
         label: 'Working Hours',
         path: restaurantWorkingHoursPath,
         icon: AccessTimeIcon,
-        permissions: restaurantPermissions
-      },
-      {
-        label: 'Employees',
-        path: restaurantEmployeesPath,
-        icon: FaceIcon,
         permissions: restaurantPermissions
       },
       {
@@ -171,6 +166,12 @@ export const sidebarRoutes:ISidebarNavRoute[] = [
     path: mediaLibraryRoutePath,
     icon: PermMediaIcon,
     permissions: mediaLibraryPermissions
+  },
+  {
+    label: 'Employees',
+    path: employeeRoutePath,
+    icon: FaceIcon,
+    permissions: employeePermissions
   },
   {
     label: 'Reviews',

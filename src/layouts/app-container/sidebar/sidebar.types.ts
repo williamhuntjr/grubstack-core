@@ -9,17 +9,13 @@ export interface ISidebarRoute {
     muiName: string;
   }
   permissions?: UserPermissions[]
-  shouldReload?: boolean
 }
 
 export interface ISidebarNavRoute extends ISidebarRoute {
   submenu?: ISidebarRoute[]
 }
 
-export interface ISidebar {
-  isMobile: boolean
-}
-
 export interface ISidebarItem {
   route: ISidebarNavRoute
+  onClick: () => void
 }
