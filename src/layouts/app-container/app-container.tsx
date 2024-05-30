@@ -25,29 +25,27 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   const [ appLoading, setAppLoading ] = useState<boolean>(true)
   const [ appUpdating, setAppUpdating ] = useState<boolean>(false)
 
-  const verifyTenant = async (): Promise<void> => {
+  const verifyTenant = async (): Promise<boolean> => {
     try {
-      const resp = await HttpClient.get('/auth/verify_tenant')
-      if (!resp) {
-        console.log("You do not have access to this tenant.")
-        window.location.href = `${appConfig.productionUrl}/not-authorized`
-      }
+      await HttpClient.get('/auth/verify_tenant')
+      return true
     } catch (e) {
-      console.error(e)
+      console.log("You do not have access to this tenant.")
+      window.location.href = `${appConfig.productionUrl}/not-authorized`
+      return false
     }
   }
 
   const init = async (): Promise<void> => {
-    try {
-      setAppLoading(true)
-      await verifyTenant()
-
+    setAppLoading(true)
+    const hasAccess = await verifyTenant()
+    if (hasAccess) {
       const localStorageUser = localStorage.getItem('grubstackUser')
       if (localStorageUser == null) {
         const {
           data: { data },
         } = await HttpClient.get('/auth/whoami')
-  
+
         const userData = {
           'permissions': data.permissions,
           'first_name': data.first_name,
@@ -75,9 +73,6 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
         }
       }
       setAppLoading(false)
-    } catch (e) {
-      console.error(e)
-      window.location.href = `${appConfig.productionUrl}/not-authorized`
     }
   }
 

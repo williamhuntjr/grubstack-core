@@ -35,7 +35,7 @@ export const Locations = (): JSX.Element => {
   const { ErrorHandler } = useCoreModule()
 
   const validationMessages = generateValidationMessages(ObjectType.Location)
-  const canEditLocations = hasPermission(UserPermissions.MaintainLocations)
+  const canEditLocations = hasPermission(UserPermissions.MaintainRestaurant)
 
   const navigate = useNavigate()
   

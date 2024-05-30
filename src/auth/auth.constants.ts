@@ -19,8 +19,6 @@ export enum UserPermissions {
   MaintainEmployees = 'MaintainEmployees',
   ViewDeliveryZones = 'ViewDeliveryZones',
   MaintainDeliveryZones = 'MaintainDeliveryZones',
-  ViewLocations = 'ViewLocations',
-  MaintainLocations = 'MaintainLocations',
   ViewReviews = 'ViewReviews',
   MaintainReviews = 'MaintainReviews',
   ViewReports = 'ViewReports',

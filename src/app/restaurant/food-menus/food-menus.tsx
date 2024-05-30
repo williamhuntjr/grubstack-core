@@ -41,7 +41,7 @@ export const FoodMenus = (): JSX.Element => {
 
   const { height } = useWindowDimensions()
 
-  const canEditLocations = hasPermission(UserPermissions.MaintainLocations)
+  const canEditLocations = hasPermission(UserPermissions.MaintainRestaurant)
 
   const navigate = useNavigate()
 
