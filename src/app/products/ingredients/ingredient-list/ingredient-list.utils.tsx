@@ -45,7 +45,6 @@ export function sanitizeData(data: IIngredientListItem): IIngredient {
     name: data.name,
     description: data.description,
     thumbnail_url: data.thumbnail_url,
-    label_color: data.label_color,
     calories: data.calories,
     fat: data.fat,
     saturated_fat: data.saturated_fat,

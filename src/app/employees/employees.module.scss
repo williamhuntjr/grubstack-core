@@ -9,6 +9,7 @@
   }
   .employeeTableContainer {
     width: 100%;
+    height: 100%;
     margin-top: $grid-small;
     @media screen and (max-width: $bp-md) {
       display: none;
@@ -47,6 +48,8 @@
   }
   .nameContainer {
     display: flex;
+    align-items: center;
+    h6 { margin-bottom: 0; }
     img {
       max-width: 60px;
       margin-right: $grid-base;

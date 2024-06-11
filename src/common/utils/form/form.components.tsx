@@ -3,7 +3,7 @@ import { Controller, FieldValues } from 'react-hook-form'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { SelectField } from 'core/components/select-field/select-field'
+import { SelectField } from 'common/components/select-field/select-field'
 import { IFormField, IDecimalField, IFormCheckboxLabel, IFormSelectField } from './form.components.types'
 import { convertToError } from './form.components.utils'
 

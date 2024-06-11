@@ -5,21 +5,18 @@ export enum MenuFormField {
   Name = 'name',
   Description = 'description',
   Thumbnail = 'thumbnail_url',
-  LabelColor = 'label_color'
 }
 
 export enum MenuFormLabel {
   Name = 'Menu Name',
   Description = 'Description',
   Thumbnail = 'Thumbnail URL',
-  LabelColor = 'Label Color'
 }
 
 export interface IMenuFormValues {
   [MenuFormField.Name]: string
   [MenuFormField.Description]: string
   [MenuFormField.Thumbnail]: string
-  [MenuFormField.LabelColor]: string
 }
 
 export interface IMenuForm {

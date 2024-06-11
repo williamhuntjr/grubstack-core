@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { LazyModulesService } from 'core/react-lazy-modules/react-lazy-modules.service'
 import { processRoute } from 'common/routing/routing.utils'
 import { IAsyncRoute, IRoute } from 'common/routing/routing.types'
-import { Loading } from 'core/components/loading/loading'
+import { Loading } from 'common/components/loading/loading'
 import { IModuleDefinition } from 'core/react-lazy-modules/react-lazy-modules.types'
 import styles from './lazy-routing-module.module.scss'
 

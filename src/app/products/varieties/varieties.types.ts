@@ -7,7 +7,6 @@ export interface IVariety {
   name: string
   description: string
   thumbnail_url: string
-  label_color: string
 }
 
 export interface IVarietyState {

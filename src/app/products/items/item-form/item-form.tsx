@@ -3,10 +3,8 @@ import { useForm } from 'react-hook-form'
 import { Button, Divider } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { convertMode } from 'common/utils/mode/mode.utils'
-import { FormField, FormSelectField } from 'common/utils/form/form.components'
+import { FormField } from 'common/utils/form/form.components'
 import { cls } from 'common/utils/utils'
-import { labelColorOptions } from 'common/constants'
-import { defineFormSelectData } from 'core/components/select-field/select-field.utils'
 import { IItemForm, ItemFormField, ItemFormLabel, IItemFormValues } from './item-form.types'
 import { ItemFormSchema } from './item-form.validation'
 import { defaultItemFormData } from './item-form.constants'
@@ -70,14 +68,6 @@ export const ItemForm: FC<IItemForm> = memo(({
             name={ItemFormField.Description}
             control={control}
             label={ItemFormLabel.Description}
-            className={styles.formField}
-            disabled={isViewMode}
-          />
-          <FormSelectField
-            name={ItemFormField.LabelColor}
-            control={control}
-            label={ItemFormLabel.LabelColor}
-            options={defineFormSelectData(labelColorOptions)}
             className={styles.formField}
             disabled={isViewMode}
           />

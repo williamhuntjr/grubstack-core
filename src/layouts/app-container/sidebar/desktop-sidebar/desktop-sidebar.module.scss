@@ -14,7 +14,7 @@
   .desktopContainer {
     width: $sidebarWidth;
     background-color: $color-primary;
-    color: $white-color;
+    color: $color-white;
     display: flex;
     .navbarList {
       width: 100%;
@@ -28,7 +28,7 @@
         height: $sidebarWidth;
         &:hover {
           cursor: pointer;
-          background-color: $black-color;
+          background-color: $color-black;
         }
         .navItem {
           display: flex;
@@ -41,8 +41,8 @@
           }
         }
         .activeNavItem {
-          background-color: $black-color;
-          color: $white-color;
+          background-color: $color-black;
+          color: $color-white;
         }
       }
     }
@@ -56,8 +56,8 @@
       overflow-y: auto;
       overflow-x: hidden;
       padding: 0;
-      color: $black-color;
-      background-color: $white-color;
+      color: $color-black;
+      background-color: $color-white;
       box-shadow: $box-shadow;
       border-right: $border-default;
       -webkit-transition: width .5s;
@@ -70,7 +70,7 @@
         margin: 0;
         .subMenuLink {
           white-space: nowrap;
-          color: $black-color;
+          color: $color-black;
           text-decoration: none;
           padding: $grid-base;
           display: flex;
@@ -81,17 +81,17 @@
           }
           &:hover {
             background-color: $offset-color;
-            color: $black-color;
+            color: $color-black;
             cursor: pointer;
           }
         }
         .activeSubMenuLink {
-          background-color: $black-color;
-          color: $white-color;
+          background-color: $color-black;
+          color: $color-white;
           font-weight: 500;
           &:hover {
-            background-color: $black-color;
-            color: $white-color;
+            background-color: $color-black;
+            color: $color-white;
           }
         }
         .subNavIcon {

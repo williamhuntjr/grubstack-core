@@ -1,6 +1,6 @@
 import React from 'react'
 import { capitalize, cls } from 'common/utils/utils'
-import { IGrubListItem } from 'core/components/grub-list/grub-list.types'
+import { IGrubListItem } from 'common/components/grub-list/grub-list.types'
 import { EmployeeStatus } from './employees.constants'
 import { IEmployee, IEmployeeTableRow } from './employees.types'
 import styles from './employees.module.scss'

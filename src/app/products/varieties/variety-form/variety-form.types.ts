@@ -6,21 +6,18 @@ export enum VarietyFormField {
   Name = 'name',
   Description = 'description',
   Thumbnail = 'thumbnail_url',
-  LabelColor = 'label_color',
 }
 
 export enum VarietyFormLabel {
   Name = 'Variety Name',
   Description = 'Description',
   Thumbnail = 'Thumbnail URL',
-  LabelColor = 'Label Color',
 }
 
 export interface IVarietyFormValues {
   [VarietyFormField.Name]: string
   [VarietyFormField.Description]: string
   [VarietyFormField.Thumbnail]: string
-  [VarietyFormField.LabelColor]: string
 }
 
 export interface IVarietyForm {

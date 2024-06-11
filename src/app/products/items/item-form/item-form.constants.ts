@@ -5,5 +5,4 @@ export const defaultItemFormData = {
   [ItemFormField.Description]: '',
   [ItemFormField.Thumbnail]: '',
   [ItemFormField.Varieties]: [],
-  [ItemFormField.LabelColor]: 'blue',
 }

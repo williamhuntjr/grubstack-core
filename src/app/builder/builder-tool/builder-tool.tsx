@@ -5,26 +5,27 @@ import Divider from '@mui/material/Divider'
 import { IPaginationData, IResponse } from 'common/types'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { UserPermissions } from 'auth/auth.constants'
-import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
+import { GrubDialog } from 'common/components/grub-dialog/grub-dialog'
 import { IMenu } from 'app/products/menus/menus.types'
 import { IIngredient } from 'app/products/ingredients/ingredients.types'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IItem } from 'app/products/items/items.types'
-import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
+import { SpeedDialer } from 'common/components/speed-dialer/speed-dialer'
 import { useCoreModule } from 'core/core-module-hook'
-import { IListAction } from 'common/list.types'
-import { QuickPicker } from 'core/components/quick-picker/quick-picker'
+import { IListAction } from 'common/types/list'
+import { QuickPicker } from 'common/components/quick-picker/quick-picker'
 import { useProductModule } from 'app/products/products-module-hook'
 import { BuilderDialog } from 'app/builder/builder-dialog/builder-dialog'
-import { CardList } from 'core/components/card-list/card-list'
-import { Loading } from 'core/components/loading/loading'
-import { IQuickPickerItem } from 'core/components/quick-picker/quick-picker.types'
-import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
+import { CardList } from 'common/components/card-list/card-list'
+import { Loading } from 'common/components/loading/loading'
+import { IQuickPickerItem } from 'common/components/quick-picker/quick-picker.types'
+import { ConfirmationDialog } from 'common/components/confirmation-dialog/confirmation-dialog'
 import { listPageSize } from 'common/constants'
 import { hasPermission } from 'auth/auth.utils'
-import { GrubList } from 'core/components/grub-list/grub-list'
+import { GrubList } from 'common/components/grub-list/grub-list'
 import { IVariety } from 'app/products/varieties/varieties.types'
 import { usePagination } from 'common/hooks/pagination.hook'
+import { IGrubListItem } from 'common/components/grub-list/grub-list.types'
 import { BuilderParams, BuilderTypes } from 'app/builder/builder.constants'
 import { 
   defaultBuilderState, 
@@ -36,15 +37,17 @@ import {
   BuilderItemActionsEditMode,
   BuilderItemActionsViewMode,
   BuilderVarietyActionsEditMode,
-  BuilderVarietyActionsViewMode
+  BuilderVarietyActionsViewMode,
+  BuilderVarietyListActions,
+  BuilderVarietyListAction
 } from './builder-tool.constants'
 import { IngredientForm } from './ingredient-form/ingredient-form'
 import { ItemForm } from './item-form/item-form'
 import { IBuilderIngredientFormValues } from './ingredient-form/ingredient-form.types'
 import { IBuilderToolState, IBuilderDataItem } from './builder-tool.types'
 import { buildNutritionLabel, normalizeData } from './builder-tool.utils'
-import styles from './builder-tool.module.scss'
 import { IBuilderItemFormValues } from './item-form/item-form.types'
+import styles from './builder-tool.module.scss'
 
 export const BuilderTool: FC = () => {
   const [state, setState] = useState<IBuilderToolState>(defaultBuilderState)
@@ -288,9 +291,17 @@ export const BuilderTool: FC = () => {
     setState((prevState) => ({ ...prevState, isLoading: false }))
   }, [ErrorHandler, ItemService, fetchData])
 
-  const handleItemVarietyDelete = (value: string): void => {
+  const handleItemVarietyDelete = useCallback((value: string): void => {
     void onDeleteVariety(objectId ?? '', value)
-  }
+  }, [onDeleteVariety, objectId])
+
+  const handleVarietyAction = useCallback((item: IGrubListItem, action: IListAction): void => {
+    switch (action.label) {
+      case BuilderVarietyListAction.Delete:
+        handleItemVarietyDelete(item.value ?? '')
+        break
+    }
+  }, [handleItemVarietyDelete])
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, objectId: objectId ?? '', objectType: objectType ?? '' }))
@@ -364,8 +375,9 @@ export const BuilderTool: FC = () => {
             {objectType === BuilderParams.Item &&
               <GrubList 
                 data={normalizeData(state.optional ? state.optional : [])}
+                actions={BuilderVarietyListActions}
                 onClickAdd={handleAddVarietyDialog}
-                onClickDelete={handleItemVarietyDelete}
+                onAction={handleVarietyAction}
                 className={styles.varietyList}
                 subHeader={"Varieties"}
               />

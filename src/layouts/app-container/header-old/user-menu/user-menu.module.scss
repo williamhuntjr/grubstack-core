@@ -13,7 +13,7 @@
   background-color: $color-primary;
 }
 .avatarName {
-  color: $white-color;
+  color: $color-white;
   @media screen and (max-width: $bp-sm) {
     display: none;
   }

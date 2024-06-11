@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { GSMode } from "common/utils/mode/mode.types"
-import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
+import { ISpeedDialerAction } from 'common/components/speed-dialer/speed-dialer.types'
 import { restaurantRoutePath } from "../restaurant.constants"
 
 export const locationServiceToken = 'LocationService'

@@ -95,7 +95,7 @@ p {
   background-color: unset;
 }
 .MuiTableRow-head {
-  background-color: $color-secondary;
+  background-color: $color-black;
   th {
     color: white;
   }
@@ -116,6 +116,6 @@ p {
   }
 }
 .MuiListItem-root.Mui-selected {
-  background-color: $color-secondary;
-  color: $white-color;
+  background-color: $color-black;
+  color: $color-white;
 }

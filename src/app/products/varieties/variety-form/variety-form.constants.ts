@@ -4,5 +4,4 @@ export const defaultVarietyFormData = {
   [VarietyFormField.Name]: '',
   [VarietyFormField.Description]: '',
   [VarietyFormField.Thumbnail]: '',
-  [VarietyFormField.LabelColor]: 'blue',
 }

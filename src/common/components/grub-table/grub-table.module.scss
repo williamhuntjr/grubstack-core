@@ -1,0 +1,25 @@
+@import 'assets/sass/variables';
+
+.grubTable {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  .tableContainer {
+    .tableActions {
+      display: flex !important;
+      justify-content: center;
+    }
+    .actionHeader {
+      text-align: center;
+    }
+  }
+
+  .paginationContainer {
+    display: flex;
+    justify-content: center;
+    margin: auto 0 0 0;
+    padding-top: $grid-base;
+  }
+}

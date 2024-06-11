@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { ErrorPage } from 'core/components/error-page/error-page'
+import { ErrorPage } from 'common/components/error-page/error-page'
 
 export const NotFound: FC = () => {
   return <ErrorPage headline='Page not found.' message='Unfortunately, this page does not exist.' />

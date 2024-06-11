@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { cls } from 'common/utils/utils'
 import { convertMode } from 'common/utils/mode/mode.utils'
 import { FormField, FormSelectField } from 'common/utils/form/form.components'
-import { defineFormSelectData } from 'core/components/select-field/select-field.utils'
+import { defineFormSelectData } from 'common/components/select-field/select-field.utils'
 import { 
   EmployeeFormField, 
   EmployeeFormLabel,

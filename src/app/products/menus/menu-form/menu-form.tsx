@@ -4,10 +4,8 @@ import Button from '@mui/material/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Divider } from '@mui/material'
 import { cls } from 'common/utils/utils'
-import { FormField, FormSelectField } from 'common/utils/form/form.components'
+import { FormField } from 'common/utils/form/form.components'
 import { convertMode } from 'common/utils/mode/mode.utils'
-import { defineFormSelectData } from 'core/components/select-field/select-field.utils'
-import { labelColorOptions } from 'common/constants'
 import { defaultMenuFormData } from './menu-form.constants'
 import { MenuFormField, MenuFormLabel, IMenuForm, IMenuFormValues } from './menu-form.types'
 import { MenuFormSchema } from './menu-form.validation'
@@ -71,14 +69,6 @@ export const MenuForm: FC<IMenuForm> = memo(({
             name={MenuFormField.Description}
             control={control}
             label={MenuFormLabel.Description}
-            className={styles.formField}
-            disabled={isViewMode}
-          />
-          <FormSelectField
-            name={MenuFormField.LabelColor}
-            control={control}
-            label={MenuFormLabel.LabelColor}
-            options={defineFormSelectData(labelColorOptions)}
             className={styles.formField}
             disabled={isViewMode}
           />

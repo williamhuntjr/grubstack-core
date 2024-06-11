@@ -8,7 +8,7 @@
     border-bottom: none;
   }
   &:hover {
-    background-color: $color-secondary !important;
+    background-color: $color-black !important;
   }
   @media screen and (max-width: $bp-sm) {
     display: inline-block;
@@ -22,7 +22,7 @@
 .listItemIconSvg {
   width: $sidebarIconSize;
   height: $sidebarIconSize;
-  color: $white-color;
+  color: $color-white;
   @media screen and (max-width: $bp-sm) {
     margin: 5px auto 0 auto;
   }
@@ -34,8 +34,8 @@
   }
 }
 .listItemSelected {
-  background-color: $color-secondary;
+  background-color: $color-black;
   &:hover {
-    background-color: $color-secondary !important;
+    background-color: $color-black !important;
   }
 }

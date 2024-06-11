@@ -1,27 +1,29 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
-import { SpeedDialer } from 'core/components/speed-dialer/speed-dialer'
-import { GrubDialog } from 'core/components/grub-dialog/grub-dialog'
+import { SpeedDialer } from 'common/components/speed-dialer/speed-dialer'
+import { GrubDialog } from 'common/components/grub-dialog/grub-dialog'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { usePagination } from 'common/hooks/pagination.hook'
-import { Loading } from 'core/components/loading/loading'
+import { Loading } from 'common/components/loading/loading'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { useCoreModule } from 'core/core-module-hook'
-import { FilePicker } from 'core/components/file-picker/file-picker'
-import { ConfirmationDialog } from 'core/components/confirmation-dialog/confirmation-dialog'
-import { GrubTable } from 'core/components/grub-table/grub-table'
+import { FilePicker } from 'common/components/file-picker/file-picker'
+import { ConfirmationDialog } from 'common/components/confirmation-dialog/confirmation-dialog'
+import { GrubTable } from 'common/components/grub-table/grub-table'
 import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
-import { ITableAction } from 'core/components/grub-table/grub-table.types'
+import { ITableAction } from 'common/components/grub-table/grub-table.types'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
-import { GrubList } from 'core/components/grub-list/grub-list'
+import { GrubList } from 'common/components/grub-list/grub-list'
+import { IGrubListItem } from 'common/components/grub-list/grub-list.types'
+import { IListAction } from 'common/types/list'
 import { IEmployeeState, IEmployee, IEmployeeTableRow } from './employees.types'
 import { 
   defaultEmployeeState, 
@@ -75,7 +77,7 @@ export const Employees = (): JSX.Element => {
     refresh,
     state: paginationState,
     pagination: pagination
-  } = usePagination<IEmployee>(EmployeeService.getAll)
+  } = usePagination<IEmployee>(EmployeeService.getAll, 20)
 
   const {
     state: filePickerPaginationState,
@@ -107,6 +109,29 @@ export const Employees = (): JSX.Element => {
         break
       case EmployeeAction.Edit:
         selectedEmployee = paginationState.data.filter(employee => employee.id == formatted.id)[0]
+        setIsPickerDirty(false)
+        setState((prevState) => ({ ...prevState, selected: selectedEmployee, mode: canEditEmployees ? GSMode.Edit : GSMode.View }))
+        openEmployeeDialog(selectedEmployee)
+        break
+      default:
+        break
+    }
+  }, [openEmployeeDialog, openDeleteDialog, canEditEmployees, paginationState.data])
+
+  const handleListAction = useCallback((item: IGrubListItem, action: IListAction): void => {
+    let selectedEmployee:IEmployee
+    switch (action.label) {
+      case EmployeeAction.Delete:
+        openDeleteDialog(item?.value ?? '')
+        break
+      case EmployeeAction.View:
+        selectedEmployee = paginationState.data.filter(employee => employee.id == item.value)[0]
+        setIsPickerDirty(false)
+        setState((prevState) => ({ ...prevState, selected: selectedEmployee, mode: GSMode.View }))
+        openEmployeeDialog(selectedEmployee)
+        break
+      case EmployeeAction.Edit:
+        selectedEmployee = paginationState.data.filter(employee => employee.id == item.value)[0]
         setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: selectedEmployee, mode: canEditEmployees ? GSMode.Edit : GSMode.View }))
         openEmployeeDialog(selectedEmployee)
@@ -213,15 +238,19 @@ export const Employees = (): JSX.Element => {
             data={normalizeData(paginationState.data)}
             onAction={handleRowAction}
             actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
+            pages={paginationState.pages}
+            page={paginationState.pagination.page}
+            onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+              void pagination.onChangePage(page)
+            }}
           />
         </div>
         <div className={styles.employeeListContainer}>
           <GrubList
             subHeader="Employees"
             addLabel="Add Employee"
-            onClickAdd={() => openEmployeeDialog(defaultEmployeeFormData)}
-            onClickDelete={(value) => openDeleteDialog(paginationState.data.filter((employee) => employee.id == value)[0].id ?? '')}
-            onClickEdit={(value) => openEmployeeDialog(paginationState.data.filter((employee) => employee.id == value)[0])}
+            onAction={handleListAction}
+            actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
             data={normalizeListData(paginationState.data)}
           />
         </div>

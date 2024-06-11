@@ -3,7 +3,7 @@ $dialogActionButtonWidth: $minButtonWidth;
 $ingredientFormWidth: 400px;
 
 .ingredientForm {
-  background-color: $white-color;
+  background-color: $color-white;
   width: $ingredientFormWidth;
   margin: 0;
   @media screen and (max-width: $bp-md) {

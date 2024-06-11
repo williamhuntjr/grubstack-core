@@ -1,0 +1,29 @@
+@import 'assets/sass/variables';
+
+.grubListContainer {
+  border: $border-default;
+
+  .grubListSubHeader {
+    display: flex;
+    align-items: center;
+    padding-right: 8px !important;
+    background-color: $color-black;
+    color: $color-white;
+  }
+  .subHeaderButton {
+    margin-left: auto;
+    max-height: 33px;
+  }
+  .grubListActions {
+    display: flex;
+    .buttonContainer {
+      width: 36px;
+    }
+  }
+  li {
+      border-bottom: $border-default;
+      &:last-child { 
+        border-bottom: none;
+      }
+  }
+}

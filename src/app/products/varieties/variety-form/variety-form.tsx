@@ -3,10 +3,8 @@ import { useForm } from 'react-hook-form'
 import { Button, Divider } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { convertMode } from 'common/utils/mode/mode.utils'
-import { labelColorOptions } from 'common/constants'
-import { defineFormSelectData } from 'core/components/select-field/select-field.utils'
 import { cls } from 'common/utils/utils'
-import { FormField, FormSelectField } from 'common/utils/form/form.components'
+import { FormField } from 'common/utils/form/form.components'
 import { IVarietyForm, VarietyFormField, VarietyFormLabel, IVarietyFormValues } from './variety-form.types'
 import { VarietyFormSchema } from './variety-form.validation'
 import { defaultVarietyFormData } from './variety-form.constants'
@@ -70,14 +68,6 @@ export const VarietyForm: FC<IVarietyForm> = memo(({
             name={VarietyFormField.Description}
             control={control}
             label={VarietyFormLabel.Description}
-            className={styles.formField}
-            disabled={isViewMode}
-          />
-          <FormSelectField
-            name={VarietyFormField.LabelColor}
-            control={control}
-            label={VarietyFormLabel.LabelColor}
-            options={defineFormSelectData(labelColorOptions)}
             className={styles.formField}
             disabled={isViewMode}
           />

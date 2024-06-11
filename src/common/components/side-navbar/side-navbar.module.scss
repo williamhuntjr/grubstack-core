@@ -1,0 +1,54 @@
+@import 'assets/sass/variables';
+
+.sideNavbar {
+  width: 100%;
+  height: 100%;
+  max-width: 200px;
+  border-right: $border-default;
+  @media screen and (max-width: $bp-md) {
+    border-right: unset;
+    max-width: unset;
+  }
+  @media screen and (max-width: $bp-md) {
+    height: unset;
+  }
+  .sideNavbarList {
+    padding-top: $grid-base;
+    @media screen and (max-width: $bp-md) {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: $border-default;
+    }
+    .listItem {
+      @media screen and (max-width: $bp-md) {
+        max-width: 24.95%;
+        border-bottom: none;
+      }
+      @media screen and (max-width: $bp-sm) {
+        max-width: 49.95%;
+      }
+      border-bottom: $border-default;
+      .listItemText {
+        margin-left: $grid-small;
+        color: $color-black;
+        span {
+          font-weight: 300;
+        }
+      }
+    }
+    .labelItem {
+      @media screen and (max-width: $bp-md) {
+        display: none;
+      }
+    }
+    .activeLink {
+      color: $color-primary;
+      .listItemText {
+        color: $color-primary;
+      }
+    }
+  }
+}
+.noLabelPadding {
+  margin-top: 30px;
+}

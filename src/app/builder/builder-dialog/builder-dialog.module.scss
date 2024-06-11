@@ -19,7 +19,7 @@ $builderDialogTitleHeight: 65px;
 }
 .dialogTitle {
   background-color: $color-primary;
-  color: $white-color;
+  color: $color-white;
   @media screen and (max-width: $bp-md) {
     position: fixed;
     width: 100%;

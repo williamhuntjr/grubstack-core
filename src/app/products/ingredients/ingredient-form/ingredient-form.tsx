@@ -3,10 +3,8 @@ import { useForm } from 'react-hook-form'
 import Button from '@mui/material/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Divider from '@mui/material/Divider'
-import { FormField, DecimalField, FormSelectField } from 'common/utils/form/form.components'
+import { FormField, DecimalField } from 'common/utils/form/form.components'
 import { cls } from 'common/utils/utils'
-import { labelColorOptions } from 'common/constants'
-import { defineFormSelectData } from 'core/components/select-field/select-field.utils'
 import { convertMode } from 'common/utils/mode/mode.utils'
 import { defaultIngredientFormData } from './ingredient-form.constants'
 import { IngredientFormField, IngredientFormLabel, IIngredientForm, IIngredientFormValues } from './ingredient-form.types'
@@ -72,14 +70,6 @@ export const IngredientForm: FC<IIngredientForm> = memo(({
             control={control}
             label={IngredientFormLabel.Description}
             className={cls(styles.formField, styles.ingredientDescription)}
-            disabled={isViewMode}
-          />
-          <FormSelectField
-            name={IngredientFormField.LabelColor}
-            control={control}
-            label={IngredientFormLabel.LabelColor}
-            options={defineFormSelectData(labelColorOptions)}
-            className={styles.formField}
             disabled={isViewMode}
           />
         </div>

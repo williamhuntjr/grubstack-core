@@ -3,7 +3,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { GSMode } from 'common/utils/mode/mode.types'
-import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
+import { ISpeedDialerAction } from 'common/components/speed-dialer/speed-dialer.types'
+import { IListAction } from 'common/types/list'
 import { BuilderTypes } from '../builder.constants'
 
 export const defaultBuilderState = {
@@ -95,3 +96,15 @@ export enum ValidationBuilderMessage {
   AddItemVarietySuccess = 'The variety has been added to your item.',
   DeleteItemVarietySuccess = 'The variety has been removed from the item.',
 }
+
+export enum BuilderVarietyListAction {
+  Add = 'Add',
+  Delete = 'Delete'
+}
+
+export const BuilderVarietyListActions:IListAction[] = [
+  {
+    label: BuilderVarietyListAction.Delete,
+    icon: DeleteIcon,
+  }
+]

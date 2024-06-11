@@ -35,7 +35,7 @@ export class EmployeeService implements IEmployeeService {
   public async update(params: IEmployee): Promise<IEmployee> {
     const {
       data: { data },
-    } = await this.httpClient.put<IResponse<IEmployee>>('/employees', { params })
+    } = await this.httpClient.patch<IResponse<IEmployee>>(`/employees/${params.id}`, { params })
     return data
   }
 }

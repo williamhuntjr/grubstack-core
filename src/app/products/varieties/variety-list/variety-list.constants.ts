@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import HardwareIcon from '@mui/icons-material/Hardware'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { ISpeedDialerAction } from 'core/components/speed-dialer/speed-dialer.types'
+import { ISpeedDialerAction } from 'common/components/speed-dialer/speed-dialer.types'
 
 export enum VarietyAction {
   New = 'New Variety',

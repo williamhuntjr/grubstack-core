@@ -40,7 +40,7 @@ export class IngredientService implements IIngredientService {
   public async update(params: IIngredient): Promise<IIngredient> {
     const {
       data: { data },
-    } = await this.httpClient.put<IResponse<IIngredient>>('/ingredients', { params })
+    } = await this.httpClient.patch<IResponse<IIngredient>>(`/ingredients/${params.id}`, { params })
     return data
   }
   

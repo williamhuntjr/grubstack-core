@@ -13,10 +13,8 @@ $none: 0 !default;
 $border-thin: 1px !default;
 $border-thick: 2px !default;
 
-$white-color: #ffffff;
 $offset-color: #eeeeee;
 $background-color: #fafafa;
-$black-color: #111 !default;
 $medium-gray: #f7f8fc !default;
 $smoke-bg: #f5f5f5 !default;
 $transparent-bg: transparent !default;
@@ -32,20 +30,30 @@ $font-size-h5: 16px !default;
 $font-size-h6: 12px !default;
 
 $color-primary: #4e8ce1 !default;
-$color-secondary: #111 !default;
+$color-secondary: #222 !default;
 $color-info: #4e8ce1;
-$color-alert: rgb(6, 5, 5);
+$color-production: #d62b70;
+$color-alert: #e44646;
 
 $color-gray-primary: #adaeb0 !default;
 $color-gray-normal: #dadada !default;
-$color-orange: #ed6a5a;
+$color-orange: #e4ae46;
+$color-red: #e44646;
+$color-green: #85e446;
+$color-yellow: #e4de46;
+$color-purple: #e446db;
+$color-blue: #4e8ce1;
 $color-grey-blue: #8c96ab;
 $color-disabled: rgba(0, 0, 0, 0.15);
+$color-body: #222;
+$color-black: #111;
+$color-white: #fff;
+
 $color-default-border: rgba(0, 0, 0, 0.25);
 
 $border-primary: solid $border-thin $color-primary;
 $border-dark-gray: solid $border-thin $dark-gray;
-$border-black: solid $border-thin $black-color;
+$border-black: solid $border-thin $color-black;
 $border-btn: solid $border-thick $color-secondary;
 $border-gray-primary: solid $border-thin $color-gray-primary;
 $border-default: solid $border-thin $color-default-border;
@@ -54,7 +62,7 @@ $border-disabled: solid $border-thin $color-disabled;
 
 $border-primary-thick: solid $border-thick $color-primary;
 $border-dark-gray-thick: solid $border-thick $dark-gray;
-$border-black-thick: solid $border-thick $black-color;
+$border-black-thick: solid $border-thick $color-black;
 $border-btn-thick: solid $border-thick $color-secondary;
 $border-gray-primary-thick: solid $border-thick $color-gray-primary;
 $border-disabled-thick: solid $border-thick $color-disabled;
@@ -69,7 +77,7 @@ $sidebarWidthOpen: 200px;
 $sidebarIconSize: 30px;
 
 $headerHeight: 85px;
-$headerBackgroundColor: $black-color;
+$headerBackgroundColor: $color-black;
 $headerLogoWidth: 175px;
 
 $minButtonWidth: 85px;
