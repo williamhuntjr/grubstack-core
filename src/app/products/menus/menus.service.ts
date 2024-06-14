@@ -42,7 +42,7 @@ export class MenuService implements IMenuService {
   public async update(params: IMenu): Promise<IMenu> {
     const {
       data: { data },
-    } = await this.httpClient.put<IResponse<IMenu>>('/menus', { params })
+    } = await this.httpClient.patch<IResponse<IMenu>>(`/menus/${params.id}`, { params })
     return data
   }
 
@@ -50,7 +50,7 @@ export class MenuService implements IMenuService {
     const params = prepareRequestParams(paginationParams)
     const {
       data: { data, status },
-    } = await this.httpClient.get<IPaginationResponse<IItem>>(`/menu/${menuId}/items`, { params })
+    } = await this.httpClient.get<IPaginationResponse<IItem>>(`/menus/${menuId}/items`, { params })
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
@@ -71,7 +71,7 @@ export class MenuService implements IMenuService {
     const params = {
       ...data
     }
-    await this.httpClient.put<IResponse<IItem>>(`/menus/${menuId}/items/${itemId}`, { params })
+    await this.httpClient.patch<IResponse<IItem>>(`/menus/${menuId}/items/${itemId}`, { params })
   }
 
 }

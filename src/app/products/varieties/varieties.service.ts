@@ -23,26 +23,26 @@ export class VarietyService implements IVarietyService {
   }
 
   public async getVariety(varietyId: string): Promise<IResponse<IVariety>> {
-    const resp = await this.httpClient.get<IResponse<IVariety>>(`/variety/${varietyId}`)
+    const resp = await this.httpClient.get<IResponse<IVariety>>(`/varieties/${varietyId}`)
     return resp.data
   }
 
   public async delete(varietyId: string): Promise<void> {
     const params = { variety_id: varietyId }
-    await this.httpClient.post<Promise<void>>('/variety/delete', { params })
+    await this.httpClient.delete<Promise<void>>(`/varieties/${varietyId}`, { params })
   }
 
   public async create(params: IVariety): Promise<IVariety> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IVariety>>('/variety/create', { params })
+    } = await this.httpClient.post<IResponse<IVariety>>('/varieties', { params })
     return data
   }
 
   public async update(params: IVariety): Promise<IVariety> {
     const {
       data: { data },
-    } = await this.httpClient.post<IResponse<IVariety>>('/variety/update', { params })
+    } = await this.httpClient.patch<IResponse<IVariety>>(`/varieties/${params.id}`, { params })
     return data
   }
 
@@ -50,7 +50,7 @@ export class VarietyService implements IVarietyService {
     const params = prepareRequestParams(paginationParams)
     const {
       data: { data, status },
-    } = await this.httpClient.get<IPaginationResponse<IIngredient>>(`/variety/${varietyId}/ingredients`, { params })
+    } = await this.httpClient.get<IPaginationResponse<IIngredient>>(`/varieties/${varietyId}/ingredients`, { params })
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
@@ -59,12 +59,11 @@ export class VarietyService implements IVarietyService {
   }
 
   public async addIngredient(varietyId: string, ingredientId: string): Promise<void> {
-    const params = { variety_id: varietyId, ingredient_id: ingredientId }
-    await this.httpClient.post<Promise<void>>('/variety/addIngredient', { params })
+    const params = { ingredient_id: ingredientId }
+    await this.httpClient.post<Promise<void>>(`/varieties/${varietyId}/ingredients`, { params })
   }
 
   public async deleteIngredient(varietyId: string, ingredientId: string): Promise<void> {
-    const params = { variety_id: varietyId, ingredient_id: ingredientId }
-    await this.httpClient.post<Promise<void>>('/variety/deleteIngredient', { params })
+    await this.httpClient.delete<Promise<void>>(`/varieties/${varietyId}/ingredients/${ingredientId}`)
   }
 }

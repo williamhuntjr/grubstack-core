@@ -74,7 +74,7 @@ export class ItemService implements IItemService {
       ingredient_id: ingredientId,
       ...data
     }
-    await this.httpClient.put<IResponse<IItem>>(`/items/${itemId}/ingredients`, { params })
+    await this.httpClient.patch<IResponse<IItem>>(`/items/${itemId}/ingredients/${ingredientId}`, { params })
   }
 
   public async getVarieties(itemId: string): Promise<IVariety[]> {
@@ -90,6 +90,6 @@ export class ItemService implements IItemService {
   }
 
   public async deleteVariety(itemId: string, varietyId: string): Promise<void> {
-    await this.httpClient.delete<Promise<void>>(`/items/${itemId}/${varietyId}`)
+    await this.httpClient.delete<Promise<void>>(`/items/${itemId}/varieties/${varietyId}`)
   }
 }
