@@ -19,6 +19,7 @@ import { SpeedDialer } from 'common/components/speed-dialer/speed-dialer'
 import { CardList } from 'common/components/card-list/card-list'
 import { IListAction } from 'common/types/list'
 import { FilePicker } from 'common/components/file-picker/file-picker'
+import { filePickerSize } from 'common/constants'
 import { IVariety, IVarietyState } from 'app/products/varieties/varieties.types'
 import { defaultVarietyState, varietyRoutePath } from 'app/products/varieties/varieties.constants'
 import { defaultVarietyFormData } from 'app/products/varieties/variety-form/variety-form.constants'
@@ -27,7 +28,6 @@ import { VarietyForm } from 'app/products/varieties/variety-form/variety-form'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
-import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { VarietyActionsEditMode, VarietyActionsViewMode, VarietySpeedActions, VarietyAction } from './variety-list.constants'
 import styles from './variety-list.module.scss'
 
@@ -75,7 +75,7 @@ export const VarietyList: FC = () => {
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
   const handleCardAction = useCallback((item: IVariety, action: IListAction): void => {
     switch (action.label) {
@@ -154,7 +154,7 @@ export const VarietyList: FC = () => {
         if (filePickerData) {
           setVarietyData({
             ...filePickerData,
-            thumbnail_url: generateMediaFileUrl(file)
+            thumbnail_url: file.url
           })
         }
         setIsPickerDirty(true)

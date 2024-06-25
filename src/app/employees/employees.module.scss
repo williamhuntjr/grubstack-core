@@ -17,10 +17,12 @@
   }
   .employeeListContainer {
     width: 100%;
+    height: 100%;
     display: none;
     margin-top: $grid-small;
     @media screen and (max-width: $bp-md) {
-      display: block;
+      display: flex;
+      flex-direction: column;
     }
   }
   .warningMessageContainer {

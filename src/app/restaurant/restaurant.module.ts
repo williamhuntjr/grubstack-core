@@ -4,6 +4,7 @@ import { httpClientToken, IHttpClient } from 'core/services/http-client'
 import { Scope } from 'core/injector/injector.types'
 import { CoreModule } from 'core/core.module'
 import { ProductModule } from 'app/products/products.module'
+import { MediaLibraryModule } from 'app/media-library/media-library.module'
 import { ILocationService } from './locations/locations.types'
 import { locationServiceToken } from './locations/locations.constants'
 import {
@@ -30,5 +31,5 @@ export const RestaurantModule: ILazyModule<RestaurantModuleDefinition> = {
     Injector.register<IRestaurantService>(restaurantServiceToken, () => new RestaurantService(httpClient), Scope.Singleton)
     Injector.register<ILocationService>(locationServiceToken, () => new LocationService(httpClient), Scope.Singleton)
   },
-  dependencies: [CoreModule, ProductModule],
+  dependencies: [CoreModule, ProductModule, MediaLibraryModule],
 }

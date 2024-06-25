@@ -17,15 +17,21 @@ export const MediaFileList: FC<IMediaFileList> = ({
     <div className={styles.mediaFileListContainer}>
       <div className={styles.mediaFilesContainer}>
         {data.map((item, index) =>
+          <div className={styles.thumbnailContainer} key={index}>
+
           <div
             className={styles.mediaFileListItem} 
             key={index} 
             role="button"
             tabIndex={0}
             onKeyPress={(e) => e.preventDefault}
-            onClick={() => onAction(item, isPicker ? MediaLibraryAction.Select : MediaLibraryAction.View)}
+            onClick={() => onAction({
+              ...item,
+              url: generateMediaFileUrl(item)
+            }, isPicker ? MediaLibraryAction.Select : MediaLibraryAction.View)}
             style={{ backgroundImage: `url('${generateMediaFileUrl(item)}')` }} 
           />
+          </div>
         )}
       </div>
       <div className={styles.paginationContainer}>

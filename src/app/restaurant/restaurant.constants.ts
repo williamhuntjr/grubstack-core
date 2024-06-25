@@ -20,3 +20,10 @@ export const restaurantPermissions = [
   UserPermissions.ViewRestaurant,
   UserPermissions.MaintainRestaurant
 ]
+
+export enum RestaurantProperty {
+  'RestaurantName' = 'restaurant_name',
+  'LogoImageUrl' = 'logo_image_url',
+  'BannerImageUrl' = 'banner_image_url',
+  'MobileBannerImageUrl' = 'mobile_banner_image_url',
+}

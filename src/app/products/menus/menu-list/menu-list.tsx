@@ -17,8 +17,8 @@ import { CardList } from 'common/components/card-list/card-list'
 import { IListAction } from 'common/types/list'
 import { FilePicker } from 'common/components/file-picker/file-picker'
 import { Loading } from 'common/components/loading/loading'
+import { filePickerSize } from 'common/constants'
 import { useCoreModule } from 'core/core-module-hook'
-import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
@@ -81,7 +81,7 @@ export const MenuList: FC = () => {
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
   const handleCardAction = useCallback((item: IMenu, action: IListAction): void => {
     switch (action.label) {
@@ -160,7 +160,7 @@ export const MenuList: FC = () => {
         if (filePickerData) {
           setMenuData({
             ...filePickerData,
-            thumbnail_url: generateMediaFileUrl(file)
+            thumbnail_url: file.url
           })
         }
         setIsPickerDirty(true)

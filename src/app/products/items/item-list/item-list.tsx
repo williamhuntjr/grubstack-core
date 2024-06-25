@@ -12,6 +12,7 @@ import { generateValidationMessages } from 'common/validation/validation'
 import { ObjectType } from 'common/objects'
 import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { filePickerSize } from 'common/constants'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
@@ -22,7 +23,6 @@ import { FilePicker } from 'common/components/file-picker/file-picker'
 import { IListAction } from 'common/types/list'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
-import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { IItem, IItemState } from 'app/products/items/items.types'
 import { defaultItemState, itemRoutePath } from 'app/products/items/items.constants'
 import { defaultItemFormData } from 'app/products/items/item-form/item-form.constants'
@@ -75,7 +75,7 @@ export const ItemList: FC = () => {
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
   const handleCardAction = useCallback((item: IItem, action: IListAction): void => {
     switch (action.label) {
@@ -154,7 +154,7 @@ export const ItemList: FC = () => {
         if (filePickerData) {
           setItemData({
             ...filePickerData,
-            thumbnail_url: generateMediaFileUrl(file)
+            thumbnail_url: file.url
           })
         }
         setIsPickerDirty(true)

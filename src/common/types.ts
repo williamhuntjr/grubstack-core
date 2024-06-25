@@ -48,3 +48,8 @@ export interface IVersion {
   id: number
   version: string
 }
+
+export interface IProperty {
+  key: string
+  value: string
+}

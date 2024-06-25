@@ -10,22 +10,29 @@
     width: 100%;
     flex-wrap: wrap;
     margin-bottom: $grid-base;
+    .thumbnailContainer {
+      width: 10.00%;
+      @media screen and (max-width: $bp-md) {
+        width: 16.66%;
+      }
+      @media screen and (max-width: $bp-sm) {
+        width: 20.00%;
+      }
+      @media screen and (max-width: $bp-xs) {
+        width: 33.33%;
+      }
+    }
     .mediaFileListItem {
       margin: $grid-small;
       border: $border-dark-gray-thick;
-      width: 110px;
-      height: 110px;
+      height: unset;
+      aspect-ratio : 1 / 1;
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
       &:hover {
         border: $border-primary-thick;
         cursor: pointer;
-      }
-      @media screen and (max-width: $bp-xs) {
-        width: 26%;
-        height: unset;
-        aspect-ratio : 1 / 1;
       }
     }
   }

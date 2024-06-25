@@ -6,6 +6,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
+import Pagination from '@mui/material/Pagination'
 import { cls } from 'common/utils/utils'
 import { IGrubList, IGrubListItem } from './grub-list.types'
 import styles from './grub-list.module.scss'
@@ -18,7 +19,10 @@ export const GrubList: FC<IGrubList> = memo(({
   addLabel,
   actions,
   onAction,
-  onClickAdd
+  onClickAdd,
+  pages,
+  page,
+  onPageChange
 }) => {
   const generateActions = (item: IGrubListItem): JSX.Element => {
     if (onAction) {
@@ -38,6 +42,7 @@ export const GrubList: FC<IGrubList> = memo(({
   }
 
   return (
+    <>
     <List 
       className={cls(styles.grubListContainer, className ?? '')}
       subheader={subHeader ?
@@ -69,5 +74,11 @@ export const GrubList: FC<IGrubList> = memo(({
       </ListItem>
     }
     </List>
+    {data.length != 0 && 
+      <div className={styles.paginationContainer}>
+        <Pagination count={pages} onChange={onPageChange} page={page} color="primary" />
+      </div>
+      }
+    </>
   )
 })

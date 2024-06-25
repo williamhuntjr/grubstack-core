@@ -12,6 +12,7 @@ import { useDialog } from 'common/hooks/dialog.hook'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { IListAction } from 'common/types/list'
 import { CardList } from 'common/components/card-list/card-list'
+import { filePickerSize } from 'common/constants'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
 import { IIngredient, IIngredientState } from 'app/products/ingredients/ingredients.types'
@@ -23,7 +24,6 @@ import { useMediaLibraryModule } from 'app/media-library/media-library-module-ho
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { useCoreModule } from 'core/core-module-hook'
 import { FilePicker } from 'common/components/file-picker/file-picker'
-import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { 
   IngredientActionsEditMode, 
@@ -77,7 +77,7 @@ export const IngredientList: FC = () => {
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
   const handleListItemAction = useCallback((item: IIngredientListItem, action: IListAction): void => {
     switch (action.label) {
@@ -155,7 +155,7 @@ export const IngredientList: FC = () => {
         if (filePickerData) {
           setIngredientData({
             ...filePickerData,
-            thumbnail_url: generateMediaFileUrl(file)
+            thumbnail_url: file.url
           })
         }
         setIsPickerDirty(true)

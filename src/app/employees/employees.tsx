@@ -4,6 +4,7 @@ import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
+import { filePickerSize } from 'common/constants'
 import { SpeedDialer } from 'common/components/speed-dialer/speed-dialer'
 import { GrubDialog } from 'common/components/grub-dialog/grub-dialog'
 import { useDialog } from 'common/hooks/dialog.hook'
@@ -19,7 +20,6 @@ import { ObjectType } from 'common/objects'
 import { ITableAction } from 'common/components/grub-table/grub-table.types'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
-import { generateMediaFileUrl } from 'app/media-library/media-library.utils'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { GrubList } from 'common/components/grub-list/grub-list'
 import { IGrubListItem } from 'common/components/grub-list/grub-list.types'
@@ -82,7 +82,7 @@ export const Employees = (): JSX.Element => {
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, 12)
+  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
   const handleSpeedAction = useCallback((action: string): void => {
     switch (action) {
@@ -185,7 +185,7 @@ export const Employees = (): JSX.Element => {
         if (filePickerData) {
           setEmployeeData({
             ...filePickerData,
-            profile_thumbnail_url: generateMediaFileUrl(file)
+            profile_thumbnail_url: file.url
           })
         }
         setIsPickerDirty(true)
@@ -252,6 +252,11 @@ export const Employees = (): JSX.Element => {
             onAction={handleListAction}
             actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
             data={normalizeListData(paginationState.data)}
+            pages={paginationState.pages}
+            page={paginationState.pagination.page}
+            onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+              void pagination.onChangePage(page)
+            }}
           />
         </div>
       </>

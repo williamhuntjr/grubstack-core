@@ -6,3 +6,4 @@ export const mdMq = `(max-width:${breakpoints.md})`
 export const lgMq = `(max-width:${breakpoints.lg})`
 
 export const listPageSize = 10
+export const filePickerSize = 20
