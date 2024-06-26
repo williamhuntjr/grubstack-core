@@ -1,10 +1,11 @@
 @import 'assets/sass/variables';
+@import 'assets/sass/application';
 
 .contentContainer {
   flex-grow: 1;
-  margin-top: $headerHeight;
+  margin-top: $header-height;
   padding: $grid-large;
-  margin-left: $sidebarWidth;
+  margin-left: $sidebar-width;
   @media screen and (max-width: $bp-sm) {
     margin-left: 0;
     padding: $grid-base;

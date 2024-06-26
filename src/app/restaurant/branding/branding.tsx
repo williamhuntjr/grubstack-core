@@ -86,6 +86,7 @@ export const Branding = (): JSX.Element => {
     await handlePropertyChange(RestaurantProperty.RestaurantName, state.restaurantName)
   }, [handlePropertyChange, state.restaurantName])
 
+  // eslint-disable-next-line
   useEffect(() => void init(), [])
 
   return (

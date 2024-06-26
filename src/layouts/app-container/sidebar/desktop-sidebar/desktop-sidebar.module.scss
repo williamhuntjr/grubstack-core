@@ -1,8 +1,9 @@
 @import 'assets/sass/variables';
+@import 'assets/sass/application';
 
 .sidebarContainer {
   display: flex;
-  width: $sidebarWidth;
+  width: $sidebar-width;
   -webkit-transition: width .5s;
   transition: width .5s;
   position: fixed;
@@ -12,20 +13,20 @@
     display: none;
   }
   .desktopContainer {
-    width: $sidebarWidth;
+    width: $sidebar-width;
     background-color: $color-primary;
     color: $color-white;
     display: flex;
     .navbarList {
       width: 100%;
-      padding: $headerHeight 0 0 0;
+      padding: $header-height 0 0 0;
       li { 
         display: flex;
         align-items: center;
         justify-content: center;
         list-style-type: none;
-        width: $sidebarWidth;
-        height: $sidebarWidth;
+        width: $sidebar-width;
+        height: $sidebar-width;
         &:hover {
           cursor: pointer;
           background-color: $color-black;
@@ -34,10 +35,10 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          width: $sidebarWidth;
-          height: $sidebarWidth;
+          width: $sidebar-width;
+          height: $sidebar-width;
           .navIcon {
-            font-size: $sidebarIconSize;
+            font-size: $sidebar-icon-size;
           }
         }
         .activeNavItem {
@@ -47,7 +48,7 @@
       }
     }
     .subMenuContainer {
-      left: $sidebarWidth;
+      left: $sidebar-width;
       position: absolute;
       display: flex;
       flex-direction: column;
@@ -99,7 +100,7 @@
         }
       }
       h4 {
-        margin-top: $headerHeight;
+        margin-top: $header-height;
         padding: $grid-base;
         border-bottom: $border-disabled;
       }

@@ -1,4 +1,5 @@
 @import 'assets/sass/variables';
+@import 'assets/sass/application';
 
 .sidebarContainer {
   height: 100%;
@@ -7,7 +8,7 @@
   overflow-y: hidden;
   overflow-x: hidden;
   z-index: 888;
-  width: $sidebarWidth;
+  width: $sidebar-width;
   background-color: $color-primary;
   color: $color-white;
   -webkit-transition: width .5s;
@@ -18,7 +19,7 @@
   }
   @media screen and (min-width: $bp-md) {
     &:hover {
-      width: $sidebarWidthOpen;
+      width: $sidebar-width-open;
     }
   }
   @media screen and (max-width: $bp-sm) {
@@ -26,11 +27,11 @@
   }
   .sidebarList {
     margin-top: $grid-base;
-    padding-top: $headerHeight;
+    padding-top: $header-height;
   }
 }
 .sidebarOpen {
-  width: $sidebarWidth;
+  width: $sidebar-width;
   overflow-x: unset;
 
   @media screen and (max-width: $bp-sm) {

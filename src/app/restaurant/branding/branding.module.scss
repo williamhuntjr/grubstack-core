@@ -45,10 +45,11 @@
         img {
           max-width: 225px;
           border: $border-default;
-          width:fit-content;
+          width: 100%;
         }
         .subTitle {
           font-size: 14px;
+          line-height: 24px;
           margin-bottom: $grid-small;
         }
         .buttonContainer {
