@@ -1,4 +1,9 @@
+@import 'assets/sass/variables';
+
 .filePickerContainer {
   display: flex;
-  width: 820px;
+  width: 1024px;
+  @media screen and (max-width: $bp-md) {
+    width: 820px;
+  }
 }

@@ -1,14 +1,13 @@
 @import 'assets/sass/variables';
+@import 'assets/sass/application';
 
 .appContainer {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 100vh;
-  background-color: $color-white;
 }
 .appContent {
   display: flex;
   min-height: 100vh;
-  background-color: $background-color;
 }
