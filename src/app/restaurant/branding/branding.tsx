@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import { toast } from 'react-toastify'
 import { cls } from 'common/utils/utils'
 import { usePagination } from 'common/hooks/pagination.hook'
 import { FilePicker } from 'common/components/file-picker/file-picker'
 import { filePickerSize } from 'common/constants'
 import { Loading } from 'common/components/loading/loading'
+import { useDialog } from 'common/hooks/dialog.hook'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
@@ -19,19 +21,22 @@ import styles from './branding.module.scss'
 export const Branding = (): JSX.Element => {
   const [ state, setState ] = useState<IBrandingState>(defaultBrandingState)
 
-  const [ isPickerOpen, setIsPickerOpen ] = useState<boolean>(false)
-  const [ currentKey, setCurrentKey ] = useState<string>('')
-
   const { RestaurantService } = useRestaurantModule()
   const { MediaLibraryService } = useMediaLibraryModule()
 
   const {
     state: filePickerPaginationState,
     pagination: filePickerPagination,
-    refresh: refreshFilePicker
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
-  const init = useCallback(async(): Promise<void> => {
+  const {
+    open: filePickerDialogOpen,
+    closeDialog: closeFilePickerDialog,
+    openDialog: openFilePickerDialog,
+    data: filePickerDialogData
+  } = useDialog<string|null>(null)
+
+  const fetchData = useCallback(async(): Promise<void> => {
     try {
       setState((prevState) => ({ ...prevState, isLoading: true }))
       const restaurantName = await RestaurantService.getProperty('restaurant_name')
@@ -52,42 +57,50 @@ export const Branding = (): JSX.Element => {
     }
   }, [RestaurantService])
 
-  const handleOpenPicker = useCallback((key: string): void => {
-    if (filePickerPaginationState.pagination.page != 1) {
-      filePickerPaginationState.pagination.page = 1
-      void refreshFilePicker()
-    }
-    setIsPickerOpen(true)
-    setCurrentKey(key)
-  }, [filePickerPaginationState.pagination, refreshFilePicker])
-
   const handlePropertyChange = useCallback(async (key: string, value: string): Promise<void> => {
     try {
-      setIsPickerOpen(false)
-      const params = { 'key': key, 'value': value }
-      await RestaurantService.updateProperty(params)
-      await init()
+      await RestaurantService.updateProperty({ 'key': key, 'value': value })
+      await fetchData()
     } catch (e) {
       console.error(e)
     }
-  }, [RestaurantService, init])
+  }, [RestaurantService, fetchData])
+
+  const updateRestaurantImage = useCallback(async(key: string, value: string): Promise<void> => {
+    try {
+      await handlePropertyChange(key, value)
+      toast.success('Your restaurant image has been updated.')
+    } catch (e) {
+      toast.error('Unable to update restaurant image.')
+      console.error(e)
+    }
+  }, [handlePropertyChange])
+
+  const saveRestaurantName = useCallback(async (): Promise<void> => {
+    try {
+      await handlePropertyChange(RestaurantProperty.RestaurantName, state.restaurantName)
+      toast.success('Your restaurant name has been updated.')
+    } catch (e) {
+      toast.error('Unable to update restaurant name.')
+      console.error(e)
+    }
+  }, [handlePropertyChange, state.restaurantName])
 
   const handleFilePickerAction = useCallback(async(file: IMediaLibraryFile, action: MediaLibraryAction): Promise<void> => {
     switch (action) {
       case MediaLibraryAction.Select:
-        void handlePropertyChange(currentKey, file.url)
+        if (filePickerDialogData) {
+          closeFilePickerDialog()
+          void updateRestaurantImage(filePickerDialogData, file.url)
+        }
         break
       default:
         break
     }
-  }, [currentKey, handlePropertyChange])
-
-  const saveRestaurantName = useCallback(async (): Promise<void> => {
-    await handlePropertyChange(RestaurantProperty.RestaurantName, state.restaurantName)
-  }, [handlePropertyChange, state.restaurantName])
+  }, [filePickerDialogData, updateRestaurantImage, closeFilePickerDialog])
 
   // eslint-disable-next-line
-  useEffect(() => void init(), [])
+  useEffect(() => void fetchData(), [])
 
   return (
     <RestaurantContainer label={"Branding"}>
@@ -119,7 +132,7 @@ export const Branding = (): JSX.Element => {
               <p className={styles.subTitle}>This image is used throughout your apps as your primary logo</p>
               <img src={state.logoImageUrl} alt="" />
               <div className={styles.buttonContainer}>
-                <Button variant="contained" color="primary" size="large" onClick={() => handleOpenPicker(RestaurantProperty.LogoImageUrl)}>Change</Button>
+                <Button variant="contained" color="primary" size="large" onClick={() => openFilePickerDialog(RestaurantProperty.LogoImageUrl)}>Change</Button>
               </div>
             </div>
           </div>
@@ -129,7 +142,7 @@ export const Branding = (): JSX.Element => {
               <p className={styles.subTitle}>This is the banner image on your order app home page</p>
               <img src={state.bannerImageUrl} alt="" />
               <div className={styles.buttonContainer}>
-                <Button variant="contained" color="primary" size="large" onClick={() => handleOpenPicker(RestaurantProperty.BannerImageUrl)}>Change</Button>
+                <Button variant="contained" color="primary" size="large" onClick={() => openFilePickerDialog(RestaurantProperty.BannerImageUrl)}>Change</Button>
               </div>
             </div>
           </div>
@@ -139,7 +152,7 @@ export const Branding = (): JSX.Element => {
               <p className={styles.subTitle}>This is the mobile banner image on your order app home page</p>
               <img src={state.mobileBannerImageUrl} alt="" />
               <div className={styles.buttonContainer}>
-                <Button variant="contained" color="primary" size="large" onClick={() => handleOpenPicker(RestaurantProperty.MobileBannerImageUrl)}>Change</Button>
+                <Button variant="contained" color="primary" size="large" onClick={() => openFilePickerDialog(RestaurantProperty.MobileBannerImageUrl)}>Change</Button>
               </div>
             </div>
           </div>
@@ -147,8 +160,8 @@ export const Branding = (): JSX.Element => {
       </div>
       }
       <FilePicker
-        open={isPickerOpen}
-        onClose={() => setIsPickerOpen(false)}
+        open={filePickerDialogOpen}
+        onClose={closeFilePickerDialog}
         paginationState={filePickerPaginationState}
         pagination={filePickerPagination}
         onAction={handleFilePickerAction}

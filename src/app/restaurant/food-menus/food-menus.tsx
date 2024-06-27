@@ -112,7 +112,7 @@ export const FoodMenus = (): JSX.Element => {
       await LocationService.get(locationIdToCheck)
       setLoading(false)
     } catch(e) {
-      toast.error('The URL provided is invalid')
+      toast.error('The URL provided is invalid.')
       navigate(`${locationRoutePath}`)
       console.error(e)
     }
@@ -127,7 +127,7 @@ export const FoodMenus = (): JSX.Element => {
           setLoading(false)
         }
         else {
-          toast.error('You need to add a location first')
+          toast.error('You need to add a restaurant location first.')
           navigate(`${locationRoutePath}`)
         }
       } 

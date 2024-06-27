@@ -74,7 +74,7 @@ export const GrubList: FC<IGrubList> = memo(({
       </ListItem>
     }
     </List>
-    {data.length != 0 && 
+    {data.length != 0 && page && pages &&
       <div className={styles.paginationContainer}>
         <Pagination count={pages} onChange={onPageChange} page={page} color="primary" />
       </div>
