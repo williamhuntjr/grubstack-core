@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useCallback, useState } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
@@ -21,7 +21,6 @@ import { restaurantMenusPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocationFilters } from '../locations/locations.types'
-import { locationRoutePath } from '../locations/locations.constants'
 import { 
   FoodMenuAction,
   FoodMenuSpeedActions,
@@ -31,8 +30,6 @@ import {
 import styles from './food-menus.module.scss'
 
 export const FoodMenus = (): JSX.Element => {
-  const [isLoading, setLoading] = useState<boolean>(true)
-
   const { ErrorHandler } = useCoreModule()
   const { MenuService } = useProductModule()
 
@@ -62,7 +59,7 @@ export const FoodMenus = (): JSX.Element => {
     pagination: menuPagination
   } = usePagination<IMenu>(MenuService.getAll, Math.round((height - 100) / 205) * 2)
 
-  const onAddMenu = useCallback(async (menuData: IMenu): Promise<void> => {
+  const onAddMenu = async (menuData: IMenu): Promise<void> => {
     try {
       await LocationService.addMenu(locationId ?? '', menuData.id ?? '')
       toast.success(ValidationLocationMenuMessage.AddMenuSuccess)
@@ -71,9 +68,9 @@ export const FoodMenus = (): JSX.Element => {
     } 
     void refresh()
     closeQuickPickerDialog()
-  }, [ErrorHandler, LocationService, refresh, locationId, closeQuickPickerDialog])
+  }
 
-  const onDeleteMenu = useCallback(async (menuId: string): Promise<void> => {
+  const onDeleteMenu = async (menuId: string): Promise<void> => {
     try {
       await LocationService.deleteMenu(locationId!, menuId)
       toast.success(ValidationLocationMenuMessage.DeleteMenuSuccess)
@@ -81,9 +78,9 @@ export const FoodMenus = (): JSX.Element => {
       ErrorHandler.handleError(e as Error)
     }
     void refresh()
-  }, [ErrorHandler, LocationService, refresh, locationId])
+  }
   
-  const handleCardAction = useCallback(async(item: IMenu, action: IListAction): Promise<void> => {
+  const handleCardAction = async(item: IMenu, action: IListAction): Promise<void> => {
     switch (action.label) {
       case FoodMenuAction.Delete:
         await onDeleteMenu(item?.id ?? '')
@@ -94,9 +91,9 @@ export const FoodMenus = (): JSX.Element => {
       default:
         break
     }
-  }, [onDeleteMenu, navigate])
+  }
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case FoodMenuAction.Add:
         openQuickPickerDialog()
@@ -104,52 +101,16 @@ export const FoodMenus = (): JSX.Element => {
       default:
         break
     }
-  }, [openQuickPickerDialog])
-
-  const checkLocation = async(locationIdToCheck: string): Promise<void> => {
-    try {
-      setLoading(true)
-      await LocationService.get(locationIdToCheck)
-      setLoading(false)
-    } catch(e) {
-      toast.error('The URL provided is invalid.')
-      navigate(`${locationRoutePath}`)
-      console.error(e)
-    }
-  }
-
-  const init = async (): Promise<void> => {
-    try {
-      if (!locationId) {
-        const { data } = await LocationService.getAll({ page: 1, limit: 100 })
-        if (data.length > 0) {
-          navigate(`${restaurantMenusPath}/${data[0].id}`)
-          setLoading(false)
-        }
-        else {
-          toast.error('You need to add a restaurant location first.')
-          navigate(`${locationRoutePath}`)
-        }
-      } 
-      else {
-        await checkLocation(locationId!)
-      }
-    } catch(e) {
-      console.error(e)
-    }
   }
 
   // eslint-disable-next-line
   useEffect(() => void updateFilters({ id: locationId! }), [locationId])
 
-  // eslint-disable-next-line
-  useEffect(() => void init(), [])
-
   return (
     <div className={styles.foodMenusListContainer}>
-      {paginationState.isLoading || isLoading && <Loading />}
-      {!paginationState.isLoading && !isLoading  &&
-      <RestaurantContainer label={"Menus"} route={restaurantMenusPath} routeReload={true}>
+      {paginationState.isLoading && <Loading />}
+      {!paginationState.isLoading &&
+      <RestaurantContainer label={"Menus"} route={restaurantMenusPath}>
         {paginationState.data.length > 0 && !paginationState.isLoading &&
           <CardList 
             data={paginationState.data} 

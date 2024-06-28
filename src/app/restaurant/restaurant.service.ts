@@ -1,7 +1,11 @@
 import { AxiosInstance } from 'axios'
-import { IResponse, IProperty } from 'common/types'
+import { IResponse } from 'common/types'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
-import { IRestaurantService } from './restaurant.types'
+import { 
+  IRestaurantService,
+  IProperty,
+} from './restaurant.types'
+import { IOrderType } from './order-types/order-types.types'
 
 export class RestaurantService implements IRestaurantService {
   constructor(private readonly httpClient: AxiosInstance) {
@@ -15,6 +19,11 @@ export class RestaurantService implements IRestaurantService {
 
   public async updateProperty(params: IProperty): Promise<IResponse<IProperty>> {
     const resp = await this.httpClient.put<IResponse<IProperty>>(`/restaurant/properties`, { params })
+    return resp.data
+  }
+
+  public async getOrderTypes(): Promise<IResponse<IOrderType[]>> {
+    const resp = await this.httpClient.get<IResponse<IOrderType[]>>(`/restaurant/order-types`)
     return resp.data
   }
 }

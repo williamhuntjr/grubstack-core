@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC } from 'react'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import { GSMode } from 'common/utils/mode/mode.types'
@@ -24,9 +24,9 @@ export const FilePreview: FC<IFilePreview> = ({ data, mode, onDelete }) => {
     window.location.href = generateMediaFileUrl(data)
   }
 
-  const handleOpenDeleteDialog = useCallback((): void => {
+  const handleOpenDeleteDialog = (): void => {
     openDeleteDialog(data)
-  }, [openDeleteDialog, data])
+  }
 
   return (
     <div className={styles.filePreviewContainer}>

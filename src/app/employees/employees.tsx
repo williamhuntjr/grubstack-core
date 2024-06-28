@@ -1,4 +1,4 @@
-import React, { useCallback, useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
@@ -84,7 +84,7 @@ export const Employees = (): JSX.Element => {
     pagination: filePickerPagination
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case EmployeeAction.New:
         setState((prevState) => ({ ...prevState, mode: GSMode.New }))
@@ -93,9 +93,9 @@ export const Employees = (): JSX.Element => {
       default:
         break
     }
-  }, [openEmployeeDialog])
+  }
 
-  const handleRowAction = useCallback((formatted: IEmployeeTableRow, action: ITableAction): void => {
+  const handleRowAction = (formatted: IEmployeeTableRow, action: ITableAction): void => {
     let selectedEmployee:IEmployee
     switch (action.label) {
       case EmployeeAction.Delete:
@@ -116,9 +116,9 @@ export const Employees = (): JSX.Element => {
       default:
         break
     }
-  }, [openEmployeeDialog, openDeleteDialog, canEditEmployees, paginationState.data])
+  }
 
-  const handleListAction = useCallback((item: IGrubListItem, action: IListAction): void => {
+  const handleListAction = (item: IGrubListItem, action: IListAction): void => {
     let selectedEmployee:IEmployee
     switch (action.label) {
       case EmployeeAction.Delete:
@@ -139,9 +139,9 @@ export const Employees = (): JSX.Element => {
       default:
         break
     }
-  }, [openEmployeeDialog, openDeleteDialog, canEditEmployees, paginationState.data])
+  }
 
-  const handleSubmit = useCallback(async (data: IEmployeeFormValues): Promise<void> => {
+  const handleSubmit = async (data: IEmployeeFormValues): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     closeEmployeeDialog()
     try {
@@ -163,9 +163,9 @@ export const Employees = (): JSX.Element => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [closeEmployeeDialog, state.mode, ErrorHandler, EmployeeService, refresh, validationMessages.createSuccess, validationMessages.updateSuccess])
+  }
 
-  const onDelete = useCallback(async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     closeDeleteDialog()
     try {
       if (deleteDialogData) {
@@ -177,9 +177,9 @@ export const Employees = (): JSX.Element => {
     } finally {
       await pagination.onChangePage(1)
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, EmployeeService, pagination])
+  }
 
-  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+  const handleFilePickerAction = (file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
         if (filePickerData) {
@@ -194,7 +194,7 @@ export const Employees = (): JSX.Element => {
       default:
         break
     }
-  }, [setEmployeeData, filePickerData, closeFilePickerDialog])
+  }
 
   return (
     <div className={styles.employeeContainer}>

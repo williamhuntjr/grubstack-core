@@ -1,0 +1,16 @@
+@import 'assets/sass/variables';
+
+.orderTypesContainer {
+  .orderTypesList {
+    display: flex;
+    padding: 0;
+    margin: $grid-base 0 0 0;
+    li {
+      list-style-type: none;
+      margin-right: $grid-giant;
+      h3 {
+        margin-bottom: $grid-tiny;
+      }
+    }
+  }
+}

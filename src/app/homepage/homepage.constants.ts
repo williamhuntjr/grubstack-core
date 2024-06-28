@@ -4,7 +4,7 @@ import FaceIcon from '@mui/icons-material/Face'
 import ImageIcon from '@mui/icons-material/Image'
 import StarsIcon from '@mui/icons-material/Stars'
 import CampaignIcon from '@mui/icons-material/Campaign'
-import { locationRoutePath } from 'app/restaurant/locations/locations.constants'
+import { restaurantLocationsPath } from 'app/restaurant/restaurant.constants'
 import { mediaLibraryRoutePath } from 'app/media-library/media-library.constants'
 import { productRoutePath } from 'app/products/products.constants'
 import { employeeRoutePath } from 'app/employees/employees.constants'
@@ -19,7 +19,7 @@ export const homepageCards = [
     label: 'Add a Location',
     description: 'Create new restaurant locations',
     icon: AddLocationIcon,
-    path: locationRoutePath
+    path: restaurantLocationsPath
   },
   {
     label: 'Media Library',

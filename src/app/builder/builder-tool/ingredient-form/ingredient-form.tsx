@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useEffect } from 'react'
+import React, { FC, memo, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '@mui/material/Button'
 import { Divider } from '@mui/material'
@@ -29,15 +29,15 @@ export const IngredientForm: FC<IIngredientForm> = memo(({ onSubmit, data, mode 
     void eventHandler(e)
   }
 
-  const handleOptionalCheckbox = useCallback((checked: boolean): void => {
+  const handleOptionalCheckbox = (checked: boolean): void => {
     if (!checked) {
       setValue(IngredientFormField.Addon, false)
     }
-  }, [setValue])
+  }
 
-  const handleAddonCheckbox = useCallback((): void => {
+  const handleAddonCheckbox = (): void => {
     setValue(IngredientFormField.Extra, false)
-  }, [setValue])
+  }
 
   useEffect(() => {
     reset({

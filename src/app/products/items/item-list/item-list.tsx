@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useCallback, useState } from 'react'
+import React, { FC, ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
@@ -77,7 +77,7 @@ export const ItemList: FC = () => {
     pagination: filePickerPagination
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
-  const handleCardAction = useCallback((item: IItem, action: IListAction): void => {
+  const handleCardAction = (item: IItem, action: IListAction): void => {
     switch (action.label) {
       case ItemAction.Delete:
         openDeleteDialog(item?.id ?? '')
@@ -99,9 +99,9 @@ export const ItemList: FC = () => {
       default:
         break
     }
-  }, [canEditItems, openItemDialog, openDeleteDialog, navigate])
+  }
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case ItemAction.New:
         setState((prevState) => ({ ...prevState, mode: GSMode.New }))
@@ -110,9 +110,9 @@ export const ItemList: FC = () => {
       default:
         break
     }
-  }, [openItemDialog])
+  }
 
-  const handleSubmit = useCallback(async (data: IItemFormValues): Promise<void> => {
+  const handleSubmit = async (data: IItemFormValues): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     closeItemDialog()
     try {
@@ -134,9 +134,9 @@ export const ItemList: FC = () => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [closeItemDialog, state.mode, ErrorHandler, ItemService, refresh, validationMessages.createSuccess, validationMessages.updateSuccess])
+  }
 
-  const onDelete = useCallback(async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     closeDeleteDialog()
     try {
       await ItemService.delete(deleteDialogData ?? '')
@@ -146,9 +146,9 @@ export const ItemList: FC = () => {
     } finally {
       await pagination.onChangePage(1)
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, ItemService, pagination])
+  }
 
-  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+  const handleFilePickerAction = (file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
         if (filePickerData) {
@@ -163,7 +163,7 @@ export const ItemList: FC = () => {
       default:
         break
     }
-  }, [setItemData, filePickerData, closeFilePickerDialog])
+  }
 
   return (
     <div className={styles.itemList}>

@@ -64,7 +64,7 @@ export const BuilderTool: FC = () => {
   const childType = objectType === BuilderParams.Menu ? BuilderTypes.Item : BuilderTypes.Ingredient
   const childLabel = objectType === BuilderParams.Menu ? BuilderTypes.Item : objectType === BuilderParams.Variety ? BuilderTypes.Ingredient : BuilderTypes.Ingredient
 
-  const generateActions = useCallback((): IListAction[] => {
+  const generateActions = (): IListAction[] => {
     if (objectType == BuilderParams.Item) {
       return canEditItems ? BuilderItemActionsEditMode : BuilderItemActionsViewMode 
     }
@@ -75,7 +75,7 @@ export const BuilderTool: FC = () => {
       return canEditVarieties ? BuilderVarietyActionsEditMode : BuilderVarietyActionsViewMode
     }
     return []
-  }, [objectType, canEditItems, canEditMenus, canEditVarieties])
+  }
 
   const actions = generateActions()
 
@@ -144,16 +144,16 @@ export const BuilderTool: FC = () => {
     setState((prevState) => ({ ...prevState, isLoading: false }))
   }, [state.page, ErrorHandler, ItemService, MenuService, VarietyService, objectType, objectId])
 
-  const closeDialogRefresh = useCallback(async () => {
+  const closeDialogRefresh = async (): Promise<void> => {
     try {
       closeBuilderDialog()
       await fetchData()
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
-  }, [closeBuilderDialog, fetchData])
+  }
 
-  const handleCardAction = useCallback((item: IBuilderDataItem, action: IListAction): void => {
+  const handleCardAction = (item: IBuilderDataItem, action: IListAction): void => {
     switch (action.label) {
       case BuilderAction.View:
         setState((prevState) => ({ ...prevState, selected: item, mode: GSMode.View }))
@@ -179,9 +179,9 @@ export const BuilderTool: FC = () => {
       default:
         break
     }
-  }, [openDeleteDialog, openIngredientDialog, objectType, openItemDialog])
+  }
 
-  const onDelete = useCallback(async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     closeDeleteDialog()
     try {
       if (objectType === BuilderParams.Item) {
@@ -200,9 +200,9 @@ export const BuilderTool: FC = () => {
       ErrorHandler.handleError(e as Error)
     }
     await fetchData()
-  }, [fetchData, closeDeleteDialog, deleteDialogData, MenuService, VarietyService, ErrorHandler, ItemService, objectId, objectType])
+  }
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case BuilderAction.Add:
         openBuilderDialog(objectId ?? '')
@@ -210,9 +210,9 @@ export const BuilderTool: FC = () => {
       default:
         break
     }
-  }, [openBuilderDialog, objectId])
+  }
 
-  const handleClick = useCallback(async (data: IIngredient | IMenu | IItem): Promise<void> => {
+  const handleClick = async (data: IIngredient | IMenu | IItem): Promise<void> => {
     try {
       if (objectType === BuilderParams.Item) {
         await ItemService.addIngredient(objectId ?? '', data.id ?? '')
@@ -229,9 +229,9 @@ export const BuilderTool: FC = () => {
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     }
-  }, [ErrorHandler, ItemService, MenuService, VarietyService, objectId, objectType])
+  }
 
-  const handleIngredientSubmit = useCallback(async (data: IBuilderIngredientFormValues): Promise<void> => {
+  const handleIngredientSubmit = async (data: IBuilderIngredientFormValues): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     closeIngredientDialog()
     try {
@@ -242,9 +242,9 @@ export const BuilderTool: FC = () => {
     }
     await fetchData()
     setState((prevState) => ({ ...prevState, isLoading: false }))
-  }, [closeIngredientDialog, fetchData, ErrorHandler, ItemService, ingredientDialogData?.id, state.parent?.id])
+  }
 
-  const handleItemSubmit = useCallback(async (data: IBuilderItemFormValues): Promise<void> => {
+  const handleItemSubmit = async (data: IBuilderItemFormValues): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     closeItemDialog()
     try {
@@ -255,17 +255,17 @@ export const BuilderTool: FC = () => {
     }
     await fetchData()
     setState((prevState) => ({ ...prevState, isLoading: false }))
-  }, [fetchData, ErrorHandler, closeItemDialog, MenuService, itemDialogData?.id, state.parent?.id])
+  }
 
   const onPageChange = (event: ChangeEvent<unknown>, newPage: number): void => {
     setState((prevState) => ({ ...prevState, page: newPage, event: event }))
   }
 
-  const handleAddVarietyDialog = useCallback(() => {
+  const handleAddVarietyDialog = (): void => {
     openVarietyPickerDialog(varietyPaginationState.data)
-  }, [openVarietyPickerDialog, varietyPaginationState.data])
+  }
 
-  const onAddVariety = useCallback(async (varietyData: IVariety): Promise<void> => {
+  const onAddVariety = async (varietyData: IVariety): Promise<void> => {
     try {
       await ItemService.addVariety(objectId ?? '', varietyData.id ?? '')
       toast.success(ValidationBuilderMessage.AddItemVarietySuccess)
@@ -276,9 +276,9 @@ export const BuilderTool: FC = () => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     void fetchData()
     setState((prevState) => ({ ...prevState, isLoading: false }))
-  }, [ErrorHandler, ItemService, objectId, fetchData])
+  }
 
-  const onDeleteVariety = useCallback(async (itemId: string, varietyId: string): Promise<void> => {
+  const onDeleteVariety = async (itemId: string, varietyId: string): Promise<void> => {
     try {
       await ItemService.deleteVariety(itemId, varietyId)
       toast.success(ValidationBuilderMessage.DeleteItemVarietySuccess)
@@ -289,19 +289,19 @@ export const BuilderTool: FC = () => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     void fetchData()
     setState((prevState) => ({ ...prevState, isLoading: false }))
-  }, [ErrorHandler, ItemService, fetchData])
+  }
 
-  const handleItemVarietyDelete = useCallback((value: string): void => {
+  const handleItemVarietyDelete = (value: string): void => {
     void onDeleteVariety(objectId ?? '', value)
-  }, [onDeleteVariety, objectId])
+  }
 
-  const handleVarietyAction = useCallback((item: IGrubListItem, action: IListAction): void => {
+  const handleVarietyAction = (item: IGrubListItem, action: IListAction): void => {
     switch (action.label) {
       case BuilderVarietyListAction.Delete:
         handleItemVarietyDelete(item.value ?? '')
         break
     }
-  }, [handleItemVarietyDelete])
+  }
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, objectId: objectId ?? '', objectType: objectType ?? '' }))

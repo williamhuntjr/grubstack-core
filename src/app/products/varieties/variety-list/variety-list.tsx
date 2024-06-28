@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useCallback, useState } from 'react'
+import React, { FC, ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
@@ -77,7 +77,7 @@ export const VarietyList: FC = () => {
     pagination: filePickerPagination
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
-  const handleCardAction = useCallback((item: IVariety, action: IListAction): void => {
+  const handleCardAction = (item: IVariety, action: IListAction): void => {
     switch (action.label) {
       case VarietyAction.Delete:
         openDeleteDialog(item?.id ?? '')
@@ -99,9 +99,9 @@ export const VarietyList: FC = () => {
       default:
         break
     }
-  }, [canEditVarieties, openVarietyDialog, openDeleteDialog, navigate])
+  }
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case VarietyAction.New:
         setState((prevState) => ({ ...prevState, mode: GSMode.New }))
@@ -110,9 +110,9 @@ export const VarietyList: FC = () => {
       default:
         break
     }
-  }, [openVarietyDialog])
+  }
 
-  const handleSubmit = useCallback(async (data: IVarietyFormValues): Promise<void> => {
+  const handleSubmit = async (data: IVarietyFormValues): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     closeVarietyDialog()
     try {
@@ -134,9 +134,9 @@ export const VarietyList: FC = () => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [closeVarietyDialog, state.mode, ErrorHandler, VarietyService, refresh, validationMessages.createSuccess, validationMessages.updateSuccess])
+  }
 
-  const onDelete = useCallback(async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     closeDeleteDialog()
     try {
       await VarietyService.delete(deleteDialogData ?? '')
@@ -146,9 +146,9 @@ export const VarietyList: FC = () => {
     } finally {
       await refresh()
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, VarietyService, refresh])
+  }
 
-  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+  const handleFilePickerAction = (file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
         if (filePickerData) {
@@ -163,7 +163,7 @@ export const VarietyList: FC = () => {
       default:
         break
     }
-  }, [setVarietyData, filePickerData, closeFilePickerDialog])
+  }
 
   return (
     <div className={styles.varietyList}>

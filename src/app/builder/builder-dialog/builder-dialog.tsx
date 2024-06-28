@@ -54,7 +54,6 @@ export const BuilderDialog: FC<IBuilderDialog> = ({ builderType, onClick }) => {
   // eslint-disable-next-line
   useEffect(() => void fetchData(), [])
 
-
   useEffect(() => {
     void fetchData()
   // eslint-disable-next-line

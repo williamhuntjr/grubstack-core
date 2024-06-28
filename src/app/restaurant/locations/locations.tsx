@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import { toast } from 'react-toastify'
@@ -14,12 +14,12 @@ import { useCoreModule } from 'core/core-module-hook'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
 import { SpeedDialer } from 'common/components/speed-dialer/speed-dialer'
+import { restaurantLocationsPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocation, ILocationState } from './locations.types'
 import { 
   defaultLocationState,
-  locationRoutePath,
   LocationSpeedActions,
   LocationAction
 } from './locations.constants'
@@ -63,7 +63,7 @@ export const Locations = (): JSX.Element => {
     if (paginationState.data) {
       if (!locationId && paginationState.data.length > 0) {
         const firstLocationId = paginationState.data[0].id
-        navigate(`${locationRoutePath}/${firstLocationId}`)
+        navigate(`${restaurantLocationsPath}/${firstLocationId}`)
       }
       else {
         const filtered = paginationState.data.filter((location) => location.id == locationId)
@@ -75,7 +75,7 @@ export const Locations = (): JSX.Element => {
     setState((prevState) => ({ ...prevState, isLoading: false }))
   }
 
-  const handleSubmit = useCallback(async (data: ILocation): Promise<void> => {
+  const handleSubmit = async (data: ILocation): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     try {
       switch (state.mode) {
@@ -83,7 +83,7 @@ export const Locations = (): JSX.Element => {
           await LocationService.create(data)
           toast.success(validationMessages.createSuccess)
           setState((prevState) => ({ ...prevState, mode: GSMode.Edit }))
-          navigate(`${locationRoutePath}`)
+          navigate(`${restaurantLocationsPath}`)
         break
         case GSMode.Edit:
           await LocationService.update(data)
@@ -101,12 +101,11 @@ export const Locations = (): JSX.Element => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [state.mode, ErrorHandler, LocationService, validationMessages.createSuccess, validationMessages.updateSuccess, closeLocationDialog, navigate, refresh])
-
-  const openNewLocationDialog = useCallback(() => {
+  }
+  const openNewLocationDialog = (): void => {
     setState((prevState) => ({ ...prevState, mode: GSMode.New }))
     openLocationDialog(defaultLocationFormData)
-  }, [openLocationDialog])
+  }
 
   const handleSpeedAction = (action: string): void => {
     switch (action) {
@@ -123,7 +122,7 @@ export const Locations = (): JSX.Element => {
     }
   }
 
-  const onDelete = useCallback(async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     closeDeleteDialog()
     try {
       await LocationService.delete(deleteDialogData ?? '')
@@ -132,9 +131,9 @@ export const Locations = (): JSX.Element => {
       ErrorHandler.handleError(e as Error)
     } finally {
       await refresh()
-      navigate(`${locationRoutePath}`)
+      navigate(`${restaurantLocationsPath}`)
     }
-  }, [closeDeleteDialog, deleteDialogData, ErrorHandler, validationMessages.deleteSuccess, LocationService, refresh, navigate])
+  }
 
   // eslint-disable-next-line
   useEffect(() => void init(), [paginationState.isLoading, locationId])
@@ -154,7 +153,7 @@ export const Locations = (): JSX.Element => {
       />
       {state.isLoading || paginationState.isLoading && <Loading />}
       {!state.isLoading && !paginationState.isLoading &&
-      <RestaurantContainer label={paginationState.data.length > 0 ? "Locations" : undefined} route={paginationState.data.length > 0 ? locationRoutePath : undefined}>
+      <RestaurantContainer label={paginationState.data.length > 0 ? "Locations" : undefined} route={paginationState.data.length > 0 ? restaurantLocationsPath : undefined}>
         <div className={styles.locationsContainer}>
           {state.data && paginationState.data.length > 0 &&
             <LocationForm 

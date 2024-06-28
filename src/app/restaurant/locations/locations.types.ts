@@ -1,6 +1,7 @@
 import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
 import { IMenu } from 'app/products/menus/menus.types'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { IOrderType } from '../order-types/order-types.types'
 
 export interface ILocation {
   id?: string
@@ -36,5 +37,8 @@ export interface ILocationService {
   getMenus(paginationParams: IPaginationParams, filters?: ILocationFilters): Promise<IPaginationData<IMenu>>
   addMenu(locationId: string, menuId: string): Promise<void>
   deleteMenu(locationId: string, menuId: string): Promise<void>
+  getOrderTypes(locationId: string): Promise<IResponse<IOrderType[]>>
+  addOrderType(locationId: string, orderTypeId: string): Promise<void>
+  deleteOrderType(locationId: string, orderTypeId: string): Promise<void>
 }
 

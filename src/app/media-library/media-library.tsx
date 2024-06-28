@@ -1,4 +1,4 @@
-import React, { useCallback, ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -50,7 +50,7 @@ export const MediaLibrary = (): JSX.Element => {
     pagination: pagination
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, mediaLibraryPageLimit)
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case MediaLibraryAction.Upload:
         setState((prevState) => ({ ...prevState, mode: GSMode.New }))
@@ -59,9 +59,9 @@ export const MediaLibrary = (): JSX.Element => {
       default:
         break
     }
-  }, [openMediaDialog])
+  }
 
-  const handleUpload = useCallback(async (files: FileList): Promise<void> => {
+  const handleUpload = async (files: FileList): Promise<void> => {
     await toast.promise(
       MediaLibraryService.uploadFiles(files),
       {
@@ -72,9 +72,9 @@ export const MediaLibrary = (): JSX.Element => {
     )
     closeMediaDialog()
     void refresh()
-  }, [closeMediaDialog, refresh, MediaLibraryService])
+  }
 
-  const handleMediaFileListAction = useCallback((item: IMediaLibraryFile, action: MediaLibraryAction): void => {
+  const handleMediaFileListAction = (item: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.View:
         setState((prevState) => ({ ...prevState, mode: canEditMediaLibrary ? GSMode.Edit : GSMode.View }))
@@ -83,14 +83,14 @@ export const MediaLibrary = (): JSX.Element => {
       default:
         break
     }
-  }, [openMediaDialog, canEditMediaLibrary])
+  }
 
-  const handleClosePreview = useCallback(() => {
+  const handleClosePreview = (): void => {
     closeMediaDialog()
     void refresh()
-  }, [closeMediaDialog, refresh])
+  }
 
-  const handleDeleteFile = useCallback(async (): Promise<void> => {
+  const handleDeleteFile = async (): Promise<void> => {
     closeMediaDialog()
     try {
       if (mediaDialogData?.id) {
@@ -101,7 +101,7 @@ export const MediaLibrary = (): JSX.Element => {
       ErrorHandler.handleError(e as Error)
     }
     handleClosePreview()
-  }, [closeMediaDialog, handleClosePreview, mediaDialogData, MediaLibraryService, ErrorHandler, validationMessages.deleteSuccess])
+  }
 
   return (
     <div className={styles.mediaLibraryContainer}>

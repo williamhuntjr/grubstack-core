@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { toast } from 'react-toastify'
@@ -36,7 +36,7 @@ export const Branding = (): JSX.Element => {
     data: filePickerDialogData
   } = useDialog<string|null>(null)
 
-  const fetchData = useCallback(async(): Promise<void> => {
+  const fetchData = async(): Promise<void> => {
     try {
       setState((prevState) => ({ ...prevState, isLoading: true }))
       const restaurantName = await RestaurantService.getProperty('restaurant_name')
@@ -55,18 +55,18 @@ export const Branding = (): JSX.Element => {
     } catch (e) {
       console.error(e)
     }
-  }, [RestaurantService])
+  }
 
-  const handlePropertyChange = useCallback(async (key: string, value: string): Promise<void> => {
+  const handlePropertyChange = async (key: string, value: string): Promise<void> => {
     try {
       await RestaurantService.updateProperty({ 'key': key, 'value': value })
       await fetchData()
     } catch (e) {
       console.error(e)
     }
-  }, [RestaurantService, fetchData])
+  }
 
-  const updateRestaurantImage = useCallback(async(key: string, value: string): Promise<void> => {
+  const updateRestaurantImage = async(key: string, value: string): Promise<void> => {
     try {
       await handlePropertyChange(key, value)
       toast.success('Your restaurant image has been updated.')
@@ -74,9 +74,9 @@ export const Branding = (): JSX.Element => {
       toast.error('Unable to update restaurant image.')
       console.error(e)
     }
-  }, [handlePropertyChange])
+  }
 
-  const saveRestaurantName = useCallback(async (): Promise<void> => {
+  const saveRestaurantName = async (): Promise<void> => {
     try {
       await handlePropertyChange(RestaurantProperty.RestaurantName, state.restaurantName)
       toast.success('Your restaurant name has been updated.')
@@ -84,9 +84,9 @@ export const Branding = (): JSX.Element => {
       toast.error('Unable to update restaurant name.')
       console.error(e)
     }
-  }, [handlePropertyChange, state.restaurantName])
+  }
 
-  const handleFilePickerAction = useCallback(async(file: IMediaLibraryFile, action: MediaLibraryAction): Promise<void> => {
+  const handleFilePickerAction = async(file: IMediaLibraryFile, action: MediaLibraryAction): Promise<void> => {
     switch (action) {
       case MediaLibraryAction.Select:
         if (filePickerDialogData) {
@@ -97,7 +97,7 @@ export const Branding = (): JSX.Element => {
       default:
         break
     }
-  }, [filePickerDialogData, updateRestaurantImage, closeFilePickerDialog])
+  }
 
   // eslint-disable-next-line
   useEffect(() => void fetchData(), [])

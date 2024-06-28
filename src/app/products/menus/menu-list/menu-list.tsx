@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useCallback, useState } from 'react'
+import React, { FC, ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
@@ -83,7 +83,7 @@ export const MenuList: FC = () => {
     pagination: filePickerPagination
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
-  const handleCardAction = useCallback((item: IMenu, action: IListAction): void => {
+  const handleCardAction = (item: IMenu, action: IListAction): void => {
     switch (action.label) {
       case MenuAction.Delete:
         openDeleteDialog(item?.id ?? '')
@@ -105,9 +105,9 @@ export const MenuList: FC = () => {
       default:
         break
     }
-  }, [canEditMenus, openDeleteDialog, openMenuDialog, navigate])
+  }
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case MenuAction.New:
         setState((prevState) => ({ ...prevState, mode: GSMode.New }))
@@ -116,9 +116,9 @@ export const MenuList: FC = () => {
       default:
         break
     }
-  }, [openMenuDialog])
+  }
 
-  const onDelete = useCallback(async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     closeDeleteDialog()
     try {
       await MenuService.delete(deleteDialogData ?? '')
@@ -128,9 +128,9 @@ export const MenuList: FC = () => {
     } finally {
       await refresh()
     }
-  }, [refresh, closeDeleteDialog, deleteDialogData, MenuService, ErrorHandler, validationMessages.deleteSuccess])
+  }
 
-  const handleSubmit = useCallback(async (data: IMenuFormValues): Promise<void> => {
+  const handleSubmit = async (data: IMenuFormValues): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     closeMenuDialog()
     try {
@@ -152,9 +152,9 @@ export const MenuList: FC = () => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [closeMenuDialog, refresh, state.mode, MenuService, ErrorHandler, validationMessages.createSuccess, validationMessages.updateSuccess])
+  }
 
-  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+  const handleFilePickerAction = (file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
         if (filePickerData) {
@@ -169,7 +169,7 @@ export const MenuList: FC = () => {
       default:
         break
     }
-  }, [setMenuData, filePickerData, closeFilePickerDialog])
+  }
 
   return (
     <div className={styles.menuList}>

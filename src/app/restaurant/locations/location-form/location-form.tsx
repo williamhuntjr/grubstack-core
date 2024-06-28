@@ -122,7 +122,7 @@ export const LocationForm: FC<ILocationForm> = memo(({
           label={LocationFormLabel.IsActive}
           className={styles.isActiveCheckbox}
         />
-        <Switch aria-label='Switch demo' checked={getValues(LocationFormField.IsActive)} onChange={(e) => setValue(LocationFormField.IsActive, e.target.checked, { shouldDirty: true })}/> Enabled
+        <Switch aria-label='Enable Location' checked={getValues(LocationFormField.IsActive)} onChange={(e) => setValue(LocationFormField.IsActive, e.target.checked, { shouldDirty: true })}/> Enabled
       </div>
       }
       <Divider className={styles.divider} />

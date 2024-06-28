@@ -4,6 +4,7 @@ import { bindAllInstanceMethods } from 'common/utils/object.utils'
 import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IMenu } from 'app/products/menus/menus.types'
 import { ILocationService, ILocation, ILocationFilters } from './locations.types'
+import { IOrderType } from '../order-types/order-types.types'
 
 export class LocationService implements ILocationService {
   constructor(private readonly httpClient: AxiosInstance) {
@@ -72,5 +73,19 @@ export class LocationService implements ILocationService {
 
   public async deleteMenu(locationId: string, menuId: string): Promise<void> {
     await this.httpClient.delete<Promise<void>>(`/locations/${locationId}/menus/${menuId}`)
+  }
+
+  public async getOrderTypes(locationId: string): Promise<IResponse<IOrderType[]>> {
+    const resp = await this.httpClient.get<IResponse<IOrderType[]>>(`/locations/${locationId}/order-types`)
+    return resp.data
+  }
+
+  public async addOrderType(locationId: string, orderTypeId: string): Promise<void> {
+    const params = { order_type_id: orderTypeId }
+    await this.httpClient.post<Promise<void>>(`/locations/${locationId}/order-types`, { params })
+  }
+
+  public async deleteOrderType(locationId: string, orderTypeId: string): Promise<void> {
+    await this.httpClient.delete<Promise<void>>(`/locations/${locationId}/order-types/${orderTypeId}`)
   }
 }

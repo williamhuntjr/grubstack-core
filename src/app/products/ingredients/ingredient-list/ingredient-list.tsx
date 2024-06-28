@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useCallback, useState } from 'react'
+import React, { FC, ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
 import { usePagination } from 'common/hooks/pagination.hook'
@@ -79,7 +79,7 @@ export const IngredientList: FC = () => {
     pagination: filePickerPagination
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
 
-  const handleListItemAction = useCallback((item: IIngredientListItem, action: IListAction): void => {
+  const handleListItemAction = (item: IIngredientListItem, action: IListAction): void => {
     switch (action.label) {
       case IngredientAction.Delete:
         openDeleteDialog(item?.id ?? '')
@@ -97,9 +97,9 @@ export const IngredientList: FC = () => {
       default:
         break
     }
-  }, [canEditIngredients, openIngredientDialog, openDeleteDialog])
+  }
 
-  const handleSubmit = useCallback(async (data: IIngredientListItem): Promise<void> => {
+  const handleSubmit = async (data: IIngredientListItem): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     closeIngredientDialog()
     try {
@@ -123,9 +123,9 @@ export const IngredientList: FC = () => {
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
     }
-  }, [closeIngredientDialog, refresh, state.mode, ErrorHandler, IngredientService, validationMessages.createSuccess, validationMessages.updateSuccess])
+  }
 
-  const handleSpeedAction = useCallback((action: string): void => {
+  const handleSpeedAction = (action: string): void => {
     switch (action) {
       case IngredientAction.New:
         setIsPickerDirty(false)
@@ -135,9 +135,9 @@ export const IngredientList: FC = () => {
       default:
         break
     }
-  }, [openIngredientDialog])
+  }
 
-  const onDelete = useCallback(async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     closeDeleteDialog()
     try {
       await IngredientService.delete(deleteDialogData ?? '')
@@ -147,9 +147,9 @@ export const IngredientList: FC = () => {
     } finally {
       await pagination.onChangePage(1)
     }
-  }, [closeDeleteDialog, pagination, deleteDialogData, ErrorHandler, IngredientService, validationMessages.deleteSuccess])
+  }
 
-  const handleFilePickerAction = useCallback((file: IMediaLibraryFile, action: MediaLibraryAction): void => {
+  const handleFilePickerAction = (file: IMediaLibraryFile, action: MediaLibraryAction): void => {
     switch (action) {
       case MediaLibraryAction.Select:
         if (filePickerData) {
@@ -164,7 +164,7 @@ export const IngredientList: FC = () => {
       default:
         break
     }
-  }, [setIngredientData, closeFilePickerDialog, filePickerData])
+  }
 
   return (
     <div className={styles.ingredientList}>
