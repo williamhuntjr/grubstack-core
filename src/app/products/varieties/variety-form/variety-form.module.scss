@@ -38,7 +38,9 @@ $itemFormWidth: 500px;
       margin: 0 !important;
     }
   }
-  .thumbnailUrl { display: none; }
+  .thumbnailUrl {
+    display: none;
+  }
   .saveButton {
     display: block;
     margin-left: auto;

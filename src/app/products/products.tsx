@@ -28,8 +28,6 @@ export const Products: FC = () => {
 
   // eslint-disable-next-line
   useEffect(() => init(), [])
-  
-  return (
-    <></>
-  )
+
+  return <></>
 }

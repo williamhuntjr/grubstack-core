@@ -25,13 +25,7 @@ import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { useProductModule } from 'app/products/products-module-hook'
 import { IMenu, IMenuState } from 'app/products/menus/menus.types'
 import { menuRoutePath } from 'app/products/menus/menus.constants'
-import { 
-  MenuSpeedActions,
-  defaultMenuState, 
-  MenuActionsEditMode, 
-  MenuActionsViewMode, 
-  MenuAction,
-} from './menu-list.constants'
+import { MenuSpeedActions, defaultMenuState, MenuActionsEditMode, MenuActionsViewMode, MenuAction } from './menu-list.constants'
 import { MenuForm } from '../menu-form/menu-form'
 import { defaultMenuFormData } from '../menu-form/menu-form.constants'
 import { IMenuFormValues } from '../menu-form/menu-form.types'
@@ -41,47 +35,43 @@ export const MenuList: FC = () => {
   const { ErrorHandler } = useCoreModule()
   const { MenuService } = useProductModule()
 
-  const [ state, setState ] = useState<IMenuState>(defaultMenuState)
+  const [state, setState] = useState<IMenuState>(defaultMenuState)
   const { MediaLibraryService } = useMediaLibraryModule()
-  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
+  const [isPickerDirty, setIsPickerDirty] = useState<boolean>(false)
 
   const canEditMenus = hasPermission(UserPermissions.MaintainMenus)
   const validationMessages = generateValidationMessages(ObjectType.Menu)
 
   let navigate = useNavigate()
-  
+
   const {
     setData: setMenuData,
     data: menuDialogData,
     open: menuDialogOpen,
     openDialog: openMenuDialog,
     closeDialog: closeMenuDialog,
-  } = useDialog<IMenu|null>()
+  } = useDialog<IMenu | null>()
 
   const {
     data: deleteDialogData,
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
-  } = useDialog<string|null>(null)
+  } = useDialog<string | null>(null)
 
   const {
     data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
-    openDialog: openFilePickerDialog
-  } = useDialog<IMenu|null>(null)
+    openDialog: openFilePickerDialog,
+  } = useDialog<IMenu | null>(null)
 
-  const {
-    refresh,
-    state: paginationState,
-    pagination: pagination
-  } = usePagination<IMenu>(MenuService.getAll)
+  const { refresh, state: paginationState, pagination: pagination } = usePagination<IMenu>(MenuService.getAll)
 
-  const {
-    state: filePickerPaginationState,
-    pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
+  const { state: filePickerPaginationState, pagination: filePickerPagination } = usePagination<IMediaLibraryFile>(
+    MediaLibraryService.getAll,
+    filePickerSize
+  )
 
   const handleCardAction = (item: IMenu, action: IListAction): void => {
     switch (action.label) {
@@ -160,7 +150,7 @@ export const MenuList: FC = () => {
         if (filePickerData) {
           setMenuData({
             ...filePickerData,
-            thumbnail_url: file.url
+            thumbnail_url: file.url,
           })
         }
         setIsPickerDirty(true)
@@ -176,11 +166,11 @@ export const MenuList: FC = () => {
       <GrubDialog
         open={menuDialogOpen}
         onClose={closeMenuDialog}
-        title={state.mode == GSMode.New ? "Create a new menu" : menuDialogData?.name ?? ''}
+        title={state.mode == GSMode.New ? 'Create a new menu' : menuDialogData?.name ?? ''}
       >
-        <MenuForm 
-          mode={state.mode} 
-          data={menuDialogData} 
+        <MenuForm
+          mode={state.mode}
+          data={menuDialogData}
           onSubmit={handleSubmit}
           isPickerDirty={isPickerDirty}
           onOpenFilePicker={openFilePickerDialog}
@@ -202,13 +192,13 @@ export const MenuList: FC = () => {
         pagination={filePickerPagination}
         onAction={handleFilePickerAction}
       />
-      {(paginationState.isLoading || state.isLoading) &&  <Loading />}
-      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
-        <CardList 
-          data={paginationState.data} 
-          onAction={handleCardAction} 
-          actions={canEditMenus ? MenuActionsEditMode : MenuActionsViewMode} 
-          pages={paginationState.pages} 
+      {(paginationState.isLoading || state.isLoading) && <Loading />}
+      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading && (
+        <CardList
+          data={paginationState.data}
+          onAction={handleCardAction}
+          actions={canEditMenus ? MenuActionsEditMode : MenuActionsViewMode}
+          pages={paginationState.pages}
           page={paginationState.pagination.page}
           onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
             void pagination.onChangePage(page)
@@ -217,19 +207,19 @@ export const MenuList: FC = () => {
           cols={5}
           buttonColor="secondary"
         />
-      }
-      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading &&
+      )}
+      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading && (
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any menus.</h2>
           <p>You will need to create a menu to continue.</p>
-          {canEditMenus &&
-            <Button onClick={() => openMenuDialog(defaultMenuFormData)} variant="outlined" color="primary">Create a Menu</Button>
-          }
+          {canEditMenus && (
+            <Button onClick={() => openMenuDialog(defaultMenuFormData)} variant="outlined" color="primary">
+              Create a Menu
+            </Button>
+          )}
         </div>
-      }
-      {canEditMenus && 
-        <SpeedDialer actions={MenuSpeedActions} onAction={handleSpeedAction} />
-      }
+      )}
+      {canEditMenus && <SpeedDialer actions={MenuSpeedActions} onAction={handleSpeedAction} />}
     </div>
   )
 }

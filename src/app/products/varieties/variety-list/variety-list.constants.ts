@@ -23,21 +23,21 @@ export const VarietyActionsViewMode = [
 export const VarietyActionsEditMode = [
   {
     label: VarietyAction.Build,
-    icon: HardwareIcon
+    icon: HardwareIcon,
   },
   {
     label: VarietyAction.Edit,
-    icon: EditIcon
+    icon: EditIcon,
   },
   {
     label: VarietyAction.Delete,
     icon: DeleteIcon,
-  }
+  },
 ]
 
-export const VarietySpeedActions:ISpeedDialerAction[] = [
+export const VarietySpeedActions: ISpeedDialerAction[] = [
   {
     label: VarietyAction.New,
     icon: AddIcon,
-  }
+  },
 ]

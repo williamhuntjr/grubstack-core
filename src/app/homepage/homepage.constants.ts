@@ -19,36 +19,36 @@ export const homepageCards = [
     label: 'Add a Location',
     description: 'Create new restaurant locations',
     icon: AddLocationIcon,
-    path: restaurantLocationsPath
+    path: restaurantLocationsPath,
   },
   {
     label: 'Media Library',
     description: 'Add images for your menus',
     icon: ImageIcon,
-    path: mediaLibraryRoutePath
+    path: mediaLibraryRoutePath,
   },
   {
     label: 'Add a Product',
     description: 'Create a product for your food menu',
     icon: FastfoodIcon,
-    path: productRoutePath
+    path: productRoutePath,
   },
   {
     label: 'Add Employees',
     description: 'Keep track of location employees',
     icon: FaceIcon,
-    path: employeeRoutePath
+    path: employeeRoutePath,
   },
   {
     label: 'Manage Reviews',
     description: 'See what your customers are saying',
     icon: StarsIcon,
-    path: reviewRoutePath
+    path: reviewRoutePath,
   },
   {
     label: 'Create a Campaign',
     description: 'Boost sales and revenue',
     icon: CampaignIcon,
-    path: marketingRoutePath
-  }
+    path: marketingRoutePath,
+  },
 ]

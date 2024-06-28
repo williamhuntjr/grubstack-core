@@ -18,7 +18,7 @@ function TabPanelContent(props: ITabPanelProps): JSX.Element {
       {...other}
       className={styles.tabPanelContent}
     >
-      {value === name && (children)}
+      {value === name && children}
     </div>
   )
 }
@@ -43,53 +43,51 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
   useEffect(() => {
     if (currentTab) {
       tabs.map((tab, index) => {
-        if (tab.name == currentTab) { setValue(index) }
+        if (tab.name == currentTab) {
+          setValue(index)
+        }
       })
     }
   }, [currentTab, tabs])
 
   return (
     <div className={styles.tabPanelContainer}>
-      {label != undefined &&
-      <>
-        <h2 className="page-header">{label}</h2>
-        <Divider/>
-      </>
-      }
+      {label != undefined && (
+        <>
+          <h2 className="page-header">{label}</h2>
+          <Divider />
+        </>
+      )}
       <div className={styles.tabContainer}>
         <Tabs value={value} onChange={handleChange} aria-label="Tabs">
-          {tabs.map((tab, index) => 
-              tab.path ?
-                <Tab 
-                  key={index} 
-                  label={tab.name}
-                  component="a"
-                  onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-                    event.preventDefault()
-                    setValue(index)
-                    if (tab.path) {
-                      navigate(tab.path)
-                    }
-                  }}
-                  href={tab.path}
-                  {...tabProps(tab.name)}
-                  className={styles.tab}
-                /> 
-                :
-                <Tab 
-                  key={index} 
-                  label={tab.name}
-                  {...tabProps(tab.name)} 
-                  className={styles.tab}
-                /> 
+          {tabs.map((tab, index) =>
+            tab.path ? (
+              <Tab
+                key={index}
+                label={tab.name}
+                component="a"
+                onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+                  event.preventDefault()
+                  setValue(index)
+                  if (tab.path) {
+                    navigate(tab.path)
+                  }
+                }}
+                href={tab.path}
+                {...tabProps(tab.name)}
+                className={styles.tab}
+              />
+            ) : (
+              <Tab key={index} label={tab.name} {...tabProps(tab.name)} className={styles.tab} />
+            )
           )}
         </Tabs>
       </div>
-      {tabs.map((tab, index) => 
-      <TabPanelContent value={currentTab} name={tab.name} key={index}>
-        <tab.component />
-      </TabPanelContent>
-      )}
+      {tabs.map((tab, index) => (
+        <TabPanelContent value={currentTab} name={tab.name} key={index}>
+          <tab.component />
+        </TabPanelContent>
+      ))}
     </div>
   )
 }

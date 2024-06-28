@@ -5,15 +5,15 @@ import { IVariety } from 'app/products/varieties/varieties.types'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { BuilderTypes } from '../builder.constants'
 
-export type IBuilderDataItem = IMenu|IIngredient|IItem
+export type IBuilderDataItem = IMenu | IIngredient | IItem
 
 export interface IBuilderToolState {
   isLoading: boolean
   childType: BuilderTypes
   data: IBuilderDataItem[]
-  selected: IItem|IMenu|IVariety|null
-  parent: IItem|IMenu|IVariety|null
-  optional: IVariety[]|null
+  selected: IItem | IMenu | IVariety | null
+  parent: IItem | IMenu | IVariety | null
+  optional: IVariety[] | null
   page: number
   pages: number
   mode: GSMode

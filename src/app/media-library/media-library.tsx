@@ -15,12 +15,12 @@ import { ObjectType } from 'common/objects'
 import { FileUpload } from 'common/components/file-upload/file-upload'
 import { useCoreModule } from 'core/core-module-hook'
 import { MediaFileList } from 'common/components/media-file-list/media-file-list'
-import { 
-  MediaLibrarySpeedActions, 
-  defaultMediaLibraryState, 
+import {
+  MediaLibrarySpeedActions,
+  defaultMediaLibraryState,
   MediaLibraryAction,
   mediaLibraryPageLimit,
-  defaultMediaLibraryFormData
+  defaultMediaLibraryFormData,
 } from './media-library.constants'
 import { IMediaLibraryFile, IMediaLibraryState } from './media-library.types'
 import { useMediaLibraryModule } from './media-library-module-hook'
@@ -42,12 +42,12 @@ export const MediaLibrary = (): JSX.Element => {
     open: mediaDialogOpen,
     openDialog: openMediaDialog,
     closeDialog: closeMediaDialog,
-  } = useDialog<IMediaLibraryFile|null>()
+  } = useDialog<IMediaLibraryFile | null>()
 
   const {
     refresh,
     state: paginationState,
-    pagination: pagination
+    pagination: pagination,
   } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, mediaLibraryPageLimit)
 
   const handleSpeedAction = (action: string): void => {
@@ -62,14 +62,11 @@ export const MediaLibrary = (): JSX.Element => {
   }
 
   const handleUpload = async (files: FileList): Promise<void> => {
-    await toast.promise(
-      MediaLibraryService.uploadFiles(files),
-      {
-        pending: 'Your files are uploading',
-        success: 'File upload complete',
-        error: 'Unable to upload files'
-      }
-    )
+    await toast.promise(MediaLibraryService.uploadFiles(files), {
+      pending: 'Your files are uploading',
+      success: 'File upload complete',
+      error: 'Unable to upload files',
+    })
     closeMediaDialog()
     void refresh()
   }
@@ -108,41 +105,39 @@ export const MediaLibrary = (): JSX.Element => {
       <GrubDialog
         open={mediaDialogOpen}
         onClose={closeMediaDialog}
-        title={state.mode == GSMode.New ? "Add to media library" : mediaDialogData?.name ? mediaDialogData?.name : '' ?? ''}
+        title={state.mode == GSMode.New ? 'Add to media library' : mediaDialogData?.name ? mediaDialogData?.name : '' ?? ''}
       >
-        {state.mode == GSMode.New &&
-          <FileUpload onUpload={handleUpload} />
-        }
-        {state.mode != GSMode.New && mediaDialogData != null &&
+        {state.mode == GSMode.New && <FileUpload onUpload={handleUpload} />}
+        {state.mode != GSMode.New && mediaDialogData != null && (
           <FilePreview data={mediaDialogData} mode={state.mode} onDelete={handleDeleteFile} />
-        }
+        )}
       </GrubDialog>
-      {(paginationState.isLoading || state.isLoading) &&  <Loading />}
-      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
-      <>
-        <h2 className="page-header">Media Library</h2>
-        <Divider className={styles.divider}/>
-        <MediaFileList 
-          data={paginationState.data}
-          onAction={handleMediaFileListAction}
-          pages={paginationState.pages} 
-          page={paginationState.pagination.page}
-          onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
-            void pagination.onChangePage(page)
-          }}
-        />
-      </>
-      }
-      {(paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading) &&
+      {(paginationState.isLoading || state.isLoading) && <Loading />}
+      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading && (
+        <>
+          <h2 className="page-header">Media Library</h2>
+          <Divider className={styles.divider} />
+          <MediaFileList
+            data={paginationState.data}
+            onAction={handleMediaFileListAction}
+            pages={paginationState.pages}
+            page={paginationState.pagination.page}
+            onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+              void pagination.onChangePage(page)
+            }}
+          />
+        </>
+      )}
+      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading && (
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any files in your media library.</h2>
           <p>You will need to upload files to continue.</p>
-          <Button onClick={() => openMediaDialog(defaultMediaLibraryFormData)} variant="outlined" color="primary">Upload a File</Button>
+          <Button onClick={() => openMediaDialog(defaultMediaLibraryFormData)} variant="outlined" color="primary">
+            Upload a File
+          </Button>
         </div>
-      }
-      {canEditMediaLibrary && 
-        <SpeedDialer actions={MediaLibrarySpeedActions} onAction={handleSpeedAction} />
-      }
+      )}
+      {canEditMediaLibrary && <SpeedDialer actions={MediaLibrarySpeedActions} onAction={handleSpeedAction} />}
     </div>
   )
 }

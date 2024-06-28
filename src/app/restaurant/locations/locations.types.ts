@@ -20,9 +20,8 @@ export interface ILocation {
 export interface ILocationState {
   isLoading: boolean
   mode: GSMode
-  data: ILocation|null
+  data: ILocation | null
 }
-
 
 export interface ILocationFilters {
   id: string
@@ -41,4 +40,3 @@ export interface ILocationService {
   addOrderType(locationId: string, orderTypeId: string): Promise<void>
   deleteOrderType(locationId: string, orderTypeId: string): Promise<void>
 }
-

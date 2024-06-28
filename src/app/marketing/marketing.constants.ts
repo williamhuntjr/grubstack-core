@@ -4,7 +4,4 @@ export const marketingServiceToken = 'MarketingService'
 export const marketingModule = 'MarketingModule'
 export const marketingRoutePath = '/marketing'
 
-export const marketingPermissions = [
-  UserPermissions.ViewMarketing,
-  UserPermissions.MaintainMarketing
-]
+export const marketingPermissions = [UserPermissions.ViewMarketing, UserPermissions.MaintainMarketing]

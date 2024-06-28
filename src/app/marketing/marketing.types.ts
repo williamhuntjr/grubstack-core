@@ -1,7 +1,3 @@
-export interface IMarketingService {
+export interface IMarketingService {}
 
-}
-
-export interface IMarketing {
-  
-}
+export interface IMarketing {}

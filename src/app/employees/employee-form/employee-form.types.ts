@@ -14,8 +14,7 @@ export enum EmployeeFormField {
   EmploymentStatus = 'employment_status',
   Phone = 'phone',
   Email = 'email',
-  ThumbnailUrl = 'profile_thumbnail_url'
-
+  ThumbnailUrl = 'profile_thumbnail_url',
 }
 
 export enum EmployeeFormLabel {
@@ -31,7 +30,7 @@ export enum EmployeeFormLabel {
   EmploymentStatus = 'Employment Status',
   Phone = 'Phone',
   Email = 'Email',
-  ThumbnailUrl = 'Thumbnail Url'
+  ThumbnailUrl = 'Thumbnail Url',
 }
 
 export interface IEmployeeFormValues {
@@ -52,8 +51,8 @@ export interface IEmployeeFormValues {
 
 export interface IEmployeeForm {
   onSubmit(data: IEmployeeFormValues): Promise<void>
-  data?: IEmployee|null
+  data?: IEmployee | null
   mode: GSMode
   isPickerDirty: boolean
-  onOpenFilePicker: (data: IEmployee|null) => void
+  onOpenFilePicker: (data: IEmployee | null) => void
 }

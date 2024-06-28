@@ -20,5 +20,5 @@ export const mediaLibraryRoute: IAsyncRoute<MediaLibraryModuleDefinition> = {
   isSidebarButton: true,
   permissions: mediaLibraryPermissions,
   icon: PermMediaIcon,
-  childrenRoutesFactory: mediaLibraryRouteFactory
+  childrenRoutesFactory: mediaLibraryRouteFactory,
 }

@@ -1,10 +1,5 @@
 import React, { FC, useState } from 'react'
-import { 
-  useMatch, 
-  useResolvedPath, 
-  Link,
-  useNavigate
-} from 'react-router-dom'
+import { useMatch, useResolvedPath, Link, useNavigate } from 'react-router-dom'
 import Fade from '@mui/material/Fade'
 import Tooltip from '@mui/material/Tooltip'
 import { cls } from 'common/utils/utils'
@@ -24,26 +19,16 @@ const SidebarSubMenuItem: FC<ISidebarItem> = ({ route, onClick }) => {
 
   return (
     <>
-    {route.icon &&
-      <Link
-        onClick={onClick}
-        role="menuitem"
-        to={route.path}
-        className={cls(styles.subMenuLink, match ? styles.activeSubMenuLink : '')}
-      >
-        <route.icon className={styles.subNavIcon} /> {route.label}
-      </Link>
-    }
-    {!route.icon &&
-      <Link
-        onClick={onClick}
-        role="menuitem"
-        to={route.path}
-        className={cls(styles.subMenuLink, match ? styles.activeSubMenuLink : '')}
-      >
-        {route.label}
-      </Link>
-    }
+      {route.icon && (
+        <Link onClick={onClick} role="menuitem" to={route.path} className={cls(styles.subMenuLink, match ? styles.activeSubMenuLink : '')}>
+          <route.icon className={styles.subNavIcon} /> {route.label}
+        </Link>
+      )}
+      {!route.icon && (
+        <Link onClick={onClick} role="menuitem" to={route.path} className={cls(styles.subMenuLink, match ? styles.activeSubMenuLink : '')}>
+          {route.label}
+        </Link>
+      )}
     </>
   )
 }
@@ -58,25 +43,25 @@ const SidebarItem: FC<ISidebarItem> = ({ route }) => {
 
   return (
     <>
-    {route.icon != undefined && !route.submenu &&
-      <Tooltip
-        arrow
-        disableInteractive
-        title={route.label}
-        placement="right"
-        TransitionComponent={Fade}
-        TransitionProps={{ timeout: 600 }}
-      >
+      {route.icon != undefined && !route.submenu && (
+        <Tooltip
+          arrow
+          disableInteractive
+          title={route.label}
+          placement="right"
+          TransitionComponent={Fade}
+          TransitionProps={{ timeout: 600 }}
+        >
+          <div className={cls(styles.navItem, match ? styles.activeNavItem : '')}>
+            <route.icon className={styles.navIcon} />
+          </div>
+        </Tooltip>
+      )}
+      {route.icon != undefined && route.submenu && (
         <div className={cls(styles.navItem, match ? styles.activeNavItem : '')}>
-          <route.icon className={styles.navIcon}/>
+          <route.icon className={styles.navIcon} />
         </div>
-      </Tooltip>
-      }
-      {route.icon != undefined && route.submenu &&
-        <div className={cls(styles.navItem, match ? styles.activeNavItem : '')}>
-          <route.icon className={styles.navIcon}/>
-        </div>
-      }
+      )}
     </>
   )
 }
@@ -87,7 +72,7 @@ export const DesktopSidebar = (): JSX.Element => {
 
   const navigate = useNavigate()
 
-  const userRoutes = sidebarRoutes.filter(route => validateRoutePermissions(route.permissions ?? []))
+  const userRoutes = sidebarRoutes.filter((route) => validateRoutePermissions(route.permissions ?? []))
 
   const handleListHover = (name: string, isOpen: boolean): void => {
     setOpen(isOpen)
@@ -100,7 +85,7 @@ export const DesktopSidebar = (): JSX.Element => {
     <div className={styles.sidebarContainer}>
       <div className={styles.desktopContainer}>
         <ul className={styles.navbarList}>
-          {userRoutes.map((route, index) => 
+          {userRoutes.map((route, index) => (
             <li
               key={`navbar-link-${index}`}
               role="menuitem"
@@ -114,25 +99,25 @@ export const DesktopSidebar = (): JSX.Element => {
             >
               <SidebarItem route={route} key={index} onClick={() => handleListHover('', false)} />
             </li>
-          )}
+          ))}
         </ul>
-        {userRoutes.map((route, index) => 
+        {userRoutes.map((route, index) => (
           <div key={index}>
-            {route.submenu && 
-              <div 
-                className={cls(styles.subMenuContainer, open && anchor == `submenu-${index}` ? styles.activeSubmenu : '')} 
+            {route.submenu && (
+              <div
+                className={cls(styles.subMenuContainer, open && anchor == `submenu-${index}` ? styles.activeSubmenu : '')}
                 onMouseLeave={() => handleListHover('', false)}
               >
                 <h4>{route.label}</h4>
                 <div className={styles.subMenuLinks}>
-                  {route.submenu.map((subRoute, subIndex) => 
+                  {route.submenu.map((subRoute, subIndex) => (
                     <SidebarSubMenuItem route={subRoute} key={subIndex} onClick={() => handleListHover('', false)} />
-                  )}
+                  ))}
                 </div>
               </div>
-            }
+            )}
           </div>
-        )}
+        ))}
       </div>
     </div>
   )

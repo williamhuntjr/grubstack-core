@@ -13,14 +13,16 @@ export const Header: FC<IHeader> = memo(({ onToggle, sidebarOpen }) => {
     <div className={styles.headerContainer}>
       <div className={styles.headerContent}>
         <Button onClick={onToggle} className={styles.menuToggleButton}>
-          {sidebarOpen && (<MenuOpenIcon />) }
-          {!sidebarOpen && (<MenuIcon />) }
+          {sidebarOpen && <MenuOpenIcon />}
+          {!sidebarOpen && <MenuIcon />}
         </Button>
         <div className={styles.logoContainer}>
-          <a href={`${appConfig.productionUrl}/dashboard`}><img src={logo} alt="" className={styles.logoImage}/></a>
+          <a href={`${appConfig.productionUrl}/dashboard`}>
+            <img src={logo} alt="" className={styles.logoImage} />
+          </a>
         </div>
-        <div className={styles.userMenu}
-          ><UserMenu />
+        <div className={styles.userMenu}>
+          <UserMenu />
         </div>
       </div>
     </div>

@@ -35,9 +35,9 @@ export const VarietyList: FC = () => {
   const { ErrorHandler } = useCoreModule()
   const { VarietyService } = useProductModule()
 
-  const [ state, setState ] = useState<IVarietyState>(defaultVarietyState)
+  const [state, setState] = useState<IVarietyState>(defaultVarietyState)
   const { MediaLibraryService } = useMediaLibraryModule()
-  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
+  const [isPickerDirty, setIsPickerDirty] = useState<boolean>(false)
 
   let navigate = useNavigate()
 
@@ -50,7 +50,7 @@ export const VarietyList: FC = () => {
     open: varietyDialogOpen,
     openDialog: openVarietyDialog,
     closeDialog: closeVarietyDialog,
-  } = useDialog<IVariety|null>()
+  } = useDialog<IVariety | null>()
 
   const {
     data: deleteDialogData,
@@ -58,24 +58,20 @@ export const VarietyList: FC = () => {
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
   } = useDialog<string | null>(null)
-  
+
   const {
     data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
-    openDialog: openFilePickerDialog
-  } = useDialog<IVariety|null>(null)
+    openDialog: openFilePickerDialog,
+  } = useDialog<IVariety | null>(null)
 
-  const {
-    refresh,
-    state: paginationState,
-    pagination: pagination
-  } = usePagination<IVariety>(VarietyService.getAll)
+  const { refresh, state: paginationState, pagination: pagination } = usePagination<IVariety>(VarietyService.getAll)
 
-  const {
-    state: filePickerPaginationState,
-    pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
+  const { state: filePickerPaginationState, pagination: filePickerPagination } = usePagination<IMediaLibraryFile>(
+    MediaLibraryService.getAll,
+    filePickerSize
+  )
 
   const handleCardAction = (item: IVariety, action: IListAction): void => {
     switch (action.label) {
@@ -120,11 +116,11 @@ export const VarietyList: FC = () => {
         case GSMode.New:
           await VarietyService.create(data)
           toast.success(validationMessages.createSuccess)
-        break
+          break
         case GSMode.Edit:
           await VarietyService.update(data)
           toast.success(validationMessages.updateSuccess)
-        break
+          break
         default:
           break
       }
@@ -154,7 +150,7 @@ export const VarietyList: FC = () => {
         if (filePickerData) {
           setVarietyData({
             ...filePickerData,
-            thumbnail_url: file.url
+            thumbnail_url: file.url,
           })
         }
         setIsPickerDirty(true)
@@ -170,9 +166,9 @@ export const VarietyList: FC = () => {
       <GrubDialog
         open={varietyDialogOpen}
         onClose={closeVarietyDialog}
-        title={state.mode == GSMode.New ? "Create a new variety" : varietyDialogData?.name ?? ''}
+        title={state.mode == GSMode.New ? 'Create a new variety' : varietyDialogData?.name ?? ''}
       >
-        <VarietyForm 
+        <VarietyForm
           mode={state.mode}
           data={varietyDialogData}
           onClose={closeVarietyDialog}
@@ -197,13 +193,13 @@ export const VarietyList: FC = () => {
         pagination={filePickerPagination}
         onAction={handleFilePickerAction}
       />
-      {(paginationState.isLoading || state.isLoading) &&  <Loading />}
-      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
-        <CardList 
+      {(paginationState.isLoading || state.isLoading) && <Loading />}
+      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading && (
+        <CardList
           data={paginationState.data}
-          actions={canEditVarieties ? VarietyActionsEditMode : VarietyActionsViewMode} 
+          actions={canEditVarieties ? VarietyActionsEditMode : VarietyActionsViewMode}
           onAction={handleCardAction}
-          pages={paginationState.pages} 
+          pages={paginationState.pages}
           page={paginationState.pagination.page}
           onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
             void pagination.onChangePage(page)
@@ -212,19 +208,19 @@ export const VarietyList: FC = () => {
           cols={5}
           buttonColor="secondary"
         />
-      }
-      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading &&
+      )}
+      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading && (
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any varieties.</h2>
           <p>You will need to create a variety to continue.</p>
-          {canEditVarieties && 
-            <Button onClick={() => openVarietyDialog(defaultVarietyFormData)} variant="outlined" color="primary">Create a Variety</Button>
-          }
+          {canEditVarieties && (
+            <Button onClick={() => openVarietyDialog(defaultVarietyFormData)} variant="outlined" color="primary">
+              Create a Variety
+            </Button>
+          )}
         </div>
-      }
-      {canEditVarieties && 
-        <SpeedDialer actions={VarietySpeedActions} onAction={handleSpeedAction} />
-      }
+      )}
+      {canEditVarieties && <SpeedDialer actions={VarietySpeedActions} onAction={handleSpeedAction} />}
     </div>
   )
 }

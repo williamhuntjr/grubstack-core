@@ -18,5 +18,5 @@ export const defaultIngredientFormData = {
   [IngredientFormField.Name]: '',
   [IngredientFormField.Description]: '',
   [IngredientFormField.Thumbnail]: '',
-  ...defaultIngredientMeasurements
+  ...defaultIngredientMeasurements,
 }

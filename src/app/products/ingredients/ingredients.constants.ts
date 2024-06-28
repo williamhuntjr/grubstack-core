@@ -1,7 +1,7 @@
 import { GSMode } from 'common/utils/mode/mode.types'
 
 export const ingredientServiceToken = 'IngredientService'
- 
+
 export const defaultIngredientState = {
   isLoading: false,
   data: [],

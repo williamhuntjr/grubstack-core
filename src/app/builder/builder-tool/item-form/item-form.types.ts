@@ -11,6 +11,6 @@ export interface IBuilderItemFormValues {
 export interface IItemForm {
   onClose(): void
   onSubmit(data: IBuilderItemFormValues): Promise<void>
-  data?: IItem|null
+  data?: IItem | null
   mode: GSMode
 }

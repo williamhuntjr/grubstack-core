@@ -20,8 +20,8 @@ export interface IEmployee {
   gender: string
   address1: string
   city: string
-  state: string 
-  postal: string 
+  state: string
+  postal: string
   phone: string
   email: string
   profile_thumbnail_url: string

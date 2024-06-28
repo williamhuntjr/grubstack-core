@@ -10,7 +10,7 @@ export class LocationService implements ILocationService {
   constructor(private readonly httpClient: AxiosInstance) {
     bindAllInstanceMethods(this)
   }
-  
+
   public async getAll(paginationParams: IPaginationParams): Promise<IPaginationData<ILocation>> {
     const params = prepareRequestParams(paginationParams)
     const {
@@ -19,7 +19,7 @@ export class LocationService implements ILocationService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
@@ -56,13 +56,13 @@ export class LocationService implements ILocationService {
       return {
         data: Array.isArray(data) ? data : [],
         total: status.totalrowcount,
-        pages: status.totalpages
+        pages: status.totalpages,
       }
     }
     return {
       data: [],
       total: 0,
-      pages: 0
+      pages: 0,
     }
   }
 

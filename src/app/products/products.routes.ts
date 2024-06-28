@@ -1,17 +1,17 @@
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import { IAsyncRoute, IRoute } from 'common/routing/routing.types'
 import { ProductModule, ProductModuleDefinition } from './products.module'
-import { 
+import {
   itemPermissions,
   ingredientPermissions,
   menuPermissions,
   varietyPermissions,
   productPermissions,
-  productRoutePath, 
+  productRoutePath,
 } from './products.constants'
 import { ItemsTab } from './product-tabs/items-tab/items-tab'
 import { IngredientsTab } from './product-tabs/ingredients-tab/ingredients-tab'
-import { MenusTab } from'./product-tabs/menus-tab/menus-tab'
+import { MenusTab } from './product-tabs/menus-tab/menus-tab'
 import { VarietiesTab } from './product-tabs/varieties-tab/varieties-tab'
 import { Products } from './products'
 
@@ -52,5 +52,5 @@ export const productRoute: IAsyncRoute<ProductModuleDefinition> = {
   isSidebarButton: true,
   permissions: productPermissions,
   icon: FastfoodIcon,
-  childrenRoutesFactory: productRouteFactory
+  childrenRoutesFactory: productRouteFactory,
 }

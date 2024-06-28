@@ -8,7 +8,9 @@ export const Header = (): JSX.Element => {
     <div className={styles.headerContainer}>
       <div className={styles.headerContent}>
         <div className={styles.logoContainer}>
-          <a href={`${appConfig.productionUrl}/dashboard`}><img src={logo} alt="" className={styles.logoImage}/></a>
+          <a href={`${appConfig.productionUrl}/dashboard`}>
+            <img src={logo} alt="" className={styles.logoImage} />
+          </a>
         </div>
       </div>
     </div>

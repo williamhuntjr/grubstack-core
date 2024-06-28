@@ -11,7 +11,7 @@ export enum ItemFormLabel {
 }
 
 export const defaultItemFormData = {
-  [ItemFormField.Price]: 0.00,
-  [ItemFormField.SalePrice]: 0.00,
+  [ItemFormField.Price]: 0.0,
+  [ItemFormField.SalePrice]: 0.0,
   [ItemFormField.OnSale]: false,
 }

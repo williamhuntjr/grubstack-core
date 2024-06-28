@@ -15,7 +15,7 @@ export function normalizeData(data: IEmployee[]): IEmployeeTableRow[] {
     employment_status: employee.employment_status,
     hire_date: employee.hire_date,
     profile_thumbnail_url: employee.profile_thumbnail_url,
-    job_title: capitalize(employee.job_title)
+    job_title: capitalize(employee.job_title),
   }))
 }
 
@@ -33,7 +33,7 @@ export function renderEmployeeIcon(row: IEmployeeTableRow): JSX.Element {
 
 export function renderEmployeeStatus(row: IEmployeeTableRow): JSX.Element {
   let statusClass
-  switch(row.employment_status) {
+  switch (row.employment_status) {
     case EmployeeStatus.Employed:
       statusClass = styles.active
       break
@@ -46,14 +46,12 @@ export function renderEmployeeStatus(row: IEmployeeTableRow): JSX.Element {
     default:
       statusClass = styles.active
   }
-  return (
-    <span className={cls(styles.employedStatus, statusClass)}>{capitalize(row.employment_status)}</span>
-  )
+  return <span className={cls(styles.employedStatus, statusClass)}>{capitalize(row.employment_status)}</span>
 }
 
 export function normalizeListData(data: IEmployee[]): IGrubListItem[] {
   return data.map((item) => ({
     value: item.id ?? '',
-    label: `${item.first_name} ${item.last_name}`
+    label: `${item.first_name} ${item.last_name}`,
   }))
 }

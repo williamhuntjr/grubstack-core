@@ -16,10 +16,7 @@ export const restaurantNotificationsPath = `${restaurantRoutePath}/notifications
 export const restaurantOrderSettingsPath = `${restaurantRoutePath}/order-settings`
 export const restaurantLoggingPath = `${restaurantRoutePath}/logging`
 
-export const restaurantPermissions = [
-  UserPermissions.ViewRestaurant,
-  UserPermissions.MaintainRestaurant
-]
+export const restaurantPermissions = [UserPermissions.ViewRestaurant, UserPermissions.MaintainRestaurant]
 
 export enum RestaurantProperty {
   'RestaurantName' = 'restaurant_name',

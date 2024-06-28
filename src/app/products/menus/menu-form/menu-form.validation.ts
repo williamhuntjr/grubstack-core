@@ -3,7 +3,5 @@ import { validationMessage } from 'common/validation/validation'
 import { MenuFormField } from './menu-form.types'
 
 export const MenuFormSchema = Yup.object().shape({
-  [MenuFormField.Name]: Yup.string()
-    .required(validationMessage.isRequired)
-    .typeError(validationMessage.isRequired)
+  [MenuFormField.Name]: Yup.string().required(validationMessage.isRequired).typeError(validationMessage.isRequired),
 })

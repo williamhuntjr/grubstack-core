@@ -7,25 +7,21 @@ import styles from './file-picker.module.scss'
 
 export const FilePicker: FC<IFilePicker> = ({ open, onClose, paginationState, pagination, onAction }) => {
   return (
-    <GrubDialog 
-      open={open}
-      onClose={onClose}
-      title={'Select a file from your library'}
-    >
+    <GrubDialog open={open} onClose={onClose} title={'Select a file from your library'}>
       <div className={styles.filePickerContainer}>
         {paginationState.isLoading && <Loading />}
-        {paginationState.data.length > 0 && !paginationState.isLoading &&
-        <MediaFileList 
-          data={paginationState.data}
-          onAction={onAction}
-          pages={paginationState.pages} 
-          page={paginationState.pagination.page}
-          onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
-            void pagination.onChangePage(page)
-          }}
-          isPicker={true}
-        />
-        }
+        {paginationState.data.length > 0 && !paginationState.isLoading && (
+          <MediaFileList
+            data={paginationState.data}
+            onAction={onAction}
+            pages={paginationState.pages}
+            page={paginationState.pagination.page}
+            onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+              void pagination.onChangePage(page)
+            }}
+            isPicker={true}
+          />
+        )}
       </div>
     </GrubDialog>
   )

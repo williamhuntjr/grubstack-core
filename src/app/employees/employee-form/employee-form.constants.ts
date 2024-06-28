@@ -11,54 +11,54 @@ export const defaultEmployeeFormData = {
   phone: '',
   email: '',
   hire_date: '',
-  job_title: 'server'
+  job_title: 'server',
 }
 
 export const genderTypes = [
   {
     select_value: 'not_specified',
-    select_label: 'Not Specified'
+    select_label: 'Not Specified',
   },
-  { 
+  {
     select_value: 'male',
-    select_label: 'Male'
+    select_label: 'Male',
   },
-  { 
+  {
     select_value: 'female',
-    select_label: 'Female'
-  }
+    select_label: 'Female',
+  },
 ]
 
 export const jobTitles = [
   {
     select_value: 'manager',
-    select_label: 'Manager'
+    select_label: 'Manager',
   },
-  { 
+  {
     select_value: 'cook',
-    select_label: 'Cook'
+    select_label: 'Cook',
   },
-  { 
+  {
     select_value: 'server',
-    select_label: 'Server'
+    select_label: 'Server',
   },
-  { 
+  {
     select_value: 'bartender',
-    select_label: 'Bartender'
-  }
+    select_label: 'Bartender',
+  },
 ]
 
 export const employmentStatusList = [
   {
     select_value: 'active',
-    select_label: 'Active'
+    select_label: 'Active',
   },
-  { 
+  {
     select_value: 'suspended',
-    select_label: 'Suspended'
+    select_label: 'Suspended',
   },
-  { 
+  {
     select_value: 'terminated',
-    select_label: 'Terminated'
-  }
+    select_label: 'Terminated',
+  },
 ]

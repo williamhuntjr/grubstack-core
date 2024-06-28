@@ -18,7 +18,7 @@ export class VarietyService implements IVarietyService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
@@ -54,7 +54,7 @@ export class VarietyService implements IVarietyService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 

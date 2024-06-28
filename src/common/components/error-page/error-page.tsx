@@ -14,7 +14,9 @@ export const ErrorPage: FC<IErrorPage> = ({ headline, message, hideButton, fullP
       <LockIcon className={styles.lockIcon} color="primary" />
       <h2 className={styles.errorPageHeadline}>{headline}</h2>
       <p className={styles.errorPageMessage}>{message}</p>
-      <Button onClick={() => navigate(-1)} variant="outlined" color="primary" className={hideButton ? styles.hiddenButton : ''}>Go Back</Button>
+      <Button onClick={() => navigate(-1)} variant="outlined" color="primary" className={hideButton ? styles.hiddenButton : ''}>
+        Go Back
+      </Button>
     </div>
   )
 }

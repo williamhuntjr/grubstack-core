@@ -13,10 +13,7 @@ export const employeeModule = 'EmployeeModule'
 
 export const employeeRoutePath = '/employees'
 
-export const employeePermissions = [
-  UserPermissions.ViewEmployees,
-  UserPermissions.MaintainEmployees
-]
+export const employeePermissions = [UserPermissions.ViewEmployees, UserPermissions.MaintainEmployees]
 
 export const defaultEmployeeState = {
   mode: GSMode.New,
@@ -30,7 +27,7 @@ export enum EmployeeAction {
   View = 'View Employee',
 }
 
-export const EmployeeSpeedActions:ISpeedDialerAction[] = [
+export const EmployeeSpeedActions: ISpeedDialerAction[] = [
   {
     label: EmployeeAction.New,
     icon: AddIcon,
@@ -40,7 +37,7 @@ export const EmployeeSpeedActions:ISpeedDialerAction[] = [
 export enum EmployeeStatus {
   Employed = 'employed',
   Terminated = 'terminated',
-  Suspended = 'suspended'
+  Suspended = 'suspended',
 }
 
 export interface IEmployeeColumn {
@@ -53,15 +50,15 @@ export interface IEmployeeColumn {
   phone: string
 }
 
-export const EmployeeTableActionsViewMode:ITableAction[] = [
+export const EmployeeTableActionsViewMode: ITableAction[] = [
   {
     label: EmployeeAction.View,
     icon: VisibilityIcon,
     color: undefined,
-  }
+  },
 ]
 
-export const EmployeeTableActionsEditMode:ITableAction[] = [
+export const EmployeeTableActionsEditMode: ITableAction[] = [
   {
     label: EmployeeAction.Edit,
     icon: EditIcon,
@@ -71,7 +68,7 @@ export const EmployeeTableActionsEditMode:ITableAction[] = [
     label: EmployeeAction.Delete,
     icon: DeleteIcon,
     color: undefined,
-  }
+  },
 ]
 
 export const employeeColumns: IGrubTableColumn<IEmployeeColumn>[] = [
@@ -85,7 +82,7 @@ export const employeeColumns: IGrubTableColumn<IEmployeeColumn>[] = [
     id: '2',
     field: 'name',
     headerName: 'Name',
-    renderCell: renderEmployeeIcon
+    renderCell: renderEmployeeIcon,
   },
   {
     id: '3',
@@ -101,7 +98,7 @@ export const employeeColumns: IGrubTableColumn<IEmployeeColumn>[] = [
     id: '5',
     field: 'employment_status',
     headerName: 'Status',
-    renderCell: renderEmployeeStatus
+    renderCell: renderEmployeeStatus,
   },
   {
     id: '6',
@@ -117,12 +114,12 @@ export const employeeColumns: IGrubTableColumn<IEmployeeColumn>[] = [
     id: '8',
     field: 'job_title',
     headerName: 'Job Title',
-    hidden: true
+    hidden: true,
   },
   {
     id: '9',
     field: 'profile_thumbnail_url',
     headerName: 'Thumbnail URL',
-    hidden: true
+    hidden: true,
   },
 ]

@@ -25,10 +25,14 @@
         width: 100%;
       }
       &:first-child {
-        .imageContent { padding-left: 0; }
+        .imageContent {
+          padding-left: 0;
+        }
       }
       &:last-child {
-        .imageContent { padding-right: 0; }
+        .imageContent {
+          padding-right: 0;
+        }
       }
       .imageContent {
         width: 100%;
@@ -39,7 +43,7 @@
           padding: 0;
           margin-bottom: $grid-large;
         }
-        h4 { 
+        h4 {
           margin-bottom: 0;
         }
         img {
@@ -54,7 +58,9 @@
         }
         .buttonContainer {
           margin-top: $grid-small;
-          button { margin-left: auto; }
+          button {
+            margin-left: auto;
+          }
         }
       }
     }

@@ -6,7 +6,7 @@ import { ISpeedDialerAction } from 'common/components/speed-dialer/speed-dialer.
 export enum ValidationLocationMenuMessage {
   AddMenuSuccess = 'The menu has been added to your location.',
   DeleteMenuSuccess = 'The menu has been deleted from your location.',
-  DeleteStoreMenu = 'You are about to remove this menu from your location. Do you wish to continue?'
+  DeleteStoreMenu = 'You are about to remove this menu from your location. Do you wish to continue?',
 }
 
 export enum FoodMenuAction {
@@ -23,12 +23,12 @@ export const FoodMenuActionsEditMode = [
   {
     label: FoodMenuAction.Delete,
     icon: DeleteIcon,
-  }
+  },
 ]
 
-export const FoodMenuSpeedActions:ISpeedDialerAction[] = [
+export const FoodMenuSpeedActions: ISpeedDialerAction[] = [
   {
     label: FoodMenuAction.Add,
     icon: AddIcon,
-  }
+  },
 ]

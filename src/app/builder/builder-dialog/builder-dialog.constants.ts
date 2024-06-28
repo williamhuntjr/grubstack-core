@@ -3,7 +3,7 @@ export const defaultBuilderDialogState = {
   pages: 1,
   page: 1,
   total: 0,
-  data: []
+  data: [],
 }
 
 export const builderDialogPageSize = 10

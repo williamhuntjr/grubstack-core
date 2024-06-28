@@ -32,11 +32,17 @@ $employeeFormHeight: 400px;
       width: 100%;
     }
   }
-  .firstName, .lastName, .gender, .employeeAddress {
+  .firstName,
+  .lastName,
+  .gender,
+  .employeeAddress {
     width: 100%;
     margin: 0 0 $grid-base 0;
   }
-  .employeeCity, .employeeState, .employeePostal, .thumbnailUrl {
+  .employeeCity,
+  .employeeState,
+  .employeePostal,
+  .thumbnailUrl {
     width: 100%;
   }
   .formField {
@@ -62,7 +68,9 @@ $employeeFormHeight: 400px;
       &:last-child {
         padding: 0 0 $grid-base 0;
       }
-      .jobTitle, .hireDate, .employmentStatus {
+      .jobTitle,
+      .hireDate,
+      .employmentStatus {
         width: 100%;
       }
     }
@@ -76,7 +84,8 @@ $employeeFormHeight: 400px;
       &:last-child {
         padding: 0 0 $grid-base 0;
       }
-      .phoneNumber, .emailAddress {
+      .phoneNumber,
+      .emailAddress {
         width: 100%;
       }
     }

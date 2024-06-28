@@ -19,24 +19,24 @@ import { defaultBrandingState } from './branding.constants'
 import styles from './branding.module.scss'
 
 export const Branding = (): JSX.Element => {
-  const [ state, setState ] = useState<IBrandingState>(defaultBrandingState)
+  const [state, setState] = useState<IBrandingState>(defaultBrandingState)
 
   const { RestaurantService } = useRestaurantModule()
   const { MediaLibraryService } = useMediaLibraryModule()
 
-  const {
-    state: filePickerPaginationState,
-    pagination: filePickerPagination,
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
+  const { state: filePickerPaginationState, pagination: filePickerPagination } = usePagination<IMediaLibraryFile>(
+    MediaLibraryService.getAll,
+    filePickerSize
+  )
 
   const {
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
     openDialog: openFilePickerDialog,
-    data: filePickerDialogData
-  } = useDialog<string|null>(null)
+    data: filePickerDialogData,
+  } = useDialog<string | null>(null)
 
-  const fetchData = async(): Promise<void> => {
+  const fetchData = async (): Promise<void> => {
     try {
       setState((prevState) => ({ ...prevState, isLoading: true }))
       const restaurantName = await RestaurantService.getProperty('restaurant_name')
@@ -49,7 +49,7 @@ export const Branding = (): JSX.Element => {
         restaurantName: restaurantName.data.value ?? '',
         logoImageUrl: logoImageUrl.data.value ?? '/assets/img/placeholder-image.jpg',
         bannerImageUrl: bannerImageUrl.data.value ?? '/assets/img/placeholder-image.jpg',
-        mobileBannerImageUrl: mobileBannerImageUrl.data.value ?? '/assets/img/placeholder-image.jpg'
+        mobileBannerImageUrl: mobileBannerImageUrl.data.value ?? '/assets/img/placeholder-image.jpg',
       }))
       setState((prevState) => ({ ...prevState, isLoading: false }))
     } catch (e) {
@@ -59,14 +59,14 @@ export const Branding = (): JSX.Element => {
 
   const handlePropertyChange = async (key: string, value: string): Promise<void> => {
     try {
-      await RestaurantService.updateProperty({ 'key': key, 'value': value })
+      await RestaurantService.updateProperty({ key: key, value: value })
       await fetchData()
     } catch (e) {
       console.error(e)
     }
   }
 
-  const updateRestaurantImage = async(key: string, value: string): Promise<void> => {
+  const updateRestaurantImage = async (key: string, value: string): Promise<void> => {
     try {
       await handlePropertyChange(key, value)
       toast.success('Your restaurant image has been updated.')
@@ -86,7 +86,7 @@ export const Branding = (): JSX.Element => {
     }
   }
 
-  const handleFilePickerAction = async(file: IMediaLibraryFile, action: MediaLibraryAction): Promise<void> => {
+  const handleFilePickerAction = async (file: IMediaLibraryFile, action: MediaLibraryAction): Promise<void> => {
     switch (action) {
       case MediaLibraryAction.Select:
         if (filePickerDialogData) {
@@ -103,62 +103,85 @@ export const Branding = (): JSX.Element => {
   useEffect(() => void fetchData(), [])
 
   return (
-    <RestaurantContainer label={"Branding"}>
+    <RestaurantContainer label={'Branding'}>
       {state.isLoading && <Loading />}
-      {!state.isLoading &&
-      <div className={styles.brandingContainer}>
-        <div className={styles.restaurantName}>
-          <h4>Restaurant Name</h4>
-          <TextField
-            id="restaurant-name"
-            variant="outlined"
-            className={styles.textField}
-            value={state.restaurantName}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setState((prevState) => ({
-                ...prevState,
-                restaurantName: event.target.value
-              }))
-            }}
-          />
-          <div className={styles.buttonContainer}>
-            <Button variant="contained" color="primary" onClick={() => void saveRestaurantName()}>Save</Button>
+      {!state.isLoading && (
+        <div className={styles.brandingContainer}>
+          <div className={styles.restaurantName}>
+            <h4>Restaurant Name</h4>
+            <TextField
+              id="restaurant-name"
+              variant="outlined"
+              className={styles.textField}
+              value={state.restaurantName}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setState((prevState) => ({
+                  ...prevState,
+                  restaurantName: event.target.value,
+                }))
+              }}
+            />
+            <div className={styles.buttonContainer}>
+              <Button variant="contained" color="primary" onClick={() => void saveRestaurantName()}>
+                Save
+              </Button>
+            </div>
+          </div>
+          <div className={styles.storeImages}>
+            <div className={cls(styles.imageContainer, styles.logoContainer)}>
+              <div className={styles.imageContent}>
+                <h4>Logo Image</h4>
+                <p className={styles.subTitle}>This image is used throughout your apps as your primary logo</p>
+                <img src={state.logoImageUrl} alt="" />
+                <div className={styles.buttonContainer}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={() => openFilePickerDialog(RestaurantProperty.LogoImageUrl)}
+                  >
+                    Change
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className={cls(styles.imageContainer, styles.logoContainer)}>
+              <div className={styles.imageContent}>
+                <h4>Home Banner Image</h4>
+                <p className={styles.subTitle}>This is the banner image on your order app home page</p>
+                <img src={state.bannerImageUrl} alt="" />
+                <div className={styles.buttonContainer}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={() => openFilePickerDialog(RestaurantProperty.BannerImageUrl)}
+                  >
+                    Change
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className={cls(styles.imageContainer, styles.logoContainer)}>
+              <div className={styles.imageContent}>
+                <h4>Mobile Home Banner Image</h4>
+                <p className={styles.subTitle}>This is the mobile banner image on your order app home page</p>
+                <img src={state.mobileBannerImageUrl} alt="" />
+                <div className={styles.buttonContainer}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={() => openFilePickerDialog(RestaurantProperty.MobileBannerImageUrl)}
+                  >
+                    Change
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className={styles.storeImages}>
-          <div className={cls(styles.imageContainer, styles.logoContainer)}>
-            <div className={styles.imageContent}>
-              <h4>Logo Image</h4>
-              <p className={styles.subTitle}>This image is used throughout your apps as your primary logo</p>
-              <img src={state.logoImageUrl} alt="" />
-              <div className={styles.buttonContainer}>
-                <Button variant="contained" color="primary" size="large" onClick={() => openFilePickerDialog(RestaurantProperty.LogoImageUrl)}>Change</Button>
-              </div>
-            </div>
-          </div>
-          <div className={cls(styles.imageContainer, styles.logoContainer)}>
-            <div className={styles.imageContent}>
-              <h4>Home Banner Image</h4>
-              <p className={styles.subTitle}>This is the banner image on your order app home page</p>
-              <img src={state.bannerImageUrl} alt="" />
-              <div className={styles.buttonContainer}>
-                <Button variant="contained" color="primary" size="large" onClick={() => openFilePickerDialog(RestaurantProperty.BannerImageUrl)}>Change</Button>
-              </div>
-            </div>
-          </div>
-          <div className={cls(styles.imageContainer, styles.logoContainer)}>
-            <div className={styles.imageContent}>
-              <h4>Mobile Home Banner Image</h4>
-              <p className={styles.subTitle}>This is the mobile banner image on your order app home page</p>
-              <img src={state.mobileBannerImageUrl} alt="" />
-              <div className={styles.buttonContainer}>
-                <Button variant="contained" color="primary" size="large" onClick={() => openFilePickerDialog(RestaurantProperty.MobileBannerImageUrl)}>Change</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      }
+      )}
       <FilePicker
         open={filePickerDialogOpen}
         onClose={closeFilePickerDialog}

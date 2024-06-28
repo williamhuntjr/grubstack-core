@@ -11,12 +11,12 @@
     flex-wrap: wrap;
     margin-bottom: $grid-base;
     .thumbnailContainer {
-      width: 10.00%;
+      width: 10%;
       @media screen and (max-width: $bp-md) {
         width: 16.66%;
       }
       @media screen and (max-width: $bp-sm) {
-        width: 20.00%;
+        width: 20%;
       }
       @media screen and (max-width: $bp-xs) {
         width: 33.33%;
@@ -26,7 +26,7 @@
       margin: $grid-small;
       border: $border-dark-gray-thick;
       height: unset;
-      aspect-ratio : 1 / 1;
+      aspect-ratio: 1 / 1;
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;

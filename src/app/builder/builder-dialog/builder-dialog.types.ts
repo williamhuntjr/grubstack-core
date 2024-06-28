@@ -14,5 +14,5 @@ export interface IBuilderDialogState {
   pages: number
   total: number
   isLoading: boolean
-  data: IItem[]|IMenu[]|IVariety[]
+  data: IItem[] | IMenu[] | IVariety[]
 }

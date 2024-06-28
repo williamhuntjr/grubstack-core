@@ -4,10 +4,7 @@ import { Locations } from './locations/locations'
 import { Branding } from './branding/branding'
 import { OrderTypes } from './order-types/order-types'
 import { RestaurantModule, RestaurantModuleDefinition } from './restaurant.module'
-import { 
-  restaurantPermissions,
-  restaurantRoutePath, 
-} from './restaurant.constants'
+import { restaurantPermissions, restaurantRoutePath } from './restaurant.constants'
 import { Restaurant } from './restaurant'
 import { FoodMenus } from './food-menus/food-menus'
 
@@ -93,5 +90,5 @@ export const restaurantRoute: IAsyncRoute<RestaurantModuleDefinition> = {
   isSidebarButton: true,
   permissions: restaurantPermissions,
   icon: StorefrontIcon,
-  childrenRoutesFactory: restaurantRouteFactory
+  childrenRoutesFactory: restaurantRouteFactory,
 }

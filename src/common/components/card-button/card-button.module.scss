@@ -26,7 +26,7 @@ $cardButtonSizeSmall: 250px;
 }
 .cardButtonContainerResponsive {
   @media screen and (max-width: $bp-sm) {
-    width: 100%; 
+    width: 100%;
   }
 }
 .cardButtonHeader {

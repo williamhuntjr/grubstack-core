@@ -20,7 +20,7 @@ import PermMediaIcon from '@mui/icons-material/PermMedia'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import CampaignIcon from '@mui/icons-material/Campaign'
-import { 
+import {
   productPermissions,
   ingredientPermissions,
   itemPermissions,
@@ -34,7 +34,7 @@ import { reviewPermissions, reviewRoutePath } from 'app/reviews/reviews.constant
 import { reportPermissions, reportRoutePath } from 'app/reports/reports.constants'
 import { marketingPermissions, marketingRoutePath } from 'app/marketing/marketing.constants'
 import { employeePermissions, employeeRoutePath } from 'app/employees/employees.constants'
-import { 
+import {
   restaurantPermissions,
   restaurantDeliveryZonesPath,
   restaurantOrderTypesPath,
@@ -45,11 +45,11 @@ import {
   restaurantPaymentSetupPath,
   restaurantNotificationsPath,
   restaurantOrderSettingsPath,
-  restaurantLoggingPath
+  restaurantLoggingPath,
 } from 'app/restaurant/restaurant.constants'
 import { ISidebarNavRoute } from './sidebar.types'
 
-export const sidebarRoutes:ISidebarNavRoute[] = [
+export const sidebarRoutes: ISidebarNavRoute[] = [
   {
     label: 'Home',
     path: homepageRoutePath,
@@ -65,63 +65,63 @@ export const sidebarRoutes:ISidebarNavRoute[] = [
         label: 'Branding',
         path: restaurantBrandingPath,
         icon: CameraIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Locations',
         path: restaurantLocationsPath,
         icon: PlaceIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Menus',
         path: restaurantMenusPath,
         icon: MenuBookIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Order Types',
         path: restaurantOrderTypesPath,
         icon: FoodBankIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Working Hours',
         path: restaurantWorkingHoursPath,
         icon: AccessTimeIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Delivery Zones',
         path: restaurantDeliveryZonesPath,
         icon: DeliveryDiningIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Payment Setup',
         path: restaurantPaymentSetupPath,
         icon: PaymentIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Notifications',
         path: restaurantNotificationsPath,
         icon: CircleNotificationsIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Order Settings',
         path: restaurantOrderSettingsPath,
         icon: SettingsIcon,
-        permissions: restaurantPermissions
+        permissions: restaurantPermissions,
       },
       {
         label: 'Logging',
         path: restaurantLoggingPath,
         icon: ArticleIcon,
-        permissions: restaurantPermissions
-      }
-    ]
+        permissions: restaurantPermissions,
+      },
+    ],
   },
   {
     label: 'Products',
@@ -133,62 +133,62 @@ export const sidebarRoutes:ISidebarNavRoute[] = [
         label: 'Ingredients',
         path: '/products/ingredients',
         icon: EggIcon,
-        permissions: ingredientPermissions
+        permissions: ingredientPermissions,
       },
       {
         label: 'Items',
         path: '/products/items',
         icon: LocalPizzaIcon,
-        permissions: itemPermissions
+        permissions: itemPermissions,
       },
       {
         label: 'Menus',
         path: '/products/menus',
         icon: MenuBookIcon,
-        permissions: menuPermissions
+        permissions: menuPermissions,
       },
       {
         label: 'Varieties',
         path: '/products/varieties',
         icon: SelectAllIcon,
-        permissions: varietyPermissions
-      }
-    ]
+        permissions: varietyPermissions,
+      },
+    ],
   },
   {
     label: 'Builder Tool',
     path: builderRoutePath,
     icon: HardwareIcon,
-    permissions: builderPermissions
+    permissions: builderPermissions,
   },
   {
     label: 'Media Library',
     path: mediaLibraryRoutePath,
     icon: PermMediaIcon,
-    permissions: mediaLibraryPermissions
+    permissions: mediaLibraryPermissions,
   },
   {
     label: 'Employees',
     path: employeeRoutePath,
     icon: FaceIcon,
-    permissions: employeePermissions
+    permissions: employeePermissions,
   },
   {
     label: 'Reviews',
     path: reviewRoutePath,
     icon: StarBorderIcon,
-    permissions: reviewPermissions
+    permissions: reviewPermissions,
   },
   {
     label: 'Reports',
     path: reportRoutePath,
     icon: AssessmentIcon,
-    permissions: reportPermissions
+    permissions: reportPermissions,
   },
   {
     label: 'Marketing',
     path: marketingRoutePath,
     icon: CampaignIcon,
-    permissions: marketingPermissions
-  }
+    permissions: marketingPermissions,
+  },
 ]

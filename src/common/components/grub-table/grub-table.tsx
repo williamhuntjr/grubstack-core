@@ -10,15 +10,7 @@ import Pagination from '@mui/material/Pagination'
 import { IGrubTable, ITableRow } from './grub-table.types'
 import styles from './grub-table.module.scss'
 
-export const GrubTable: IGrubTable = memo(({
-  columns,
-  data,
-  onAction,
-  actions,
-  pages,
-  page,
-  onPageChange
-}) => {
+export const GrubTable: IGrubTable = memo(({ columns, data, onAction, actions, pages, page, onPageChange }) => {
   const getColumnData = (row: ITableRow, field: string): string => {
     for (const [key, value] of Object.entries(row)) {
       if (key == field) {
@@ -78,11 +70,11 @@ export const GrubTable: IGrubTable = memo(({
           </TableBody>
         </Table>
       </TableContainer>
-      {data.length != 0 && 
-      <div className={styles.paginationContainer}>
-        <Pagination count={pages} onChange={onPageChange} page={page} color="primary" />
-      </div>
-      }
+      {data.length != 0 && (
+        <div className={styles.paginationContainer}>
+          <Pagination count={pages} onChange={onPageChange} page={page} color="primary" />
+        </div>
+      )}
     </div>
   )
 })

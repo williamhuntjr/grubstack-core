@@ -13,5 +13,5 @@ export interface ITab {
 export interface ITabPanelProps {
   children?: React.ReactNode
   name: string
-  value: string|undefined
+  value: string | undefined
 }

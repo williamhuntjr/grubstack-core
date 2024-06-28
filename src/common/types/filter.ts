@@ -1,6 +1,6 @@
 export enum RestaurantFilter {
   'ShowMenus' = 'showMenus',
-  'ShowItems' = 'showItems'
+  'ShowItems' = 'showItems',
 }
 
 export interface IRestaurantFilters {

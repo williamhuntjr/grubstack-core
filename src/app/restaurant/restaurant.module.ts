@@ -7,10 +7,7 @@ import { ProductModule } from 'app/products/products.module'
 import { MediaLibraryModule } from 'app/media-library/media-library.module'
 import { ILocationService } from './locations/locations.types'
 import { locationServiceToken } from './locations/locations.constants'
-import {
-  restaurantModule,
-  restaurantServiceToken
-} from './restaurant.constants'
+import { restaurantModule, restaurantServiceToken } from './restaurant.constants'
 import { IRestaurantService } from './restaurant.types'
 
 export type RestaurantModuleDefinition = typeof import('./restaurant.exports')
@@ -23,10 +20,7 @@ export interface IRestaurantModuleService {
 export const RestaurantModule: ILazyModule<RestaurantModuleDefinition> = {
   name: restaurantModule,
   resolver: () => import('./restaurant.exports'),
-  initializer: ({
-    RestaurantService,
-    LocationService,
-  }) => {
+  initializer: ({ RestaurantService, LocationService }) => {
     const httpClient = Injector.resolve<IHttpClient>(httpClientToken)
     Injector.register<IRestaurantService>(restaurantServiceToken, () => new RestaurantService(httpClient), Scope.Singleton)
     Injector.register<ILocationService>(locationServiceToken, () => new LocationService(httpClient), Scope.Singleton)

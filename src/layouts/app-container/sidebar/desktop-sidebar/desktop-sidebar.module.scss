@@ -4,8 +4,8 @@
 .sidebarContainer {
   display: flex;
   width: $sidebar-width;
-  -webkit-transition: width .5s;
-  transition: width .5s;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
   position: fixed;
   height: 100%;
   z-index: 888;
@@ -20,7 +20,7 @@
     .navbarList {
       width: 100%;
       padding: $header-height 0 0 0;
-      li { 
+      li {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -61,8 +61,8 @@
       background-color: $color-white;
       box-shadow: $box-shadow;
       border-right: $border-default;
-      -webkit-transition: width .5s;
-      transition: width .5s;
+      -webkit-transition: width 0.5s;
+      transition: width 0.5s;
       scrollbar-width: thin;
       .subMenuLinks {
         display: flex;

@@ -23,8 +23,8 @@ export interface IVarietyFormValues {
 export interface IVarietyForm {
   onClose(): void
   onSubmit(data: IVarietyFormValues): Promise<void>
-  data?: IVariety|null
+  data?: IVariety | null
   mode: GSMode
   isPickerDirty: boolean
-  onOpenFilePicker: (data: IVariety|null) => void
+  onOpenFilePicker: (data: IVariety | null) => void
 }

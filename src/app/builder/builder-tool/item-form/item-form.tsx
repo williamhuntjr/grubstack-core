@@ -9,11 +9,11 @@ import { defaultItemFormData, ItemFormField, ItemFormLabel } from './item-form.c
 import styles from './item-form.module.scss'
 
 export const ItemForm: FC<IItemForm> = ({ onSubmit, data, mode }) => {
-  const { 
-    handleSubmit, 
+  const {
+    handleSubmit,
     control,
     formState: { isDirty },
-    reset
+    reset,
   } = useForm<IBuilderItemFormValues>({
     mode: 'onBlur',
     defaultValues: defaultItemFormData,
@@ -33,22 +33,22 @@ export const ItemForm: FC<IItemForm> = ({ onSubmit, data, mode }) => {
       sale_price: data?.sale_price,
       is_onsale: data?.is_onsale,
     })
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [data])
 
   return (
     <form onSubmit={submitForm} className={styles.itemForm}>
       <div className={styles.formFieldGroup}>
-        <DecimalField 
-          control={control} 
-          name={ItemFormField.Price} 
+        <DecimalField
+          control={control}
+          name={ItemFormField.Price}
           label={ItemFormLabel.Price}
           className={styles.formField}
           disabled={isViewMode}
         />
-        <DecimalField 
-          control={control} 
-          name={ItemFormField.SalePrice} 
+        <DecimalField
+          control={control}
+          name={ItemFormField.SalePrice}
           label={ItemFormLabel.SalePrice}
           className={styles.formField}
           disabled={isViewMode}
@@ -61,7 +61,7 @@ export const ItemForm: FC<IItemForm> = ({ onSubmit, data, mode }) => {
         disabled={isViewMode}
         className={styles.onSaleCheckbox}
       />
-      <Divider className={styles.divider}/>
+      <Divider className={styles.divider} />
       <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
         Save Item
       </Button>

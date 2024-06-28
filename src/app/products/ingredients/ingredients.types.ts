@@ -22,7 +22,10 @@ export interface IIngredient {
   is_extra?: boolean
 }
 
-export type IIngredientSpecs = Pick<IIngredient, 'calories'|'fat'|'saturated_fat'|'trans_fat'|'cholesterol'|'sodium'|'carbs'|'protein'|'sugar'|'fiber'>
+export type IIngredientSpecs = Pick<
+  IIngredient,
+  'calories' | 'fat' | 'saturated_fat' | 'trans_fat' | 'cholesterol' | 'sodium' | 'carbs' | 'protein' | 'sugar' | 'fiber'
+>
 
 export interface IIngredientState {
   isLoading: boolean

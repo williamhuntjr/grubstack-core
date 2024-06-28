@@ -8,7 +8,7 @@ export class IngredientService implements IIngredientService {
   constructor(private readonly httpClient: AxiosInstance) {
     bindAllInstanceMethods(this)
   }
-  
+
   public async getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IIngredient>> {
     const params = prepareRequestParams(paginationParams)
     const {
@@ -17,7 +17,7 @@ export class IngredientService implements IIngredientService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
@@ -43,5 +43,4 @@ export class IngredientService implements IIngredientService {
     } = await this.httpClient.patch<IResponse<IIngredient>>(`/ingredients/${params.id}`, { params })
     return data
   }
-  
 }

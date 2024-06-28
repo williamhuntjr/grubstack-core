@@ -34,23 +34,14 @@ export const FileUpload: FC<IFileUpload> = ({ onUpload }) => {
       <div className={styles.fileUploadIconContainer}>
         <CloudUploadIcon className={styles.fileUploadIcon} />
       </div>
-      <p className={styles.fileUploadLabel}>
-        Drop your files here to upload
-      </p>
+      <p className={styles.fileUploadLabel}>Drop your files here to upload</p>
       <div className={styles.fileUploadDividerContainer}>
         <Divider className={styles.fileUploadDivider} />
         <p className={styles.fileUploadDividerText}>or</p>
         <Divider className={styles.fileUploadDivider} />
       </div>
       <label htmlFor="upload-file">
-        <input
-          type="file"
-          accept="image/*"
-          style={{ display: 'none' }}
-          id="upload-file"
-          multiple
-          onChange={handleBrowse}
-        />
+        <input type="file" accept="image/*" style={{ display: 'none' }} id="upload-file" multiple onChange={handleBrowse} />
         <Button variant="contained" color="primary" size="large" component="span">
           Browse Files
         </Button>

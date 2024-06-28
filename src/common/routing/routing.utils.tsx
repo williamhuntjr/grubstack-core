@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route  } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { GuardedRoute } from 'common/routing/guarded-route/guarded-route'
 import { IModuleDefinition } from 'core/react-lazy-modules/react-lazy-modules.types'
 import { IAsyncRoute, IRoute } from './routing.types'
@@ -43,22 +43,24 @@ export function processRoute(route: IRoute | IAsyncRoute<never>, parentRoute?: I
  * Used to update route path, build path for a child route, merge guards
  * @param routes - array of routes
  */
- export function processRoutes(routes: Array<IRoute | IAsyncRoute<never>>): Array<IRoute | IAsyncRoute<never>> {
+export function processRoutes(routes: Array<IRoute | IAsyncRoute<never>>): Array<IRoute | IAsyncRoute<never>> {
   return routes.map((route) => processRoute(route))
 }
 
 export function buildRoute(route: IRoute, render?: JSX.Element): JSX.Element {
-  return render ? render : route.component ?
+  return render ? (
+    render
+  ) : route.component ? (
     <Route
       key={route.path}
       path={route.path}
-      element={<GuardedRoute component={<route.component />} permissions={route?.permissions ?? []}  redirectTo={route.redirectTo}/>}
+      element={<GuardedRoute component={<route.component />} permissions={route?.permissions ?? []} redirectTo={route.redirectTo} />}
     />
-    :
+  ) : (
     <Route
       key={route.path}
       path={route.path}
-      element={<GuardedRoute permissions={route?.permissions ?? []} redirectTo={route.redirectTo}/>}
+      element={<GuardedRoute permissions={route?.permissions ?? []} redirectTo={route.redirectTo} />}
     />
-    
+  )
 }

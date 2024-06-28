@@ -18,15 +18,11 @@ export const SideNavbar: FC<ISideNavbar> = ({ label, rootPath, routes }) => {
   const activePath = `/${splitPath[2]}`
 
   const generateLink = (navLink: ISideNavbarRoute) => {
-    return (
-      validateRoutePermissions(navLink.permissions ?? []) ?
-      <ListItem 
+    return validateRoutePermissions(navLink.permissions ?? []) ? (
+      <ListItem
         key={`navLink-${navLink.label}`}
         disablePadding
-        className={cls(
-          styles.listItem,
-          activePath == navLink.path ? styles.activeLink : '',
-        )}
+        className={cls(styles.listItem, activePath == navLink.path ? styles.activeLink : '')}
         onClick={() => navigate(`${rootPath}${navLink.path}`)}
       >
         <ListItemButton>
@@ -35,24 +31,21 @@ export const SideNavbar: FC<ISideNavbar> = ({ label, rootPath, routes }) => {
           {activePath == navLink.path ? <NavigateNextIcon /> : <></>}
         </ListItemButton>
       </ListItem>
-      : <></>
+    ) : (
+      <></>
     )
   }
 
   return (
     <nav aria-label={`${label ?? 'navbar'}-list`} className={styles.sideNavbar}>
       <List className={styles.sideNavbarList}>
-        {label &&
-        <ListItem 
-          disablePadding
-          className={cls(styles.listItem, styles.labelItem)}
-          selected={true}
-        >
-          <ListItemButton>
-            <ListItemText primary={label} />
-          </ListItemButton>
-        </ListItem>
-        }
+        {label && (
+          <ListItem disablePadding className={cls(styles.listItem, styles.labelItem)} selected={true}>
+            <ListItemButton>
+              <ListItemText primary={label} />
+            </ListItemButton>
+          </ListItem>
+        )}
         {routes.map((navLink) => generateLink(navLink))}
       </List>
     </nav>

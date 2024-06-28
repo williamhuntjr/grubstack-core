@@ -11,10 +11,7 @@ export function renderRoute(route: IRoute): JSX.Element {
   if (!isParentRoute(route)) {
     return buildRoute(route)
   }
-  const parentRouteRender =
-    <Routes key={`${route.path}-parent`}>
-      {route.children.map((childRoute) => renderRoute(childRoute))}
-    </Routes>
-  
+  const parentRouteRender = <Routes key={`${route.path}-parent`}>{route.children.map((childRoute) => renderRoute(childRoute))}</Routes>
+
   return buildRoute(route, parentRouteRender)
 }

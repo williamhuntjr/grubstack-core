@@ -1,7 +1,3 @@
-export interface IReportService {
+export interface IReportService {}
 
-}
-
-export interface IReport {
-  
-}
+export interface IReport {}

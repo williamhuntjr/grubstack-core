@@ -17,7 +17,7 @@ function resolveBuilderModule(): Overwrite<BuilderModuleDefinition, IBuilderModu
   return {
     ...module,
     ItemService,
-    MenuService
+    MenuService,
   }
 }
 

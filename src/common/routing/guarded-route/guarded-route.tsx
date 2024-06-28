@@ -6,15 +6,21 @@ import { IGuardedRoute } from './guarded-route.types'
 
 export const GuardedRoute: FC<IGuardedRoute> = ({ permissions, component, redirectTo }) => {
   let navigate = useNavigate()
-  
+
   useEffect(() => {
-    if (redirectTo) { 
-      navigate(redirectTo) 
+    if (redirectTo) {
+      navigate(redirectTo)
     }
     // eslint-disable-next-line
   }, [redirectTo])
 
-  return validateRoutePermissions(permissions ?? []) || permissions?.length == 0 ? 
-      component ? component : <></> 
-    : <InvalidPagePermissions />
+  return validateRoutePermissions(permissions ?? []) || permissions?.length == 0 ? (
+    component ? (
+      component
+    ) : (
+      <></>
+    )
+  ) : (
+    <InvalidPagePermissions />
+  )
 }

@@ -7,5 +7,5 @@ export interface IConvertedMode {
 export enum GSMode {
   New = 'New',
   View = 'View',
-  Edit = 'Edit',  
+  Edit = 'Edit',
 }

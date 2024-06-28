@@ -33,7 +33,9 @@ $menuFormWidth: 500px;
     width: 100%;
     margin: 0 0 $grid-base 0;
   }
-  .thumbnailUrl { display: none; }
+  .thumbnailUrl {
+    display: none;
+  }
   .saveButton {
     display: block;
     margin-left: auto;

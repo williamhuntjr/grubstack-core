@@ -22,15 +22,15 @@ function buildContentRoute(route: IRoute): JSX.Element {
 }
 
 export const AppContainer: FC<IAppContainer> = ({ routes }) => {
-  const [ appLoading, setAppLoading ] = useState<boolean>(true)
-  const [ appUpdating, setAppUpdating ] = useState<boolean>(false)
+  const [appLoading, setAppLoading] = useState<boolean>(true)
+  const [appUpdating, setAppUpdating] = useState<boolean>(false)
 
   const verifyTenant = async (): Promise<boolean> => {
     try {
       await HttpClient.get('/auth/verify_tenant')
       return true
     } catch (e) {
-      console.log("You do not have access to this tenant.")
+      console.log('You do not have access to this tenant.')
       window.location.href = `${appConfig.productionUrl}/not-authorized`
       return false
     }
@@ -47,23 +47,23 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
         } = await HttpClient.get('/auth/whoami')
 
         const userData = {
-          'permissions': data.permissions,
-          'first_name': data.first_name,
-          'last_name': data.last_name,
-          'username': data.username
+          permissions: data.permissions,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          username: data.username,
         }
-        localStorage.setItem('grubstackUser', JSON.stringify(userData))  
+        localStorage.setItem('grubstackUser', JSON.stringify(userData))
       }
 
       if (process.env.NODE_ENV == 'production') {
         const resp = await HttpClient.get('/core/versions')
-        const versions:IVersion[] = resp.data.data  
+        const versions: IVersion[] = resp.data.data
         const currentVersion = versions.filter((version) => version.id == appConfig.appId)[0]
         if (currentVersion && currentVersion.version != appConfig.appVersion) {
           setAppUpdating(true)
           await HttpClient.post('/core/updateApps')
           if (caches) {
-            await caches.keys().then(async function(names) {
+            await caches.keys().then(async function (names) {
               for (let name of names) await caches.delete(name)
             })
           }
@@ -78,27 +78,29 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
 
   useEffect(() => {
     void init()
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [])
 
   return (
     <div className={styles.appContainer}>
       {appUpdating && <Updating />}
       {appLoading && !appUpdating && <Loading />}
-      {!appLoading && !appUpdating &&
-      <div className={styles.appContent}>
-        <Header />
-        <DesktopSidebar />
-        <React.Suspense fallback={<Loading />}>
-          <Routes>{routes.map((route) => { 
-            return buildContentRoute({
-              ...route,
-              path: `${route.path}/*`
-            })
-          })}</Routes>
-        </React.Suspense>
-      </div>
-      }
+      {!appLoading && !appUpdating && (
+        <div className={styles.appContent}>
+          <Header />
+          <DesktopSidebar />
+          <React.Suspense fallback={<Loading />}>
+            <Routes>
+              {routes.map((route) => {
+                return buildContentRoute({
+                  ...route,
+                  path: `${route.path}/*`,
+                })
+              })}
+            </Routes>
+          </React.Suspense>
+        </div>
+      )}
     </div>
   )
 }

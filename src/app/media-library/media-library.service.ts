@@ -17,18 +17,18 @@ export class MediaLibraryService implements IMediaLibraryService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
   public async uploadFiles(fileList: FileList): Promise<void> {
     for (const file of Object.values(fileList)) {
       const formData = new FormData()
-      formData.append("file", file)
-      await this.httpClient.post("/media-library", formData, {
+      formData.append('file', file)
+      await this.httpClient.post('/media-library', formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
     }
   }

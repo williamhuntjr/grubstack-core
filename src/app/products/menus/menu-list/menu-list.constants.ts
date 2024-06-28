@@ -23,11 +23,11 @@ export enum MenuAction {
   View = 'View',
 }
 
-export const MenuSpeedActions:ISpeedDialerAction[] = [
+export const MenuSpeedActions: ISpeedDialerAction[] = [
   {
     label: MenuAction.New,
     icon: AddIcon,
-  }
+  },
 ]
 
 export const MenuActionsViewMode = [
@@ -49,12 +49,12 @@ export const MenuActionsEditMode = [
   {
     label: MenuAction.Delete,
     icon: DeleteIcon,
-  }
+  },
 ]
 
 export enum ValidationMenuMessage {
   CreateSuccess = 'Your menu has been created.',
   DeleteSuccess = 'Your menu has been deleted.',
   UpdateSuccess = 'Your menu has been updated.',
-  ConfirmDelete = 'You are about to delete this menu. This cannot be undone. Do you wish to continue?'
+  ConfirmDelete = 'You are about to delete this menu. This cannot be undone. Do you wish to continue?',
 }

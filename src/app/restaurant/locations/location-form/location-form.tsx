@@ -14,14 +14,10 @@ import { LocationFormSchema } from './location-form.validation'
 import { locationTypes, defaultLocationFormData } from './location-form.constants'
 import styles from './location-form.module.scss'
 
-export const LocationForm: FC<ILocationForm> = memo(({ 
-  onSubmit,
-  mode,
-  data
-}) => {
-  const { 
-    handleSubmit, 
-    control, 
+export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) => {
+  const {
+    handleSubmit,
+    control,
     reset,
     setValue,
     getValues,
@@ -114,17 +110,22 @@ export const LocationForm: FC<ILocationForm> = memo(({
           />
         </div>
       </div>
-      {mode == GSMode.Edit &&
-      <div>
-        <FormCheckboxLabel
-          control={control}
-          name={LocationFormField.IsActive}
-          label={LocationFormLabel.IsActive}
-          className={styles.isActiveCheckbox}
-        />
-        <Switch aria-label='Enable Location' checked={getValues(LocationFormField.IsActive)} onChange={(e) => setValue(LocationFormField.IsActive, e.target.checked, { shouldDirty: true })}/> Enabled
-      </div>
-      }
+      {mode == GSMode.Edit && (
+        <div>
+          <FormCheckboxLabel
+            control={control}
+            name={LocationFormField.IsActive}
+            label={LocationFormLabel.IsActive}
+            className={styles.isActiveCheckbox}
+          />
+          <Switch
+            aria-label="Enable Location"
+            checked={getValues(LocationFormField.IsActive)}
+            onChange={(e) => setValue(LocationFormField.IsActive, e.target.checked, { shouldDirty: true })}
+          />{' '}
+          Enabled
+        </div>
+      )}
       <Divider className={styles.divider} />
       <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
         Save Location

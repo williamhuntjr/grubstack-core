@@ -1,4 +1,4 @@
-export function getAccessToken(): string|undefined {
+export function getAccessToken(): string | undefined {
   const localStorageData = localStorage.getItem('grubToken')
   if (localStorageData != null) {
     return localStorageData

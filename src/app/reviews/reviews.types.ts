@@ -1,7 +1,3 @@
-export interface IReviewService {
+export interface IReviewService {}
 
-}
-
-export interface IReview {
-  
-}
+export interface IReview {}

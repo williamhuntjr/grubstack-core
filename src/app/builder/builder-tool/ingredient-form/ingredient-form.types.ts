@@ -3,7 +3,7 @@ import { GSMode } from 'common/utils/mode/mode.types'
 import { IngredientFormField } from './ingredient-form.constants'
 
 export interface IBuilderIngredientFormValues {
-  [IngredientFormField.Optional]: boolean 
+  [IngredientFormField.Optional]: boolean
   [IngredientFormField.Addon]: boolean
   [IngredientFormField.Extra]: boolean
 }
@@ -11,6 +11,6 @@ export interface IBuilderIngredientFormValues {
 export interface IIngredientForm {
   onClose(): void
   onSubmit(data: IBuilderIngredientFormValues): Promise<void>
-  data?: IIngredient|null
+  data?: IIngredient | null
   mode: GSMode
 }

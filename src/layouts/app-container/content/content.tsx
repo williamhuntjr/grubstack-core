@@ -14,9 +14,5 @@ export const Content: FC<IContent> = ({ route }) => {
     // eslint-disable-next-line
   }, [route.redirectTo])
 
-  return (
-    <div className={styles.contentContainer}>
-      {renderRoute(route)}
-    </div>
-  )
+  return <div className={styles.contentContainer}>{renderRoute(route)}</div>
 }

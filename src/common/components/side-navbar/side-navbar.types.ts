@@ -12,7 +12,7 @@ export interface ISideNavbarRoute {
   label: string
   path: string
   permissions?: UserPermissions[]
-  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-    muiName: string;
-}
+  icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
+    muiName: string
+  }
 }

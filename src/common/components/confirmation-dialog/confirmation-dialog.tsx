@@ -35,10 +35,14 @@ export const ConfirmationDialog: FC<IConfirmationDialogParams> = ({
       <p className={styles.confirmationMessage}>{message}</p>
       <Divider />
       <div className={styles.confirmationDialogButtonContainer}>
-        {cancelButtonLabel &&
-          <Button variant="contained" color="secondary" onClick={onClose} className={styles.confirmationDialogButton}>{cancelButtonLabel ?? 'Cancel'}</Button>
-        }
-        <Button variant="contained" onClick={onConfirm} className={styles.confirmationDialogButton}>{confirmationButtonLabel}</Button>
+        {cancelButtonLabel && (
+          <Button variant="contained" color="secondary" onClick={onClose} className={styles.confirmationDialogButton}>
+            {cancelButtonLabel ?? 'Cancel'}
+          </Button>
+        )}
+        <Button variant="contained" onClick={onConfirm} className={styles.confirmationDialogButton}>
+          {confirmationButtonLabel}
+        </Button>
       </div>
     </div>
   </Dialog>

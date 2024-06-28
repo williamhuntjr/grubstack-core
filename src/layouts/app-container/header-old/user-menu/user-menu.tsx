@@ -14,7 +14,7 @@ import styles from './user-menu.module.scss'
 
 export const UserMenu: FC = () => {
   const [user, setUser] = useState<IUser>()
-  const [anchorEl, setAnchorEl] = useState<EventTarget & Element | null>(null)
+  const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null)
 
   const open = Boolean(anchorEl)
 
@@ -33,7 +33,7 @@ export const UserMenu: FC = () => {
   }
 
   const init = (): void => {
-    const localStorageUser= localStorage.getItem('grubstackUser')
+    const localStorageUser = localStorage.getItem('grubstackUser')
     if (localStorageUser != null) {
       setUser(JSON.parse(localStorageUser))
     }
@@ -52,7 +52,12 @@ export const UserMenu: FC = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 30, height: 30 }} className={styles.avatarContainer}><PersonIcon className={styles.avatarIcon} /></Avatar><p className={styles.avatarName}>{user?.first_name} {user?.last_name}</p>
+          <Avatar sx={{ width: 30, height: 30 }} className={styles.avatarContainer}>
+            <PersonIcon className={styles.avatarIcon} />
+          </Avatar>
+          <p className={styles.avatarName}>
+            {user?.first_name} {user?.last_name}
+          </p>
         </IconButton>
       </Tooltip>
       <Menu
@@ -93,7 +98,7 @@ export const UserMenu: FC = () => {
       >
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <LogoutIcon fontSize="small"/>
+            <LogoutIcon fontSize="small" />
           </ListItemIcon>
           Sign Out
         </MenuItem>

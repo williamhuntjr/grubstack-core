@@ -8,16 +8,12 @@ export enum BuilderTypes {
   Item = 'Item',
   Menu = 'Menu',
   Ingredient = 'Ingredient',
-  Variety = 'Variety'
+  Variety = 'Variety',
 }
 export enum BuilderParams {
   Item = 'item',
   Menu = 'menu',
-  Variety = 'variety'
+  Variety = 'variety',
 }
 
-export const builderPermissions = [
-  UserPermissions.MaintainItems,
-  UserPermissions.MaintainMenus,
-  UserPermissions.MaintainVarieties,
-]
+export const builderPermissions = [UserPermissions.MaintainItems, UserPermissions.MaintainMenus, UserPermissions.MaintainVarieties]

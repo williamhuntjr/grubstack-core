@@ -23,28 +23,28 @@ export const BuilderDialog: FC<IBuilderDialog> = ({ builderType, onClick }) => {
   const { height } = useWindowDimensions()
 
   const builderDialogPageSize = Math.round((height - 100) / 205) * 4
-  
+
   const onPageChange = (event: ChangeEvent<unknown>, newPage: number): void => {
     setState((prevState) => ({ ...prevState, page: newPage, event: event }))
   }
 
-  const fetchData = useCallback(async(): Promise<void> => {
+  const fetchData = useCallback(async (): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     try {
-      let resp:IPaginationData<IItem>|IPaginationData<IMenu>|IPaginationData<IIngredient>|IPaginationData<IVariety>
+      let resp: IPaginationData<IItem> | IPaginationData<IMenu> | IPaginationData<IIngredient> | IPaginationData<IVariety>
       if (builderType === BuilderTypes.Item) {
-        resp = await ItemService.getAll({limit: builderDialogPageSize, page: state.page})
+        resp = await ItemService.getAll({ limit: builderDialogPageSize, page: state.page })
       }
       if (builderType === BuilderTypes.Ingredient) {
-        resp = await IngredientService.getAll({limit: builderDialogPageSize, page: state.page})
+        resp = await IngredientService.getAll({ limit: builderDialogPageSize, page: state.page })
       }
       if (builderType === BuilderTypes.Menu) {
-        resp = await MenuService.getAll({limit: builderDialogPageSize, page: state.page})
+        resp = await MenuService.getAll({ limit: builderDialogPageSize, page: state.page })
       }
       if (builderType === BuilderTypes.Variety) {
-        resp = await VarietyService.getAll({limit: builderDialogPageSize, page: state.page})
+        resp = await VarietyService.getAll({ limit: builderDialogPageSize, page: state.page })
       }
-      setState((prevState) => ({ ...prevState, data: resp.data, total: resp.total, pages: Math.ceil(resp.total / builderDialogPageSize )}))
+      setState((prevState) => ({ ...prevState, data: resp.data, total: resp.total, pages: Math.ceil(resp.total / builderDialogPageSize) }))
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     }
@@ -56,24 +56,24 @@ export const BuilderDialog: FC<IBuilderDialog> = ({ builderType, onClick }) => {
 
   useEffect(() => {
     void fetchData()
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [state.page])
 
   return (
     <div className={styles.builderDialogContainer}>
-      {state.isLoading &&  <Loading />}
-      {!state.isLoading &&        
-        <CardList 
+      {state.isLoading && <Loading />}
+      {!state.isLoading && (
+        <CardList
           data={state.data}
           onClick={onClick}
-          pages={state.pages} 
+          pages={state.pages}
           page={state.page}
           onPageChange={(event: ChangeEvent<unknown>, page: number) => onPageChange(event, page)}
           layout="vertical"
           buttonColor="secondary"
           cols={4}
         />
-      }
+      )}
     </div>
   )
 }

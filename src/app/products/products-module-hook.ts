@@ -25,7 +25,7 @@ function resolveProductModule(): Overwrite<ProductModuleDefinition, IProductModu
     IngredientService,
     ItemService,
     MenuService,
-    VarietyService
+    VarietyService,
   }
 }
 

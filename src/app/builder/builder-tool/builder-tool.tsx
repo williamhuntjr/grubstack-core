@@ -27,10 +27,10 @@ import { IVariety } from 'app/products/varieties/varieties.types'
 import { usePagination } from 'common/hooks/pagination.hook'
 import { IGrubListItem } from 'common/components/grub-list/grub-list.types'
 import { BuilderParams, BuilderTypes } from 'app/builder/builder.constants'
-import { 
-  defaultBuilderState, 
-  BuilderMenuActionsViewMode, 
-  BuilderMenuActionsEditMode, 
+import {
+  defaultBuilderState,
+  BuilderMenuActionsViewMode,
+  BuilderMenuActionsEditMode,
   BuilderAction,
   ValidationBuilderMessage,
   BuilderSpeedActions,
@@ -39,7 +39,7 @@ import {
   BuilderVarietyActionsEditMode,
   BuilderVarietyActionsViewMode,
   BuilderVarietyListActions,
-  BuilderVarietyListAction
+  BuilderVarietyListAction,
 } from './builder-tool.constants'
 import { IngredientForm } from './ingredient-form/ingredient-form'
 import { ItemForm } from './item-form/item-form'
@@ -62,11 +62,16 @@ export const BuilderTool: FC = () => {
 
   const canEdit = objectType === BuilderParams.Item ? canEditItems : objectType === BuilderParams.Menu ? canEditMenus : canEditVarieties
   const childType = objectType === BuilderParams.Menu ? BuilderTypes.Item : BuilderTypes.Ingredient
-  const childLabel = objectType === BuilderParams.Menu ? BuilderTypes.Item : objectType === BuilderParams.Variety ? BuilderTypes.Ingredient : BuilderTypes.Ingredient
+  const childLabel =
+    objectType === BuilderParams.Menu
+      ? BuilderTypes.Item
+      : objectType === BuilderParams.Variety
+      ? BuilderTypes.Ingredient
+      : BuilderTypes.Ingredient
 
   const generateActions = (): IListAction[] => {
     if (objectType == BuilderParams.Item) {
-      return canEditItems ? BuilderItemActionsEditMode : BuilderItemActionsViewMode 
+      return canEditItems ? BuilderItemActionsEditMode : BuilderItemActionsViewMode
     }
     if (objectType == BuilderParams.Menu) {
       return canEditMenus ? BuilderMenuActionsEditMode : BuilderMenuActionsViewMode
@@ -79,10 +84,7 @@ export const BuilderTool: FC = () => {
 
   const actions = generateActions()
 
-  const {
-    state: varietyPaginationState,
-    pagination: varietyPagination
-  } = usePagination<IVariety>(VarietyService.getAll)
+  const { state: varietyPaginationState, pagination: varietyPagination } = usePagination<IVariety>(VarietyService.getAll)
 
   const {
     data: deleteDialogData,
@@ -91,25 +93,16 @@ export const BuilderTool: FC = () => {
     closeDialog: closeDeleteDialog,
   } = useDialog<string | null>(null)
 
-  const {
-    open: builderDialogOpen,
-    openDialog: openBuilderDialog,
-    closeDialog: closeBuilderDialog,
-  } = useDialog<string>()
+  const { open: builderDialogOpen, openDialog: openBuilderDialog, closeDialog: closeBuilderDialog } = useDialog<string>()
 
   const {
     data: ingredientDialogData,
     open: ingredientDialogOpen,
     openDialog: openIngredientDialog,
     closeDialog: closeIngredientDialog,
-  } = useDialog<IIngredient|null>()
+  } = useDialog<IIngredient | null>()
 
-  const {
-    data: itemDialogData,
-    open: itemDialogOpen,
-    openDialog: openItemDialog,
-    closeDialog: closeItemDialog,
-  } = useDialog<IItem|null>()
+  const { data: itemDialogData, open: itemDialogOpen, openDialog: openItemDialog, closeDialog: closeItemDialog } = useDialog<IItem | null>()
 
   const {
     open: varietyPickerOpen,
@@ -117,27 +110,34 @@ export const BuilderTool: FC = () => {
     closeDialog: closeVarietyPickerDialog,
   } = useDialog<IQuickPickerItem[]>([])
 
-  const fetchData = useCallback(async(): Promise<void> => {
+  const fetchData = useCallback(async (): Promise<void> => {
     setState((prevState) => ({ ...prevState, isLoading: true }))
     try {
-      let paginatedData:IPaginationData<IItem>|IPaginationData<IMenu>
-      let singleData:IResponse<IItem>|IResponse<IMenu>|null = null
-      let optionalData:IVariety[]|null = null
+      let paginatedData: IPaginationData<IItem> | IPaginationData<IMenu>
+      let singleData: IResponse<IItem> | IResponse<IMenu> | null = null
+      let optionalData: IVariety[] | null = null
 
       if (objectType === BuilderParams.Item) {
-        paginatedData = await ItemService.getIngredients({limit: listPageSize, page: state.page}, objectId ?? '')
+        paginatedData = await ItemService.getIngredients({ limit: listPageSize, page: state.page }, objectId ?? '')
         singleData = await ItemService.get(objectId ?? '')
         optionalData = await ItemService.getVarieties(objectId ?? '')
       }
       if (objectType === BuilderParams.Menu) {
-        paginatedData = await MenuService.getItems({limit: listPageSize, page: state.page}, objectId ?? '')
+        paginatedData = await MenuService.getItems({ limit: listPageSize, page: state.page }, objectId ?? '')
         singleData = await MenuService.get(objectId ?? '')
       }
       if (objectType === BuilderParams.Variety) {
-        paginatedData = await VarietyService.getIngredients({limit: listPageSize, page: state.page}, objectId ?? '')
+        paginatedData = await VarietyService.getIngredients({ limit: listPageSize, page: state.page }, objectId ?? '')
         singleData = await VarietyService.getVariety(objectId ?? '')
       }
-      setState((prevState) => ({ ...prevState, parent: singleData ? singleData.data : null, data: paginatedData.data, optional: optionalData ? optionalData : null, total: paginatedData.total, pages: Math.ceil(paginatedData.total / listPageSize )}))
+      setState((prevState) => ({
+        ...prevState,
+        parent: singleData ? singleData.data : null,
+        data: paginatedData.data,
+        optional: optionalData ? optionalData : null,
+        total: paginatedData.total,
+        pages: Math.ceil(paginatedData.total / listPageSize),
+      }))
     } catch (e) {
       ErrorHandler.handleError(e as Error)
     }
@@ -272,7 +272,7 @@ export const BuilderTool: FC = () => {
     } catch (e) {
       ErrorHandler.handleError(e as Error)
       return
-    } 
+    }
     setState((prevState) => ({ ...prevState, isLoading: true }))
     void fetchData()
     setState((prevState) => ({ ...prevState, isLoading: false }))
@@ -312,35 +312,23 @@ export const BuilderTool: FC = () => {
 
   return (
     <div className={styles.builderToolContainer}>
-      <GrubDialog
-        open={builderDialogOpen}
-        onClose={closeDialogRefresh}
-        title={`${childType} Picker`}
-      >
+      <GrubDialog open={builderDialogOpen} onClose={closeDialogRefresh} title={`${childType} Picker`}>
         <BuilderDialog builderType={childType} onClose={closeDialogRefresh} onClick={handleClick} />
       </GrubDialog>
-      <GrubDialog
-        open={ingredientDialogOpen}
-        onClose={closeIngredientDialog}
-        title={ingredientDialogData?.name ?? ''}
-      >
-        <IngredientForm onClose={closeIngredientDialog} onSubmit={handleIngredientSubmit} data={ingredientDialogData} mode={state.mode}/>
+      <GrubDialog open={ingredientDialogOpen} onClose={closeIngredientDialog} title={ingredientDialogData?.name ?? ''}>
+        <IngredientForm onClose={closeIngredientDialog} onSubmit={handleIngredientSubmit} data={ingredientDialogData} mode={state.mode} />
       </GrubDialog>
-      <GrubDialog
-        open={itemDialogOpen}
-        onClose={closeItemDialog}
-        title={itemDialogData?.name ?? ''}
-      >
+      <GrubDialog open={itemDialogOpen} onClose={closeItemDialog} title={itemDialogData?.name ?? ''}>
         <ItemForm onClose={closeItemDialog} onSubmit={handleItemSubmit} data={itemDialogData} mode={state.mode} />
       </GrubDialog>
-      
-      <QuickPicker 
-        open={varietyPickerOpen} 
-        onClose={closeVarietyPickerDialog} 
-        data={varietyPaginationState.data} 
-        currentPage={varietyPagination.page} 
-        pages={varietyPagination.total} 
-        onClick={onAddVariety} 
+
+      <QuickPicker
+        open={varietyPickerOpen}
+        onClose={closeVarietyPickerDialog}
+        data={varietyPaginationState.data}
+        currentPage={varietyPagination.page}
+        pages={varietyPagination.total}
+        onClick={onAddVariety}
         onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
           void varietyPagination.onChangePage(page)
         }}
@@ -348,66 +336,66 @@ export const BuilderTool: FC = () => {
 
       <ConfirmationDialog
         open={deleteDialogOpen}
-        message={objectType === BuilderParams.Item ? ValidationBuilderMessage.DeleteItemIngredient : objectType === BuilderParams.Menu ? ValidationBuilderMessage.DeleteMenuItem : ValidationBuilderMessage.DeleteVarietyIngredient}
+        message={
+          objectType === BuilderParams.Item
+            ? ValidationBuilderMessage.DeleteItemIngredient
+            : objectType === BuilderParams.Menu
+            ? ValidationBuilderMessage.DeleteMenuItem
+            : ValidationBuilderMessage.DeleteVarietyIngredient
+        }
         title={`Delete ${childType}`}
         confirmationButtonLabel="Yes, Proceed"
         cancelButtonLabel="Cancel"
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
       />
-      {state.isLoading &&  <Loading />}
-      {!state.isLoading &&
-      <div className={styles.builderTool}>
-        <div className={styles.builderDetailsContainer}>
-          {state.parent != null &&
-            <div className={styles.builderCard}>
-              <img src={state.parent.thumbnail_url} alt="" />
-              <h3>{state.parent.name}</h3>
-              <p>{state.parent.description}</p>
-            </div>
-          }
-          <div className={styles.builderDetails}>
-            {objectType === BuilderParams.Item &&
-              <div className={styles.nutritionLabel}>
-                {buildNutritionLabel(state.data)}
+      {state.isLoading && <Loading />}
+      {!state.isLoading && (
+        <div className={styles.builderTool}>
+          <div className={styles.builderDetailsContainer}>
+            {state.parent != null && (
+              <div className={styles.builderCard}>
+                <img src={state.parent.thumbnail_url} alt="" />
+                <h3>{state.parent.name}</h3>
+                <p>{state.parent.description}</p>
               </div>
-            }
-            {objectType === BuilderParams.Item &&
-              <GrubList 
-                data={normalizeData(state.optional ? state.optional : [])}
-                actions={BuilderVarietyListActions}
-                onClickAdd={handleAddVarietyDialog}
-                onAction={handleVarietyAction}
-                className={styles.varietyList}
-                subHeader={"Varieties"}
+            )}
+            <div className={styles.builderDetails}>
+              {objectType === BuilderParams.Item && <div className={styles.nutritionLabel}>{buildNutritionLabel(state.data)}</div>}
+              {objectType === BuilderParams.Item && (
+                <GrubList
+                  data={normalizeData(state.optional ? state.optional : [])}
+                  actions={BuilderVarietyListActions}
+                  onClickAdd={handleAddVarietyDialog}
+                  onAction={handleVarietyAction}
+                  className={styles.varietyList}
+                  subHeader={'Varieties'}
+                />
+              )}
+            </div>
+          </div>
+          <div className={styles.builderContent}>
+            <div className={styles.builderHeader}>
+              <h2>{childLabel} List</h2>
+              <Divider />
+            </div>
+            <div className={styles.builderListContainer}>
+              <CardList
+                data={state.data}
+                pages={state.pages}
+                page={state.page}
+                onPageChange={(event: ChangeEvent<unknown>, page: number) => onPageChange(event, page)}
+                layout="vertical"
+                buttonColor="secondary"
+                cols={5}
+                actions={actions}
+                onAction={handleCardAction}
               />
-            }
+            </div>
           </div>
         </div>
-        <div className={styles.builderContent}>
-          <div className={styles.builderHeader}>
-            <h2>{childLabel} List</h2>
-            <Divider />
-          </div>
-          <div className={styles.builderListContainer}>
-            <CardList 
-              data={state.data}
-              pages={state.pages} 
-              page={state.page}
-              onPageChange={(event: ChangeEvent<unknown>, page: number) => onPageChange(event, page)}
-              layout="vertical"
-              buttonColor="secondary"
-              cols={5}
-              actions={actions} 
-              onAction={handleCardAction}
-            />
-          </div>
-        </div>
-      </div>
-      }
-      {canEdit && 
-        <SpeedDialer actions={BuilderSpeedActions} onAction={handleSpeedAction} />
-      }
+      )}
+      {canEdit && <SpeedDialer actions={BuilderSpeedActions} onAction={handleSpeedAction} />}
     </div>
   )
 }

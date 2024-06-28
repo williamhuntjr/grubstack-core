@@ -12,13 +12,16 @@ export const NavListItem: FC<INavListItem> = memo(({ route, onClick }) => {
   let match = useMatch({ path: `${resolved.pathname}`, end: false })
 
   return (
-    <ListItemButton className={cls(styles.listItem, match ? styles.listItemSelected : '')} component={Link} to={route.redirectTo ? route.redirectTo : `${route.path}`} onClick={onClick}>
+    <ListItemButton
+      className={cls(styles.listItem, match ? styles.listItemSelected : '')}
+      component={Link}
+      to={route.redirectTo ? route.redirectTo : `${route.path}`}
+      onClick={onClick}
+    >
       <ListItemIcon className={styles.listItemIcon}>
-        {route.icon != undefined && 
-          <route.icon className={styles.listItemIconSvg} />
-        }
+        {route.icon != undefined && <route.icon className={styles.listItemIconSvg} />}
       </ListItemIcon>
-      <ListItemText primary={route.name} className={styles.listItemText}/>
+      <ListItemText primary={route.name} className={styles.listItemText} />
     </ListItemButton>
   )
 })

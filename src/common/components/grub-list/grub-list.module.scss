@@ -21,10 +21,10 @@
     }
   }
   li {
-      border-bottom: $border-default;
-      &:last-child { 
-        border-bottom: none;
-      }
+    border-bottom: $border-default;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 

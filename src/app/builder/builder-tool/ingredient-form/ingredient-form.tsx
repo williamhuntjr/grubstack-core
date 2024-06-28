@@ -9,13 +9,13 @@ import { IIngredientForm, IBuilderIngredientFormValues } from './ingredient-form
 import styles from './ingredient-form.module.scss'
 
 export const IngredientForm: FC<IIngredientForm> = memo(({ onSubmit, data, mode }) => {
-  const { 
-    handleSubmit, 
+  const {
+    handleSubmit,
     control,
     reset,
     formState: { isDirty },
     watch,
-    setValue
+    setValue,
   } = useForm<IBuilderIngredientFormValues>({
     mode: 'onBlur',
     defaultValues: defaultIngredientFormData,
@@ -45,7 +45,7 @@ export const IngredientForm: FC<IIngredientForm> = memo(({ onSubmit, data, mode 
       is_addon: data?.is_addon,
       is_extra: data?.is_extra,
     })
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [data])
 
   return (
@@ -70,10 +70,10 @@ export const IngredientForm: FC<IIngredientForm> = memo(({ onSubmit, data, mode 
         label={IngredientFormLabel.Addon}
         control={control}
         className={styles.formCheckbox}
-        disabled={!watch(IngredientFormField.Optional, false) || isViewMode }
+        disabled={!watch(IngredientFormField.Optional, false) || isViewMode}
         onChange={() => handleAddonCheckbox()}
       />
-      <Divider className={styles.divider}/>
+      <Divider className={styles.divider} />
       <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
         Save Ingredient
       </Button>

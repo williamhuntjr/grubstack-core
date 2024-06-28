@@ -10,7 +10,7 @@
     flex-direction: column;
   }
   .filePreviewImageContainer {
-    img { 
+    img {
       display: block;
       margin: auto;
       max-width: 200px;
@@ -27,7 +27,7 @@
     strong {
       margin-right: $grid-small;
     }
-    p { 
+    p {
       font-size: 16px;
       line-height: 16px;
       margin: 0 0 $grid-base 0;

@@ -1,10 +1,7 @@
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import { IAsyncRoute, IRoute } from 'common/routing/routing.types'
 import { ReportModule, ReportModuleDefinition } from './reports.module'
-import { 
-  reportPermissions,
-  reportRoutePath, 
-} from './reports.constants'
+import { reportPermissions, reportRoutePath } from './reports.constants'
 import { Reports } from './reports'
 
 function reportRouteFactory({}: ReportModuleDefinition): IRoute[] {
@@ -24,5 +21,5 @@ export const reportRoute: IAsyncRoute<ReportModuleDefinition> = {
   isSidebarButton: true,
   permissions: reportPermissions,
   icon: AssessmentIcon,
-  childrenRoutesFactory: reportRouteFactory
+  childrenRoutesFactory: reportRouteFactory,
 }

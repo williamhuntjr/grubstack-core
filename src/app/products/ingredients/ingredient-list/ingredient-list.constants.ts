@@ -26,12 +26,12 @@ export const IngredientActionsEditMode = [
   {
     label: IngredientAction.Delete,
     icon: DeleteIcon,
-  }
+  },
 ]
 
-export const IngredientSpeedActions:ISpeedDialerAction[] = [
+export const IngredientSpeedActions: ISpeedDialerAction[] = [
   {
     label: IngredientAction.New,
     icon: AddIcon,
-  }
+  },
 ]

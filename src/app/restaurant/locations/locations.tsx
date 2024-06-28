@@ -18,11 +18,7 @@ import { restaurantLocationsPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocation, ILocationState } from './locations.types'
-import { 
-  defaultLocationState,
-  LocationSpeedActions,
-  LocationAction
-} from './locations.constants'
+import { defaultLocationState, LocationSpeedActions, LocationAction } from './locations.constants'
 import { defaultLocationFormData } from './location-form/location-form.constants'
 import { LocationForm } from './location-form/location-form'
 import styles from './locations.module.scss'
@@ -38,18 +34,15 @@ export const Locations = (): JSX.Element => {
   const canEditLocations = hasPermission(UserPermissions.MaintainRestaurant)
 
   const navigate = useNavigate()
-  
-  const {
-    refresh,
-    state: paginationState,
-  } = usePagination<ILocation>(LocationService.getAll, 1000)
+
+  const { refresh, state: paginationState } = usePagination<ILocation>(LocationService.getAll, 1000)
 
   const {
     data: locationDialogData,
     open: locationDialogOpen,
     openDialog: openLocationDialog,
     closeDialog: closeLocationDialog,
-  } = useDialog<ILocation|null>()
+  } = useDialog<ILocation | null>()
 
   const {
     data: deleteDialogData,
@@ -64,10 +57,9 @@ export const Locations = (): JSX.Element => {
       if (!locationId && paginationState.data.length > 0) {
         const firstLocationId = paginationState.data[0].id
         navigate(`${restaurantLocationsPath}/${firstLocationId}`)
-      }
-      else {
+      } else {
         const filtered = paginationState.data.filter((location) => location.id == locationId)
-        if (filtered.length > 0) { 
+        if (filtered.length > 0) {
           setState((prevState) => ({ ...prevState, data: filtered[0] }))
         }
       }
@@ -84,19 +76,18 @@ export const Locations = (): JSX.Element => {
           toast.success(validationMessages.createSuccess)
           setState((prevState) => ({ ...prevState, mode: GSMode.Edit }))
           navigate(`${restaurantLocationsPath}`)
-        break
+          break
         case GSMode.Edit:
           await LocationService.update(data)
           toast.success(validationMessages.updateSuccess)
-        break
+          break
         default:
           break
       }
     } catch (e) {
       console.error(e)
       ErrorHandler.handleError(e as Error)
-    } 
-    finally {
+    } finally {
       closeLocationDialog()
       await refresh()
       setState((prevState) => ({ ...prevState, isLoading: false }))
@@ -116,7 +107,7 @@ export const Locations = (): JSX.Element => {
         if (state.data?.id) {
           openDeleteDialog(state.data.id)
         }
-        break 
+        break
       default:
         break
     }
@@ -138,7 +129,7 @@ export const Locations = (): JSX.Element => {
   // eslint-disable-next-line
   useEffect(() => void init(), [paginationState.isLoading, locationId])
 
-  useEffect(() => setState((prevState) => ({ ...prevState, mode: GSMode.Edit }))  , [closeLocationDialog])
+  useEffect(() => setState((prevState) => ({ ...prevState, mode: GSMode.Edit })), [closeLocationDialog])
 
   return (
     <>
@@ -151,43 +142,36 @@ export const Locations = (): JSX.Element => {
         onConfirm={onDelete}
         onClose={closeDeleteDialog}
       />
-      {state.isLoading || paginationState.isLoading && <Loading />}
-      {!state.isLoading && !paginationState.isLoading &&
-      <RestaurantContainer label={paginationState.data.length > 0 ? "Locations" : undefined} route={paginationState.data.length > 0 ? restaurantLocationsPath : undefined}>
-        <div className={styles.locationsContainer}>
-          {state.data && paginationState.data.length > 0 &&
-            <LocationForm 
-              data={state.data}
-              mode={state.mode}
-              onSubmit={handleSubmit}
-            />
-          }
-        </div>
-        {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading &&
-        <div className={styles.warningMessageContainer}>
-          <h2 className={styles.warningHeadline}>You do not have any locations.</h2>
-          <p>You will need to add a location to continue.</p>
-          {canEditLocations &&
-            <Button onClick={() => openNewLocationDialog()} variant="outlined" color="primary">Add a Location</Button>
-          }
-        </div>
-        }
-      </RestaurantContainer>
-      }
+      {state.isLoading || (paginationState.isLoading && <Loading />)}
+      {!state.isLoading && !paginationState.isLoading && (
+        <RestaurantContainer
+          label={paginationState.data.length > 0 ? 'Locations' : undefined}
+          route={paginationState.data.length > 0 ? restaurantLocationsPath : undefined}
+        >
+          <div className={styles.locationsContainer}>
+            {state.data && paginationState.data.length > 0 && <LocationForm data={state.data} mode={state.mode} onSubmit={handleSubmit} />}
+          </div>
+          {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading && (
+            <div className={styles.warningMessageContainer}>
+              <h2 className={styles.warningHeadline}>You do not have any locations.</h2>
+              <p>You will need to add a location to continue.</p>
+              {canEditLocations && (
+                <Button onClick={() => openNewLocationDialog()} variant="outlined" color="primary">
+                  Add a Location
+                </Button>
+              )}
+            </div>
+          )}
+        </RestaurantContainer>
+      )}
       <GrubDialog
         open={locationDialogOpen}
         onClose={closeLocationDialog}
-        title={state.mode == GSMode.New ? "Create a new location" : locationDialogData?.name ?? ''}
+        title={state.mode == GSMode.New ? 'Create a new location' : locationDialogData?.name ?? ''}
       >
-        <LocationForm 
-          mode={state.mode} 
-          data={locationDialogData} 
-          onSubmit={handleSubmit}
-        />
+        <LocationForm mode={state.mode} data={locationDialogData} onSubmit={handleSubmit} />
       </GrubDialog>
-      {canEditLocations && 
-        <SpeedDialer actions={LocationSpeedActions} onAction={handleSpeedAction} />
-      }
+      {canEditLocations && <SpeedDialer actions={LocationSpeedActions} onAction={handleSpeedAction} />}
     </>
   )
 }

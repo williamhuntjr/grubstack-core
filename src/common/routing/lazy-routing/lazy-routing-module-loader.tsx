@@ -22,7 +22,7 @@ export function LazyRoutingModuleLoader<AsyncModuleDefinition extends IModuleDef
   render,
 }: ILazyModuleLoader<AsyncModuleDefinition>): React.ReactElement {
   const [state, setState] = useState<ILazyModuleLoaderState>({ loading: false, route: null, error: null })
-  
+
   const loadModule: () => Promise<void> = async () => {
     try {
       setState((prevState) => ({ ...prevState, loading: true }))
@@ -42,8 +42,7 @@ export function LazyRoutingModuleLoader<AsyncModuleDefinition extends IModuleDef
     // eslint-disable-next-line
   }, [])
 
-  useEffect(() => {
-  }, [state])
+  useEffect(() => {}, [state])
   if (state.error) {
     return <div className={styles.lazyRoutingModuleContainer}>Content cannot be loaded. Please try again later.</div>
   }

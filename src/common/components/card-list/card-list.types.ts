@@ -16,8 +16,8 @@ export interface ICardList<TData extends ICardListItem, Action> {
   pages: number
   page: number
   onPageChange(event: ChangeEvent<unknown>, page: number): void
-  layout?: "horizontal"|"vertical"
-  cols?: 2|4|5
-  buttonStyle?: "outlined"|"contained"|"text"
-  buttonColor?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
+  layout?: 'horizontal' | 'vertical'
+  cols?: 2 | 4 | 5
+  buttonStyle?: 'outlined' | 'contained' | 'text'
+  buttonColor?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
 }

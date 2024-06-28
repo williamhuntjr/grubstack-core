@@ -2,11 +2,7 @@ import { AxiosInstance } from 'axios'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'
 import { IResponse } from 'common/types'
-import { 
-  IAuthService,
-  IUser,
-  FailedRefreshTokenError
-} from './auth.types'
+import { IAuthService, IUser, FailedRefreshTokenError } from './auth.types'
 import { refreshTokenEndpointUrl } from './auth.constants'
 import { AuthRequestInterceptor } from './request-interceptor'
 import { AuthResponseInterceptor } from './response-interceptor'
@@ -16,7 +12,7 @@ export class AuthService implements IAuthService {
     this.initializeRequestInterceptor()
     this.initializeResponseInterceptor()
   }
-  
+
   private initializeRequestInterceptor(): void {
     const requestInterceptor = new AuthRequestInterceptor(this.apiClient)
     requestInterceptor.addUrlToBlackList(refreshTokenEndpointUrl)

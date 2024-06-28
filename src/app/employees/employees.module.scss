@@ -4,7 +4,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  .divider { 
+  .divider {
     margin-bottom: $grid-base;
   }
   .employeeTableContainer {
@@ -32,7 +32,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    h2, p {
+    h2,
+    p {
       text-align: center;
     }
     p {
@@ -40,7 +41,8 @@
       margin-bottom: $grid-small;
     }
     @media screen and (max-width: $bp-xs) {
-      h2, p {
+      h2,
+      p {
         padding: 0 $grid-base 0 $grid-base;
       }
     }
@@ -51,7 +53,9 @@
   .nameContainer {
     display: flex;
     align-items: center;
-    h6 { margin-bottom: 0; }
+    h6 {
+      margin-bottom: 0;
+    }
     img {
       max-width: 60px;
       margin-right: $grid-base;
@@ -61,7 +65,7 @@
     padding: $grid-tiny;
     color: #fff;
     &.active {
-      background-color: green; 
+      background-color: green;
     }
     &.terminated {
       background-color: red;

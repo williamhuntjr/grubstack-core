@@ -42,13 +42,13 @@ $iconCardIconWidth: 200px;
   justify-content: center;
   text-align: center;
   padding: $grid-large;
-  border: solid 1px rgba(0,0,0,0.20);
+  border: solid 1px rgba(0, 0, 0, 0.2);
 }
 .iconCardDescription {
   margin-top: 0;
   margin-bottom: $grid-small;
 }
-.iconCardIcon { 
+.iconCardIcon {
   margin-bottom: 0;
   max-height: 100px;
 }

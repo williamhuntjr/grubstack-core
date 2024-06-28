@@ -23,7 +23,7 @@ export const ItemActionsViewMode = [
 export const ItemActionsEditMode = [
   {
     label: ItemAction.Build,
-    icon: HardwareIcon
+    icon: HardwareIcon,
   },
   {
     label: ItemAction.Edit,
@@ -32,12 +32,12 @@ export const ItemActionsEditMode = [
   {
     label: ItemAction.Delete,
     icon: DeleteIcon,
-  }
+  },
 ]
 
-export const ItemSpeedActions:ISpeedDialerAction[] = [
+export const ItemSpeedActions: ISpeedDialerAction[] = [
   {
     label: ItemAction.New,
     icon: AddIcon,
-  }
+  },
 ]

@@ -25,13 +25,13 @@ import { GrubList } from 'common/components/grub-list/grub-list'
 import { IGrubListItem } from 'common/components/grub-list/grub-list.types'
 import { IListAction } from 'common/types/list'
 import { IEmployeeState, IEmployee, IEmployeeTableRow } from './employees.types'
-import { 
-  defaultEmployeeState, 
-  EmployeeSpeedActions, 
-  EmployeeAction, 
-  employeeColumns, 
+import {
+  defaultEmployeeState,
+  EmployeeSpeedActions,
+  EmployeeAction,
+  employeeColumns,
   EmployeeTableActionsEditMode,
-  EmployeeTableActionsViewMode
+  EmployeeTableActionsViewMode,
 } from './employees.constants'
 import { defaultEmployeeFormData } from './employee-form/employee-form.constants'
 import { EmployeeForm } from './employee-form/employee-form'
@@ -45,8 +45,8 @@ export const Employees = (): JSX.Element => {
   const { MediaLibraryService } = useMediaLibraryModule()
   const { EmployeeService } = useEmployeeModule()
 
-  const [ state, setState ] = useState<IEmployeeState>(defaultEmployeeState)
-  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
+  const [state, setState] = useState<IEmployeeState>(defaultEmployeeState)
+  const [isPickerDirty, setIsPickerDirty] = useState<boolean>(false)
 
   const canEditEmployees = hasPermission(UserPermissions.MaintainEmployees)
   const validationMessages = generateValidationMessages(ObjectType.Employee)
@@ -64,25 +64,21 @@ export const Employees = (): JSX.Element => {
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
-  } = useDialog<string|null>(null)
+  } = useDialog<string | null>(null)
 
   const {
     data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
-    openDialog: openFilePickerDialog
-  } = useDialog<IEmployee|null>()
+    openDialog: openFilePickerDialog,
+  } = useDialog<IEmployee | null>()
 
-  const {
-    refresh,
-    state: paginationState,
-    pagination: pagination
-  } = usePagination<IEmployee>(EmployeeService.getAll, 20)
+  const { refresh, state: paginationState, pagination: pagination } = usePagination<IEmployee>(EmployeeService.getAll, 20)
 
-  const {
-    state: filePickerPaginationState,
-    pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
+  const { state: filePickerPaginationState, pagination: filePickerPagination } = usePagination<IMediaLibraryFile>(
+    MediaLibraryService.getAll,
+    filePickerSize
+  )
 
   const handleSpeedAction = (action: string): void => {
     switch (action) {
@@ -96,19 +92,19 @@ export const Employees = (): JSX.Element => {
   }
 
   const handleRowAction = (formatted: IEmployeeTableRow, action: ITableAction): void => {
-    let selectedEmployee:IEmployee
+    let selectedEmployee: IEmployee
     switch (action.label) {
       case EmployeeAction.Delete:
         openDeleteDialog(formatted?.id ?? '')
         break
       case EmployeeAction.View:
-        selectedEmployee = paginationState.data.filter(employee => employee.id == formatted.id)[0]
+        selectedEmployee = paginationState.data.filter((employee) => employee.id == formatted.id)[0]
         setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: selectedEmployee, mode: GSMode.View }))
         openEmployeeDialog(selectedEmployee)
         break
       case EmployeeAction.Edit:
-        selectedEmployee = paginationState.data.filter(employee => employee.id == formatted.id)[0]
+        selectedEmployee = paginationState.data.filter((employee) => employee.id == formatted.id)[0]
         setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: selectedEmployee, mode: canEditEmployees ? GSMode.Edit : GSMode.View }))
         openEmployeeDialog(selectedEmployee)
@@ -119,19 +115,19 @@ export const Employees = (): JSX.Element => {
   }
 
   const handleListAction = (item: IGrubListItem, action: IListAction): void => {
-    let selectedEmployee:IEmployee
+    let selectedEmployee: IEmployee
     switch (action.label) {
       case EmployeeAction.Delete:
         openDeleteDialog(item?.value ?? '')
         break
       case EmployeeAction.View:
-        selectedEmployee = paginationState.data.filter(employee => employee.id == item.value)[0]
+        selectedEmployee = paginationState.data.filter((employee) => employee.id == item.value)[0]
         setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: selectedEmployee, mode: GSMode.View }))
         openEmployeeDialog(selectedEmployee)
         break
       case EmployeeAction.Edit:
-        selectedEmployee = paginationState.data.filter(employee => employee.id == item.value)[0]
+        selectedEmployee = paginationState.data.filter((employee) => employee.id == item.value)[0]
         setIsPickerDirty(false)
         setState((prevState) => ({ ...prevState, selected: selectedEmployee, mode: canEditEmployees ? GSMode.Edit : GSMode.View }))
         openEmployeeDialog(selectedEmployee)
@@ -149,11 +145,11 @@ export const Employees = (): JSX.Element => {
         case GSMode.New:
           await EmployeeService.create(data)
           toast.success(validationMessages.createSuccess)
-        break
+          break
         case GSMode.Edit:
           await EmployeeService.update(data)
           toast.success(validationMessages.updateSuccess)
-        break
+          break
         default:
           break
       }
@@ -185,7 +181,7 @@ export const Employees = (): JSX.Element => {
         if (filePickerData) {
           setEmployeeData({
             ...filePickerData,
-            profile_thumbnail_url: file.url
+            profile_thumbnail_url: file.url,
           })
         }
         setIsPickerDirty(true)
@@ -201,11 +197,11 @@ export const Employees = (): JSX.Element => {
       <GrubDialog
         open={employeeDialogOpen}
         onClose={closeEmployeeDialog}
-        title={state.mode == GSMode.New ? "Create a new employee" : `${employeeDialogData.first_name} ${employeeDialogData.last_name}` }
+        title={state.mode == GSMode.New ? 'Create a new employee' : `${employeeDialogData.first_name} ${employeeDialogData.last_name}`}
       >
-        <EmployeeForm  
-          mode={state.mode} 
-          data={employeeDialogData} 
+        <EmployeeForm
+          mode={state.mode}
+          data={employeeDialogData}
           onSubmit={handleSubmit}
           isPickerDirty={isPickerDirty}
           onOpenFilePicker={openFilePickerDialog}
@@ -228,51 +224,51 @@ export const Employees = (): JSX.Element => {
         onAction={handleFilePickerAction}
       />
       {state.isLoading && paginationState.isLoading && <Loading />}
-      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
-      <>
-        <h2 className="page-header">Employees</h2>
-        <Divider className={styles.divider} />
-        <div className={styles.employeeTableContainer}>
-          <GrubTable
-            columns={employeeColumns}
-            data={normalizeData(paginationState.data)}
-            onAction={handleRowAction}
-            actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
-            pages={paginationState.pages}
-            page={paginationState.pagination.page}
-            onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
-              void pagination.onChangePage(page)
-            }}
-          />
-        </div>
-        <div className={styles.employeeListContainer}>
-          <GrubList
-            subHeader="Employees"
-            addLabel="Add Employee"
-            onAction={handleListAction}
-            actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode }
-            data={normalizeListData(paginationState.data)}
-            pages={paginationState.pages}
-            page={paginationState.pagination.page}
-            onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
-              void pagination.onChangePage(page)
-            }}
-          />
-        </div>
-      </>
-      }
-      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading &&
+      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading && (
+        <>
+          <h2 className="page-header">Employees</h2>
+          <Divider className={styles.divider} />
+          <div className={styles.employeeTableContainer}>
+            <GrubTable
+              columns={employeeColumns}
+              data={normalizeData(paginationState.data)}
+              onAction={handleRowAction}
+              actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode}
+              pages={paginationState.pages}
+              page={paginationState.pagination.page}
+              onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+                void pagination.onChangePage(page)
+              }}
+            />
+          </div>
+          <div className={styles.employeeListContainer}>
+            <GrubList
+              subHeader="Employees"
+              addLabel="Add Employee"
+              onAction={handleListAction}
+              actions={canEditEmployees ? EmployeeTableActionsEditMode : EmployeeTableActionsViewMode}
+              data={normalizeListData(paginationState.data)}
+              pages={paginationState.pages}
+              page={paginationState.pagination.page}
+              onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+                void pagination.onChangePage(page)
+              }}
+            />
+          </div>
+        </>
+      )}
+      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading && (
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any employees.</h2>
           <p>You will need to add an employee to continue.</p>
-          {canEditEmployees &&
-            <Button onClick={() => openEmployeeDialog(defaultEmployeeFormData)} variant="outlined" color="primary">Create an Employee</Button>
-          }
+          {canEditEmployees && (
+            <Button onClick={() => openEmployeeDialog(defaultEmployeeFormData)} variant="outlined" color="primary">
+              Create an Employee
+            </Button>
+          )}
         </div>
-      }
-      {canEditEmployees && 
-        <SpeedDialer actions={EmployeeSpeedActions} onAction={handleSpeedAction} />
-      }
+      )}
+      {canEditEmployees && <SpeedDialer actions={EmployeeSpeedActions} onAction={handleSpeedAction} />}
     </div>
   )
 }

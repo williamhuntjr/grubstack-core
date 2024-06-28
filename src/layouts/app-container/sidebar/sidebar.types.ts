@@ -5,8 +5,8 @@ import { UserPermissions } from 'auth/auth.constants'
 export interface ISidebarRoute {
   label: string
   path: string
-  icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-    muiName: string;
+  icon?: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
+    muiName: string
   }
   permissions?: UserPermissions[]
 }

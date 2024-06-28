@@ -8,10 +8,7 @@ import { HttpRetryPolicy } from './retry-policy'
 export class AuthResponseInterceptor {
   private readonly retryPolicy: HttpRetryPolicy
 
-  constructor(
-    private readonly httpClient: IHttpClient,
-    public authService: IAuthService,
-  ) {
+  constructor(private readonly httpClient: IHttpClient, public authService: IAuthService) {
     this.retryPolicy = new HttpRetryPolicy(authService, httpClient)
     this.retryPolicy.addUrlToBlackList(refreshTokenEndpointUrl)
   }
@@ -24,7 +21,7 @@ export class AuthResponseInterceptor {
           throw error
         }
         if (error?.response?.status !== 401) {
-          throw error           
+          throw error
         }
         try {
           return await this.retryPolicy.retry(error)

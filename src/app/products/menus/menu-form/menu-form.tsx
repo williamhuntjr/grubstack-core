@@ -11,19 +11,13 @@ import { MenuFormField, MenuFormLabel, IMenuForm, IMenuFormValues } from './menu
 import { MenuFormSchema } from './menu-form.validation'
 import styles from './menu-form.module.scss'
 
-export const MenuForm: FC<IMenuForm> = memo(({ 
-  onSubmit, 
-  mode, 
-  data,
-  onOpenFilePicker,
-  isPickerDirty,
-}) => {
-  const { 
-    handleSubmit, 
-    control, 
-    reset, 
+export const MenuForm: FC<IMenuForm> = memo(({ onSubmit, mode, data, onOpenFilePicker, isPickerDirty }) => {
+  const {
+    handleSubmit,
+    control,
+    reset,
     formState: { isDirty },
-    getValues
+    getValues,
   } = useForm<IMenuFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(MenuFormSchema),
@@ -39,7 +33,9 @@ export const MenuForm: FC<IMenuForm> = memo(({
   }
 
   useEffect(() => {
-    if (data) { void reset(data) }
+    if (data) {
+      void reset(data)
+    }
     // eslint-disable-next-line
   }, [data])
 
@@ -48,12 +44,7 @@ export const MenuForm: FC<IMenuForm> = memo(({
       <div className={styles.thumbnailContainer}>
         <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => onOpenFilePicker(getValues())}
-            disabled={isViewMode}
-          >
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())} disabled={isViewMode}>
             Change Image
           </Button>
         </div>
@@ -81,7 +72,7 @@ export const MenuForm: FC<IMenuForm> = memo(({
         className={cls(styles.formField, styles.thumbnailUrl)}
         disabled={isViewMode}
       />
-      <Divider className={styles.divider}/>
+      <Divider className={styles.divider} />
       <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty && !isPickerDirty}>
         Save Menu
       </Button>

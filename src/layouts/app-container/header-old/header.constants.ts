@@ -3,7 +3,7 @@ export const defaultHeaderState = {
     {
       name: 'New',
       label: 'New',
-      icon: 'new'
-    }
-  ]
+      icon: 'new',
+    },
+  ],
 }

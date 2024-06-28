@@ -19,11 +19,7 @@ export const Builder: FC = () => {
 
   let navigate = useNavigate()
 
-  const {
-    open: builderDialogOpen,
-    openDialog: openBuilderDialog,
-    closeDialog: closeBuilderDialog,
-  } = useDialog<null>()
+  const { open: builderDialogOpen, openDialog: openBuilderDialog, closeDialog: closeBuilderDialog } = useDialog<null>()
 
   const handleClick = (data: IItem | IMenu): void => {
     if (builderType === BuilderTypes.Item) {
@@ -42,50 +38,52 @@ export const Builder: FC = () => {
 
   return (
     <div className={styles.builderContainer}>
-      <GrubDialog
-        open={builderDialogOpen}
-        onClose={closeBuilderDialog}
-        title={`${builderType} Picker`}
-      >
+      <GrubDialog open={builderDialogOpen} onClose={closeBuilderDialog} title={`${builderType} Picker`}>
         <BuilderDialog builderType={builderType} onClose={closeBuilderDialog} onClick={handleClick} />
       </GrubDialog>
       <div className={styles.cardContainer}>
-        {validatePermissions([UserPermissions.MaintainItems]) &&
-        <div className={styles.cardButtonContainer}>
-          <CardButton title="Build an Item" description="Add ingredients to an item" 
-            onClick={() =>{
-              setBuilderType(BuilderTypes.Item)
-              openBuilderDialog(null)
-            }} 
-            icon={<LunchDiningIcon />} 
-            responsive={true}
-          />
-        </div>
-        }
-        {validatePermissions([UserPermissions.MaintainItems]) &&
-        <div className={styles.cardButtonContainer}>
-          <CardButton title="Build a Variety" description="Add varieties to your item" 
-            onClick={() =>{
-              setBuilderType(BuilderTypes.Variety)
-              openBuilderDialog(null)
-            }} 
-            icon={<CategoryIcon />}
-            responsive={true} 
-          />
-        </div>
-        }
-        {validatePermissions([UserPermissions.MaintainMenus]) &&
-        <div className={styles.cardButtonContainer}>
-          <CardButton title="Build a Menu" description="Add items to your menu" 
-            onClick={() =>{
-              setBuilderType(BuilderTypes.Menu)
-              openBuilderDialog(null)
-            }} 
-            icon={<MenuBookIcon />}
-            responsive={true} 
-          />
-        </div>
-        }
+        {validatePermissions([UserPermissions.MaintainItems]) && (
+          <div className={styles.cardButtonContainer}>
+            <CardButton
+              title="Build an Item"
+              description="Add ingredients to an item"
+              onClick={() => {
+                setBuilderType(BuilderTypes.Item)
+                openBuilderDialog(null)
+              }}
+              icon={<LunchDiningIcon />}
+              responsive={true}
+            />
+          </div>
+        )}
+        {validatePermissions([UserPermissions.MaintainItems]) && (
+          <div className={styles.cardButtonContainer}>
+            <CardButton
+              title="Build a Variety"
+              description="Add varieties to your item"
+              onClick={() => {
+                setBuilderType(BuilderTypes.Variety)
+                openBuilderDialog(null)
+              }}
+              icon={<CategoryIcon />}
+              responsive={true}
+            />
+          </div>
+        )}
+        {validatePermissions([UserPermissions.MaintainMenus]) && (
+          <div className={styles.cardButtonContainer}>
+            <CardButton
+              title="Build a Menu"
+              description="Add items to your menu"
+              onClick={() => {
+                setBuilderType(BuilderTypes.Menu)
+                openBuilderDialog(null)
+              }}
+              icon={<MenuBookIcon />}
+              responsive={true}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

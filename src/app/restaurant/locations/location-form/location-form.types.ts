@@ -10,7 +10,7 @@ export enum LocationFormField {
   Icon = 'icon',
   LocationType = 'location_type',
   PhoneNumber = 'phone_number',
-  IsActive = 'is_active'
+  IsActive = 'is_active',
 }
 
 export enum LocationFormLabel {
@@ -22,7 +22,7 @@ export enum LocationFormLabel {
   Icon = 'Icon',
   LocationType = 'Location Type',
   PhoneNumber = 'Phone Number',
-  IsActive = 'Is Active'
+  IsActive = 'Is Active',
 }
 
 export interface ILocationFormValues {
@@ -38,6 +38,6 @@ export interface ILocationFormValues {
 
 export interface ILocationForm {
   onSubmit(data: ILocationFormValues): Promise<void>
-  data?: ILocation|null
+  data?: ILocation | null
   mode: GSMode
 }

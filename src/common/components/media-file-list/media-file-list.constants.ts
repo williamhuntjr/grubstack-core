@@ -17,5 +17,5 @@ export const MediaFileListActionsEditMode = [
   {
     label: MediaLibraryAction.Delete,
     icon: DeleteIcon,
-  }
+  },
 ]

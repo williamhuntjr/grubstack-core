@@ -15,68 +15,65 @@ export const theme = createTheme({
       textTransform: 'none',
       fontWeight: 500,
     },
-    fontFamily: [
-      '"Roboto"',
-      'sans-serif',
-    ].join(','),
+    fontFamily: ['"Roboto"', 'sans-serif'].join(','),
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          "&.MuiButton-root": {
+          '&.MuiButton-root': {
             borderRadius: 0,
-          }
-        }
-      }
+          },
+        },
+      },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         input: {
-          "&.MuiInputBase-input": {
+          '&.MuiInputBase-input': {
             padding: 8,
-          }
+          },
         },
         root: {
-          "&.MuiInputBase-root": {
+          '&.MuiInputBase-root': {
             borderRadius: 0,
-          }
-        }
-      }
+          },
+        },
+      },
     },
     MuiInputLabel: {
       styleOverrides: {
         shrink: {
-          "&.MuiInputLabel-shrink": {
+          '&.MuiInputLabel-shrink': {
             top: '0px !important',
-          }
+          },
         },
         outlined: {
-          "&.MuiInputLabel-outlined": {
+          '&.MuiInputLabel-outlined': {
             top: '-8px',
-          }
+          },
         },
-      }
+      },
     },
     MuiFormHelperText: {
-      styleOverrides: { 
+      styleOverrides: {
         contained: {
-          "&.MuiFormHelperText-contained": {
+          '&.MuiFormHelperText-contained': {
             marginLeft: '0px',
-          }
-        }
-      }
+          },
+        },
+      },
     },
     MuiTooltip: {
-      styleOverrides: { 
+      styleOverrides: {
         tooltip: {
-            fontSize: "1em",
-            backgroundColor: "#111",
+          fontSize: '1em',
+          backgroundColor: '#111',
         },
         arrow: {
-          color: "#111",
+          color: '#111',
         },
-      }
+      },
     },
-  }
+  },
 })

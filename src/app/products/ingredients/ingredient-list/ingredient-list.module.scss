@@ -12,7 +12,8 @@ $ingredientFormWidth: 400px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    h2, p {
+    h2,
+    p {
       text-align: center;
     }
     p {
@@ -20,7 +21,8 @@ $ingredientFormWidth: 400px;
       margin-bottom: $grid-small;
     }
     @media screen and (max-width: $bp-xs) {
-      h2, p {
+      h2,
+      p {
         padding: 0 $grid-base 0 $grid-base;
       }
     }
@@ -46,14 +48,14 @@ $ingredientFormWidth: 400px;
   li {
     font-size: 14px;
     display: inline-block;
-    &:after { 
-      content: ", "; 
+    &:after {
+      content: ', ';
       white-space: pre;
-    } 
+    }
     &:last-child {
-      &:after { 
-        content: ""; 
-      } 
+      &:after {
+        content: '';
+      }
     }
   }
 }

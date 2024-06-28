@@ -10,19 +10,13 @@ import { VarietyFormSchema } from './variety-form.validation'
 import { defaultVarietyFormData } from './variety-form.constants'
 import styles from './variety-form.module.scss'
 
-export const VarietyForm: FC<IVarietyForm> = memo(({ 
-    onSubmit, 
-    mode, 
-    data,
-    isPickerDirty,
-    onOpenFilePicker,
-}) => {
-  const { 
-    handleSubmit, 
-    control, 
-    reset, 
+export const VarietyForm: FC<IVarietyForm> = memo(({ onSubmit, mode, data, isPickerDirty, onOpenFilePicker }) => {
+  const {
+    handleSubmit,
+    control,
+    reset,
     getValues,
-    formState: { isDirty }
+    formState: { isDirty },
   } = useForm<IVarietyFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(VarietyFormSchema),
@@ -38,7 +32,9 @@ export const VarietyForm: FC<IVarietyForm> = memo(({
   }
 
   useEffect(() => {
-    if (data) { void reset(data) }
+    if (data) {
+      void reset(data)
+    }
     // eslint-disable-next-line
   }, [data])
 
@@ -47,12 +43,7 @@ export const VarietyForm: FC<IVarietyForm> = memo(({
       <div className={styles.thumbnailContainer}>
         <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => onOpenFilePicker(getValues())}
-            disabled={isViewMode}
-          >
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())} disabled={isViewMode}>
             Change Image
           </Button>
         </div>

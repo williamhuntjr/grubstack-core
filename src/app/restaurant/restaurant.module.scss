@@ -17,7 +17,7 @@
       display: flex;
       align-items: center;
       @media screen and (max-width: $bp-md) {
-         flex-direction: column;
+        flex-direction: column;
       }
       .restaurantLabel {
         h2 {
@@ -36,7 +36,7 @@
         }
       }
     }
-    .divider { 
+    .divider {
       margin: $grid-base 0 $grid-base 0;
     }
   }
@@ -49,7 +49,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  h2, p {
+  h2,
+  p {
     text-align: center;
   }
   p {
@@ -57,7 +58,8 @@
     margin-bottom: $grid-small;
   }
   @media screen and (max-width: $bp-xs) {
-    h2, p {
+    h2,
+    p {
       padding: 0 $grid-base 0 $grid-base;
     }
   }

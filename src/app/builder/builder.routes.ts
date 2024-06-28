@@ -27,5 +27,5 @@ export const builderRoute: IAsyncRoute<BuilderModuleDefinition> = {
   isSidebarButton: true,
   permissions: builderPermissions,
   icon: HardwareIcon,
-  childrenRoutesFactory: builderRouteFactory
+  childrenRoutesFactory: builderRouteFactory,
 }

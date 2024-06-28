@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { restaurantRoutePath } from './restaurant.constants'
 
@@ -7,7 +7,5 @@ export const Restaurant = (): JSX.Element => {
 
   useEffect(() => navigate(`${restaurantRoutePath}/branding`))
 
-  return (
-    <></>
-  )
+  return <></>
 }

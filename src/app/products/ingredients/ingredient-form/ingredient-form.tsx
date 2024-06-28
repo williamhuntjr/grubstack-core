@@ -11,16 +11,10 @@ import { IngredientFormField, IngredientFormLabel, IIngredientForm, IIngredientF
 import { IngredientFormSchema } from './ingredient-form.validation'
 import styles from './ingredient-form.module.scss'
 
-export const IngredientForm: FC<IIngredientForm> = memo(({ 
-    onSubmit,
-    mode,
-    data,
-    onOpenFilePicker,
-    isPickerDirty,
-  }) => {
-  const { 
-    handleSubmit, 
-    control, 
+export const IngredientForm: FC<IIngredientForm> = memo(({ onSubmit, mode, data, onOpenFilePicker, isPickerDirty }) => {
+  const {
+    handleSubmit,
+    control,
     reset,
     getValues,
     formState: { isDirty },
@@ -39,7 +33,9 @@ export const IngredientForm: FC<IIngredientForm> = memo(({
   }
 
   useEffect(() => {
-    if (data) { void reset(data) }
+    if (data) {
+      void reset(data)
+    }
     // eslint-disable-next-line
   }, [data])
 
@@ -48,12 +44,7 @@ export const IngredientForm: FC<IIngredientForm> = memo(({
       <div className={styles.thumbnailContainer}>
         <div className={styles.thumbnail}>
           <img src={data?.thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.name} />
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => onOpenFilePicker(getValues())}
-            disabled={isViewMode}
-          >
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())} disabled={isViewMode}>
             Change Image
           </Button>
         </div>
@@ -166,7 +157,7 @@ export const IngredientForm: FC<IIngredientForm> = memo(({
           className={styles.lastField}
         />
       </div>
-      
+
       <Divider className={styles.divider} />
       <Button type="submit" variant="contained" color="secondary" className={styles.saveButton} disabled={!isDirty && !isPickerDirty}>
         Save

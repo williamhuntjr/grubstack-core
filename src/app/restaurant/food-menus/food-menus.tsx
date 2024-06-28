@@ -21,12 +21,7 @@ import { restaurantMenusPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocationFilters } from '../locations/locations.types'
-import { 
-  FoodMenuAction,
-  FoodMenuSpeedActions,
-  ValidationLocationMenuMessage,
-  FoodMenuActionsEditMode
-} from './food-menus.constants'
+import { FoodMenuAction, FoodMenuSpeedActions, ValidationLocationMenuMessage, FoodMenuActionsEditMode } from './food-menus.constants'
 import styles from './food-menus.module.scss'
 
 export const FoodMenus = (): JSX.Element => {
@@ -48,16 +43,12 @@ export const FoodMenus = (): JSX.Element => {
     state: paginationState,
   } = usePagination<IMenu, ILocationFilters>(LocationService.getMenus, 1000, { id: locationId! })
 
-  const {
-    open: quickPickerOpen,
-    openDialog: openQuickPickerDialog,
-    closeDialog: closeQuickPickerDialog,
-  } = useDialog()
+  const { open: quickPickerOpen, openDialog: openQuickPickerDialog, closeDialog: closeQuickPickerDialog } = useDialog()
 
-  const {
-    state: menuPaginationState,
-    pagination: menuPagination
-  } = usePagination<IMenu>(MenuService.getAll, Math.round((height - 100) / 205) * 2)
+  const { state: menuPaginationState, pagination: menuPagination } = usePagination<IMenu>(
+    MenuService.getAll,
+    Math.round((height - 100) / 205) * 2
+  )
 
   const onAddMenu = async (menuData: IMenu): Promise<void> => {
     try {
@@ -65,7 +56,7 @@ export const FoodMenus = (): JSX.Element => {
       toast.success(ValidationLocationMenuMessage.AddMenuSuccess)
     } catch (e) {
       ErrorHandler.handleError(e as Error)
-    } 
+    }
     void refresh()
     closeQuickPickerDialog()
   }
@@ -79,8 +70,8 @@ export const FoodMenus = (): JSX.Element => {
     }
     void refresh()
   }
-  
-  const handleCardAction = async(item: IMenu, action: IListAction): Promise<void> => {
+
+  const handleCardAction = async (item: IMenu, action: IListAction): Promise<void> => {
     switch (action.label) {
       case FoodMenuAction.Delete:
         await onDeleteMenu(item?.id ?? '')
@@ -109,41 +100,43 @@ export const FoodMenus = (): JSX.Element => {
   return (
     <div className={styles.foodMenusListContainer}>
       {paginationState.isLoading && <Loading />}
-      {!paginationState.isLoading &&
-      <RestaurantContainer label={"Menus"} route={restaurantMenusPath}>
-        {paginationState.data.length > 0 && !paginationState.isLoading &&
-          <CardList 
-            data={paginationState.data} 
-            onAction={handleCardAction} 
-            actions={FoodMenuActionsEditMode} 
-            pages={paginationState.pages} 
-            page={paginationState.pagination.page}
-            onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
-              void menuPagination.onChangePage(page)
-            }}
-            layout="vertical"
-            cols={5}
-            buttonColor="secondary"
-          />
-        }
-        {paginationState.data.length <= 0 &&
-          <div className={styles.warningMessageContainer}>
-            <h2 className={styles.warningHeadline}>You do not have any menus for this location.</h2>
-            <p>You will need to add a menu to continue.</p>
-            {canEditLocations &&
-              <Button onClick={() => openQuickPickerDialog()} variant="outlined" color="primary">Add a Menu</Button>
-            }
-          </div>
-        }
-      </RestaurantContainer>
-      }
-      <QuickPicker 
-        open={quickPickerOpen} 
-        onClose={closeQuickPickerDialog} 
-        data={menuPaginationState.data} 
-        currentPage={menuPaginationState.pagination.page} 
-        pages={menuPaginationState.pages} 
-        onClick={onAddMenu} 
+      {!paginationState.isLoading && (
+        <RestaurantContainer label={'Menus'} route={restaurantMenusPath}>
+          {paginationState.data.length > 0 && !paginationState.isLoading && (
+            <CardList
+              data={paginationState.data}
+              onAction={handleCardAction}
+              actions={FoodMenuActionsEditMode}
+              pages={paginationState.pages}
+              page={paginationState.pagination.page}
+              onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
+                void menuPagination.onChangePage(page)
+              }}
+              layout="vertical"
+              cols={5}
+              buttonColor="secondary"
+            />
+          )}
+          {paginationState.data.length <= 0 && (
+            <div className={styles.warningMessageContainer}>
+              <h2 className={styles.warningHeadline}>You do not have any menus for this location.</h2>
+              <p>You will need to add a menu to continue.</p>
+              {canEditLocations && (
+                <Button onClick={() => openQuickPickerDialog()} variant="outlined" color="primary">
+                  Add a Menu
+                </Button>
+              )}
+            </div>
+          )}
+        </RestaurantContainer>
+      )}
+      <QuickPicker
+        open={quickPickerOpen}
+        onClose={closeQuickPickerDialog}
+        data={menuPaginationState.data}
+        currentPage={menuPaginationState.pagination.page}
+        pages={menuPaginationState.pages}
+        onClick={onAddMenu}
         onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
           void menuPagination.onChangePage(page)
         }}
@@ -151,5 +144,5 @@ export const FoodMenus = (): JSX.Element => {
       />
       <SpeedDialer actions={FoodMenuSpeedActions} onAction={handleSpeedAction} />
     </div>
- )
+  )
 }

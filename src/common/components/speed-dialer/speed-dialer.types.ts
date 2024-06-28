@@ -3,7 +3,7 @@ import { SvgIconTypeMap } from '@mui/material'
 
 export interface ISpeedDialerAction {
   label: string
-  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>
+  icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>
 }
 export interface ISpeedDialer {
   actions: ISpeedDialerAction[]

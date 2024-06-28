@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC } from 'react'
-import { Dialog, DialogTitle }  from '@mui/material'
+import { Dialog, DialogTitle } from '@mui/material'
 import Slide from '@mui/material/Slide'
 import Button from '@mui/material/Button'
 import { TransitionProps } from '@mui/material/transitions'
@@ -9,14 +9,23 @@ import styles from './quick-picker.module.scss'
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement;
+    children: React.ReactElement
   },
-  ref: React.Ref<unknown>,
+  ref: React.Ref<unknown>
 ) {
   return <Slide direction="left" ref={ref} {...props} />
 })
 
-export const QuickPicker: FC<IQuickPicker> = ({ open, onClose, title = 'Quick Picker', data, currentPage, pages, onClick, onPageChange }): JSX.Element => {
+export const QuickPicker: FC<IQuickPicker> = ({
+  open,
+  onClose,
+  title = 'Quick Picker',
+  data,
+  currentPage,
+  pages,
+  onClick,
+  onPageChange,
+}): JSX.Element => {
   return (
     <Dialog
       TransitionComponent={Transition}
@@ -28,9 +37,7 @@ export const QuickPicker: FC<IQuickPicker> = ({ open, onClose, title = 'Quick Pi
     >
       <DialogTitle id="quick-picker-dialog-title" className={styles.dialogTitle}>
         <div className={styles.dialogTitleContent}>
-          <div className={styles.dialogTitleText}>
-            {title}
-          </div>
+          <div className={styles.dialogTitleText}>{title}</div>
           <div className={styles.dialogTitleActions}>
             <Button onClick={onClose} variant="contained" color="secondary" className={styles.dialogActionButton}>
               Close
@@ -39,10 +46,10 @@ export const QuickPicker: FC<IQuickPicker> = ({ open, onClose, title = 'Quick Pi
         </div>
       </DialogTitle>
       <div className={styles.cardListContainer}>
-        <CardList 
+        <CardList
           data={data}
           onClick={onClick}
-          pages={pages} 
+          pages={pages}
           page={currentPage}
           onPageChange={(event: ChangeEvent<unknown>, page: number) => onPageChange(event, page)}
           layout="vertical"

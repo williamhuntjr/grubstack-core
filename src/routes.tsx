@@ -19,7 +19,7 @@ const AppRoutes: Array<IRoute | IAsyncRoute<never>> = [
   marketingRoute,
   builderRoute,
   mediaLibraryRoute,
-  employeeRoute
+  employeeRoute,
 ]
 
 export const appRoutes = processRoutes(AppRoutes)

@@ -13,12 +13,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-h1 { font-size: $font-size-h1; }
-h2 { font-size: $font-size-h2; }
-h3 { font-size: $font-size-h3; }
-h4 { font-size: $font-size-h4; }
-h5 { font-size: $font-size-h5; }
-h6 { font-size: $font-size-h6; }
+h1 {
+  font-size: $font-size-h1;
+}
+h2 {
+  font-size: $font-size-h2;
+}
+h3 {
+  font-size: $font-size-h3;
+}
+h4 {
+  font-size: $font-size-h4;
+}
+h5 {
+  font-size: $font-size-h5;
+}
+h6 {
+  font-size: $font-size-h6;
+}
 h1 {
   font-size: $font-size-h1;
   line-height: calc(#{$font-size-h1} + 10px);
@@ -42,14 +54,22 @@ h2 {
     line-height: calc(#{$font-size-h2} - 10px + 10px);
   }
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0 0 $grid-base 0;
   font-family: 'Roboto', sans-serif;
 }
-h1, h2, h3 { 
+h1,
+h2,
+h3 {
   font-weight: bold;
 }
-h4, h5 { 
+h4,
+h5 {
   font-weight: 500;
 }
 p {
@@ -58,7 +78,8 @@ p {
   font-weight: 300;
   margin: 0;
 }
-.page-header, .page-description {
+.page-header,
+.page-description {
   @media screen and (max-width: $bp-sm) {
     text-align: center;
   }
@@ -73,7 +94,9 @@ p {
 .MuiDialog-paper {
   max-width: unset !important;
 }
-.MuiButton-contained, .MuiButton-outlined, .MuiButton-text {
+.MuiButton-contained,
+.MuiButton-outlined,
+.MuiButton-text {
   box-shadow: none !important;
 }
 .MuiDialogTitle-root {

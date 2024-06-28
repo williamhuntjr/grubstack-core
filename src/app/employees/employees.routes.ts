@@ -20,5 +20,5 @@ export const employeeRoute: IAsyncRoute<EmployeeModuleDefinition> = {
   isSidebarButton: true,
   permissions: employeePermissions,
   icon: FaceIcon,
-  childrenRoutesFactory: employeeRouteFactory
+  childrenRoutesFactory: employeeRouteFactory,
 }

@@ -11,8 +11,8 @@
   width: $sidebar-width;
   background-color: $color-primary;
   color: $color-white;
-  -webkit-transition: width .5s;
-  transition: width .5s;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
   box-shadow: $box-shadow;
   @media screen and (max-width: $bp-md) {
     height: unset;

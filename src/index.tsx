@@ -21,17 +21,11 @@ appInitializer()
 
 root.render(
   <StyledEngineProvider injectFirst>
-    <ToastContainer 
-      pauseOnHover={false}
-      hideProgressBar={true}
-      autoClose={3000}
-      pauseOnFocusLoss={false}
-      position="bottom-right"
-    />
+    <ToastContainer pauseOnHover={false} hideProgressBar={true} autoClose={3000} pauseOnFocusLoss={false} position="bottom-right" />
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/*" element={<AppContainer routes={appRoutes} />}/>
+          <Route path="/*" element={<AppContainer routes={appRoutes} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

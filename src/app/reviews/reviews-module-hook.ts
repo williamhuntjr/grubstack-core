@@ -2,11 +2,7 @@ import { Overwrite } from 'utility-types'
 import { Injector } from 'core/injector/injector.service'
 import { moduleHookResolver } from 'core/react-lazy-modules/react-lazy-modules.utils'
 import { LazyModulesService } from 'core/react-lazy-modules/react-lazy-modules.service'
-import { 
-  IReviewModuleService,
-  ReviewModule,
-  ReviewModuleDefinition
-} from './reviews.module'
+import { IReviewModuleService, ReviewModule, ReviewModuleDefinition } from './reviews.module'
 import { reviewServiceToken } from './reviews.constants'
 import { IReviewService } from './reviews.types'
 

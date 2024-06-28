@@ -17,7 +17,7 @@ export interface IRoute {
   name?: string
   children?: IRoute[]
   isSidebarButton?: boolean
-  icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>
+  icon?: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>
   redirectTo?: string
   permissions?: UserPermissions[]
 }
@@ -30,7 +30,7 @@ export interface IAsyncRoute<Definition extends IModuleDefinition> {
   childrenRoutesFactory: ChildRoutesFactory<Definition>
   name?: string
   isSidebarButton?: boolean
-  icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>
+  icon?: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>
   redirectTo?: string
   permissions?: UserPermissions[]
 }

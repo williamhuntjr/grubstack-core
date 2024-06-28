@@ -17,7 +17,7 @@ export class EmployeeService implements IEmployeeService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 

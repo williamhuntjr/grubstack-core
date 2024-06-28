@@ -3,7 +3,7 @@ import { checkAndCreateFiltersObject } from 'common/utils/filter.utils'
 
 export function prepareRequestParams<TFilters extends { [T in keyof TFilters]: TFilters[T] }>(
   paginationParams?: IPaginationParams,
-  filters?: TFilters,
+  filters?: TFilters
 ): Partial<TFilters> & Partial<IPaginationParams> {
   const filtersObject = checkAndCreateFiltersObject(filters)
 

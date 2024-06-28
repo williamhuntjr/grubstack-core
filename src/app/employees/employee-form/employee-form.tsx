@@ -7,29 +7,18 @@ import { cls } from 'common/utils/utils'
 import { convertMode } from 'common/utils/mode/mode.utils'
 import { FormField, FormSelectField } from 'common/utils/form/form.components'
 import { defineFormSelectData } from 'common/components/select-field/select-field.utils'
-import { 
-  EmployeeFormField, 
-  EmployeeFormLabel,
-  IEmployeeFormValues,
-  IEmployeeForm
-} from './employee-form.types'
+import { EmployeeFormField, EmployeeFormLabel, IEmployeeFormValues, IEmployeeForm } from './employee-form.types'
 import { EmployeeFormSchema } from './employee-form.validation'
 import { defaultEmployeeFormData, genderTypes, jobTitles, employmentStatusList } from './employee-form.constants'
 import styles from './employee-form.module.scss'
 
-export const EmployeeForm: FC<IEmployeeForm> = memo(({ 
-  onSubmit, 
-  mode, 
-  data, 
-  onOpenFilePicker,
-  isPickerDirty,
-}) => {
-  const { 
-    control, 
+export const EmployeeForm: FC<IEmployeeForm> = memo(({ onSubmit, mode, data, onOpenFilePicker, isPickerDirty }) => {
+  const {
+    control,
     reset,
     handleSubmit,
     formState: { isDirty },
-    getValues
+    getValues,
   } = useForm<IEmployeeFormValues>({
     mode: 'onBlur',
     resolver: yupResolver(EmployeeFormSchema),
@@ -45,7 +34,9 @@ export const EmployeeForm: FC<IEmployeeForm> = memo(({
   }
 
   useEffect(() => {
-    if (data) { void reset(data) }
+    if (data) {
+      void reset(data)
+    }
     // eslint-disable-next-line
   }, [data])
 
@@ -53,13 +44,8 @@ export const EmployeeForm: FC<IEmployeeForm> = memo(({
     <form onSubmit={submitForm} className={styles.employeeForm}>
       <div className={styles.thumbnailContainer}>
         <div className={styles.thumbnail}>
-        <img src={data?.profile_thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.first_name} />
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => onOpenFilePicker(getValues())}
-            disabled={isViewMode}
-          >
+          <img src={data?.profile_thumbnail_url || '/assets/img/placeholder-image.jpg'} alt={data?.first_name} />
+          <Button variant="contained" color="secondary" onClick={() => onOpenFilePicker(getValues())} disabled={isViewMode}>
             Change Image
           </Button>
         </div>

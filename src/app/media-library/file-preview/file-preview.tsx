@@ -12,11 +12,7 @@ import { IFilePreview } from './file-preview.types'
 import styles from './file-preview.module.scss'
 
 export const FilePreview: FC<IFilePreview> = ({ data, mode, onDelete }) => {
-  const {
-    open: deleteDialogOpen,
-    openDialog: openDeleteDialog,
-    closeDialog: closeDeleteDialog,
-  } = useDialog<IMediaLibraryFile>(data)
+  const { open: deleteDialogOpen, openDialog: openDeleteDialog, closeDialog: closeDeleteDialog } = useDialog<IMediaLibraryFile>(data)
 
   const validationMessages = generateValidationMessages(ObjectType.File)
 
@@ -35,20 +31,28 @@ export const FilePreview: FC<IFilePreview> = ({ data, mode, onDelete }) => {
       </div>
       <div className={styles.filePreviewInfoContainer}>
         <div className={styles.filePreviewFileSize}>
-          <p><strong>File Size:</strong>{data.file_size} bytes</p>
+          <p>
+            <strong>File Size:</strong>
+            {data.file_size} bytes
+          </p>
         </div>
         <div className={styles.filePreviewFileType}>
-          <p><strong>File Type:</strong>{data.file_type}</p>
+          <p>
+            <strong>File Type:</strong>
+            {data.file_type}
+          </p>
         </div>
-        {mode == GSMode.Edit &&
-          <Divider className={styles.filePreviewDivider} />
-        }
-        {mode == GSMode.Edit &&
+        {mode == GSMode.Edit && <Divider className={styles.filePreviewDivider} />}
+        {mode == GSMode.Edit && (
           <div className={styles.filePreviewButtonContainer}>
-            <Button variant="contained" color="primary" onClick={handleExpandFile}>Preview File</Button>
-            <Button variant="contained" color="error" onClick={handleOpenDeleteDialog}>Delete File</Button>
+            <Button variant="contained" color="primary" onClick={handleExpandFile}>
+              Preview File
+            </Button>
+            <Button variant="contained" color="error" onClick={handleOpenDeleteDialog}>
+              Delete File
+            </Button>
           </div>
-        }
+        )}
       </div>
       <ConfirmationDialog
         open={deleteDialogOpen}

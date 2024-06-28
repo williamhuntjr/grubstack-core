@@ -3,8 +3,8 @@ import { SvgIconTypeMap } from '@mui/material'
 
 export interface IListAction {
   label: string
-  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-    muiName: string;
+  icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
+    muiName: string
   }
 }
 

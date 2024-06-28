@@ -5,8 +5,5 @@ import { IModule } from './core/react-lazy-modules/react-lazy-modules.types'
 export const AppModule: IModule = {
   name: 'AppModule',
   resolver: () => ({}),
-  dependencies: [
-    CoreModule,
-    AuthModule
-  ],
+  dependencies: [CoreModule, AuthModule],
 }

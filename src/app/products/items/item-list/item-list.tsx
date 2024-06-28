@@ -36,8 +36,8 @@ export const ItemList: FC = () => {
   const { ItemService } = useProductModule()
   const { MediaLibraryService } = useMediaLibraryModule()
 
-  const [ state, setState ] = useState<IItemState>(defaultItemState)
-  const [ isPickerDirty, setIsPickerDirty ] = useState<boolean>(false)
+  const [state, setState] = useState<IItemState>(defaultItemState)
+  const [isPickerDirty, setIsPickerDirty] = useState<boolean>(false)
 
   let navigate = useNavigate()
 
@@ -50,32 +50,28 @@ export const ItemList: FC = () => {
     open: itemDialogOpen,
     openDialog: openItemDialog,
     closeDialog: closeItemDialog,
-  } = useDialog<IItem|null>()
+  } = useDialog<IItem | null>()
 
   const {
     data: deleteDialogData,
     open: deleteDialogOpen,
     openDialog: openDeleteDialog,
     closeDialog: closeDeleteDialog,
-  } = useDialog<string|null>(null)
+  } = useDialog<string | null>(null)
 
   const {
     data: filePickerData,
     open: filePickerDialogOpen,
     closeDialog: closeFilePickerDialog,
-    openDialog: openFilePickerDialog
-  } = useDialog<IItem|null>()
+    openDialog: openFilePickerDialog,
+  } = useDialog<IItem | null>()
 
-  const {
-    refresh,
-    state: paginationState,
-    pagination: pagination
-  } = usePagination<IItem>(ItemService.getAll)
+  const { refresh, state: paginationState, pagination: pagination } = usePagination<IItem>(ItemService.getAll)
 
-  const {
-    state: filePickerPaginationState,
-    pagination: filePickerPagination
-  } = usePagination<IMediaLibraryFile>(MediaLibraryService.getAll, filePickerSize)
+  const { state: filePickerPaginationState, pagination: filePickerPagination } = usePagination<IMediaLibraryFile>(
+    MediaLibraryService.getAll,
+    filePickerSize
+  )
 
   const handleCardAction = (item: IItem, action: IListAction): void => {
     switch (action.label) {
@@ -120,11 +116,11 @@ export const ItemList: FC = () => {
         case GSMode.New:
           await ItemService.create(data)
           toast.success(validationMessages.createSuccess)
-        break
+          break
         case GSMode.Edit:
           await ItemService.update(data)
           toast.success(validationMessages.updateSuccess)
-        break
+          break
         default:
           break
       }
@@ -154,7 +150,7 @@ export const ItemList: FC = () => {
         if (filePickerData) {
           setItemData({
             ...filePickerData,
-            thumbnail_url: file.url
+            thumbnail_url: file.url,
           })
         }
         setIsPickerDirty(true)
@@ -170,11 +166,11 @@ export const ItemList: FC = () => {
       <GrubDialog
         open={itemDialogOpen}
         onClose={closeItemDialog}
-        title={state.mode == GSMode.New ? "Create a new item" : itemDialogData?.name ?? ''}
+        title={state.mode == GSMode.New ? 'Create a new item' : itemDialogData?.name ?? ''}
       >
-        <ItemForm 
-          mode={state.mode} 
-          data={itemDialogData} 
+        <ItemForm
+          mode={state.mode}
+          data={itemDialogData}
           onSubmit={handleSubmit}
           isPickerDirty={isPickerDirty}
           onOpenFilePicker={openFilePickerDialog}
@@ -196,13 +192,13 @@ export const ItemList: FC = () => {
         pagination={filePickerPagination}
         onAction={handleFilePickerAction}
       />
-      {(paginationState.isLoading || state.isLoading) &&  <Loading />}
-      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading &&
-        <CardList 
+      {(paginationState.isLoading || state.isLoading) && <Loading />}
+      {paginationState.data.length > 0 && !paginationState.isLoading && !state.isLoading && (
+        <CardList
           data={paginationState.data}
-          actions={canEditItems ? ItemActionsEditMode : ItemActionsViewMode} 
+          actions={canEditItems ? ItemActionsEditMode : ItemActionsViewMode}
           onAction={handleCardAction}
-          pages={paginationState.pages} 
+          pages={paginationState.pages}
           page={paginationState.pagination.page}
           onPageChange={(_event: ChangeEvent<unknown>, page: number) => {
             void pagination.onChangePage(page)
@@ -211,19 +207,19 @@ export const ItemList: FC = () => {
           cols={5}
           buttonColor="secondary"
         />
-      }
-      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading &&
+      )}
+      {paginationState.data.length <= 0 && !paginationState.isLoading && !state.isLoading && (
         <div className={styles.warningMessageContainer}>
           <h2 className={styles.warningHeadline}>You do not have any items.</h2>
           <p>You will need to create an item to continue.</p>
-          {canEditItems &&
-            <Button onClick={() => openItemDialog(defaultItemFormData)} variant="outlined" color="primary">Create an Item</Button>
-          }
+          {canEditItems && (
+            <Button onClick={() => openItemDialog(defaultItemFormData)} variant="outlined" color="primary">
+              Create an Item
+            </Button>
+          )}
         </div>
-      }
-      {canEditItems && 
-        <SpeedDialer actions={ItemSpeedActions} onAction={handleSpeedAction} />
-      }
+      )}
+      {canEditItems && <SpeedDialer actions={ItemSpeedActions} onAction={handleSpeedAction} />}
     </div>
   )
 }

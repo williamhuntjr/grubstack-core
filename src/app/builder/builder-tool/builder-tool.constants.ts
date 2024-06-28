@@ -16,26 +16,26 @@ export const defaultBuilderState = {
   selected: null,
   optional: null,
   parent: null,
-  mode: GSMode.New
+  mode: GSMode.New,
 }
 
 export enum BuilderAction {
   Add = 'Add',
   Delete = 'Delete',
   Edit = 'Edit',
-  View = 'View'
+  View = 'View',
 }
 
 export const BuilderItemActionsViewMode = [
   {
     label: BuilderAction.View,
-    icon: VisibilityIcon
+    icon: VisibilityIcon,
   },
 ]
 export const BuilderMenuActionsViewMode = [
   {
     label: BuilderAction.View,
-    icon: VisibilityIcon
+    icon: VisibilityIcon,
   },
 ]
 export const BuilderVarietyActionsViewMode = []
@@ -43,37 +43,37 @@ export const BuilderVarietyActionsViewMode = []
 export const BuilderItemActionsEditMode = [
   {
     label: BuilderAction.Edit,
-    icon: EditIcon
+    icon: EditIcon,
   },
   {
     label: BuilderAction.Delete,
-    icon: DeleteIcon
+    icon: DeleteIcon,
   },
 ]
 
 export const BuilderMenuActionsEditMode = [
   {
     label: BuilderAction.Edit,
-    icon: EditIcon
+    icon: EditIcon,
   },
   {
     label: BuilderAction.Delete,
-    icon: DeleteIcon
+    icon: DeleteIcon,
   },
 ]
 
 export const BuilderVarietyActionsEditMode = [
   {
     label: BuilderAction.Delete,
-    icon: DeleteIcon
+    icon: DeleteIcon,
   },
 ]
 
-export const BuilderSpeedActions:ISpeedDialerAction[] = [
+export const BuilderSpeedActions: ISpeedDialerAction[] = [
   {
     label: BuilderAction.Add,
     icon: AddIcon,
-  }
+  },
 ]
 
 export enum ValidationBuilderMessage {
@@ -89,7 +89,7 @@ export enum ValidationBuilderMessage {
 
   UpdateItemIngredientSuccess = 'The ingredient has been updated on the item.',
   UpdateMenuItemSuccess = 'The item has been updated on the menu.',
-  
+
   AddVarietyIngredientSuccess = 'The ingredient has been added to your variety.',
   DeleteVarietyIngredientSuccess = 'The ingredient has been removed from the variety.',
 
@@ -99,12 +99,12 @@ export enum ValidationBuilderMessage {
 
 export enum BuilderVarietyListAction {
   Add = 'Add',
-  Delete = 'Delete'
+  Delete = 'Delete',
 }
 
-export const BuilderVarietyListActions:IListAction[] = [
+export const BuilderVarietyListActions: IListAction[] = [
   {
     label: BuilderVarietyListAction.Delete,
     icon: DeleteIcon,
-  }
+  },
 ]

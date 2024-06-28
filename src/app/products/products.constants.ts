@@ -20,25 +20,24 @@ export const productTabs = [
   {
     name: ProductTab.Ingredients,
     component: IngredientList,
-    path: `${productRoutePath}/ingredients`
+    path: `${productRoutePath}/ingredients`,
   },
   {
     name: ProductTab.Items,
     component: ItemList,
-    path: `${productRoutePath}/items`
+    path: `${productRoutePath}/items`,
   },
   {
     name: ProductTab.Menus,
     component: MenuList,
-    path: `${productRoutePath}/menus`
+    path: `${productRoutePath}/menus`,
   },
   {
     name: ProductTab.Varieties,
     component: VarietyList,
-    path: `${productRoutePath}/varieties`
+    path: `${productRoutePath}/varieties`,
   },
 ]
-
 
 export const productPermissions = [
   UserPermissions.ViewIngredients,
@@ -49,22 +48,10 @@ export const productPermissions = [
   UserPermissions.MaintainMenus,
 ]
 
-export const itemPermissions = [
-  UserPermissions.ViewItems,
-  UserPermissions.MaintainItems
-]
+export const itemPermissions = [UserPermissions.ViewItems, UserPermissions.MaintainItems]
 
-export const ingredientPermissions = [
-  UserPermissions.ViewIngredients,
-  UserPermissions.MaintainIngredients
-]
+export const ingredientPermissions = [UserPermissions.ViewIngredients, UserPermissions.MaintainIngredients]
 
-export const menuPermissions = [
-  UserPermissions.ViewMenus,
-  UserPermissions.MaintainMenus
-]
+export const menuPermissions = [UserPermissions.ViewMenus, UserPermissions.MaintainMenus]
 
-export const varietyPermissions = [
-  UserPermissions.ViewVarieties,
-  UserPermissions.MaintainVarieties
-]
+export const varietyPermissions = [UserPermissions.ViewVarieties, UserPermissions.MaintainVarieties]

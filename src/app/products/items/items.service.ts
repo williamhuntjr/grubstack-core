@@ -20,7 +20,7 @@ export class ItemService implements IItemService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
@@ -55,7 +55,7 @@ export class ItemService implements IItemService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
@@ -72,7 +72,7 @@ export class ItemService implements IItemService {
     const params = {
       item_id: itemId,
       ingredient_id: ingredientId,
-      ...data
+      ...data,
     }
     await this.httpClient.patch<IResponse<IItem>>(`/items/${itemId}/ingredients/${ingredientId}`, { params })
   }

@@ -17,14 +17,14 @@ export function FormField<TFieldValues extends FieldValues>({
   type,
   inputProps,
   onChange,
-  error
+  error,
 }: IFormField<TFieldValues>): React.ReactElement {
   return (
     <Controller
       control={control}
       name={name}
       render={({
-        field: { value, onChange: onControlChange, onBlur: onControlBlur},
+        field: { value, onChange: onControlChange, onBlur: onControlBlur },
         fieldState: { error: fieldError, isTouched },
         formState: { isSubmitted },
       }) => {
@@ -63,14 +63,14 @@ export function DecimalField<TFieldValues extends FieldValues>({
   className,
   hidden = false,
   onChange,
-  error
+  error,
 }: IDecimalField<TFieldValues>): React.ReactElement {
   return (
     <Controller
       control={control}
       name={name}
       render={({
-        field: { value, onChange: onControlChange, onBlur: onControlBlur},
+        field: { value, onChange: onControlChange, onBlur: onControlBlur },
         fieldState: { error: fieldError, isTouched },
         formState: { isSubmitted },
       }) => {
@@ -115,7 +115,7 @@ export function FormCheckboxLabel<TFieldValue extends FieldValues>({
       name={name}
       control={control}
       render={({ field: { value, onChange: onControlChange } }) => (
-        <FormControlLabel 
+        <FormControlLabel
           control={
             <Checkbox
               color="primary"

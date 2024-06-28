@@ -5,7 +5,7 @@ import { IGrubListItem } from 'common/components/grub-list/grub-list.types'
 import { IBuilderDataItem } from './builder-tool.types'
 
 export function buildNutritionLabel(data: IBuilderDataItem[]): JSX.Element {
-  let newData:IIngredientSpecs = {
+  let newData: IIngredientSpecs = {
     calories: 0,
     fat: 0,
     saturated_fat: 0,
@@ -15,10 +15,10 @@ export function buildNutritionLabel(data: IBuilderDataItem[]): JSX.Element {
     carbs: 0,
     protein: 0,
     sugar: 0,
-    fiber: 0
+    fiber: 0,
   }
   data.forEach((ingredient) => {
-    const convertedData = {...ingredient} as IIngredient
+    const convertedData = { ...ingredient } as IIngredient
     newData.calories = Number(newData.calories) + Number(convertedData.calories)
     newData.fat = Number(newData.fat) + Number(convertedData.fat)
     newData.saturated_fat = Number(newData.saturated_fat) + Number(convertedData.saturated_fat)
@@ -36,6 +36,6 @@ export function buildNutritionLabel(data: IBuilderDataItem[]): JSX.Element {
 export function normalizeData(data: IVariety[]): IGrubListItem[] {
   return data.map((item) => ({
     label: item.name,
-    value: item.id ?? ''
+    value: item.id ?? '',
   }))
 }

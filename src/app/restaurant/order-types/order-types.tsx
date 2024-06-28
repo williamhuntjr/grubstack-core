@@ -8,8 +8,8 @@ import { IOrderType } from './order-types.types'
 import styles from './order-types.module.scss'
 
 export const OrderTypes = (): JSX.Element => {
-  const [ orderTypes, setOrderTypes ] = useState<IOrderType[]>()
-  const [ locationOrderTypes, setLocationOrderTypes ] = useState<IOrderType[]>([])
+  const [orderTypes, setOrderTypes] = useState<IOrderType[]>()
+  const [locationOrderTypes, setLocationOrderTypes] = useState<IOrderType[]>([])
 
   const { locationId } = useParams()
   const { RestaurantService, LocationService } = useRestaurantModule()
@@ -20,7 +20,7 @@ export const OrderTypes = (): JSX.Element => {
       setOrderTypes(resp.data)
       const activeOrderTypes = await LocationService.getOrderTypes(locationId!)
       setLocationOrderTypes(activeOrderTypes.data ?? [])
-    } catch(e) {
+    } catch (e) {
       console.error(e)
     }
   }
@@ -30,7 +30,7 @@ export const OrderTypes = (): JSX.Element => {
     return filtered?.length > 0 ? true : false
   }
 
-  const toggleOrderType = async(orderTypeId: string, checked: boolean): Promise<void> => {
+  const toggleOrderType = async (orderTypeId: string, checked: boolean): Promise<void> => {
     try {
       if (!checked) {
         await LocationService.deleteOrderType(locationId!, orderTypeId)
@@ -47,18 +47,23 @@ export const OrderTypes = (): JSX.Element => {
   useEffect(() => void fetchData(), [locationId])
 
   return (
-    <RestaurantContainer label={"Order Types"} route={restaurantOrderTypesPath}>
+    <RestaurantContainer label={'Order Types'} route={restaurantOrderTypesPath}>
       <div className={styles.orderTypesContainer}>
         <ul className={styles.orderTypesList}>
-        {orderTypes?.map((orderType, index) => 
-          <li key={index}>
-            <h3>{orderType.name}</h3>
-            <p>{orderType.description}</p>
-            <Switch aria-label='Enable Location' checked={isOrderTypeActive(orderType.id)} onChange={(e) => toggleOrderType(orderType.id, e.target.checked)}/> Enabled
-          </li>
-        )}
+          {orderTypes?.map((orderType, index) => (
+            <li key={index}>
+              <h3>{orderType.name}</h3>
+              <p>{orderType.description}</p>
+              <Switch
+                aria-label="Enable Order Type"
+                checked={isOrderTypeActive(orderType.id)}
+                onChange={(e) => toggleOrderType(orderType.id, e.target.checked)}
+              />{' '}
+              {isOrderTypeActive(orderType.id) ? 'Enabled' : 'Disabled'}
+            </li>
+          ))}
         </ul>
       </div>
     </RestaurantContainer>
- )
+  )
 }

@@ -4,9 +4,7 @@ import { httpClientToken, IHttpClient } from 'core/services/http-client'
 import { Scope } from 'core/injector/injector.types'
 import { CoreModule } from 'core/core.module'
 import { MediaLibraryModule } from 'app/media-library/media-library.module'
-import {
-  productModule,
-} from './products.constants'
+import { productModule } from './products.constants'
 import { IIngredientService } from './ingredients/ingredients.types'
 import { ingredientServiceToken } from './ingredients/ingredients.constants'
 import { IItemService } from './items/items.types'
@@ -28,12 +26,7 @@ export interface IProductModuleService {
 export const ProductModule: ILazyModule<ProductModuleDefinition> = {
   name: productModule,
   resolver: () => import('./products.exports'),
-  initializer: ({
-    IngredientService,
-    ItemService,
-    MenuService,
-    VarietyService
-  }) => {
+  initializer: ({ IngredientService, ItemService, MenuService, VarietyService }) => {
     const httpClient = Injector.resolve<IHttpClient>(httpClientToken)
     Injector.register<IIngredientService>(ingredientServiceToken, () => new IngredientService(httpClient), Scope.Singleton)
     Injector.register<IItemService>(itemServiceToken, () => new ItemService(httpClient), Scope.Singleton)

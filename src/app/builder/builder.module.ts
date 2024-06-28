@@ -8,9 +8,7 @@ import { IItemService } from 'app/products/items/items.types'
 import { IMenuService } from 'app/products/menus/menus.types'
 import { menuServiceToken } from 'app/products/menus/menus.constants'
 import { itemServiceToken } from 'app/products/items/items.constants'
-import {
-  builderModule,
-} from './builder.constants'
+import { builderModule } from './builder.constants'
 
 export type BuilderModuleDefinition = typeof import('./builder.exports')
 
@@ -22,10 +20,7 @@ export interface IBuilderModuleService {
 export const BuilderModule: ILazyModule<BuilderModuleDefinition> = {
   name: builderModule,
   resolver: () => import('./builder.exports'),
-  initializer: ({
-    ItemService,
-    MenuService
-  }) => {
+  initializer: ({ ItemService, MenuService }) => {
     const httpClient = Injector.resolve<IHttpClient>(httpClientToken)
     Injector.register<IItemService>(itemServiceToken, () => new ItemService(httpClient), Scope.Singleton)
     Injector.register<IMenuService>(menuServiceToken, () => new MenuService(httpClient), Scope.Singleton)

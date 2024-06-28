@@ -15,16 +15,14 @@ import styles from './restaurant.module.scss'
 import { restaurantLocationsPath } from './restaurant.constants'
 
 export const RestaurantContainer: FC<IRestaurantContainer> = ({ label, route, children }) => {
-  const [ isLoading, setLoading ] = useState<boolean>(true)
+  const [isLoading, setLoading] = useState<boolean>(true)
 
   const { LocationService } = useRestaurantModule()
   const { locationId } = useParams()
 
   const navigate = useNavigate()
 
-  const {
-    state: paginationState,
-  } = usePagination<ILocation>(LocationService.getAll, 1000)
+  const { state: paginationState } = usePagination<ILocation>(LocationService.getAll, 1000)
 
   const handleChange = (event: SelectChangeEvent): void => {
     if (route) {
@@ -32,11 +30,11 @@ export const RestaurantContainer: FC<IRestaurantContainer> = ({ label, route, ch
     }
   }
 
-  const checkLocation = async(locationIdToCheck: string): Promise<void> => {
+  const checkLocation = async (locationIdToCheck: string): Promise<void> => {
     try {
       await LocationService.get(locationIdToCheck)
       setLoading(false)
-    } catch(e) {
+    } catch (e) {
       toast.error('The URL provided is invalid. There is no such location.')
       navigate(`${restaurantLocationsPath}`)
       console.error(e)
@@ -50,20 +48,18 @@ export const RestaurantContainer: FC<IRestaurantContainer> = ({ label, route, ch
         const { data } = await LocationService.getAll({ page: 1, limit: 100 })
         if (data.length > 0) {
           navigate(`${route}/${data[0].id}`)
-        }
-        else {
+        } else {
           toast.error('You need to add a restaurant location first.')
           navigate(`${restaurantLocationsPath}`)
         }
         setLoading(false)
-      }
-      else {
+      } else {
         if (locationId) {
           await checkLocation(locationId!)
         }
       }
       setLoading(false)
-    } catch(e) {
+    } catch (e) {
       console.error(e)
     }
   }
@@ -74,39 +70,39 @@ export const RestaurantContainer: FC<IRestaurantContainer> = ({ label, route, ch
   return (
     <div className={styles.restaurantContainer}>
       {isLoading && <Loading />}
-      {!isLoading &&
-      <div className={styles.restaurantContent}>
-        <div className={styles.restaurantHeader}>
-          {label &&
-          <div className={styles.restaurantLabel}>
-            <h2>{label}</h2>
+      {!isLoading && (
+        <div className={styles.restaurantContent}>
+          <div className={styles.restaurantHeader}>
+            {label && (
+              <div className={styles.restaurantLabel}>
+                <h2>{label}</h2>
+              </div>
+            )}
+            {route && (
+              <div className={styles.locationPicker}>
+                <FormControl fullWidth>
+                  <InputLabel id="location-picker">Location</InputLabel>
+                  <Select
+                    labelId="location-picker-select-label"
+                    id="location-picker-select"
+                    label="Location"
+                    onChange={handleChange}
+                    value={locationId ?? ''}
+                  >
+                    {paginationState.data.map((location) => (
+                      <MenuItem value={location.id!} key={`location-${location.id}`}>
+                        {location.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            )}
           </div>
-          }
-          {route &&
-          <div className={styles.locationPicker}>
-            <FormControl fullWidth>
-              <InputLabel id="location-picker">Location</InputLabel>
-              <Select
-                labelId="location-picker-select-label"
-                id="location-picker-select"
-                label="Location"
-                onChange={handleChange}
-                value={locationId ?? ''}
-              >
-                {paginationState.data.map((location) => 
-                  <MenuItem value={location.id!} key={`location-${location.id}`}>{location.name}</MenuItem>
-                )}
-              </Select>
-            </FormControl>
-          </div>
-          }
+          {label && <Divider className={styles.divider} />}
+          {children}
         </div>
-        {label &&
-          <Divider className={styles.divider} />
-        }
-        {children}
-      </div>
-      }
+      )}
     </div>
   )
 }

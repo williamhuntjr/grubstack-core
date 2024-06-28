@@ -10,7 +10,7 @@ export class MenuService implements IMenuService {
   constructor(private readonly httpClient: AxiosInstance) {
     bindAllInstanceMethods(this)
   }
-  
+
   public async getAll(paginationParams: IPaginationParams): Promise<IPaginationData<IMenu>> {
     const params = prepareRequestParams(paginationParams)
     const {
@@ -19,7 +19,7 @@ export class MenuService implements IMenuService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
@@ -54,7 +54,7 @@ export class MenuService implements IMenuService {
     return {
       data: Array.isArray(data) ? data : [],
       total: status.totalrowcount,
-      pages: status.totalpages
+      pages: status.totalpages,
     }
   }
 
@@ -69,9 +69,8 @@ export class MenuService implements IMenuService {
 
   public async updateItem(menuId: string, itemId: string, data: IBuilderItemFormValues): Promise<void> {
     const params = {
-      ...data
+      ...data,
     }
     await this.httpClient.patch<IResponse<IItem>>(`/menus/${menuId}/items/${itemId}`, { params })
   }
-
 }
