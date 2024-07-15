@@ -6,12 +6,14 @@ export interface ITabPanel {
 
 export interface ITab {
   name: string
-  component: React.FC<{}>
+  component?: React.FC<{}>
   path?: string
+  render?: JSX.Element
 }
 
 export interface ITabPanelProps {
   children?: React.ReactNode
   name: string
-  value: string | undefined
+  value: number | undefined
+  currentValue: number
 }

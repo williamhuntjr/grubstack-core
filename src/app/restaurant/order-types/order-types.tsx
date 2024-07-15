@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Switch from '@mui/material/Switch'
+import { UserPermissions } from 'auth/auth.constants'
+import { hasPermission } from 'auth/auth.utils'
 import { RestaurantContainer } from '../restaurant.container'
 import { restaurantOrderTypesPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
@@ -13,6 +15,8 @@ export const OrderTypes = (): JSX.Element => {
 
   const { locationId } = useParams()
   const { RestaurantService, LocationService } = useRestaurantModule()
+
+  const canEditLocations = hasPermission(UserPermissions.MaintainLocations)
 
   const fetchData = async (): Promise<void> => {
     try {
@@ -55,6 +59,7 @@ export const OrderTypes = (): JSX.Element => {
               <h3>{orderType.name}</h3>
               <p>{orderType.description}</p>
               <Switch
+                disabled={!canEditLocations}
                 aria-label="Enable Order Type"
                 checked={isOrderTypeActive(orderType.id)}
                 onChange={(e) => toggleOrderType(orderType.id, e.target.checked)}

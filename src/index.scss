@@ -78,6 +78,9 @@ p {
   font-weight: 300;
   margin: 0;
 }
+.page-header {
+  margin-bottom: 0;
+}
 .page-header,
 .page-description {
   @media screen and (max-width: $bp-sm) {
@@ -89,7 +92,7 @@ p {
 }
 .MuiDivider-root {
   border-color: rgba(0, 0, 0, 0.2);
-  margin-bottom: $grid-base !important;
+  margin: $grid-base 0 $grid-base 0 !important;
 }
 .MuiDialog-paper {
   max-width: unset !important;

@@ -1,9 +1,11 @@
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { UserPermissions } from 'auth/auth.constants'
 import { GSMode } from 'common/utils/mode/mode.types'
 import { ISpeedDialerAction } from 'common/components/speed-dialer/speed-dialer.types'
 
 export const locationServiceToken = 'LocationService'
+export const locationPermissions = [UserPermissions.ViewLocations, UserPermissions.MaintainLocations]
 
 export const defaultLocationState = {
   isLoading: true,

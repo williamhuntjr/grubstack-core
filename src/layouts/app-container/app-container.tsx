@@ -27,7 +27,8 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
 
   const verifyTenant = async (): Promise<boolean> => {
     try {
-      await HttpClient.get('/auth/verify_tenant')
+      const resp = await HttpClient.get('/auth/verify_tenant')
+      if (resp.status === 401) { return false }
       return true
     } catch (e) {
       console.log('You do not have access to this tenant.')
@@ -40,20 +41,17 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
     setAppLoading(true)
     const hasAccess = await verifyTenant()
     if (hasAccess) {
-      const localStorageUser = localStorage.getItem('grubstackUser')
-      if (localStorageUser == null) {
-        const {
-          data: { data },
-        } = await HttpClient.get('/auth/whoami')
+      const {
+        data: { data },
+      } = await HttpClient.get('/auth/whoami')
 
-        const userData = {
-          permissions: data.permissions,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          username: data.username,
-        }
-        localStorage.setItem('grubstackUser', JSON.stringify(userData))
+      const userData = {
+        permissions: data.permissions,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        username: data.username,
       }
+      localStorage.setItem('grubstackUser', JSON.stringify(userData))
 
       if (process.env.NODE_ENV == 'production') {
         const resp = await HttpClient.get('/core/versions')

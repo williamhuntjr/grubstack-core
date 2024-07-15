@@ -4,10 +4,24 @@ import Fade from '@mui/material/Fade'
 import Tooltip from '@mui/material/Tooltip'
 import { cls } from 'common/utils/utils'
 import { validateRoutePermissions } from 'auth/auth.utils'
+import { UserPermissions } from 'auth/auth.constants'
 import { homepageRoutePath } from 'app/homepage/homepage.constants'
 import { sidebarRoutes } from '../sidebar.constants'
 import { ISidebarItem } from '../sidebar.types'
 import styles from './desktop-sidebar.module.scss'
+
+function validateRootPermissions(rootPermissions: Array<Array<UserPermissions>>): boolean {
+  let permissionCount = 0
+  rootPermissions.forEach((permissionArray) => {
+    if (validateRoutePermissions(permissionArray)) {
+      permissionCount += 1
+    }
+  })
+  if (permissionCount == rootPermissions.length) {
+    return true
+  }
+  return false
+}
 
 const SidebarSubMenuItem: FC<ISidebarItem> = ({ route, onClick }) => {
   let resolved = useResolvedPath(route.path)
@@ -110,9 +124,14 @@ export const DesktopSidebar = (): JSX.Element => {
               >
                 <h4>{route.label}</h4>
                 <div className={styles.subMenuLinks}>
-                  {route.submenu.map((subRoute, subIndex) => (
-                    <SidebarSubMenuItem route={subRoute} key={subIndex} onClick={() => handleListHover('', false)} />
-                  ))}
+                  {route.submenu.map((subRoute, subIndex) => {
+                    if (validateRoutePermissions(subRoute.permissions ?? []) && validateRootPermissions(subRoute.rootPermissions ?? [])) {
+                      return (
+                        <SidebarSubMenuItem route={subRoute} key={subIndex} onClick={() => handleListHover('', false)} />
+                      )
+                    }
+                    return (<div key={subIndex}></div>)
+                  })}
                 </div>
               </div>
             )}

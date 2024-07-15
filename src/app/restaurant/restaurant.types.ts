@@ -2,8 +2,6 @@ import { IResponse } from 'common/types'
 import { IOrderType } from './order-types/order-types.types'
 
 export interface IRestaurantService {
-  getProperty(key: string): Promise<IResponse<IProperty>>
-  updateProperty(params: IProperty): Promise<IResponse<IProperty>>
   getOrderTypes(): Promise<IResponse<IOrderType[]>>
 }
 

@@ -1,6 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import HardwareIcon from '@mui/icons-material/Hardware'
 import AddIcon from '@mui/icons-material/Add'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 import { ISpeedDialerAction } from 'common/components/speed-dialer/speed-dialer.types'
 
 export enum ValidationLocationMenuMessage {
@@ -13,7 +14,15 @@ export enum FoodMenuAction {
   Add = 'Add',
   Build = 'Build',
   Delete = 'Delete',
+  View = 'View',
 }
+
+export const FoodMenuActionsViewMode = [
+  {
+    label: FoodMenuAction.View,
+    icon: VisibilityIcon,
+  },
+]
 
 export const FoodMenuActionsEditMode = [
   {

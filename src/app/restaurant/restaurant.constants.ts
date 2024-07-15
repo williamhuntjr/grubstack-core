@@ -16,11 +16,21 @@ export const restaurantNotificationsPath = `${restaurantRoutePath}/notifications
 export const restaurantOrderSettingsPath = `${restaurantRoutePath}/order-settings`
 export const restaurantLoggingPath = `${restaurantRoutePath}/logging`
 
-export const restaurantPermissions = [UserPermissions.ViewRestaurant, UserPermissions.MaintainRestaurant]
+export const restaurantPermissions = [UserPermissions.ViewRestaurants, UserPermissions.MaintainRestaurants]
 
 export enum RestaurantProperty {
   'RestaurantName' = 'restaurant_name',
   'LogoImageUrl' = 'logo_image_url',
   'BannerImageUrl' = 'banner_image_url',
   'MobileBannerImageUrl' = 'mobile_banner_image_url',
+  'PrimaryColor' = 'primary_color',
+  'PrimaryColorContrast' = 'primary_color_contrast',
+  'SecondaryColor' = 'secondary_color',
+  'SecondaryColorContrast' = 'secondary_color_contrast',
+  'HeaderBackgroundColor' = 'header_background_color',
+  'HeaderForegroundColor' = 'header_foreground_color',  
+  'FooterBackgroundColor' = 'footer_background_color',
+  'FooterForegroundColor' = 'footer_foreground_color',
+  'TextColor' = 'text_color',
+  'HeadlineTextColor' = 'headline_text_color',
 }

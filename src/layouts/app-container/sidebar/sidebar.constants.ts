@@ -10,7 +10,7 @@ import SelectAllIcon from '@mui/icons-material/SelectAll'
 import FoodBankIcon from '@mui/icons-material/FoodBank'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import FaceIcon from '@mui/icons-material/Face'
-import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining'
+//import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining'
 import PaymentIcon from '@mui/icons-material/Payment'
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications'
 import SettingsIcon from '@mui/icons-material/Settings'
@@ -27,6 +27,7 @@ import {
   menuPermissions,
   varietyPermissions,
 } from 'app/products/products.constants'
+import { UserPermissions } from 'auth/auth.constants'
 import { builderPermissions, builderRoutePath } from 'app/builder/builder.constants'
 import { homepageRoutePath } from 'app/homepage/homepage.constants'
 import { mediaLibraryPermissions, mediaLibraryRoutePath } from 'app/media-library/media-library.constants'
@@ -36,7 +37,7 @@ import { marketingPermissions, marketingRoutePath } from 'app/marketing/marketin
 import { employeePermissions, employeeRoutePath } from 'app/employees/employees.constants'
 import {
   restaurantPermissions,
-  restaurantDeliveryZonesPath,
+  //restaurantDeliveryZonesPath,
   restaurantOrderTypesPath,
   restaurantBrandingPath,
   restaurantLocationsPath,
@@ -62,41 +63,77 @@ export const sidebarRoutes: ISidebarNavRoute[] = [
     permissions: restaurantPermissions,
     submenu: [
       {
-        label: 'Branding',
-        path: restaurantBrandingPath,
-        icon: CameraIcon,
-        permissions: restaurantPermissions,
-      },
-      {
         label: 'Locations',
         path: restaurantLocationsPath,
         icon: PlaceIcon,
         permissions: restaurantPermissions,
+        rootPermissions: [
+          [
+            UserPermissions.ViewLocations,
+            UserPermissions.MaintainLocations,
+          ],
+        ]
+      },
+      {
+        label: 'Branding',
+        path: restaurantBrandingPath,
+        icon: CameraIcon,
+        permissions: restaurantPermissions,
+        rootPermissions: [
+          [
+            UserPermissions.ViewLocations,
+            UserPermissions.MaintainLocations,
+          ]
+        ]
       },
       {
         label: 'Menus',
         path: restaurantMenusPath,
         icon: MenuBookIcon,
         permissions: restaurantPermissions,
+        rootPermissions: [
+          [
+            UserPermissions.ViewMenus,
+            UserPermissions.MaintainMenus
+          ],
+          [
+            UserPermissions.ViewLocations,
+            UserPermissions.MaintainLocations,
+          ]
+        ]
       },
       {
         label: 'Order Types',
         path: restaurantOrderTypesPath,
         icon: FoodBankIcon,
         permissions: restaurantPermissions,
+        rootPermissions: [
+          [
+            UserPermissions.ViewLocations,
+            UserPermissions.MaintainLocations,
+          ]
+        ]
       },
       {
         label: 'Working Hours',
         path: restaurantWorkingHoursPath,
         icon: AccessTimeIcon,
         permissions: restaurantPermissions,
+        rootPermissions: [
+          [
+            UserPermissions.ViewLocations,
+            UserPermissions.MaintainLocations,
+          ]
+        ]
       },
+      /*
       {
         label: 'Delivery Zones',
         path: restaurantDeliveryZonesPath,
         icon: DeliveryDiningIcon,
         permissions: restaurantPermissions,
       },
+      */
       {
         label: 'Payment Setup',
         path: restaurantPaymentSetupPath,
@@ -113,12 +150,6 @@ export const sidebarRoutes: ISidebarNavRoute[] = [
         label: 'Order Settings',
         path: restaurantOrderSettingsPath,
         icon: SettingsIcon,
-        permissions: restaurantPermissions,
-      },
-      {
-        label: 'Logging',
-        path: restaurantLoggingPath,
-        icon: ArticleIcon,
         permissions: restaurantPermissions,
       },
     ],
@@ -190,5 +221,11 @@ export const sidebarRoutes: ISidebarNavRoute[] = [
     path: marketingRoutePath,
     icon: CampaignIcon,
     permissions: marketingPermissions,
+  },
+  {
+    label: 'Logging',
+    path: restaurantLoggingPath,
+    icon: ArticleIcon,
+    permissions: restaurantPermissions,
   },
 ]

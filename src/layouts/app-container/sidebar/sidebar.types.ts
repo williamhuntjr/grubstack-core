@@ -9,6 +9,7 @@ export interface ISidebarRoute {
     muiName: string
   }
   permissions?: UserPermissions[]
+  rootPermissions?: Array<Array<UserPermissions>>
 }
 
 export interface ISidebarNavRoute extends ISidebarRoute {

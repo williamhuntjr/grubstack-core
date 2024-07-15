@@ -24,7 +24,7 @@ import { useMediaLibraryModule } from 'app/media-library/media-library-module-ho
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { useProductModule } from 'app/products/products-module-hook'
 import { IMenu, IMenuState } from 'app/products/menus/menus.types'
-import { menuRoutePath } from 'app/products/menus/menus.constants'
+import { menuBuilderRoutePath } from 'app/products/menus/menus.constants'
 import { MenuSpeedActions, defaultMenuState, MenuActionsEditMode, MenuActionsViewMode, MenuAction } from './menu-list.constants'
 import { MenuForm } from '../menu-form/menu-form'
 import { defaultMenuFormData } from '../menu-form/menu-form.constants'
@@ -90,7 +90,7 @@ export const MenuList: FC = () => {
         break
       case MenuAction.Build:
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditMenus ? GSMode.Edit : GSMode.View }))
-        navigate(`${builderRoutePath}${menuRoutePath}/${item.id}`)
+        navigate(`${builderRoutePath}${menuBuilderRoutePath}/${item.id}`)
         break
       default:
         break

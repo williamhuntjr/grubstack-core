@@ -1,7 +1,8 @@
 import { GSMode } from 'common/utils/mode/mode.types'
 
 export const varietyServiceToken = 'VarietyService'
-export const varietyRoutePath = '/variety'
+export const varietyRoutePath = '/varieties'
+export const varietyBuilderRoutePath = '/variety'
 
 export const defaultVarietyState = {
   isLoading: false,

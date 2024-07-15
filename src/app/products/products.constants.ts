@@ -1,4 +1,6 @@
+
 import { UserPermissions } from 'auth/auth.constants'
+import { ITab } from 'common/components/tab-panel/tab-panel.types'
 import { IngredientList } from './ingredients/ingredient-list/ingredient-list'
 import { ItemList } from './items/item-list/item-list'
 import { MenuList } from './menus/menu-list/menu-list'
@@ -16,7 +18,7 @@ export enum ProductTab {
   Varieties = 'Varieties',
 }
 
-export const productTabs = [
+export const productTabs:ITab[] = [
   {
     name: ProductTab.Ingredients,
     component: IngredientList,
@@ -46,6 +48,8 @@ export const productPermissions = [
   UserPermissions.MaintainItems,
   UserPermissions.ViewMenus,
   UserPermissions.MaintainMenus,
+  UserPermissions.ViewVarieties,
+  UserPermissions.MaintainVarieties,
 ]
 
 export const itemPermissions = [UserPermissions.ViewItems, UserPermissions.MaintainItems]

@@ -21,7 +21,7 @@ import { IListAction } from 'common/types/list'
 import { FilePicker } from 'common/components/file-picker/file-picker'
 import { filePickerSize } from 'common/constants'
 import { IVariety, IVarietyState } from 'app/products/varieties/varieties.types'
-import { defaultVarietyState, varietyRoutePath } from 'app/products/varieties/varieties.constants'
+import { defaultVarietyState, varietyBuilderRoutePath } from 'app/products/varieties/varieties.constants'
 import { defaultVarietyFormData } from 'app/products/varieties/variety-form/variety-form.constants'
 import { IVarietyFormValues } from 'app/products/varieties/variety-form/variety-form.types'
 import { VarietyForm } from 'app/products/varieties/variety-form/variety-form'
@@ -31,7 +31,7 @@ import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { VarietyActionsEditMode, VarietyActionsViewMode, VarietySpeedActions, VarietyAction } from './variety-list.constants'
 import styles from './variety-list.module.scss'
 
-export const VarietyList: FC = () => {
+export const VarietyList: FC = (): JSX.Element => {
   const { ErrorHandler } = useCoreModule()
   const { VarietyService } = useProductModule()
 
@@ -90,7 +90,7 @@ export const VarietyList: FC = () => {
         break
       case VarietyAction.Build:
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditVarieties ? GSMode.Edit : GSMode.View }))
-        navigate(`${builderRoutePath}${varietyRoutePath}/${item.id}`)
+        navigate(`${builderRoutePath}${varietyBuilderRoutePath}/${item.id}`)
         break
       default:
         break

@@ -1,0 +1,28 @@
+@import 'assets/sass/variables';
+
+.restaurantColors {
+  margin-top: $grid-large;
+  .colorsList {
+    margin-top: $grid-large;
+    display: flex;
+    flex-wrap: wrap;
+    .colorContainer {
+      margin-bottom: $grid-large;
+      width: 24.95%;
+      h4 {
+        margin-bottom: 0;
+      }
+      .subTitle {
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: $grid-small;
+      }
+      .colorPreview {
+        width: 100px;
+        height: 50px;
+        margin-bottom: $grid-base;
+        border: $border-disabled;
+      }
+    }
+  }
+}

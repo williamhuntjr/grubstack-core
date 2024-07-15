@@ -13,15 +13,22 @@ import { useCoreModule } from 'core/core-module-hook'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
 import { IMenu } from 'app/products/menus/menus.types'
-import { menuRoutePath } from 'app/products/menus/menus.constants'
+import { menuRoutePath, menuBuilderRoutePath } from 'app/products/menus/menus.constants'
 import { builderRoutePath } from 'app/builder/builder.constants'
 import { useProductModule } from 'app/products/products-module-hook'
+import { productRoutePath } from 'app/products/products.constants'
 import { SpeedDialer } from 'common/components/speed-dialer/speed-dialer'
 import { restaurantMenusPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocationFilters } from '../locations/locations.types'
-import { FoodMenuAction, FoodMenuSpeedActions, ValidationLocationMenuMessage, FoodMenuActionsEditMode } from './food-menus.constants'
+import { 
+  FoodMenuAction,
+  FoodMenuSpeedActions,
+  ValidationLocationMenuMessage,
+  FoodMenuActionsEditMode,
+  FoodMenuActionsViewMode
+} from './food-menus.constants'
 import styles from './food-menus.module.scss'
 
 export const FoodMenus = (): JSX.Element => {
@@ -33,7 +40,7 @@ export const FoodMenus = (): JSX.Element => {
 
   const { height } = useWindowDimensions()
 
-  const canEditLocations = hasPermission(UserPermissions.MaintainRestaurant)
+  const canEditLocations = hasPermission(UserPermissions.MaintainRestaurants)
 
   const navigate = useNavigate()
 
@@ -77,7 +84,10 @@ export const FoodMenus = (): JSX.Element => {
         await onDeleteMenu(item?.id ?? '')
         break
       case FoodMenuAction.Build:
-        navigate(`${builderRoutePath}${menuRoutePath}/${item.id}`)
+        navigate(`${builderRoutePath}${menuBuilderRoutePath}/${item.id}`)
+        break
+      case FoodMenuAction.View:
+        navigate(`${productRoutePath}${menuRoutePath}`)
         break
       default:
         break
@@ -106,7 +116,7 @@ export const FoodMenus = (): JSX.Element => {
             <CardList
               data={paginationState.data}
               onAction={handleCardAction}
-              actions={FoodMenuActionsEditMode}
+              actions={canEditLocations ? FoodMenuActionsEditMode : FoodMenuActionsViewMode}
               pages={paginationState.pages}
               page={paginationState.pagination.page}
               onPageChange={(_event: ChangeEvent<unknown>, page: number) => {

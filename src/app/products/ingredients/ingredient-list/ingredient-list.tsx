@@ -30,7 +30,7 @@ import { normalizeData, sanitizeData } from './ingredient-list.utils'
 import { IIngredientListItem } from './ingredient-list.types'
 import styles from './ingredient-list.module.scss'
 
-export const IngredientList: FC = () => {
+export const IngredientList: FC = (): JSX.Element => {
   const { ErrorHandler } = useCoreModule()
   const { IngredientService } = useProductModule()
   const { MediaLibraryService } = useMediaLibraryModule()

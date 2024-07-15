@@ -24,14 +24,14 @@ import { IListAction } from 'common/types/list'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { IItem, IItemState } from 'app/products/items/items.types'
-import { defaultItemState, itemRoutePath } from 'app/products/items/items.constants'
+import { defaultItemState, itemBuilderRoutePath } from 'app/products/items/items.constants'
 import { defaultItemFormData } from 'app/products/items/item-form/item-form.constants'
 import { IItemFormValues } from 'app/products/items/item-form/item-form.types'
 import { ItemForm } from 'app/products/items/item-form/item-form'
 import { ItemActionsEditMode, ItemActionsViewMode, ItemSpeedActions, ItemAction } from './item-list.constants'
 import styles from './item-list.module.scss'
 
-export const ItemList: FC = () => {
+export const ItemList: FC = (): JSX.Element => {
   const { ErrorHandler } = useCoreModule()
   const { ItemService } = useProductModule()
   const { MediaLibraryService } = useMediaLibraryModule()
@@ -90,7 +90,7 @@ export const ItemList: FC = () => {
         break
       case ItemAction.Build:
         setState((prevState) => ({ ...prevState, selected: item, mode: canEditItems ? GSMode.Edit : GSMode.View }))
-        navigate(`${builderRoutePath}${itemRoutePath}/${item.id}`)
+        navigate(`${builderRoutePath}${itemBuilderRoutePath}/${item.id}`)
         break
       default:
         break

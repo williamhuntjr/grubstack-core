@@ -1,0 +1,31 @@
+@import 'assets/sass/variables';
+
+.workingHours {
+  padding: 0;
+  margin: $grid-small 0 0 0;
+  li { 
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    margin-bottom: 5px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+    .dayLabel {
+      min-width: 150px;
+    }
+    .openSwitch {
+      font-weight: 500;
+      width: 140px;
+    }
+    .timeFields {
+      display: flex;
+      align-items: center;
+      margin-left: calc(#{$grid-giant} * 2);
+      .timeField {
+        max-width: 100px;
+        margin: 0 $grid-tiny 0 $grid-tiny;
+      }
+    }
+  }
+}

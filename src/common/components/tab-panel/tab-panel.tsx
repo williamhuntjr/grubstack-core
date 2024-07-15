@@ -7,18 +7,16 @@ import { ITabPanel, ITabPanelProps } from './tab-panel.types'
 import styles from './tab-panel.module.scss'
 
 function TabPanelContent(props: ITabPanelProps): JSX.Element {
-  const { children, value, name, ...other } = props
-
+  const { children, value, name, currentValue } = props
   return (
     <div
       role="tabpanel"
-      hidden={value !== name}
+      hidden={value != currentValue}
       id={`tabpanel-${name}`}
       aria-labelledby={`tab-${name}`}
-      {...other}
       className={styles.tabPanelContent}
     >
-      {value === name && children}
+      {value == currentValue && children}
     </div>
   )
 }
@@ -35,9 +33,8 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
 
   const [value, setValue] = useState(0)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number): React.SyntheticEvent<Element, Event> => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number): void => {
     setValue(newValue)
-    return event
   }
 
   useEffect(() => {
@@ -48,7 +45,8 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
         }
       })
     }
-  }, [currentTab, tabs])
+  // eslint-disable-next-line
+  }, [])
 
   return (
     <div className={styles.tabPanelContainer}>
@@ -68,7 +66,6 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
                 component="a"
                 onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
                   event.preventDefault()
-                  setValue(index)
                   if (tab.path) {
                     navigate(tab.path)
                   }
@@ -84,8 +81,8 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
         </Tabs>
       </div>
       {tabs.map((tab, index) => (
-        <TabPanelContent value={currentTab} name={tab.name} key={index}>
-          <tab.component />
+        <TabPanelContent value={index} currentValue={value} name={tab.name} key={index}>
+          {tab.render ? tab.render : tab.component ? <tab.component /> : <></> }
         </TabPanelContent>
       ))}
     </div>

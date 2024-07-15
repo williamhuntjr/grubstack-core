@@ -14,7 +14,7 @@ import { useCoreModule } from 'core/core-module-hook'
 import { hasPermission } from 'auth/auth.utils'
 import { UserPermissions } from 'auth/auth.constants'
 import { SpeedDialer } from 'common/components/speed-dialer/speed-dialer'
-import { restaurantLocationsPath } from '../restaurant.constants'
+import { restaurantBrandingPath, restaurantLocationsPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocation, ILocationState } from './locations.types'
@@ -31,7 +31,7 @@ export const Locations = (): JSX.Element => {
   const { ErrorHandler } = useCoreModule()
 
   const validationMessages = generateValidationMessages(ObjectType.Location)
-  const canEditLocations = hasPermission(UserPermissions.MaintainRestaurant)
+  const canEditLocations = hasPermission(UserPermissions.MaintainRestaurants)
 
   const navigate = useNavigate()
 
@@ -72,10 +72,10 @@ export const Locations = (): JSX.Element => {
     try {
       switch (state.mode) {
         case GSMode.New:
-          await LocationService.create(data)
+          const location = await LocationService.create(data)
           toast.success(validationMessages.createSuccess)
           setState((prevState) => ({ ...prevState, mode: GSMode.Edit }))
-          navigate(`${restaurantLocationsPath}`)
+          navigate(`${restaurantBrandingPath}/${location.id}`)
           break
         case GSMode.Edit:
           await LocationService.update(data)

@@ -1,28 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
+import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { cls } from 'common/utils/utils'
 import { usePagination } from 'common/hooks/pagination.hook'
 import { FilePicker } from 'common/components/file-picker/file-picker'
 import { filePickerSize } from 'common/constants'
 import { Loading } from 'common/components/loading/loading'
 import { useDialog } from 'common/hooks/dialog.hook'
+import { hasPermission } from 'auth/auth.utils'
+import { UserPermissions } from 'auth/auth.constants'
 import { MediaLibraryAction } from 'app/media-library/media-library.constants'
 import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
-import { RestaurantProperty } from '../restaurant.constants'
+import { filterProperty } from '../restaurant.utilities'
+import { IProperty } from '../restaurant.types'
+import { restaurantBrandingPath, RestaurantProperty } from '../restaurant.constants'
 import { IBrandingState } from './branding.types'
 import { defaultBrandingState } from './branding.constants'
-import styles from './branding.module.scss'
+import { RestaurantName } from './restaurant-name/restaurant-name'
+import { RestaurantImages } from './restaurant-images/restaurant-images'
+import { RestaurantColors } from './restaurant-colors/restaurant-colors'
 
 export const Branding = (): JSX.Element => {
   const [state, setState] = useState<IBrandingState>(defaultBrandingState)
 
-  const { RestaurantService } = useRestaurantModule()
+  const { locationId } = useParams()
+
+  const { LocationService } = useRestaurantModule()
   const { MediaLibraryService } = useMediaLibraryModule()
+
+  const canEditLocations = hasPermission(UserPermissions.MaintainLocations)
 
   const { state: filePickerPaginationState, pagination: filePickerPagination } = usePagination<IMediaLibraryFile>(
     MediaLibraryService.getAll,
@@ -38,50 +46,72 @@ export const Branding = (): JSX.Element => {
 
   const fetchData = async (): Promise<void> => {
     try {
-      setState((prevState) => ({ ...prevState, isLoading: true }))
-      const restaurantName = await RestaurantService.getProperty('restaurant_name')
-      const logoImageUrl = await RestaurantService.getProperty('logo_image_url')
-      const bannerImageUrl = await RestaurantService.getProperty('banner_image_url')
-      const mobileBannerImageUrl = await RestaurantService.getProperty('mobile_banner_image_url')
-      setState((prevState) => ({
-        ...prevState,
-        isLoading: false,
-        restaurantName: restaurantName.data.value ?? '',
-        logoImageUrl: logoImageUrl.data.value ?? '/assets/img/placeholder-image.jpg',
-        bannerImageUrl: bannerImageUrl.data.value ?? '/assets/img/placeholder-image.jpg',
-        mobileBannerImageUrl: mobileBannerImageUrl.data.value ?? '/assets/img/placeholder-image.jpg',
-      }))
-      setState((prevState) => ({ ...prevState, isLoading: false }))
+      if (locationId) {
+        setState((prevState) => ({ ...prevState, isLoading: true }))
+        const resp = await LocationService.getProperties(locationId)
+        setState((prevState) => ({
+          ...prevState,
+          isLoading: false,
+          properties: resp.data
+        }))
+        setState((prevState) => ({ ...prevState, isLoading: false }))
+      }
     } catch (e) {
       console.error(e)
     }
+  }
+  
+  const updateStateProperties = (key: RestaurantProperty, value: string): void => {
+    let newPropertiesState:IProperty[] = []
+    state.properties.forEach((property) => {
+      if (property.key == key) {
+        newPropertiesState.push({
+          ...property,
+          value: value
+        })
+      } else {
+        newPropertiesState.push({
+          ...property
+        })
+      }
+    })
+    setState((prevState) => ({ ...prevState, properties: newPropertiesState }))
   }
 
   const handlePropertyChange = async (key: string, value: string): Promise<void> => {
-    try {
-      await RestaurantService.updateProperty({ key: key, value: value })
-      await fetchData()
-    } catch (e) {
-      console.error(e)
-    }
+    await LocationService.updateProperty(locationId!, { key: key, value: value })
+    await fetchData()
   }
 
-  const updateRestaurantImage = async (key: string, value: string): Promise<void> => {
+  const handleUpdateRestaurantImage = async (key: string, value: string): Promise<void> => {
     try {
       await handlePropertyChange(key, value)
       toast.success('Your restaurant image has been updated.')
+      toast.info('The changes may take up to 60 seconds to apply.')
     } catch (e) {
       toast.error('Unable to update restaurant image.')
       console.error(e)
     }
   }
 
-  const saveRestaurantName = async (): Promise<void> => {
+  const handleSaveRestaurantName = async (): Promise<void> => {
     try {
-      await handlePropertyChange(RestaurantProperty.RestaurantName, state.restaurantName)
+      await handlePropertyChange(RestaurantProperty.RestaurantName, filterProperty(state.properties, RestaurantProperty.RestaurantName) ?? '')
       toast.success('Your restaurant name has been updated.')
+      toast.info('The changes may take up to 60 seconds to apply.')
     } catch (e) {
       toast.error('Unable to update restaurant name.')
+      console.error(e)
+    }
+  }
+
+  const handleUpdateColor = async (key: string, value: string): Promise<void> => {
+    try {
+      await handlePropertyChange(key, value)
+      toast.success('Your color has been updated.')
+      toast.info('The changes may take up to 60 seconds to apply.')
+    } catch (e) {
+      toast.error('Unable to update color.')
       console.error(e)
     }
   }
@@ -91,7 +121,7 @@ export const Branding = (): JSX.Element => {
       case MediaLibraryAction.Select:
         if (filePickerDialogData) {
           closeFilePickerDialog()
-          void updateRestaurantImage(filePickerDialogData, file.url)
+          void handleUpdateRestaurantImage(filePickerDialogData, file.url)
         }
         break
       default:
@@ -99,88 +129,22 @@ export const Branding = (): JSX.Element => {
     }
   }
 
+  const handleUpdateRestaurantName = (value: string): void => {
+    updateStateProperties(RestaurantProperty.RestaurantName, value)
+  }
+
   // eslint-disable-next-line
-  useEffect(() => void fetchData(), [])
+  useEffect(() => void fetchData(), [locationId])
 
   return (
-    <RestaurantContainer label={'Branding'}>
+    <RestaurantContainer label={'Branding'} route={restaurantBrandingPath}>
       {state.isLoading && <Loading />}
       {!state.isLoading && (
-        <div className={styles.brandingContainer}>
-          <div className={styles.restaurantName}>
-            <h4>Restaurant Name</h4>
-            <TextField
-              id="restaurant-name"
-              variant="outlined"
-              className={styles.textField}
-              value={state.restaurantName}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setState((prevState) => ({
-                  ...prevState,
-                  restaurantName: event.target.value,
-                }))
-              }}
-            />
-            <div className={styles.buttonContainer}>
-              <Button variant="contained" color="primary" onClick={() => void saveRestaurantName()}>
-                Save
-              </Button>
-            </div>
-          </div>
-          <div className={styles.storeImages}>
-            <div className={cls(styles.imageContainer, styles.logoContainer)}>
-              <div className={styles.imageContent}>
-                <h4>Logo Image</h4>
-                <p className={styles.subTitle}>This image is used throughout your apps as your primary logo</p>
-                <img src={state.logoImageUrl} alt="" />
-                <div className={styles.buttonContainer}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    onClick={() => openFilePickerDialog(RestaurantProperty.LogoImageUrl)}
-                  >
-                    Change
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className={cls(styles.imageContainer, styles.logoContainer)}>
-              <div className={styles.imageContent}>
-                <h4>Home Banner Image</h4>
-                <p className={styles.subTitle}>This is the banner image on your order app home page</p>
-                <img src={state.bannerImageUrl} alt="" />
-                <div className={styles.buttonContainer}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    onClick={() => openFilePickerDialog(RestaurantProperty.BannerImageUrl)}
-                  >
-                    Change
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className={cls(styles.imageContainer, styles.logoContainer)}>
-              <div className={styles.imageContent}>
-                <h4>Mobile Home Banner Image</h4>
-                <p className={styles.subTitle}>This is the mobile banner image on your order app home page</p>
-                <img src={state.mobileBannerImageUrl} alt="" />
-                <div className={styles.buttonContainer}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    onClick={() => openFilePickerDialog(RestaurantProperty.MobileBannerImageUrl)}
-                  >
-                    Change
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <>
+          <RestaurantName state={state} canEditLocations={canEditLocations} onUpdate={handleUpdateRestaurantName} onSubmit={handleSaveRestaurantName} />
+          <RestaurantImages state={state} canEditLocations={canEditLocations} onOpenFilePickerDialog={openFilePickerDialog} />
+          <RestaurantColors state={state} onUpdate={handleUpdateColor} />
+        </>
       )}
       <FilePicker
         open={filePickerDialogOpen}

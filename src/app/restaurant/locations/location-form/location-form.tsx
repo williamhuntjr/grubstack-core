@@ -9,6 +9,8 @@ import { cls } from 'common/utils/utils'
 import { defineFormSelectData } from 'common/components/select-field/select-field.utils'
 import { convertMode } from 'common/utils/mode/mode.utils'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { UserPermissions } from 'auth/auth.constants'
+import { hasPermission } from 'auth/auth.utils'
 import { LocationFormField, LocationFormLabel, ILocationForm, ILocationFormValues } from './location-form.types'
 import { LocationFormSchema } from './location-form.validation'
 import { locationTypes, defaultLocationFormData } from './location-form.constants'
@@ -27,8 +29,11 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
     resolver: yupResolver(LocationFormSchema),
     defaultValues: defaultLocationFormData,
   })
+
   const { isViewMode } = convertMode(mode)
 
+  const canEditLocations = hasPermission(UserPermissions.MaintainLocations)
+  
   const submitForm: (e: React.BaseSyntheticEvent) => void = (e) => {
     e.stopPropagation() // To prevent submitting parent forms
     const eventHandler = handleSubmit(onSubmit)
@@ -51,7 +56,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
             control={control}
             label={LocationFormLabel.Name}
             className={styles.locationName}
-            disabled={isViewMode}
+            disabled={isViewMode || !canEditLocations}
           />
         </div>
         <div className={styles.headerInputContainer}>
@@ -59,7 +64,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
             control={control}
             name={LocationFormField.LocationType}
             label={LocationFormLabel.LocationType}
-            disabled={isViewMode}
+            disabled={isViewMode || !canEditLocations}
             options={defineFormSelectData(locationTypes)}
             className={styles.locationType}
           />
@@ -70,7 +75,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
             control={control}
             label={LocationFormLabel.PhoneNumber}
             className={styles.phoneNumber}
-            disabled={isViewMode}
+            disabled={isViewMode || !canEditLocations}
           />
         </div>
       </div>
@@ -79,7 +84,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
         control={control}
         label={LocationFormLabel.Address}
         className={cls(styles.formField, styles.locationAddress)}
-        disabled={isViewMode}
+        disabled={isViewMode || !canEditLocations}
       />
       <div className={styles.addressDetails}>
         <div className={styles.addressInputContainer}>
@@ -88,7 +93,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
             control={control}
             label={LocationFormLabel.City}
             className={cls(styles.formField, styles.locationCity)}
-            disabled={isViewMode}
+            disabled={isViewMode || !canEditLocations}
           />
         </div>
         <div className={styles.addressInputContainer}>
@@ -97,7 +102,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
             control={control}
             label={LocationFormLabel.State}
             className={cls(styles.formField, styles.locationState)}
-            disabled={isViewMode}
+            disabled={isViewMode || !canEditLocations}
           />
         </div>
         <div className={styles.addressInputContainer}>
@@ -106,7 +111,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
             control={control}
             label={LocationFormLabel.Postal}
             className={cls(styles.formField, styles.locationPostal)}
-            disabled={isViewMode}
+            disabled={isViewMode || !canEditLocations}
           />
         </div>
       </div>
@@ -121,13 +126,14 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
           <Switch
             aria-label="Enable Location"
             checked={getValues(LocationFormField.IsActive)}
+            disabled={isViewMode || !canEditLocations}
             onChange={(e) => setValue(LocationFormField.IsActive, e.target.checked, { shouldDirty: true })}
           />{' '}
           Enabled
         </div>
       )}
       <Divider className={styles.divider} />
-      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty}>
+      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty || isViewMode || !canEditLocations}>
         Save Location
       </Button>
     </form>

@@ -7,6 +7,7 @@ import { RestaurantModule, RestaurantModuleDefinition } from './restaurant.modul
 import { restaurantPermissions, restaurantRoutePath } from './restaurant.constants'
 import { Restaurant } from './restaurant'
 import { FoodMenus } from './food-menus/food-menus'
+import { WorkingHours } from './working-hours/working-hours'
 
 function restaurantRouteFactory({}: RestaurantModuleDefinition): IRoute[] {
   return [
@@ -17,6 +18,11 @@ function restaurantRouteFactory({}: RestaurantModuleDefinition): IRoute[] {
     },
     {
       path: '/branding',
+      component: Branding,
+      permissions: restaurantPermissions,
+    },
+    {
+      path: '/branding/:locationId',
       component: Branding,
       permissions: restaurantPermissions,
     },
@@ -52,7 +58,12 @@ function restaurantRouteFactory({}: RestaurantModuleDefinition): IRoute[] {
     },
     {
       path: '/working-hours',
-      component: Branding,
+      component: WorkingHours,
+      permissions: restaurantPermissions,
+    },
+    {
+      path: '/working-hours/:locationId',
+      component: WorkingHours,
       permissions: restaurantPermissions,
     },
     {

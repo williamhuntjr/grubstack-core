@@ -1,0 +1,14 @@
+@import 'assets/sass/variables';
+
+.restaurantName {
+  margin-bottom: $grid-base;
+  @media screen and (max-width: $bp-sm) {
+    margin-bottom: $grid-large;
+  }
+  .textField {
+    min-width: 220px;
+  }
+  .buttonContainer {
+    margin-top: $grid-small;
+  }
+}

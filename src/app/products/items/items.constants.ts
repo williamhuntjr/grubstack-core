@@ -1,7 +1,8 @@
 import { GSMode } from 'common/utils/mode/mode.types'
 
 export const itemServiceToken = 'ItemService'
-export const itemRoutePath = '/item'
+export const itemRoutePath = '/items'
+export const itemBuilderRoutePath = '/item'
 
 export const defaultItemState = {
   isLoading: false,

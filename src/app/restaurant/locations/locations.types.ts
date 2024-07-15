@@ -1,7 +1,9 @@
 import { IPaginationParams, IPaginationData, IResponse } from 'common/types'
 import { IMenu } from 'app/products/menus/menus.types'
 import { GSMode } from 'common/utils/mode/mode.types'
+import { IWorkHour } from '../working-hours/hours-table/hours-table.types'
 import { IOrderType } from '../order-types/order-types.types'
+import { IProperty } from '../restaurant.types'
 
 export interface ILocation {
   id?: string
@@ -39,4 +41,9 @@ export interface ILocationService {
   getOrderTypes(locationId: string): Promise<IResponse<IOrderType[]>>
   addOrderType(locationId: string, orderTypeId: string): Promise<void>
   deleteOrderType(locationId: string, orderTypeId: string): Promise<void>
+  updateWorkHour(locationId: string, params: IWorkHour): Promise<void>
+  getWorkHours(locationId: string): Promise<IResponse<IWorkHour[]>>
+  getProperties(locationId: string): Promise<IResponse<IProperty[]>>
+  getProperty(locationId: string, key: string): Promise<IResponse<IProperty>>
+  updateProperty(locationId: string, params: IProperty): Promise<IResponse<IProperty>>
 }

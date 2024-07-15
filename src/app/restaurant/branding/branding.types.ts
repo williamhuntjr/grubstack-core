@@ -1,7 +1,6 @@
+import { IProperty } from '../restaurant.types'
+
 export interface IBrandingState {
-  restaurantName: string
   isLoading: boolean
-  logoImageUrl: string
-  bannerImageUrl: string
-  mobileBannerImageUrl: string
+  properties: IProperty[]
 }

@@ -3,8 +3,10 @@ import { prepareRequestParams } from 'common/utils/request.utils'
 import { bindAllInstanceMethods } from 'common/utils/object.utils'
 import { IPaginationParams, IPaginationResponse, IPaginationData, IResponse } from 'common/types'
 import { IMenu } from 'app/products/menus/menus.types'
-import { ILocationService, ILocation, ILocationFilters } from './locations.types'
+import { IWorkHour } from '../working-hours/hours-table/hours-table.types'
 import { IOrderType } from '../order-types/order-types.types'
+import { IProperty } from '../restaurant.types'
+import { ILocationService, ILocation, ILocationFilters } from './locations.types'
 
 export class LocationService implements ILocationService {
   constructor(private readonly httpClient: AxiosInstance) {
@@ -88,4 +90,30 @@ export class LocationService implements ILocationService {
   public async deleteOrderType(locationId: string, orderTypeId: string): Promise<void> {
     await this.httpClient.delete<Promise<void>>(`/locations/${locationId}/order-types/${orderTypeId}`)
   }
+
+  public async updateWorkHour(locationId: string, params: IWorkHour): Promise<void> {
+    const working_hour_type_id = params.working_hour_type_id
+    await this.httpClient.put<Promise<void>>(`/locations/${locationId}/working-hours/${working_hour_type_id}`, { params })
+  }
+
+  public async getWorkHours(locationId: string): Promise<IResponse<IWorkHour[]>> {
+    const resp = await this.httpClient.get<IResponse<IWorkHour[]>>(`/locations/${locationId}/working-hours`)
+    return resp.data
+  }
+
+  public async getProperties(locationId: string): Promise<IResponse<IProperty[]>> {
+    const resp = await this.httpClient.get<IResponse<IProperty[]>>(`/locations/${locationId}/properties`)
+    return resp.data
+  }
+
+  public async getProperty(locationId: string, key: string): Promise<IResponse<IProperty>> {
+    const resp = await this.httpClient.get<IResponse<IProperty>>(`/locations/${locationId}/properties/${key}`)
+    return resp.data
+  }
+
+  public async updateProperty(locationId: string, params: IProperty): Promise<IResponse<IProperty>> {
+    const resp = await this.httpClient.put<IResponse<IProperty>>(`/locations/${locationId}/properties`, { params })
+    return resp.data
+  }
+
 }
