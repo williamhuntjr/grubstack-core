@@ -25,7 +25,7 @@ export const HoursTable: FC<IHoursTable> = ({ onSubmit, data }) => {
   }
 
   const updateTime = (day: number, field: string, hour: number, minute: number): void => {
-    const updatedState = { ...state }
+    const updatedState = [ ...state ]
     if (field == 'open') {
       updatedState[day].open_hour = hour
       updatedState[day].open_minute = minute
