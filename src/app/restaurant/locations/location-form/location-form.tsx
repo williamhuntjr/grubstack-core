@@ -33,7 +33,7 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
   const { isViewMode } = convertMode(mode)
 
   const canEditLocations = hasPermission(UserPermissions.MaintainLocations)
-  
+
   const submitForm: (e: React.BaseSyntheticEvent) => void = (e) => {
     e.stopPropagation() // To prevent submitting parent forms
     const eventHandler = handleSubmit(onSubmit)
@@ -133,7 +133,13 @@ export const LocationForm: FC<ILocationForm> = memo(({ onSubmit, mode, data }) =
         </div>
       )}
       <Divider className={styles.divider} />
-      <Button type="submit" variant="contained" color="primary" className={styles.saveButton} disabled={!isDirty || isViewMode || !canEditLocations}>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        className={styles.saveButton}
+        disabled={!isDirty || isViewMode || !canEditLocations}
+      >
         Save Location
       </Button>
     </form>

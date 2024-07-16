@@ -13,19 +13,19 @@ import { IWorkHour } from './hours-table/hours-table.types'
 import { WorkingHoursTab } from './working-hours.constants'
 
 export const WorkingHours = (): JSX.Element => {
-  const [ isLoading, setLoading ] = useState<boolean>(true)
-  const [ businessHours, setBusinessHours ] = useState<IWorkHour[]>(defaultBusinessHours)
-  const [ deliveryHours, setDeliveryHours ] = useState<IWorkHour[]>(defaultDeliveryHours)
-  const [ pickUpHours, setPickUpHours ] = useState<IWorkHour[]>(defaultPickUpHours)
+  const [isLoading, setLoading] = useState<boolean>(true)
+  const [businessHours, setBusinessHours] = useState<IWorkHour[]>(defaultBusinessHours)
+  const [deliveryHours, setDeliveryHours] = useState<IWorkHour[]>(defaultDeliveryHours)
+  const [pickUpHours, setPickUpHours] = useState<IWorkHour[]>(defaultPickUpHours)
 
   const { locationId } = useParams()
   const { LocationService } = useRestaurantModule()
 
-  const handleSubmit = async(data: IWorkHour[]): Promise<void> => {
-    data.forEach(async(hour, index) => {
+  const handleSubmit = async (data: IWorkHour[]): Promise<void> => {
+    data.forEach(async (hour, index) => {
       try {
         await LocationService.updateWorkHour(locationId!, { ...hour, day: index })
-      } catch(e) {
+      } catch (e) {
         console.error(e)
       }
     })
@@ -39,27 +39,27 @@ export const WorkingHours = (): JSX.Element => {
       const businessHoursFilter = resp.data ? resp.data.filter((workHour) => workHour.working_hour_type_id == 1) : []
       const deliveryHoursFilter = resp.data ? resp.data.filter((workHour) => workHour.working_hour_type_id == 2) : []
       const pickUpHoursFilter = resp.data ? resp.data.filter((workHour) => workHour.working_hour_type_id == 3) : []
-      setBusinessHours(businessHoursFilter.length > 0 ? businessHoursFilter : defaultBusinessHours )
-      setDeliveryHours(deliveryHoursFilter.length > 0 ? deliveryHoursFilter : defaultDeliveryHours )
-      setPickUpHours(pickUpHoursFilter.length > 0 ? pickUpHoursFilter : defaultPickUpHours )
+      setBusinessHours(businessHoursFilter.length > 0 ? businessHoursFilter : defaultBusinessHours)
+      setDeliveryHours(deliveryHoursFilter.length > 0 ? deliveryHoursFilter : defaultDeliveryHours)
+      setPickUpHours(pickUpHoursFilter.length > 0 ? pickUpHoursFilter : defaultPickUpHours)
       setLoading(false)
     } catch (e) {
       console.error(e)
     }
   }
 
-  const tabs:ITab[] = [
+  const tabs: ITab[] = [
     {
       name: WorkingHoursTab.Business,
-      render: <HoursTable data={businessHours} onSubmit={handleSubmit} />
+      render: <HoursTable data={businessHours} onSubmit={handleSubmit} />,
     },
     {
       name: WorkingHoursTab.Delivery,
-      render: <HoursTable data={deliveryHours} onSubmit={handleSubmit} />
+      render: <HoursTable data={deliveryHours} onSubmit={handleSubmit} />,
     },
     {
       name: WorkingHoursTab.PickUp,
-      render: <HoursTable data={pickUpHours} onSubmit={handleSubmit} />
+      render: <HoursTable data={pickUpHours} onSubmit={handleSubmit} />,
     },
   ]
 
@@ -70,7 +70,7 @@ export const WorkingHours = (): JSX.Element => {
     <>
       <RestaurantContainer route={restaurantWorkingHoursPath} label={'Working Hours'}>
         {isLoading && <Loading />}
-        {!isLoading && <TabPanel tabs={tabs} /> }
+        {!isLoading && <TabPanel tabs={tabs} />}
       </RestaurantContainer>
     </>
   )

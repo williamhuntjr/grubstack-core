@@ -7,6 +7,7 @@ export interface IMenu {
   id?: string
   name: string
   description: string
+  slug?: string
   thumbnail_url: string
   items?: IItem[]
 }

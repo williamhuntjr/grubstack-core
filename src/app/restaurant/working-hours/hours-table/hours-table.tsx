@@ -14,12 +14,12 @@ import { defaultBusinessHours } from './hours-table.constants'
 import styles from './hours-table.module.scss'
 
 export const HoursTable: FC<IHoursTable> = ({ onSubmit, data }) => {
-  const [ state, setState ] = useState<IWorkHour[]>(defaultBusinessHours)
+  const [state, setState] = useState<IWorkHour[]>(defaultBusinessHours)
 
   const canEditLocations = hasPermission(UserPermissions.MaintainLocations)
 
   const setOpen = (day: number, value: boolean): void => {
-    const updatedState = [ ...state ]
+    const updatedState = [...state]
     updatedState[day].is_open = value
     setState(updatedState)
   }
@@ -38,8 +38,8 @@ export const HoursTable: FC<IHoursTable> = ({ onSubmit, data }) => {
   }
 
   const init = (): void => {
-    if (data) { 
-      let hours:IWorkHour[] = []
+    if (data) {
+      let hours: IWorkHour[] = []
 
       data.forEach((hour) => {
         hours[hour.day] = hour
@@ -54,7 +54,7 @@ export const HoursTable: FC<IHoursTable> = ({ onSubmit, data }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ul className={styles.workingHours}>
-        {state.map((hour) =>
+        {state.map((hour) => (
           <li key={hour.day}>
             <div className={styles.dayLabel}>{getDay(hour.day)}</div>
             <div className={styles.openSwitch}>
@@ -63,39 +63,46 @@ export const HoursTable: FC<IHoursTable> = ({ onSubmit, data }) => {
                 aria-label="Enable Work Hour"
                 checked={hour.is_open}
                 onChange={(e) => setOpen(hour.day, e.target.checked)}
-              /> {hour.is_open ? 'Open' : 'Closed'}
+              />{' '}
+              {hour.is_open ? 'Open' : 'Closed'}
             </div>
             <div className={styles.timeFields}>
               <TimeField
                 disabled={!canEditLocations}
-                value={dayjs().hour(hour.open_hour ?? 9).minute(hour.open_minute ?? 0)}
-                defaultValue={dayjs().hour(hour.open_hour ?? 9).minute(hour.open_minute)}
+                value={dayjs()
+                  .hour(hour.open_hour ?? 9)
+                  .minute(hour.open_minute ?? 0)}
+                defaultValue={dayjs()
+                  .hour(hour.open_hour ?? 9)
+                  .minute(hour.open_minute)}
                 className={styles.timeField}
-                onChange={
-                  (newValue) => {
-                    updateTime(hour.day, 'open', newValue?.get('hour') ?? 8, newValue?.get('minute') ?? 0)
-                  }
-                }
+                onChange={(newValue) => {
+                  updateTime(hour.day, 'open', newValue?.get('hour') ?? 8, newValue?.get('minute') ?? 0)
+                }}
               />
               -
-              <TimeField 
+              <TimeField
                 disabled={!canEditLocations}
-                value={dayjs().hour(hour.close_hour ?? 17).minute(hour.close_minute ?? 0)}
-                defaultValue={dayjs().hour(hour.close_hour ?? 17).minute(hour.close_minute ?? 0)}
+                value={dayjs()
+                  .hour(hour.close_hour ?? 17)
+                  .minute(hour.close_minute ?? 0)}
+                defaultValue={dayjs()
+                  .hour(hour.close_hour ?? 17)
+                  .minute(hour.close_minute ?? 0)}
                 className={styles.timeField}
-                onChange={
-                  (newValue) => {
-                    updateTime(hour.day, 'close', newValue?.get('hour') ?? 17, newValue?.get('minute') ?? 0)
-                  }
-                }
+                onChange={(newValue) => {
+                  updateTime(hour.day, 'close', newValue?.get('hour') ?? 17, newValue?.get('minute') ?? 0)
+                }}
               />
             </div>
           </li>
-        )}
+        ))}
       </ul>
       <Divider />
       <div className={styles.buttonContainer}>
-        <Button variant="contained" color="primary" onClick={() => onSubmit(state)} disabled={!canEditLocations}>Save</Button>
+        <Button variant="contained" color="primary" onClick={() => onSubmit(state)} disabled={!canEditLocations}>
+          Save
+        </Button>
       </div>
     </LocalizationProvider>
   )

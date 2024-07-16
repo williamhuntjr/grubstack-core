@@ -67,24 +67,14 @@ export const sidebarRoutes: ISidebarNavRoute[] = [
         path: restaurantLocationsPath,
         icon: PlaceIcon,
         permissions: restaurantPermissions,
-        rootPermissions: [
-          [
-            UserPermissions.ViewLocations,
-            UserPermissions.MaintainLocations,
-          ],
-        ]
+        rootPermissions: [[UserPermissions.ViewLocations, UserPermissions.MaintainLocations]],
       },
       {
         label: 'Branding',
         path: restaurantBrandingPath,
         icon: CameraIcon,
         permissions: restaurantPermissions,
-        rootPermissions: [
-          [
-            UserPermissions.ViewLocations,
-            UserPermissions.MaintainLocations,
-          ]
-        ]
+        rootPermissions: [[UserPermissions.ViewLocations, UserPermissions.MaintainLocations]],
       },
       {
         label: 'Menus',
@@ -92,39 +82,23 @@ export const sidebarRoutes: ISidebarNavRoute[] = [
         icon: MenuBookIcon,
         permissions: restaurantPermissions,
         rootPermissions: [
-          [
-            UserPermissions.ViewMenus,
-            UserPermissions.MaintainMenus
-          ],
-          [
-            UserPermissions.ViewLocations,
-            UserPermissions.MaintainLocations,
-          ]
-        ]
+          [UserPermissions.ViewMenus, UserPermissions.MaintainMenus],
+          [UserPermissions.ViewLocations, UserPermissions.MaintainLocations],
+        ],
       },
       {
         label: 'Order Types',
         path: restaurantOrderTypesPath,
         icon: FoodBankIcon,
         permissions: restaurantPermissions,
-        rootPermissions: [
-          [
-            UserPermissions.ViewLocations,
-            UserPermissions.MaintainLocations,
-          ]
-        ]
+        rootPermissions: [[UserPermissions.ViewLocations, UserPermissions.MaintainLocations]],
       },
       {
         label: 'Working Hours',
         path: restaurantWorkingHoursPath,
         icon: AccessTimeIcon,
         permissions: restaurantPermissions,
-        rootPermissions: [
-          [
-            UserPermissions.ViewLocations,
-            UserPermissions.MaintainLocations,
-          ]
-        ]
+        rootPermissions: [[UserPermissions.ViewLocations, UserPermissions.MaintainLocations]],
       },
       /*
       {

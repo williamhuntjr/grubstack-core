@@ -28,7 +28,9 @@ export const AppContainer: FC<IAppContainer> = ({ routes }) => {
   const verifyTenant = async (): Promise<boolean> => {
     try {
       const resp = await HttpClient.get('/auth/verify_tenant')
-      if (resp.status === 401) { return false }
+      if (resp.status === 401) {
+        return false
+      }
       return true
     } catch (e) {
       console.log('You do not have access to this tenant.')

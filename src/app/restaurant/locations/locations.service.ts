@@ -115,5 +115,4 @@ export class LocationService implements ILocationService {
     const resp = await this.httpClient.put<IResponse<IProperty>>(`/locations/${locationId}/properties`, { params })
     return resp.data
   }
-
 }

@@ -45,7 +45,7 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
         }
       })
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -82,7 +82,7 @@ export const TabPanel: FC<ITabPanel> = ({ tabs, currentTab, label }) => {
       </div>
       {tabs.map((tab, index) => (
         <TabPanelContent value={index} currentValue={value} name={tab.name} key={index}>
-          {tab.render ? tab.render : tab.component ? <tab.component /> : <></> }
+          {tab.render ? tab.render : tab.component ? <tab.component /> : <></>}
         </TabPanelContent>
       ))}
     </div>

@@ -63,6 +63,13 @@ export const MenuForm: FC<IMenuForm> = memo(({ onSubmit, mode, data, onOpenFileP
             className={styles.formField}
             disabled={isViewMode}
           />
+          <FormField
+            name={MenuFormField.Slug}
+            control={control}
+            label={MenuFormLabel.Slug}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
         </div>
       </div>
       <FormField

@@ -4,4 +4,5 @@ export const defaultMenuFormData = {
   [MenuFormField.Name]: '',
   [MenuFormField.Description]: '',
   [MenuFormField.Thumbnail]: '',
+  [MenuFormField.Slug]: 'some-slug',
 }

@@ -8,6 +8,7 @@ export enum ItemFormField {
   Description = 'description',
   Thumbnail = 'thumbnail_url',
   Varieties = 'varieties',
+  Slug = 'slug',
 }
 
 export enum ItemFormLabel {
@@ -15,6 +16,7 @@ export enum ItemFormLabel {
   Description = 'Description',
   Thumbnail = 'Thumbnail URL',
   Varieties = 'Varieties',
+  Slug = 'Slug',
 }
 
 export interface IItemFormValues {
@@ -22,6 +24,7 @@ export interface IItemFormValues {
   [ItemFormField.Description]: string
   [ItemFormField.Thumbnail]: string
   [ItemFormField.Varieties]: IVariety[]
+  [ItemFormField.Slug]: string
 }
 
 export interface IItemForm {

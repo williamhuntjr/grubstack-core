@@ -1,4 +1,4 @@
-const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 export function getCurrentDay(): string {
   const d = new Date()

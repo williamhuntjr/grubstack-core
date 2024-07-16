@@ -13,7 +13,7 @@ import { IMediaLibraryFile } from 'app/media-library/media-library.types'
 import { useMediaLibraryModule } from 'app/media-library/media-library-module-hook'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
-import { filterProperty } from '../restaurant.utilities'
+import { getProperty } from '../restaurant.utilities'
 import { IProperty } from '../restaurant.types'
 import { restaurantBrandingPath, RestaurantProperty } from '../restaurant.constants'
 import { IBrandingState } from './branding.types'
@@ -52,7 +52,7 @@ export const Branding = (): JSX.Element => {
         setState((prevState) => ({
           ...prevState,
           isLoading: false,
-          properties: resp.data
+          properties: resp.data,
         }))
         setState((prevState) => ({ ...prevState, isLoading: false }))
       }
@@ -60,18 +60,18 @@ export const Branding = (): JSX.Element => {
       console.error(e)
     }
   }
-  
+
   const updateStateProperties = (key: RestaurantProperty, value: string): void => {
-    let newPropertiesState:IProperty[] = []
+    let newPropertiesState: IProperty[] = []
     state.properties.forEach((property) => {
       if (property.key == key) {
         newPropertiesState.push({
           ...property,
-          value: value
+          value: value,
         })
       } else {
         newPropertiesState.push({
-          ...property
+          ...property,
         })
       }
     })
@@ -96,7 +96,7 @@ export const Branding = (): JSX.Element => {
 
   const handleSaveRestaurantName = async (): Promise<void> => {
     try {
-      await handlePropertyChange(RestaurantProperty.RestaurantName, filterProperty(state.properties, RestaurantProperty.RestaurantName) ?? '')
+      await handlePropertyChange(RestaurantProperty.RestaurantName, getProperty(state.properties, RestaurantProperty.RestaurantName) ?? '')
       toast.success('Your restaurant name has been updated.')
       toast.info('The changes may take up to 60 seconds to apply.')
     } catch (e) {
@@ -141,7 +141,12 @@ export const Branding = (): JSX.Element => {
       {state.isLoading && <Loading />}
       {!state.isLoading && (
         <>
-          <RestaurantName state={state} canEditLocations={canEditLocations} onUpdate={handleUpdateRestaurantName} onSubmit={handleSaveRestaurantName} />
+          <RestaurantName
+            state={state}
+            canEditLocations={canEditLocations}
+            onUpdate={handleUpdateRestaurantName}
+            onSubmit={handleSaveRestaurantName}
+          />
           <RestaurantImages state={state} canEditLocations={canEditLocations} onOpenFilePickerDialog={openFilePickerDialog} />
           <RestaurantColors state={state} onUpdate={handleUpdateColor} />
         </>

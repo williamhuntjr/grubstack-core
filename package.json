@@ -61,7 +61,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "serve build -p 3000"
+    "serve": "serve build -p 3000",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write --list-different ."
   },
   "eslintConfig": {
     "extends": "react-app"

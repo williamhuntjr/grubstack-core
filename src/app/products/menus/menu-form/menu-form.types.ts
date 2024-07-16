@@ -5,18 +5,21 @@ export enum MenuFormField {
   Name = 'name',
   Description = 'description',
   Thumbnail = 'thumbnail_url',
+  Slug = 'slug',
 }
 
 export enum MenuFormLabel {
   Name = 'Menu Name',
   Description = 'Description',
   Thumbnail = 'Thumbnail URL',
+  Slug = 'Slug',
 }
 
 export interface IMenuFormValues {
   [MenuFormField.Name]: string
   [MenuFormField.Description]: string
   [MenuFormField.Thumbnail]: string
+  [MenuFormField.Slug]: string
 }
 
 export interface IMenuForm {

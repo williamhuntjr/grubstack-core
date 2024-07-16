@@ -62,6 +62,13 @@ export const ItemForm: FC<IItemForm> = memo(({ onSubmit, mode, data, onOpenFileP
             className={styles.formField}
             disabled={isViewMode}
           />
+          <FormField
+            name={ItemFormField.Slug}
+            control={control}
+            label={ItemFormLabel.Slug}
+            className={styles.formField}
+            disabled={isViewMode}
+          />
         </div>
       </div>
       <FormField

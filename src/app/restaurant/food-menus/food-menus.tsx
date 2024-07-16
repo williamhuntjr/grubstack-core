@@ -22,12 +22,12 @@ import { restaurantMenusPath } from '../restaurant.constants'
 import { useRestaurantModule } from '../restaurant-module-hook'
 import { RestaurantContainer } from '../restaurant.container'
 import { ILocationFilters } from '../locations/locations.types'
-import { 
+import {
   FoodMenuAction,
   FoodMenuSpeedActions,
   ValidationLocationMenuMessage,
   FoodMenuActionsEditMode,
-  FoodMenuActionsViewMode
+  FoodMenuActionsViewMode,
 } from './food-menus.constants'
 import styles from './food-menus.module.scss'
 

@@ -126,11 +126,9 @@ export const DesktopSidebar = (): JSX.Element => {
                 <div className={styles.subMenuLinks}>
                   {route.submenu.map((subRoute, subIndex) => {
                     if (validateRoutePermissions(subRoute.permissions ?? []) && validateRootPermissions(subRoute.rootPermissions ?? [])) {
-                      return (
-                        <SidebarSubMenuItem route={subRoute} key={subIndex} onClick={() => handleListHover('', false)} />
-                      )
+                      return <SidebarSubMenuItem route={subRoute} key={subIndex} onClick={() => handleListHover('', false)} />
                     }
-                    return (<div key={subIndex}></div>)
+                    return <div key={subIndex}></div>
                   })}
                 </div>
               </div>

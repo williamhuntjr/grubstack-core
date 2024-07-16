@@ -6,7 +6,7 @@ export const defaultBusinessHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 1
+    working_hour_type_id: 1,
   },
   {
     day: 1,
@@ -15,7 +15,7 @@ export const defaultBusinessHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 1
+    working_hour_type_id: 1,
   },
   {
     day: 2,
@@ -24,7 +24,7 @@ export const defaultBusinessHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 1
+    working_hour_type_id: 1,
   },
   {
     day: 3,
@@ -33,7 +33,7 @@ export const defaultBusinessHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 1
+    working_hour_type_id: 1,
   },
   {
     day: 4,
@@ -42,7 +42,7 @@ export const defaultBusinessHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 1
+    working_hour_type_id: 1,
   },
   {
     day: 5,
@@ -51,7 +51,7 @@ export const defaultBusinessHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 1
+    working_hour_type_id: 1,
   },
   {
     day: 6,
@@ -60,7 +60,7 @@ export const defaultBusinessHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 1
+    working_hour_type_id: 1,
   },
 ]
 
@@ -72,7 +72,7 @@ export const defaultDeliveryHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 2
+    working_hour_type_id: 2,
   },
   {
     day: 1,
@@ -81,7 +81,7 @@ export const defaultDeliveryHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 2
+    working_hour_type_id: 2,
   },
   {
     day: 2,
@@ -90,7 +90,7 @@ export const defaultDeliveryHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 2
+    working_hour_type_id: 2,
   },
   {
     day: 3,
@@ -99,7 +99,7 @@ export const defaultDeliveryHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 2
+    working_hour_type_id: 2,
   },
   {
     day: 4,
@@ -108,7 +108,7 @@ export const defaultDeliveryHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 2
+    working_hour_type_id: 2,
   },
   {
     day: 5,
@@ -117,7 +117,7 @@ export const defaultDeliveryHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 2
+    working_hour_type_id: 2,
   },
   {
     day: 6,
@@ -126,7 +126,7 @@ export const defaultDeliveryHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 2
+    working_hour_type_id: 2,
   },
 ]
 
@@ -138,7 +138,7 @@ export const defaultPickUpHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 3
+    working_hour_type_id: 3,
   },
   {
     day: 1,
@@ -147,7 +147,7 @@ export const defaultPickUpHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 3
+    working_hour_type_id: 3,
   },
   {
     day: 2,
@@ -156,7 +156,7 @@ export const defaultPickUpHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 3
+    working_hour_type_id: 3,
   },
   {
     day: 3,
@@ -165,7 +165,7 @@ export const defaultPickUpHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 3
+    working_hour_type_id: 3,
   },
   {
     day: 4,
@@ -174,7 +174,7 @@ export const defaultPickUpHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 3
+    working_hour_type_id: 3,
   },
   {
     day: 5,
@@ -183,7 +183,7 @@ export const defaultPickUpHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 3
+    working_hour_type_id: 3,
   },
   {
     day: 6,
@@ -192,6 +192,6 @@ export const defaultPickUpHours = [
     close_hour: 17,
     close_minute: 0,
     is_open: false,
-    working_hour_type_id: 3
+    working_hour_type_id: 3,
   },
 ]
