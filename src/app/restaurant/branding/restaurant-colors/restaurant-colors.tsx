@@ -44,15 +44,17 @@ export const RestaurantColors: FC<IRestaurantColors> = ({ onUpdate, state }) => 
       <div className={styles.colorsList}>
         {restaurantColors.map((restaurantColor, index) => (
           <div className={styles.colorContainer} key={index}>
-            <h4>{restaurantColor.name}</h4>
-            <p className={styles.subTitle}>{restaurantColor.description}</p>
-            <div
-              className={styles.colorPreview}
-              style={{ backgroundColor: getProperty(state.properties, restaurantColor.property) ?? '' }}
-            />
-            <Button variant="contained" color="primary" onClick={() => handleOpenDialog(restaurantColor.property)}>
-              Change Color
-            </Button>
+            <div className={styles.colorContent}>
+              <h4>{restaurantColor.name}</h4>
+              <p className={styles.subTitle}>{restaurantColor.description}</p>
+              <div
+                className={styles.colorPreview}
+                style={{ backgroundColor: getProperty(state.properties, restaurantColor.property) ?? '' }}
+              />
+              <Button variant="contained" color="primary" onClick={() => handleOpenDialog(restaurantColor.property)}>
+                Change Color
+              </Button>
+            </div>
           </div>
         ))}
       </div>
