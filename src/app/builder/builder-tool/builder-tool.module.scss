@@ -18,7 +18,6 @@ $builderDetailsCardWidth: 300px;
     }
     .builderDetailsContainer {
       width: $builderDetailsCardWidth;
-      background-color: #ffffff;
       position: fixed;
       right: 0;
       top: 105px;
@@ -50,6 +49,7 @@ $builderDetailsCardWidth: 300px;
         text-align: center;
         border: $border-default;
         border-bottom: solid 4px $color-primary;
+        background-color: white;
         img {
           max-width: 200px;
           margin: $grid-base 0 $grid-small 0;

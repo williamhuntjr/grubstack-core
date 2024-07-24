@@ -3,14 +3,35 @@
 .restaurantColors {
   margin-top: $grid-large;
   .colorsList {
-    margin-top: $grid-large;
     display: flex;
     flex-wrap: wrap;
     .colorContainer {
       margin-bottom: $grid-large;
       width: 24.95%;
+      @media screen and (max-width: $bp-sm) {
+        width: 49.95%;
+      }
+      @media screen and (max-width: $bp-xs) {
+        width: 100%;
+        &:last-child {
+          margin-bottom: $grid-small;
+        }
+      }
+      &:nth-child(even) {
+        .colorContent {
+          @media screen and (max-width: $bp-sm) {
+            margin-right: 0;
+          }
+        }
+      }
       .colorContent {
-        padding: $grid-small;
+        margin-right: $grid-base;
+        @media screen and (max-width: $bp-sm) {
+          margin-right: $grid-large;
+        }
+        @media screen and (max-width: $bp-xs) {
+          margin-right: 0;
+        }
         h4 {
           margin-bottom: 0;
         }

@@ -5,11 +5,23 @@
     display: flex;
     padding: 0;
     margin: $grid-small 0 0 0;
+    flex-wrap: wrap;
     li {
       list-style-type: none;
-      margin-right: $grid-giant;
-      h3 {
-        margin-bottom: $grid-tiny;
+      width: 50%;
+      &:nth-child(even) {
+        .orderTypeContent {
+          margin-right: 0;
+        }
+      }
+      .orderTypeContent {
+        padding: $grid-large;
+        background-color: white;
+        border: $border-disabled;
+        margin-right: $grid-base;
+        h3 {
+          margin-bottom: $grid-tiny;
+        }
       }
     }
   }

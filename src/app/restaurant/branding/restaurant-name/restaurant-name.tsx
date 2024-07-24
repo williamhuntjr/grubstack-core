@@ -9,7 +9,7 @@ import styles from './restaurant-name.module.scss'
 export const RestaurantName: FC<IRestaurantName> = ({ state, canEditLocations, onUpdate, onSubmit }) => {
   return (
     <div className={styles.restaurantName}>
-      <h4>Restaurant Name</h4>
+      <h3>Restaurant Name</h3>
       <TextField
         id="restaurant-name"
         variant="outlined"

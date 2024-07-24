@@ -39,7 +39,7 @@ export const RestaurantColors: FC<IRestaurantColors> = ({ onUpdate, state }) => 
           </Button>
         </div>
       </GrubDialog>
-      <h2>Colors</h2>
+      <h3>Colors</h3>
       <Divider />
       <div className={styles.colorsList}>
         {restaurantColors.map((restaurantColor, index) => (

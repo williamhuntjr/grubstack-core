@@ -56,15 +56,17 @@ export const OrderTypes = (): JSX.Element => {
         <ul className={styles.orderTypesList}>
           {orderTypes?.map((orderType, index) => (
             <li key={index}>
-              <h3>{orderType.name}</h3>
-              <p>{orderType.description}</p>
-              <Switch
-                disabled={!canEditLocations}
-                aria-label="Enable Order Type"
-                checked={isOrderTypeActive(orderType.id)}
-                onChange={(e) => toggleOrderType(orderType.id, e.target.checked)}
-              />{' '}
-              {isOrderTypeActive(orderType.id) ? 'Enabled' : 'Disabled'}
+              <div className={styles.orderTypeContent}>
+                <h3>{orderType.name}</h3>
+                <p>{orderType.description}</p>
+                <Switch
+                  disabled={!canEditLocations}
+                  aria-label="Enable Order Type"
+                  checked={isOrderTypeActive(orderType.id)}
+                  onChange={(e) => toggleOrderType(orderType.id, e.target.checked)}
+                />{' '}
+                {isOrderTypeActive(orderType.id) ? 'Enabled' : 'Disabled'}
+              </div>
             </li>
           ))}
         </ul>

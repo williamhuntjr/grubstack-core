@@ -33,11 +33,26 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'white',
+        }
+      }
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#fafafa',
+        }
+      }
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         input: {
           '&.MuiInputBase-input': {
             padding: 8,
+            backgroundColor: 'white',
           },
         },
         root: {
