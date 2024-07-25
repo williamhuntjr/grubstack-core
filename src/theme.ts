@@ -47,6 +47,13 @@ export const theme = createTheme({
         }
       }
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#fafafa',
+        }
+      }
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         input: {

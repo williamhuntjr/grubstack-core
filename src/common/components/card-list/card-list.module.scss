@@ -1,4 +1,5 @@
 @import 'assets/sass/variables';
+@import 'assets/sass/application';
 
 .cardList {
   height: 100%;
@@ -9,6 +10,7 @@
 .cardListContainer {
   display: flex;
   flex-wrap: wrap;
+  background-color: $background-color;
 }
 .cardListItemContainer2 {
   width: 50% !important;
